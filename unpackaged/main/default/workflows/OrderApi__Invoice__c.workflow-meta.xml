@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Invoice_Email_Notification_Contact</fullName>
+        <description>Invoice Email Notification (Contact)</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OrderApi__Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        
+        <senderAddress>ecchoinfo@theclearinghouse.org</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Worflow_Emails/FON_Invoice_Notification</template>
+    </alerts>
+    <rules>
+        <fullName>FON-Invoice Notification</fullName>
+        <actions>
+            <name>Invoice_Email_Notification_Contact</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>OrderApi__Invoice__c.OrderApi__Is_Posted__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>A notice to the Invoice&#39;s related contact when the invoice has been created and posted.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>FON-Invoice Notification %28status-posted%29</fullName>
+        <actions>
+            <name>Email_notification_for_Invoice_purchases</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>OrderApi__Invoice__c.OrderApi__Status__c</field>
+            <operation>equals</operation>
+            <value>Posted</value>
+        </criteriaItems>
+        <description>A notice to the Invoice&#39;s related contact when the invoice has been created and posted.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>TCH Invoice Notification</fullName>
+        <actions>
+            <name>Invoice_Email_Notification_Contact</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>OrderApi__Invoice__c.OrderApi__Is_Posted__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OrderApi__Invoice__c.OrderApi__Balance_Due__c</field>
+            <operation>notEqual</operation>
+            <value>0</value>
+        </criteriaItems>
+        <description>A notice to the Invoice&#39;s related contact when the invoice has been created and posted.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Hide_During_Registration__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Checking this field removes this session from the registration&#39;s agenda page.</description>
+    <inlineHelpText>Checking this field removes this session from the registration&#39;s agenda page.</inlineHelpText>
+    <label>Hide During Registration</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

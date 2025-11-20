@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Unassigned__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** This checkbox will auto check to true when a Subscriber (Assignment) is marked as &quot;Is Active&quot; unchecked AND is related to a &quot;Is Active&quot; checked Subscription.</description>
+    <inlineHelpText>** System Calculated ** This checkbox will auto check to true when a Subscriber (Assignment) is marked as &quot;Is Active&quot; unchecked AND is related to a &quot;Is Active&quot; checked Subscription.</inlineHelpText>
+    <label>Is Unassigned</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

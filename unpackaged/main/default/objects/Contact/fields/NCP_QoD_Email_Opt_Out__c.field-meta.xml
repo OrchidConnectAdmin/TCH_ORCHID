@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NCP_QoD_Email_Opt_Out__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Candidate does not wish to receive QoD emails</description>
+    <inlineHelpText>If checked, candidate does not wish to receive QoD emails</inlineHelpText>
+    <label>NCP QoD Email Opt Out</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

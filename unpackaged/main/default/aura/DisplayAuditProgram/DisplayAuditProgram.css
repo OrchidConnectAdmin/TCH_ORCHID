@@ -1,0 +1,29 @@
+.THIS {
+}
+
+
+.THIS .tableRowHeader{
+    
+    background-color: Black !Important;
+}
+
+
+.THIS .nCPtableRowHeader{
+    
+    background-color: #191970 !Important;
+}
+
+.THIS .tableColHeader{
+    
+    color:White !important;
+    border: 1px solid white !important;
+    padding-left:2Px !important;
+}
+
+.THIS .tableColBody{
+    
+    color:Black !important;
+    border: 1px solid Black !important;
+    padding-left:2Px !important;
+    width:14%
+}

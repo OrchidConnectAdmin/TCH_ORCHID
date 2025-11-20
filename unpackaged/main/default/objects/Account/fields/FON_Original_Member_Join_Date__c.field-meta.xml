@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Original_Member_Join_Date__c</fullName>
+    <inlineHelpText>*System Generated* Populates the Date the Member Account first joined ECCHO. If Null, Account has never been an ECCHO  Member.</inlineHelpText>
+    <label>Original Member Join Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Date</type>
+</CustomField>

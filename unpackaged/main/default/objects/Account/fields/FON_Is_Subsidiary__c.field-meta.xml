@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Is_Subsidiary__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Manually check the box if the Account record is a known subsidiary of another Account. Default is unchecked.</inlineHelpText>
+    <label>Is Subsidiary?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Display_in_Pre_Approved_Directory__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If checked, this session will appear in the public pre-approved session directory</description>
+    <inlineHelpText>If checked, this session will appear in the public pre-approved session directory</inlineHelpText>
+    <label>Display in Pre-Approved Directory</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

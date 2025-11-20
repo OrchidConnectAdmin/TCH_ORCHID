@@ -1,0 +1,62 @@
+<apex:page docType="html-5.0"
+           showHeader="false"
+           standardStylesheets="false"
+           applyBodyTag="false"
+           applyHtmlTag="false">
+    <apex:composition template="PagesApi__default_template">
+        <apex:define name="head">
+            <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+            <meta http-equiv="Pragma" content="no-cache" />
+            <meta http-equiv="Expires" content="0" />
+        </apex:define>
+        <apex:define name="title">
+            testing
+        </apex:define>
+        <apex:define name="styles">
+            <style>
+                .flex.h-40 {
+                    min-height: 40vh;
+                }
+                .flex {
+                    display: flex;
+                }
+                .flex .row {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1 1 auto;
+                }
+                .flex .row.center {
+                    align-items: center;
+                    justify-content: center;
+                }
+            </style>
+        </apex:define>
+
+        <apex:define name="main">
+
+            <div class="container m-t-30 bg-white">
+                <div class="row">
+                    <div class="col-sm-12 flex h-40">
+                        <div class="row center">
+                            <div class="col">
+                                <i class="fa fa-check-circle fa-5x text-success"></i>
+                            </div>
+                            <div class="col m-b-10 m-t-5">
+                                <h2 class="text-center">
+                                        {!$Label.Order_Processed}
+                                </h2>
+                            </div>
+                            <div class="col m-b-15 text-center">
+                                Sales Order: {!$CurrentPage.parameters.salesOrder}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </apex:define>
+        <apex:define name="scripts" />
+
+    </apex:composition>
+</apex:page>

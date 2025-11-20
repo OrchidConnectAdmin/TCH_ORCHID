@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to a CRM Account record related to the Vendor.</description>
+    <inlineHelpText>Link to a CRM Account record related to the Vendor.</inlineHelpText>
+    <label>CRM Account Link</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Events (Vendors)</relationshipLabel>
+    <relationshipName>Vendors</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

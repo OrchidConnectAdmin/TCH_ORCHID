@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Agenda_Instructions_HTML__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The text that appears at the top of the &quot;Agenda&quot; page during registration.</description>
+    <inlineHelpText>The text that appears at the top of the &quot;Agenda&quot; page during registration.</inlineHelpText>
+    <label>Agenda Instructions</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

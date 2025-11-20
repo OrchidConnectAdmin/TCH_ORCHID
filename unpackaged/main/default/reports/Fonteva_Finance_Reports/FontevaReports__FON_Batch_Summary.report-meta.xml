@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OrderApi__Batch__c.OrderApi__Receipts__r$Name</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Batch__c.OrderApi__Receipts__r$OrderApi__Customer_Link__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Batch__c$OrderApi__Payment_Type__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Batch__c.OrderApi__Receipts__r$OrderApi__Reference_Number__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OrderApi__Batch__c.OrderApi__Receipts__r$OrderApi__Total__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Minimum</aggregateTypes>
+        <field>OrderApi__Batch__c$OrderApi__Expected_Amount__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Minimum</aggregateTypes>
+        <field>OrderApi__Batch__c$OrderApi__Expected_Count__c</field>
+    </columns>
+    <description>To report on receipts grouped by batch.</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OrderApi__Batch__c$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FON - Batch Summary</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Batches_with_Receipts__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Batch__c$OrderApi__Opened_Date__c</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

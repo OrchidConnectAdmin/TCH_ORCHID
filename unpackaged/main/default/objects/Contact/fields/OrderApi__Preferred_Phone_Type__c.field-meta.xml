@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Preferred_Phone_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Defaults to Personal Email** Select the Preferred Phone Type for the Contact. The value of the corresponding phone field will update the standard Contact Phone field.</description>
+    <inlineHelpText>**Defaults to Personal Email** Select the Preferred Phone Type for the Contact. The value of the corresponding phone field will update the standard Contact Phone field.</inlineHelpText>
+    <label>Preferred Phone Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Mobile</fullName>
+                <default>false</default>
+                <label>Mobile</label>
+            </value>
+            <value>
+                <fullName>Home</fullName>
+                <default>false</default>
+                <label>Home</label>
+            </value>
+            <value>
+                <fullName>Work</fullName>
+                <default>true</default>
+                <label>Work</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Assistant</fullName>
+                <default>false</default>
+                <label>Assistant</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

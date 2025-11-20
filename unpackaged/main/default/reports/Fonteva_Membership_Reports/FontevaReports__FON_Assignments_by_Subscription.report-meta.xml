@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OrderApi__Assignment__c$Name</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Assignment__c$OrderApi__Contact__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Assignment__c$OrderApi__Contact__c.Account</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Assignment__c$OrderApi__Subscription__c.OrderApi__Activated_Date__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Assignment__c$OrderApi__Subscription__c.OrderApi__Current_Term_End_Date__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Assignment__c$OrderApi__Subscription__c.OrderApi__Days_To_Lapse__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Assignment__c$OrderApi__Subscription__c.OrderApi__Is_Active__c</field>
+    </columns>
+    <description>Reports on all assignments by subscription</description>
+    <filter>
+        <criteriaItems>
+            <column>OrderApi__Assignment__c$OrderApi__Subscription__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OrderApi__Assignment__c$OrderApi__Subscription__c.OrderApi__Item__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FON - Assignments by Subscription</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Assignments__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Assignment__c$OrderApi__Assigned_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

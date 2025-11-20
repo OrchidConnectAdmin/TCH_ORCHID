@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Is_Different_Attendee__c</fullName>
+    <formula>IF(AND(EventApi__Attendee__c != null),true,
+IF(EventApi__Attendee__r.ContactID__c == PagesApi__Contact__r.Id,false,true)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Different Attendee</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

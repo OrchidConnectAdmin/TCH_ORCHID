@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Address__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Address for related Shipping Region.</description>
+    <inlineHelpText>Address for related Shipping Region.</inlineHelpText>
+    <label>Address</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

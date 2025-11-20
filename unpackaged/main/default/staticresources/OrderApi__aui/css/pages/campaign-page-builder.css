@@ -1,0 +1,249 @@
+/**
+ * Styles specific to the theme.page in pagesapi
+ */
+/* line 6, ../campaign-page-builder.scss */
+.aui#aui-layout {
+  /* show the move cursor for draggable/sortable elements */
+  /* ensure all draggable/sortable elements maintain consistent height and spacing */
+  /* remove the list style from the selected page elements ordered list */
+  /* provide contextual colors for acceptable droppable positions */
+  /* remove margins from the selected component list */
+  /* provide contextual colors for position placeholders for droppable elements */
+}
+/* line 8, ../campaign-page-builder.scss */
+.aui#aui-layout #frame {
+  display: block;
+  border: 0px;
+}
+/* line 13, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen {
+  margin: 5px auto 30px;
+  width: 94%;
+}
+/* line 18, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .zoomer-wrapper {
+  background: #fff;
+}
+/* line 22, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .start {
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+  z-index: 97;
+}
+/* line 30, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .start > span {
+  display: block;
+  background: #34495E;
+  padding: 10px 20px;
+  width: 450px;
+  color: #fff;
+  font-size: 13px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 170px auto 0px;
+}
+/* line 42, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .toolbar {
+  background: #E1E0E0;
+  height: 35px;
+  padding: 0px 0px 0px 11px;
+}
+/* line 48, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .toolbar .buttons {
+  float: left;
+  height: 13px;
+  margin-top: 11px;
+}
+/* line 54, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .toolbar .title {
+  font-size: 14px;
+  color: #000;
+  text-align: center;
+  margin-right: 80px;
+  padding-top: 5px;
+}
+/* line 62, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .toolbar .left {
+  display: block;
+  width: 13px;
+  height: 13px;
+  float: left;
+  border-radius: 13px;
+  margin-right: 6px;
+}
+/* line 71, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .toolbar .left.red {
+  background: #E74C3C;
+}
+/* line 75, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .toolbar .left.yellow {
+  background: #F4A62A;
+}
+/* line 79, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .toolbar .left.green {
+  background: #16A085;
+}
+/* line 83, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .frameWrapper {
+  background: #fff;
+  padding-top: 0px;
+  position: relative;
+}
+/* line 89, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .frameWrapper.empty {
+  min-height: 400px;
+}
+/* line 93, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .frameWrapper #pageList ul {
+  list-style: none;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  display: none;
+  height: 100%;
+  min-height: 300px;
+}
+/* line 103, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .frameWrapper #pageList ul.active {
+  display: block;
+}
+/* line 107, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .frameWrapper #pageList ol li {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+/* line 113, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .frameWrapper #pageList ol li .editorButtons {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 98;
+}
+/* line 120, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .frameWrapper #pageList ul iframe {
+  border: 0px;
+  width: 100%;
+}
+/* line 125, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .frameWrapper #pageList ol li .zoomer-cover {
+  cursor: move;
+  overflow: hidden !important;
+}
+/* line 130, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .frameWrapper #pageList ol li .zoomer-small, .aui#aui-layout #screen.screen .frameWrapper #pageList ol li .zoomer-small iframe {
+  overflow: hidden !important;
+  overflow-y: hidden !important;
+}
+/* line 135, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .zoomer-cover button.btn-danger, .aui#aui-layout #screen.screen .zoomer-cover button.btn-warning, .aui#aui-layout #screen.screen .zoomer-cover button.btn-inverse {
+  border-radius: 0px;
+  float: right;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.5s,opacity 0.5s linear;
+  -webkit-transition: visibility 0s linear 0.5s,opacity 0.5s linear;
+  -moz-transition: visibility 0s linear 0.5s,opacity 0.5s linear;
+  width: 100px;
+}
+/* line 146, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .zoomer-cover:hover button.btn-danger, .aui#aui-layout #screen.screen .zoomer-cover:hover button.btn-warning, .aui#aui-layout #screen.screen .zoomer-cover:hover button.btn-inverse {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+/* line 152, ../campaign-page-builder.scss */
+.aui#aui-layout #screen.screen .aceEditor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+/* line 160, ../campaign-page-builder.scss */
+.aui#aui-layout #draggablePanelList .pageElementBlock {
+  margin: 0 !important;
+  padding: 15px 20px !important;
+  list-style: none !important;
+}
+/* line 163, ../campaign-page-builder.scss */
+.aui#aui-layout .pageElementBlock:hover,
+.aui#aui-layout .pageElementBlock:focus,
+.aui#aui-layout .pageElementBlock:active,
+.aui#aui-layout .draggable:hover,
+.aui#aui-layout .draggable:focus,
+.aui#aui-layout .draggable:active {
+  cursor: move !important;
+}
+/* line 173, ../campaign-page-builder.scss */
+.aui#aui-layout .ui-sortable-helper, .aui#aui-layout .selCompWrapper, .aui#aui-layout .ui-sortable-placeholder {
+  min-height: 100px !important;
+  overflow-y: hidden;
+  width: 100% !important;
+  display: block !important;
+  border: 2px dashed transparent;
+}
+/* line 182, ../campaign-page-builder.scss */
+.aui#aui-layout .pageElementBlock {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 2px dashed transparent;
+  /* For Safari 3.1 to 6.0 */
+  transition: border 0.4s;
+}
+/* line 191, ../campaign-page-builder.scss */
+.aui#aui-layout .pageElementBlock:hover {
+  cursor: move;
+  border-color: #a0a0a0;
+}
+/* line 196, ../campaign-page-builder.scss */
+.aui#aui-layout .pageElementBlock .action-button {
+  visibility: hidden;
+  /* For Safari 3.1 to 6.0 */
+  transition: visibility 0.4s;
+}
+/* line 202, ../campaign-page-builder.scss */
+.aui#aui-layout .pageElementBlock:hover .action-button {
+  visibility: visible;
+}
+/* line 207, ../campaign-page-builder.scss */
+.aui#aui-layout .ui-sortable-helper {
+  border-color: #d4f1fe !important;
+  background-color: rgba(212, 241, 254, 0.35) !important;
+  color: #363636 !important;
+}
+/* line 214, ../campaign-page-builder.scss */
+.aui#aui-layout ol#draggablePanelList {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+/* line 223, ../campaign-page-builder.scss */
+.aui#aui-layout .ui-sortable-placeholder {
+  border-color: #fcefa1 !important;
+  background-color: #fbf9ee !important;
+  color: #363636 !important;
+}
+/* line 228, ../campaign-page-builder.scss */
+.aui#aui-layout .img-thumbnail-wrapper {
+  height: 65px;
+  overflow-y: hidden;
+}
+/* line 232, ../campaign-page-builder.scss */
+.aui#aui-layout #pageList .tools-right {
+  position: absolute;
+  right: 75px;
+}
+/* line 236, ../campaign-page-builder.scss */
+.aui#aui-layout #frameWrapper {
+  overflow-y: scroll !important;
+}
+/* line 239, ../campaign-page-builder.scss */
+.aui#aui-layout #screen {
+  margin-top: 25px !important;
+}

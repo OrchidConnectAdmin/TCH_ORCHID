@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__View_Document</fullName>
+    <availability>online</availability>
+    <description>This button will display the PDF version of the financial document.</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>View Document</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)}
+            var connection = sforce.connection;
+            var myquery = &quot;SELECT Id FROM Framework__Registry__mdt WHERE Framework__Is_Enabled__c = TRUE AND Framework__Key__c = &#39;DefaultSite&#39; AND Framework__Category__c != NULL&quot;;
+            result = sforce.connection.query(myquery);
+            records = result.getArray(&quot;records&quot;);
+            if (records.length === 0) {
+                alert(&quot;{!$Label.lte__View_Document_Error}&quot;);
+            }
+            else {
+                window.open(&#39;{!$Site.Prefix}/apex/LTE__ViewDocument?recordId={!CASESAFEID(OrderApi__Credit_Note__c.Id)}&#39;);
+            }</url>
+</WebLink>

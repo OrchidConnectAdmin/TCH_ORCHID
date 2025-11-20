@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Enable_Account_Search__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When this field is checked, users can either search for an account or have their domain matched to an account. This is available for new user/contact functionality on authentication pages only.</description>
+    <inlineHelpText>When this field is checked, users can either search for an account or have their domain matched to an account.</inlineHelpText>
+    <label>Enable Account Search</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

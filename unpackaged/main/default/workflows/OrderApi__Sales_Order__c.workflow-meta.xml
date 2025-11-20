@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Email_sent_when_a_sales_order_is_closed_and_posted</fullName>
+        <ccEmails>kha.rose@theclearinghouse.org</ccEmails>
+        <ccEmails>marie.miller@theclearinghouse.org</ccEmails>
+        <ccEmails>lewis.williams@theclearinghouse.org</ccEmails>
+        <description>Email sent when a sales order is closed and posted NON zero</description>
+        <protected>false</protected>
+        
+        
+        
+        
+        <senderAddress>ecchoinfo@theclearinghouse.org</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Worflow_Emails/FON_Invoice_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>OrderApi__Proforma_Invoice_Email</fullName>
+        <ccEmails>anagaraj@fonteva.com</ccEmails>
+        <description>Proforma Invoice Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OrderApi__Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>OrderApi__FON_Proforma_Email_Templates/OrderApi__FON_Proforma_Invoice_Email_TemplateV2</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>OrderApi__Email_Sent</fullName>
+        <field>OrderApi__Proforma_Invoice_Email_Sent__c</field>
+        <literalValue>1</literalValue>
+        <name>Email Sent</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>OrderApi__Email_Sent_Date</fullName>
+        <field>OrderApi__Proforma_Invoice_Email_Sent_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Email Sent Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>OrderApi__Proforma_Field_Update</fullName>
+        <field>OrderApi__Auto_Send_Proforma_Invoice_Emails__c</field>
+        <literalValue>0</literalValue>
+        <name>Proforma Field Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>FON-SO%2FInvoice Created NON zero</fullName>
+        <actions>
+            <name>Email_sent_when_a_sales_order_is_closed_and_posted</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>OrderApi__Sales_Order__c.OrderApi__Status__c</field>
+            <operation>equals</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OrderApi__Sales_Order__c.OrderApi__Posting_Status__c</field>
+            <operation>equals</operation>
+            <value>Posted</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OrderApi__Sales_Order__c.OrderApi__Balance_Due__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>FON-SO%2FInvoice Created Zero</fullName>
+        <actions>
+            <name>Email_sent_when_a_sales_order_is_closed_and_posted_zero</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>OrderApi__Sales_Order__c.OrderApi__Status__c</field>
+            <operation>equals</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OrderApi__Sales_Order__c.OrderApi__Posting_Status__c</field>
+            <operation>equals</operation>
+            <value>Posted</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OrderApi__Sales_Order__c.OrderApi__Balance_Due__c</field>
+            <operation>lessThan</operation>
+            <value>1</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>OrderApi__Proforma Invoice Email</fullName>
+        <actions>
+            <name>OrderApi__Proforma_Invoice_Email</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>OrderApi__Email_Sent</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>OrderApi__Email_Sent_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>OrderApi__Proforma_Field_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( OrderApi__Auto_Send_Proforma_Invoice_Emails__c, NOT( ISNULL( OrderApi__Preferred_Email__c ) ) , ISPICKVAL( OrderApi__Posting_Entity__c , &#39;Receipt&#39;),  OrderApi__Is_Closed__c , NOT( OrderApi__Is_Posted__c ), NOT( OrderApi__Is_Cancelled__c ),             NOT( ISBLANK( OrderApi__Preferred_Email__c ) )  )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

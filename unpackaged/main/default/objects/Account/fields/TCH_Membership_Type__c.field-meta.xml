@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TCH_Membership_Type__c</fullName>
+    <label>Membership Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Full Member</fullName>
+                <default>false</default>
+                <label>Full Member</label>
+            </value>
+            <value>
+                <fullName>Participating Member</fullName>
+                <default>false</default>
+                <label>Participating Member</label>
+            </value>
+            <value>
+                <fullName>Associate Member</fullName>
+                <default>false</default>
+                <label>Associate Member</label>
+            </value>
+            <value>
+                <fullName>Affiliate Member</fullName>
+                <default>false</default>
+                <label>Affiliate Member</label>
+            </value>
+            <value>
+                <fullName>Licensed Participant</fullName>
+                <default>false</default>
+                <label>Licensed Participant</label>
+            </value>
+            <value>
+                <fullName>Sponsored Member</fullName>
+                <default>false</default>
+                <label>Sponsored Member</label>
+            </value>
+            <value>
+                <fullName>Education Subscriber</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Education Subscriber</label>
+            </value>
+            <value>
+                <fullName>Licensing Organization</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Licensing Organization</label>
+            </value>
+            <value>
+                <fullName>Sponsoring Organization</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sponsoring Organization</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Questions__c</fullName>
+    <label>Questions</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Altered Items</fullName>
+                <default>false</default>
+                <label>Altered Items</label>
+            </value>
+            <value>
+                <fullName>Duplicates</fullName>
+                <default>false</default>
+                <label>Duplicates</label>
+            </value>
+            <value>
+                <fullName>ECIs</fullName>
+                <default>false</default>
+                <label>ECIs</label>
+            </value>
+            <value>
+                <fullName>Indorsement</fullName>
+                <default>false</default>
+                <label>Indorsement</label>
+            </value>
+            <value>
+                <fullName>Late Returns</fullName>
+                <default>false</default>
+                <label>Late Returns</label>
+            </value>
+            <value>
+                <fullName>RDC</fullName>
+                <default>false</default>
+                <label>RDC</label>
+            </value>
+            <value>
+                <fullName>Return Codes</fullName>
+                <default>false</default>
+                <label>Return Codes</label>
+            </value>
+            <value>
+                <fullName>Rule 8</fullName>
+                <default>false</default>
+                <label>Rule 8</label>
+            </value>
+            <value>
+                <fullName>Rule 9</fullName>
+                <default>false</default>
+                <label>Rule 9</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

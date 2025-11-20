@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Classic_TCH_Letterhead</letterhead>
+    <name>New Welcome Contact June 2023 - do not use</name>
+    <style>formalLetter</style>
+    <subject>Welcome New ECCHO Member</subject>
+    <textOnly>Dear {!Contact.FirstName} {!Contact.LastName}:
+
+Welcome to ECCHO! We are pleased that you have chosen to join the approximately 2,500 ECCHO members who use the ECCHO Rules to govern their image exchange and gain information and support for check payments processing. Please feel free to circulate this letter throughout your check operations to communicate the ECCHO benefits which are now available to your organization.
+
+Our Strategic Priorities
+
+ECCHO provides:
+
+ECCHO Rules for private sector electronic check exchanges
+Advocacy for the check industry including helping members understand proposed regulatory changes and providing comments on proposals for regulatory amendments
+Check Education on All Things Check, What Do I Do When? and a library of check related education and resources, and National Check Certification (NCP) program is a nationally recognized accreditation for check professionals who successfully pass the exam enabling them to have proven knowledge on check rules &amp; regulations, check operations, check products, fraud and risk mitigation.
+
+Special ECCHO-Only Rules:
+
+Rule 9 warranty for forged/counterfeit items – subject to conditions &amp; ability to opt out
+Rule 8 – ability to use return system to process unauthorized RCC warranty claims
+Ability to send electronic checks with as-read/partial MICR by agreement
+ECCHO only adjustments:
+
+Return adjustment
+Wrong Payee Credit – Depositary bank seeks to pass credit to maker’s account at Paying bank. Example: wrong check enclosed/lockbox posts telephone check payment to entity other than telephone company payee and subsequently identifies the processing error.
+
+
+ECCHO Resources:
+(look for your ECCHO Online Welcome email to access some of these items)
+
+ECCHO Rules and Adjustment Matrix
+ECCHOEd – Free Recorded Training for Members
+ECCHO Member Look-up
+Rule 9 Member Opt Out List
+Rule 9 briefing and whitepaper
+Return Code Handbook
+Sample Altered Item/Indorsement Issue Claim Letter
+Sample RDC Indemnity Claim Letter
+Valuable exceptions information
+FAQs on ECCHO Rules &amp; Checks
+CheckImage Central ECCHO and Federal Reserve check information on one website
+
+
+ECCHO Rules Book:
+
+We will be sending your organization a bound and printed ECCHO Rules book at no additional cost. Based on the information provided during membership onboarding, we plan to ship it to the address below. Please let us know within one week if:
+
+it should be shipped elsewhere
+additional copies are needed (and how many)
+
+Ship to:
+{!Contact.FirstName} {!Contact.LastName}
+Attn: {!Contact.FirstName} {!Contact.LastName}
+{!Account.MailingAddress}
+
+
+
+Key ECCHO Contacts:
+
+Check Education and Support
+Dal Bolt
+248-824-4908
+dal.bolt@theclearinghouse.org
+
+ECCHO Online Account Access
+(Education &amp; Online Rules Access)
+Stephanie Porter
+214.273.3210
+stephanie.porter@theclearinghouse.org
+
+General Questions
+Nicole Hanlin
+214.273.3218
+nicole.hanlin@theclearinghouse.org
+
+NCP Program
+Jackie Pagán
+332.213.6731
+jackie.pagan@theclearinghouse.org
+
+ECCHO Rules
+Steve Cree
+347.544.0340
+steve.cree@theclearinghouse.org
+
+ECCHO Membership
+Scott Miller
+972.955.1823
+scott.miller@theclearinghouse.org</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

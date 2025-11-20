@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Payment_Gateway__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** Required ** Link to the Payment Gateway to use for the Scheduled Payment.</description>
+    <inlineHelpText>** Required ** Link to the Payment Gateway to use for the Scheduled Payment.</inlineHelpText>
+    <label>Payment Gateway</label>
+    <referenceTo>OrderApi__Payment_Gateway__c</referenceTo>
+    <relationshipLabel>Scheduled Payments</relationshipLabel>
+    <relationshipName>Scheduled_Payments</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

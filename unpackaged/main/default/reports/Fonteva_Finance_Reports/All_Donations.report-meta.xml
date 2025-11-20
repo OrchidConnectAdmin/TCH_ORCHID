@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Sales_Order__c.OrderApi__Customer_Link__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Sales_Order_Line__c.OrderApi__Item__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OrderApi__Sales_Order_Line__c.OrderApi__Total__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>OrderApi__Sales_Order_Line__c.OrderApi__Item_Class__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Donation Class</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OrderApi__Sales_Order__c.OrderApi__Posting_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Posted</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>All Donations</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntityCustomEntity$OrderApi__Sales_Order__c$OrderApi__Sales_Order_Line__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Sales_Order__c.DonorApi__Acknowledged_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

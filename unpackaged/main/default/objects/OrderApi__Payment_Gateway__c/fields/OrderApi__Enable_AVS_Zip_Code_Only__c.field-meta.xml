@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Enable_AVS_Zip_Code_Only__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Caluclated** specifies whether to verify zip code on payment or not</description>
+    <formula>ISPICKVAL( OrderApi__AVS_Configuration__c , &#39;Validate Postal Code&#39;)</formula>
+    <inlineHelpText>**System Caluclated** specifies whether to verify zip code on payment or not</inlineHelpText>
+    <label>Enable AVS Zip Code Only</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

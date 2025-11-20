@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Sort_Fields__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field contains the api names (CSV) of the fields used to sort the results in the geo-location and enhanced list views.</description>
+    <inlineHelpText>This field contains the api names (CSV) of the fields used to sort the results in the geo-location and enhanced list views.</inlineHelpText>
+    <label>Sort Fields</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

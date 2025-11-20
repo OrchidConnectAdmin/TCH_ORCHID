@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Original_Billing_Quarter__c</fullName>
+    <description>Prior to the 2025 billing quarter conversion, this was the original FI’s billing quarter.</description>
+    <inlineHelpText>Prior to the 2025 billing quarter conversion, this was the original FI’s billing quarter.</inlineHelpText>
+    <label>Original Billing Quarter</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>2Q</fullName>
+                <default>false</default>
+                <label>2Q</label>
+            </value>
+            <value>
+                <fullName>3Q</fullName>
+                <default>false</default>
+                <label>3Q</label>
+            </value>
+            <value>
+                <fullName>4Q</fullName>
+                <default>false</default>
+                <label>4Q</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

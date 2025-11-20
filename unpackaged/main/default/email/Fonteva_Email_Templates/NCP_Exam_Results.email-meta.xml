@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>NCP Exam Results</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Classic_TCH_Letterhead</letterhead>
+    <name>NCP Exam Results</name>
+    <style>freeForm</style>
+    <subject>NCP Exam Results</subject>
+    <textOnly>Hello {!Contact.Name},
+
+
+Attached are your exam results. We regret to inform you that your score was below the required level to pass the {!Contact.FON_Exam_Year__c} NCP exam.  Bar charts on the attached report indicate your level of performance in each of the four NCP Exam categories: (i) Rules, Laws &amp; Regs; (ii) Fraud &amp; Risk Mitigation; (iii) Operations; and (iv) Products.
+
+
+We appreciate your commitment to become a check payments expert and encourage you to retake the exam in the future. To assist you in achieving your goal of becoming an NCP, we offer you 50% off the regular exam fee if you register for the next exam by December 31st.
+
+
+As an aid in your preparation next time, the bar charts on the attached document show the areas of greatest strengths and those areas where you may need additional focus. Each year you will be tested on all blueprint areas and by focusing your study on those areas with the shortest bars, you may enhance your probability of success. Click here to find NCP Educational Partners who offer preparation training in a variety of formats.
+
+
+Please contact the program administration office at ncpc@eccho.org with any questions you may have.
+
+
+We hope to see the NCP designation behind your name soon.
+
+
+National Check Payments Certification
+
+Program Administration
+
+3710 Rawlins Street, Suite 1075
+
+Dallas, TX 75219
+
+(877) 273-7316</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

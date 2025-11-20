@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OrderApi__Sales_Order__c$Name</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Sales_Order__c$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Sales_Order__c$OrderApi__Customer_Link__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Sales_Order__c$OrderApi__Posting_Entity__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Sales_Order__c$OrderApi__Schedule_Type__c</field>
+    </columns>
+    <crossFilters>
+        <operation>without</operation>
+        <primaryTableColumn>OrderApi__Sales_Order__c$Id</primaryTableColumn>
+        <relatedTable>OrderApi__Sales_Order_Line__c</relatedTable>
+        <relatedTableJoinColumn>OrderApi__Sales_Order__c</relatedTableJoinColumn>
+    </crossFilters>
+    <description>Shows all Sales Orders without any Sales Order Lines that are more than 1 week old.</description>
+    <filter>
+        <criteriaItems>
+            <column>OrderApi__Sales_Order__c$CreatedDate</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>lessThan</operator>
+            <value>LAST_WEEK</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>FON - Sales Orders for Deletion</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Sales_Orders_with_Sales_Order_Lines__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Sales_Order__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

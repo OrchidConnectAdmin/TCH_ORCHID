@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Start_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required Conditionally** The date to start the Payment Schedule, required to create new payment schedules from a E-Payment transaction.</description>
+    <inlineHelpText>**Required Conditionally** The date to start the Payment Schedule, required to create new payment schedules from a E-Payment transaction.</inlineHelpText>
+    <label>Start Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

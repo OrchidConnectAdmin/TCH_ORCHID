@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Primary_Relationship_Manager__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Select the person who is responsible for owning this relationship with this constituent. This will create a new record in this contacts relationship related list.</description>
+    <inlineHelpText>Select the person who is responsible for owning this relationship with this constituent. This will create a new record in this contacts relationship related list.</inlineHelpText>
+    <label>Primary Relationship Manager</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Relationship Manager (Contacts)</relationshipLabel>
+    <relationshipName>Contacts</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

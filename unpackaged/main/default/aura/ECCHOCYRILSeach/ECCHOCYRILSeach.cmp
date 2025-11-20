@@ -1,0 +1,26 @@
+<aura:component description="ECCHO CYRIL Search" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction,lightning:isUrlAddressable,flexipage:availableForAllPageTypes,lightning:availableForFlowScreens" access="global">
+	    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:attribute name="sstring" type="String"/>
+    
+    
+    <div id="eccho-search-box" class="slds-grid" style="margin: 10px 0;">
+      <div class="slds-col slds-size_3-of-12">
+        <div class="slds-form-element__control" style="width: 98%;">
+            <lightning:input aura:id="data-search" name="search" placeholder="Search" value="{!v.sstring}"/>
+        </div>
+      </div>
+      <div class="slds-col slds-size_2-of-12">
+        <div class="slds-form-element__control">
+            <lightning:button variant="brand" label="Search" title="Refresh" onclick="{! c.Refresh }"/>
+        </div>
+      </div>
+    </div>
+  	<aura:html tag="style">
+    #eccho-search-box label{
+      display: none !important;
+    }
+    #eccho-search-box .slds-input{
+    height: 30px !important;
+    }
+    </aura:html>
+</aura:component>

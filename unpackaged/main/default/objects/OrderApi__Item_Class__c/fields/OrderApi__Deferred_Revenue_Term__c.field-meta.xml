@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Deferred_Revenue_Term__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Term the Revenue has to be deferred if not a Subscription.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Term the Revenue has to be deferred if not a Subscription.</inlineHelpText>
+    <label>Deferred Revenue Term (In Months)</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

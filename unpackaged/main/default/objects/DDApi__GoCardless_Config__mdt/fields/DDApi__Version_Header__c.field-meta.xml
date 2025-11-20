@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__Version_Header__c</fullName>
+    <defaultValue>&#39;2015-07-06&#39;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>GoCardless Version Header</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>GoCardless Version Header</inlineHelpText>
+    <label>Version Header</label>
+    <length>255</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

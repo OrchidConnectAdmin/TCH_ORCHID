@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Memo__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Optional memo that displays on the sales order sent to the customer as well as on customer statements.</description>
+    <inlineHelpText>Optional memo that displays on the sales order sent to the customer as well as on customer statements.</inlineHelpText>
+    <label>Memo</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

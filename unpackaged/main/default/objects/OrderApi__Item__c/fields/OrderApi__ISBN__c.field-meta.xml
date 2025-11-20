@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__ISBN__c</fullName>
+    <deprecated>false</deprecated>
+    <description>An ISBN (International Standard Book Number) is a unique 10 or 13-digit Global Trade Item Number used to identify books and publications.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>An ISBN (International Standard Book Number) is a unique 10 or 13-digit Global Trade Item Number used to identify books and publications.</inlineHelpText>
+    <label>ISBN</label>
+    <length>13</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

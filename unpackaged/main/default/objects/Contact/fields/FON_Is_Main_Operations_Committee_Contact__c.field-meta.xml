@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Is_Main_Operations_Committee_Contact__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Manually check when a contact is a known Main Operations Committee Contact. Default is unchecked.</inlineHelpText>
+    <label>Is Main Operations Committee Contact</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

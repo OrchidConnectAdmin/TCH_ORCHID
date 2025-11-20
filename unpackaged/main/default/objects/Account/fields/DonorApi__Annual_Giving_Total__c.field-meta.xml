@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Annual_Giving_Total__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A range of values available to quickly classify philanthropic entities by annual giving totals to all grantees. Useful for projecting grant application amounts.</description>
+    <inlineHelpText>A range of values available to quickly classify philanthropic entities by annual giving totals to all grantees. Useful for projecting grant application amounts.</inlineHelpText>
+    <label>Annual Giving Total</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Less than $100k</fullName>
+                <default>false</default>
+                <label>Less than $100k</label>
+            </value>
+            <value>
+                <fullName>$100k - $500k</fullName>
+                <default>false</default>
+                <label>$100k - $500k</label>
+            </value>
+            <value>
+                <fullName>$500k - $1mil.</fullName>
+                <default>false</default>
+                <label>$500k - $1mil.</label>
+            </value>
+            <value>
+                <fullName>$1mil. - $3mil.</fullName>
+                <default>false</default>
+                <label>$1mil. - $3mil.</label>
+            </value>
+            <value>
+                <fullName>$3mil. - $5mil.</fullName>
+                <default>false</default>
+                <label>$3mil. - $5mil.</label>
+            </value>
+            <value>
+                <fullName>$5mil. - $10mil.</fullName>
+                <default>false</default>
+                <label>$5mil. - $10mil.</label>
+            </value>
+            <value>
+                <fullName>$10mil. - $25mil.</fullName>
+                <default>false</default>
+                <label>$10mil. - $25mil.</label>
+            </value>
+            <value>
+                <fullName>$25mil. - $50mil.</fullName>
+                <default>false</default>
+                <label>$25mil. - $50mil.</label>
+            </value>
+            <value>
+                <fullName>$50mil. - $100mil.</fullName>
+                <default>false</default>
+                <label>$50mil. - $100mil.</label>
+            </value>
+            <value>
+                <fullName>$100mil. - $500mil.</fullName>
+                <default>false</default>
+                <label>$100mil. - $500mil.</label>
+            </value>
+            <value>
+                <fullName>More than $500mil.</fullName>
+                <default>false</default>
+                <label>More than $500mil.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

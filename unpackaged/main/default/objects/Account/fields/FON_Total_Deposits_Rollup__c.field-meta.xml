@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Total_Deposits_Rollup__c</fullName>
+    <inlineHelpText>Pulls the total deposit information from the most recent acuity upload.</inlineHelpText>
+    <label>Total Deposits | Rollup</label>
+    <summarizedField>Deposit_Based_Upload_Information__c.Total_Deposits__c</summarizedField>
+    <summaryForeignKey>Deposit_Based_Upload_Information__c.Account_Name__c</summaryForeignKey>
+    <summaryOperation>max</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

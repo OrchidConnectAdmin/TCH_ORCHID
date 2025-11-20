@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__ROI__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Total Revenue - Expenses.</description>
+    <formula>OrderApi__Total_Revenue__c - OrderApi__Expenses__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>** System Calculated ** Total Revenue - Expenses.</inlineHelpText>
+    <label>ROI</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

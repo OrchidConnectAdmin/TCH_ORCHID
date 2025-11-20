@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Calculate_Shipping_Details__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Default checked. Copies the shipping information from the receipt.</description>
+    <inlineHelpText>Default checked. Copies the shipping information from the receipt.</inlineHelpText>
+    <label>Calculate Shipping Details</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

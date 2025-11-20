@@ -1,0 +1,86 @@
+<apex:page tabStyle="Framework__tab"
+    sidebar="false"
+    showHeader="true"
+    docType="html-5.0"
+    title="{!$Label.Framework__Admin_MDAPI_Tools} - {!$Label.Framework__Framework_Admin}"
+>
+    <apex:composition template="Framework__admin">
+        <apex:define name="title">{!$Label.Admin_MDAPI_Tools}</apex:define>
+
+        <apex:define name="styles">
+            <style>
+                .alert ul > li {
+                    font-size: 15px;
+                    line-height: 28px;
+                }
+            </style>
+        </apex:define>
+
+        <apex:define name="main">
+            <div class="row">
+                <div class="col-xs-12 m-t-30 m-b-30">
+                    <script>
+                        var mdapi_connection_warning = false;
+                    </script>
+
+                    <c:mdapi_remotesite_helper />
+
+                    <!-- Links to MDAPI Tools -->
+                    <div id="mdapi_tool_links" class="col-xs-12" style="display: none;">
+                        <!-- Service Row #1 -->
+                        <div class="row service-row">
+                            <!-- Inspector -->
+                            <div class="col-xs-6 service">
+                                <a href="{!$Page.admin_mdapi_retrieve}">
+                                    <div class="icon bg">
+                                        <apex:image value="{!URLFOR($Resource.AUI_BASE, 'img/icons/svg/framework_settings_bg.svg')}"
+                                        />
+                                    </div>
+                                    <h4 class="title">Inspector</h4>
+                                    <div class="text-small">
+                                        Retrieve and view all components exposed through the Metadata API.
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Access Manager -->
+                            <div class="col-xs-6 service">
+                                <a href="{!$Page.admin_mdapi_profiletools}">
+                                    <div class="icon bg">
+                                        <apex:image value="{!URLFOR($Resource.AUI_BASE, 'img/icons/svg/settings_bg.svg')}"
+                                        />
+                                    </div>
+                                    <h4 class="title">Access Manager</h4>
+                                    <div class="text-small">
+                                        Fix problems caused by Field Level Security (FLS), Apex Class Access,
+                                        Visualforce Page Access, and CRUD permissions.
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Service Item Template -->
+                            <!--
+                  <div class="col-md-4 service">
+                    <a href="#">
+                      <div class="icon bg">
+                        <apex:image value="//path/to/image.png"/>
+                      </div>
+                      <h4 class="title">Name of Service</h4>
+                      <div class="text-small">Short description for service.</div>
+                    </a>
+                  </div>
+                -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                $(function () {
+                    if (mdapi_connection_warning !== true) {
+                        $('#mdapi_tool_links').css('display', 'block');
+                    }
+                    $('#sidebar > aside > nav > ul > li:nth-child(6)').addClass('active');
+                });
+            </script>
+        </apex:define>
+    </apex:composition>
+</apex:page>

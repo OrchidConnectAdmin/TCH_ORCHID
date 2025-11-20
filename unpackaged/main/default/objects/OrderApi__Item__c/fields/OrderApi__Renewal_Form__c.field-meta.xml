@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Renewal_Form__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>When defined, the member will be presented with this form as the first step during renewals.</description>
+    <inlineHelpText>When defined, the member will be presented with this form as the first step during renewals.</inlineHelpText>
+    <label>Renewal Form</label>
+    <referenceTo>PagesApi__Form__c</referenceTo>
+    <relationshipLabel>Renewed Items</relationshipLabel>
+    <relationshipName>RenewedItems</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

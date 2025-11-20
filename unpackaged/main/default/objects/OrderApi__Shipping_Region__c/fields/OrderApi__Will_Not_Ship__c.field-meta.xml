@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Will_Not_Ship__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Checkbox that makes this a Will Not Ship region.</description>
+    <inlineHelpText>Select the checkbox if this is a region the organization Will Not Ship to.</inlineHelpText>
+    <label>Will Not Ship</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

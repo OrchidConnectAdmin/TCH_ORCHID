@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OrderApi__Transaction__c$Name</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Transaction__c$OrderApi__Customer_Link__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Transaction__c$OrderApi__Date__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Transaction__c.OrderApi__Transaction_Lines__r$OrderApi__GL_Account__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Transaction__c.OrderApi__Transaction_Lines__r$OrderApi__Memo__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Transaction__c.OrderApi__Transaction_Lines__r$OrderApi__Debit__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Transaction__c.OrderApi__Transaction_Lines__r$OrderApi__Credit__c</field>
+    </columns>
+    <description>Fonteva - To report on all journal entries</description>
+    <format>Tabular</format>
+    <name>FON - Journal Entries</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Transactions_with_Transaction_Lines__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <sortColumn>OrderApi__Transaction__c$Name</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Transaction__c$OrderApi__Date__c</dateColumn>
+        <interval>INTERVAL_THISMONTH</interval>
+    </timeFrameFilter>
+</Report>

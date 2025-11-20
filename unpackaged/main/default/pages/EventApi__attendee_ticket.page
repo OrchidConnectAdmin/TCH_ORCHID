@@ -1,0 +1,117 @@
+<apex:page id="attendee_pdf_ticket" showHeader="false" sidebar="false" controller="EventApi.AttendeeTicketController"
+					 applyHtmlTag="false" applyBodyTag="false" cache="false">
+	<html>
+		<body>
+			<div class="print">
+				<style>
+					* { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; line-height: inherit; list-style: none; padding: 0; text-decoration: none; vertical-align: top; }
+					h1 { font: bold 100% sans-serif; letter-spacing: 0.5em; text-align: center; text-transform: uppercase; }
+					html { overflow: auto!important; padding: 0.5in; }
+					html { background: #999!important; cursor: default!important; }
+					body { box-sizing: border-box!important; margin: 0 auto!important; padding: 0.5in!important; width: 8.5in!important; }
+					body { background: #FFF!important; border-radius: 1px!important; box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5)!important; }
+					@media print {
+						* { -webkit-print-color-adjust: exact; color: black;}
+						html { background: none; padding: 0; }
+						body { box-shadow: none; margin: 0; }
+						span:empty { display: none; }
+					}
+					table.gridtable {
+						font-family: verdana,arial,sans-serif;
+						font-size:11px;
+						color:#333333;
+						border-width: 1px;
+						border-color: #666666;
+						border-collapse: collapse;
+					}
+					table.gridtable th {
+						border-width: 1px;
+						padding: 8px;
+						border-style: solid;
+						border-color: #666666;
+						background-color: #dedede;
+					}
+					table.gridtable td {
+						border-width: 1px;
+						padding: 8px;
+						border-style: solid;
+						border-color: #666666;
+						background-color: #ffffff;
+					}
+
+					p.smallhead {
+						font-size:8pt;
+						color:#D3D3D3;
+						margin: 0 0 3px;
+					}
+
+					table.gridtable td div.overflow-block {
+						height: 100%;
+						width: 100%;
+						background-color: white;
+						z-index: 1;
+						position: absolute;
+						top: -1px;
+						left: 0;
+					}
+
+				</style>
+				<table border="1" cellpadding="1pt" cellspacing="1pt" class="gridtable" style="border-color: #d4d4d4;" width="100%">
+					<tbody>
+					<tr>
+						<td colspan="2">
+							<p class="smallhead">{!$Label.EventApi__Event_Ticket_Name}</p>
+							<h1 style="text-align: left;">{!eventObj.Name}</h1>
+						</td>
+						<td rowspan="2" width="20%">
+							<apex:outputPanel layout="none" rendered="{!eventObj.EventApi__Event_Pass_Image_URL__c != null}">
+								<Framework:img height="auto" style="padding-bottom: 10px;" src="{!eventObj.EventApi__Event_Pass_Image_URL__c}" width="172"/>
+							</apex:outputPanel>
+							<p class="smallhead" style="text-align: left;">{!$Label.Event_Ticket_Attendee_Name}</p>
+							<p style="text-align: left;">{!attendeeObj.Full_Name__c}</p>
+							<p class="smallhead" style="text-align: left;">{!$Label.Event_Ticket_Registration_Status}</p>
+							<p style="text-align: left;">{!attendeeObj.Status__c}</p></td>
+					</tr>
+					<tr>
+						<td width="40%">
+							<p class="smallhead">{!$Label.Event_Ticket_Date_Time}</p><br/>
+							<span>{!eventDurationStringDates}&nbsp;{!eventDurationStringTimes}</span>
+						</td>
+						<td width="40%">
+							<p class="smallhead">{!$Label.Event_Ticket_Venue_Name}</p><br></br>
+							<p style="text-align: left;">{!venueObj.Name}<br></br>{!venueObj.Street__c}
+								<br />{!venueAddressCityState}
+								<br />{!venueObj.Country__c}
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<p class="smallhead" style="display: {!IF(ISBLANK(so),'none','block')};">{!$Label.Event_Ticket_Order_Information}</p>
+							<p style="text-align: left; display: {!IF(ISBLANK(so),'none','block')}">{!$Label.Event_Ticket_Order_Number}{!so.Name}. {!$Label.Event_Ticket_Order_By} {!so.OrderApi__Contact__r.Name} on <apex:outputText value="{0, date, EEEE, d MMMM, yyyy}">
+								<apex:param value="{!so.OrderApi__Posted_Date__c}" />
+							</apex:outputText></p>
+						</td>
+						<td rowspan="2" width="20%" style="position: relative;">
+							<apex:outputPanel styleClass="overflow-block" layout="block" rendered="{!OR(attendeeURL == null,NOT(eventObj.EventApi__Enable_QR_Event_Pass__c))}">
+							</apex:outputPanel>
+							<center>
+								<apex:outputPanel rendered="{!AND(attendeeURL != null,eventObj.EventApi__Enable_QR_Event_Pass__c)}">
+									<apex:image value="{!attendeeURL}"/>
+								</apex:outputPanel>
+							</center>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<p class="smallhead">{!$Label.Event_Ticket_Ticket_Name}</p>
+							<p style="text-align: left;"><span>{!ticketTypeName}</span></p></td>
+					</tr>
+					</tbody>
+				</table>
+				<br /><br />
+			  <apex:outputField value="{!tt.EventApi__Ticket_Information__c}" rendered="{!NOT(ISBLANK(tt.EventApi__Ticket_Information__c))}"/>
+			</div>
+		</body>
+	</html>
+</apex:page>

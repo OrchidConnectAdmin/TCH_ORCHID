@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Enable_Shipping_By_Order_Total__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When selected, customers will see a single shipping rate for the entire order. Otherwise, customers will see shipping rates for each unique item in their order. In either case, shipping is calculated only for items that have &quot;Require Shipping&quot; enabled.</description>
+    <inlineHelpText>When selected, customers will see a single shipping rate for the entire order. Otherwise, customers will see shipping rates for each unique item in their order. In either case, shipping is calculated only for items that have &quot;Require Shipping&quot; enabled.</inlineHelpText>
+    <label>DEPRECATED</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

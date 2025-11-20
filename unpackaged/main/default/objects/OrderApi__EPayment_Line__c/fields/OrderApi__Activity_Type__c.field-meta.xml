@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Activity_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** The parent activity &quot;Transaction Type&quot;.</description>
+    <externalId>false</externalId>
+    <formula>IF(OrderApi__EPayment__r.OrderApi__Transaction_Type__c != NULL,UPPER(LEFT(OrderApi__EPayment__r.OrderApi__Transaction_Type__c,1)) &amp; RIGHT(OrderApi__EPayment__r.OrderApi__Transaction_Type__c,LEN(OrderApi__EPayment__r.OrderApi__Transaction_Type__c) - 1),&quot;Scheduled/Pending Payment&quot;)</formula>
+    <inlineHelpText>**System Calculated** The parent activity &quot;Transaction Type&quot;.</inlineHelpText>
+    <label>Activity Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SO_Bundle__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The SO Bundle will become the batch that is reviewed for approval before final disposition.</description>
+    <inlineHelpText>Choose the bundle of SOs to associate this SO for approval process</inlineHelpText>
+    <label>SO Bundle</label>
+    <referenceTo>SO_Bundle__c</referenceTo>
+    <relationshipLabel>Sales Orders</relationshipLabel>
+    <relationshipName>Sales_Orders</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

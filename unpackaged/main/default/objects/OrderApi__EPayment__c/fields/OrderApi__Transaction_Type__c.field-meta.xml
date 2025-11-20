@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Transaction_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** The transaction type identified in the response of the api transaction.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>**System Calculated** The transaction type identified in the response of the api transaction.</inlineHelpText>
+    <label>Transaction Type</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Do_Not_Acknowledge__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Do not acknowledge this gift. When checked, the &quot;Is Gift Acknowledged&quot; flag will be unable to be checked and cause a validation message to display to the user.</description>
+    <inlineHelpText>Do not acknowledge this gift. When checked, the &quot;Is Gift Acknowledged&quot; flag will be unable to be checked and cause a validation message to display to the user.</inlineHelpText>
+    <label>Do Not Acknowledge</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

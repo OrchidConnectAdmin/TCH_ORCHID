@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Payment_Method__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** The payment activity payment method type.</description>
+    <externalId>false</externalId>
+    <formula>IF(OrderApi__EPayment__r.OrderApi__Payment_Method_Type__c != null,
+IF(OrderApi__EPayment__r.OrderApi__Payment_Method_Type__c == &#39;credit_card&#39;, &quot;&quot;, &quot;E-Check &quot;)
+&amp;
+UPPER(OrderApi__EPayment__r.OrderApi__Card_Type__c)
+&amp; &quot; &quot; &amp;
+OrderApi__EPayment__r.OrderApi__Number__c
+&amp; &quot; (Expires &quot; &amp;
+TEXT(OrderApi__EPayment__r.OrderApi__Month__c)
+&amp; &quot;/&quot; &amp;
+TEXT(OrderApi__EPayment__r.OrderApi__Year__c)
+&amp; &quot;)&quot;
+,
+&quot;&quot;
+)</formula>
+    <inlineHelpText>**System Calculated** The payment activity payment method type.</inlineHelpText>
+    <label>Payment Method</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

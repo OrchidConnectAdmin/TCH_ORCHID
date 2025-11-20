@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Create_Credit_Memo</fullName>
+    <availability>online</availability>
+    <description>This button will create a Credit Memo in case of overpayment.</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Create Credit Memo</masterLabel>
+    <openType>replace</openType>
+    <page>LTE__CreateCreditMemo</page>
+    <protected>false</protected>
+</WebLink>

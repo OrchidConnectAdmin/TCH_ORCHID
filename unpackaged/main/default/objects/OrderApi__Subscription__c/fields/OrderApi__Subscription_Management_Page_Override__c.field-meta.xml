@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Subscription_Management_Page_Override__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Enter the page name to be directed upon clicking the Manage button for the subscription&#39;s tile in the member portal&#39;s profile page.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter the page name to be directed upon clicking the Manage button for the subscription&#39;s tile in the member portal&#39;s profile page.</inlineHelpText>
+    <label>Subscription Management Page Override</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

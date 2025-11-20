@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Gift_Detail__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>**Conditionally Required** Link to the related gift detail. Required for all credits except credits associated with Non-Cash Gifts.</description>
+    <inlineHelpText>**Conditionally Required** Link to the related gift detail. Required for all credits except credits associated with Non-Cash Gifts.</inlineHelpText>
+    <label>Gift Detail</label>
+    <referenceTo>OrderApi__Receipt_Line__c</referenceTo>
+    <relationshipLabel>Gift Credits</relationshipLabel>
+    <relationshipName>Gift_Credits</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

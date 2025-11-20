@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Title__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The title for the media asset</description>
+    <externalId>false</externalId>
+    <inlineHelpText>80 character String that can mainly serve as a title when the asset is used in sites, pages, etc</inlineHelpText>
+    <label>Title</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

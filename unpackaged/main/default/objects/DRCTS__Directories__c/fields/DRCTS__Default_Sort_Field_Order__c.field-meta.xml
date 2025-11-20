@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Default_Sort_Field_Order__c</fullName>
+    <defaultValue>&#39;ASC&#39;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Used to identify whether is ASC or DESC order for the default sort field. DEFAULTS ASC</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used to identify whether is ASC or DESC order for the default sort field. DEFAULTS ASC</inlineHelpText>
+    <label>Default Sort Field Order</label>
+    <length>10</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

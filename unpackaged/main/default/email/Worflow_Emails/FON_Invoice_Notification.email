@@ -1,0 +1,9 @@
+Dear {!OrderApi__Sales_Order__c.Contact_Name__c},
+
+Thank you for your order.
+
+Please click the link below to download a copy of your invoice.
+
+Link: https://fonteva-io.herokuapp.com/generateSinglePDF/dev/?doc=https%3A%2F%2Fwww.ecchoonline.org%2Fs%2Fsales-order%3FgeneratePDF%3Dtrue%26language%3Den_US%26id%3D{!OrderApi__Sales_Order__c.FON_Document_ID__c}
+
+If you have any questions regarding your invoice or how to make a payment, please contact us.

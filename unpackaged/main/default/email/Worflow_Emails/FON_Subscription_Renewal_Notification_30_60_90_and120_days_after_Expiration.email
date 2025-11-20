@@ -1,0 +1,10 @@
+Dear {!OrderApi__Subscription__c.OrderApi__Contact__c},
+
+This is a friendly reminder that {!OrderApi__Subscription__c.OrderApi__Account__c}'s subscription is expired.
+
+We look forward to receiving your subscription renewal for the upcoming member year!
+
+To renew, log-in to the customer website using your username and password. You may select to pay by credit card or check. 
+
+Thank you.
+{!Organization.Name}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Currency_Code__c</fullName>
+    <defaultValue>&quot;USD&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>The iso-code for the currency used for the API transaction. Default is &quot;USD&quot;</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The iso-code for the currency used for the API transaction. Default is &quot;USD&quot;</inlineHelpText>
+    <label>Currency Code</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

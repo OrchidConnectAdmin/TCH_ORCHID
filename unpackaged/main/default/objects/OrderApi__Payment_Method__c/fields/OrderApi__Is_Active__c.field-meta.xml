@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Active__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>**System API Calculated** Checked when the Payment Method is deemed as a valid payment method by your Gateway (Payment Processor). Default checked.</description>
+    <inlineHelpText>**System API Calculated** Checked when the Payment Method is deemed as a valid payment method by your Gateway (Payment Processor). Default checked.</inlineHelpText>
+    <label>Is Active</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,6 @@
+Dear {!EventApi__Attendee__c.EventApi__Full_Name__c},
+
+Thank you for registering for the {!EventApi__Attendee__c.EventApi__Attendee_Event__c} event.
+
+Thank you,
+{!Organization.Name}

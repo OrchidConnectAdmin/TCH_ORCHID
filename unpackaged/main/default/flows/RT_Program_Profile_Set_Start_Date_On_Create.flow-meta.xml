@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>set the start date of Program Profile to 4/1 on create</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>formulaDate</name>
+        <dataType>Date</dataType>
+        <expression>DATE(
+    YEAR({!$Record.FON_Program_Start_Date__c}),
+    4,
+    1
+)</expression>
+    </formulas>
+    <interviewLabel>RT - Program Profile Set Start Date On Create {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT - Program Profile Set Start Date On Create</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Upgrade_PF</name>
+        <label>Upgrade PF</label>
+        <locationX>308</locationX>
+        <locationY>276</locationY>
+        <inputAssignments>
+            <field>FON_Program_Start_Date__c</field>
+            <value>
+                <elementReference>formulaDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ProgramApi__Status__c</field>
+            <value>
+                <stringValue>On Track</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>FON_Start_Month_Day__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>4/1</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Renewed_on_New_Year__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>ProgramApi__Program_Profile__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>after_5_min</name>
+            <connector>
+                <targetReference>Upgrade_PF</targetReference>
+            </connector>
+            <label>after 5 min</label>
+            <offsetNumber>5</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+    <triggerOrder>70</triggerOrder>
+</Flow>

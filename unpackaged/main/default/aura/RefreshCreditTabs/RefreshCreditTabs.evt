@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Refresh tab name passed in the attribute" >
+    <aura:attribute name="tabName" type="string" />
+</aura:event>

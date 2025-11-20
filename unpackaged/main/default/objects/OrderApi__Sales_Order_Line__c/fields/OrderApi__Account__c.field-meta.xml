@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required System Calculated Override ** Link to the Account that is assigned to the Sales Order Line -- valid if the linked &quot;Item&quot; &quot;Enable Assignments&quot; is checked, and the &quot;Entity&quot; is set to &quot;Account&quot;. Defaults to the Sales Order &quot;Account&quot;.</description>
+    <inlineHelpText>** Conditionally Required System Calculated Override ** Link to the Account that is assigned to the Sales Order Line -- valid if the linked &quot;Item&quot; &quot;Enable Assignments&quot; is checked, and the &quot;Entity&quot; is set to &quot;Account&quot;. Defaults to the Sales Order &quot;Account&quot;</inlineHelpText>
+    <label>Account</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipName>Sales_Order_Lines</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

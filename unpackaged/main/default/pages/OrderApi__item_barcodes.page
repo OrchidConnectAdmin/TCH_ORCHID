@@ -1,0 +1,96 @@
+<apex:page standardController="OrderApi__Item__c" showHeader="false" sidebar="false">
+    <noscript>Your browser does not support JavaScript! Please enable JavaScript or use a different browser to access this page.</noscript>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://fonteva-cdn.s3.amazonaws.com/global/lib/barcode/JsBarcode.all.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            buildAndValidateBarcodes();
+            $("#barcode-sku").JsBarcode("{!HTMLENCODE(Item__c.SKU__c)}",{format:"CODE128"});
+            $("#barcode-isbn").JsBarcode("{!HTMLENCODE(Item__c.ISBN__c)}",{format:"CODE128"});
+        });
+
+
+    var buildAndValidateBarcodes = function() {
+
+        $("#barcode-upc").JsBarcode("{!HTMLENCODE(Item__c.UPC__c)}",{format:"UPC"},
+            function(valid){
+               validFunction('upc',valid);
+            });
+
+        $("#barcode-ean").JsBarcode("{!HTMLENCODE(Item__c.EAN__c)}",{format:"EAN"},
+            function(valid){
+               validFunction('ean',valid);
+            });
+        };
+
+    var validFunction = function(type,valid) {
+        if(valid)
+            $("#valid-"+type).toggle();
+        else
+            $("#invalid-"+type).toggle();
+    }
+
+    </script>
+    <style>
+        .bar-code-page {
+            max-height: 110px;
+            padding: 0 20px;
+            text-align: center;
+            display: block;
+        }
+        .barcode-image-container {
+            display: inline-block;
+            padding: 1px;
+        }
+        .barcode-image-container span.code {
+            padding-top: 0px;
+            text-align: center;
+            font-size: 10px;
+            display: block;
+        }
+        .barcode-image-container img {
+            width: 150px;
+        }
+
+        .invalid {
+            color:#DE0000;
+            margin-top:10px;
+        }
+    </style>
+    <div class="bar-code-page">
+    <apex:outputPanel rendered="{!NOT(ISBLANK(OrderApi__Item__c.OrderApi__UPC__c))}">
+        <div class="barcode-image-container">
+            <div id="invalid-upc" class="invalid" style="display:none">
+                <span class="code">{!$Label.Not_Valid_UPC_Code}</span>
+            </div>
+            <div id="valid-upc" style="display:none">
+                <img id="barcode-upc" title="{!$ObjectType.Item__c.Fields.UPC__c.Label}" alt="{!$ObjectType.Item__c.Fields.UPC__c.Label}"/>
+                <span class="code">{!$ObjectType.Item__c.Fields.UPC__c.Label} {!Item__c.UPC__c}</span>
+            </div>
+        </div>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!NOT(ISBLANK(OrderApi__Item__c.OrderApi__EAN__c))}">
+        <div class="barcode-image-container">
+            <div id="invalid-ean" class="invalid" style="display:none">
+                <span class="code">{!$Label.Not_Valid_EAN_Code}</span>
+            </div>
+            <div id="valid-ean" style="display:none">
+                <img id="barcode-ean" title="{!$ObjectType.Item__c.Fields.EAN__c.Label}" alt="{!$ObjectType.Item__c.Fields.EAN__c.Label}"/>
+                <span class="code">{!$ObjectType.Item__c.Fields.EAN__c.Label} {!Item__c.EAN__c}</span>
+            </div>
+        </div>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!NOT(ISBLANK(OrderApi__Item__c.OrderApi__SKU__c))}">
+        <div class="barcode-image-container">
+            <img id="barcode-sku" title="{!$ObjectType.Item__c.Fields.SKU__c.Label}" alt="{!$ObjectType.Item__c.Fields.SKU__c.Label}"/>
+            <span class="code">{!$ObjectType.Item__c.Fields.SKU__c.Label} {!Item__c.SKU__c}</span>
+        </div>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!NOT(ISBLANK(OrderApi__Item__c.OrderApi__ISBN__c))}">
+        <div class="barcode-image-container">
+            <img id="barcode-isbn" title="{!$ObjectType.Item__c.Fields.ISBN__c.Label}" alt="{!$ObjectType.Item__c.Fields.ISBN__c.Label}"/>
+            <span class="code">{!$ObjectType.Item__c.Fields.ISBN__c.Label} {!Item__c.ISBN__c}</span>
+        </div>
+    </apex:outputPanel>
+    </div>
+</apex:page>

@@ -1,0 +1,73 @@
+<apex:page showHeader="false"
+    standardStylesheets="false"
+    cache="false"
+    docType="html-5.0"
+    controller="PagesApi.KitchenSinkController"
+>
+    <apex:composition template="PagesApi__default_template">
+        <apex:define name="title">Kitchen Sink</apex:define>
+
+        <apex:define name="main">
+            <div class="pg-opt">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2>My profile</h2>
+                        </div>
+                        <div class="col-md-6">
+                            <ol class="breadcrumb">
+                                <li><a href="#">Fonteva Connect</a></li>
+                                <li><a href="#">My Account</a></li>
+                                <li class="active">My Profile</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="static-page-image">
+                <img src="{!$Resource.Content + '/full-bg-20.jpg'}" alt="" />
+                <div class="description-left">
+                    <span class="title c-white">Help others to achieve their dreams</span>
+                    <span class="subtitle text-wrapped alpha c-black"
+                        >A complete website template that can be perfectly adapted in any situation or quickly
+                        customized for other ideas.</span
+                    >
+                    <a href="#" class="btn btn-lg btn-b-white mt-40 hidden-xs">Post a job now</a>
+                </div>
+            </div>
+
+            <section class="slice bg-white">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="user-profile-img">
+                                <c:userprofilephoto />
+                                <!-- Using the User Profile Photo Component -->
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <c:profiletabs fieldSetNamesCSV="KS_Tab1,KS_Tab2" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <c:list records="{!accounts}"
+                            titleField="Name"
+                            descriptionFieldsCSV="Industry,Type,BillingCity,BillingPostalCode"
+                            ordered="true"
+                            pageSize="5"
+                            orderByFields="Name"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <c:calendar calendarInput="{!cInput}" pageTitle="Campaigns and Contacts" width="500px" />
+                    </div>
+                </div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,368 @@
+<aura:component description="ECCHO Header Component" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction,lightning:isUrlAddressable,flexipage:availableForAllPageTypes" access="global">
+    
+    <table width="100%">
+        <tbody>
+            <tr class="first_tr">
+                <td class="td_layout" nowrap="nowrap" onmouseover="menu1('', '');">
+                    <div class="logo_div">
+                        <a href="/" title="ECCHO"><img class="logo_eccho" src="https://s3.us-east-1.amazonaws.com/fonteva-customer-media/00D6g000000CyAxEAK/jXxEbTXa_TCH315_ProductLogos_ECCHO_RGB_011519_png"></img></a>
+                    </div>
+                </td>
+                <td align="right" class="td_layout header_layout_720" onmouseover="menu1('', '');" valign="top">
+                    <div class="xxeccho-actions" style="display: none;">
+                        <a class="a_header" href="http://store.eccho.org/" style="display: none;" target="_blank">ECCHO Store</a> 
+                        <a class="a_header" href="https://www.eccho.org/cc/index.php?p_sector=cc_rules&amp;p_matter=cc_login_rules" style="display: none;" target="_blank">ECCHO Rules</a> 
+                        <a class="a_header" href="https://www.eccho.org/cc/index.php?p_resource=cc_login_edusub" target="_blank">ECCHO Education Subscriber</a> 
+                        <a class="a_header" href="https://www.eccho.org/cc" target="_blank">ECCHO Connect</a> 
+                        <a class="a_header" href="https://store.eccho.org/" target="_blank">Eccho Store</a> 
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_layout header_layout2" colspan="2" style="position: relative;" valign="top">
+                    <ul class="main_menu" id="menu-main">
+                        <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1359" id="menu-item-1359">
+                            <a class="no_custom" href="https://www.theclearinghouse.org/eccho" target="_blank">Main ECCHO Website</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+    <aura:html tag="style">
+        .logo_eccho {
+        cursor: pointer;
+        }
+        
+        td.header_layout {
+        background-color: #003F72;
+        /*background-image: url('images/g_header_background.jpg');
+        background-repeat: repeat-y;*/
+        width: 100%;
+        }
+        
+        td.header_layout tr.first_tr {
+        border-bottom: 1px solid #5a6f5e;
+        }
+        
+        td.header_layout2 {
+        background-image: url('images/g_header_menu_background.jpg');
+        background-repeat: repeat-x;
+        height: 37px;
+        }
+        
+        .logo_div {
+        
+        padding-left: 50px;
+        }
+        
+        .logo_div a {
+        display: inline-block;
+        }
+        
+        td.top_line_layout {
+        background-image: url('images/g_shadow_left.png');
+        background-repeat: repeat-y;
+        }
+        
+        td.top_line_layout img {
+        height: 1px;
+        width: 10px;
+        }
+        
+        
+        table.aligncenter{
+        display: table;
+        margin: 5px auto 5px auto;
+        }
+        
+        *[dir="rtl"] {
+        text-align: right;
+        }
+        
+        .main_menu, .main_menu li ul{
+        margin:0px;
+        padding:0px;
+        list-style:none;
+        }
+        .main_menu > li{
+        border-right: 1px solid #7f7f7f;
+        cursor: pointer;
+        display: table-cell;
+        height: 30px;
+        margin-left: 1px;
+        margin-top: 0;
+        text-align: center;
+        vertical-align: middle;
+        }
+        
+        .main_menu > li > a{
+        padding: 2px 20px 0;
+        height: 30px;
+        vertical-align: middle;
+        display: table-cell !important;
+        }
+        .main_menu > li ul{
+        display:none;
+        position:absolute;
+        text-align: left;
+        z-index:1000;
+        background-color:#96a797;
+        margin-top:5px;
+        min-width: 200px;
+        }
+        .main_menu > li > ul{
+        margin-left:-5px;
+        opacity: 0.9;
+        margin-top: 0px;
+        border: 1px solid #425f4b;
+        }
+        .main_menu > li:hover > ul{display:block;}
+        .main_menu > li:hover,
+        .main_menu > li.current-menu-parent,
+        .main_menu > li.current-menu-item{
+        background: #7f7f7f;
+        }
+        
+        .main_menu > li:hover a,
+        .main_menu > li.current-menu-parent a,
+        .main_menu > li.current-menu-item a
+        {
+        color: #ffffff;
+        }
+        
+        .main_menu > li li a{
+        font-family: Arial;
+        font-size: 11px;
+        font-weight: bold;
+        color: #425f4b !important;
+        }
+        
+        .main_menu > li li{
+        background-color: #96a797;
+        cursor: pointer;
+        height: 20px;
+        opacity: 1;
+        padding-left: 5px;
+        padding-top: 3px;
+        margin-top: 0px;
+        padding-right: 6px;
+        box-sizing: initial;
+        }
+        
+        .main_menu > li > ul  li:hover{
+        background-color: #425f4b;
+        }
+        
+        .main_menu > li li:hover a{
+        color: #ffffff !important;
+        }
+        
+        .main_menu > li li:nth-child(2n) {
+        background: #e7e9dc; /* Цвет фона */
+        }
+        
+        .main_menu > li > ul > li:hover > ul{display:block;}
+        
+        .main_menu > li > ul > li > ul{
+        margin-left:190px;
+        margin-top:-17px;
+        width:220px;
+        }
+        .main_menu > li a{
+        text-decoration: none;
+        color: #425f4b;
+        display:block;
+        font-family: Arial;
+        font-size: 11px;
+        font-weight: bold;
+        }
+        
+        ul.list > li{
+        padding: 0 !important;
+        margin: 15px 0 0 !important;
+        }
+        
+        ul.list > li ul{
+        padding: 0;
+        }
+        
+        ul.list > li.current-menu-parent ul li.current-menu-item {
+        background: rgba(0, 0, 0, 0) url("images/arrow.png") no-repeat scroll 5px center;
+        }
+        
+        ul.list > li.current-menu-item {
+        background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+        }
+        
+        ul.list > li.current-menu-item > a,
+        ul.list > li.current-menu-parent > ul li.current-menu-item a,
+        ul.list > li.current-menu-parent > a
+        {
+        color: #1e335e !important;
+        font-size: 13px;
+        }
+        
+        ul.inner_page_menu{
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        }
+        
+        ul.inner_page_menu ul{
+        list-style-type: none;
+        padding-left: 15px;
+        padding-top: 0px;
+        }
+        
+        ul.inner_page_menu ul li{
+        margin-bottom: 4px;
+        }
+        
+        ul.inner_page_menu li{
+        margin-bottom: 12px;
+        }
+        
+        ul.inner_page_menu li:last-child{
+        margin-bottom: 0;
+        }
+        .header-background{
+        width:100%;
+        height:130px;
+        background-color: #ffffff;
+        position:absolute;
+        z-index:-1;
+        }
+        .header-search { position: absolute; right: 0px; top: 5px; }
+        tr .first_tr{
+        border-bottom:none !important;
+        }
+        .logo_eccho { padding: 8px 0; width: 180px !important; }
+        td .header_layout {
+        background-image: none;
+        }
+        td .header_layout2{
+        border-top:none;
+        background-image: none;
+        padding: 0;
+        
+        }
+        .form_div{
+        position:relative;
+        background: none !important;
+        width: auto;
+        }
+        .form_div input {
+        margin-left: 0px;
+        padding-right: 28px;
+        width: 150px;
+        }
+        .search-icon-btn{
+        position: absolute;
+        background: #fff;
+        border: none;
+        outline: none;
+        top:8px;
+        right:18px;
+        }
+        ::-ms-clear {
+        display: none;
+        }
+        /* Chrome */
+        ::-webkit-search-decoration,
+        ::-webkit-search-cancel-button,
+        ::-webkit-search-results-button,
+        ::-webkit-search-results-decoration {
+        display: none;
+        }
+        
+        
+        .a_header {
+        margin-right: 10px;
+        }
+        .a_header:hover{
+        opacity: 0.8;
+        cursor: pointer;
+        }
+        .a_header[href="/contact"] img{
+        margin-top: 10px;
+        }
+        .main_menu{
+        background:#f2f2f2;
+        }
+        .main_menu li {
+        border: none;
+        padding:6px 0;
+        }
+        .main_menu li:hover{
+        background: #405258;
+        color:#f2f2f2;
+        }
+        .main_menu li a {
+        color: #6B6B6B;
+        }
+        #menu-main >li>ul{
+        margin-top:6px;
+        margin-left:0;
+        border:none;
+        }
+        #menu-main > li ul li {
+        background: #6B6B6B;
+        padding-top: 14px;
+        
+        }
+        #menu-main > li ul a{
+        padding-top: 4px;
+        color:#f2f2f2 !important;
+        }
+        #menu-main > li ul li:hover {
+        background: #2f3f45;
+        
+        }
+        .td_layout.header_layout_720{
+        text-align: right;
+        padding-right: 15px;
+        }
+        
+        /* COMMUNITY MENU */
+        .LTEFontevaPortalPageLayout .forceCommunityGlobalNavigation .slds-container_x-large,.forceCommunityGlobalNavigation>*{
+        max-width: 100% !important;
+        }
+        .forceCommunityGlobalNavigation{
+        background: #C2DEEA !important
+        }
+        #navContent .slds-col.slds-align-middle.slds-shrink-none.slds-show_large.slds-p-right_none{
+        display: none;
+        }
+        .LTENavbar.pfm-navbar .pfm-navbar_content,.LTEPortalAssets .pfm-navbar_list .pfm-dropdown-trigger{
+        height: 30px !important;
+        color: #363534;
+        }
+        .LTENavbar.pfm-navbar .pfm-navbar_list>a, .LTENavbar.pfm-navbar .pfm-navbar_list lte-pfm-button button, .LTENavbar.pfm-navbar .pfm-navbar_list .pfm-dropdown-trigger>button{
+        height: 30px !important; 
+        min-height: 30px !important;
+        font-size: 12px;
+        color: #363534;
+        }
+        .LTENavbar.pfm-navbar .pfm-navbar_list lte-pfm-button button:hover{
+        color: #fff !important;
+        }
+        #navbarMenuItems{
+        float: left;
+        flex-grow: 1 !important;
+        }
+        .LTEPortalAssets .pfm-navbar_list .pfm-dropdown-trigger{
+        padding: 0 !important;
+        }
+        #navDropDowns .slds-col.slds-align-middle.pfm-navbar_list.pfm-navbar_list-action.slds-m-right_xx-small{
+        margin-right: 10px;
+        }
+        .LTENavbar.pfm-navbar .pfm-navbar_list lte-pfm-button button svg{
+        fill: #000 !important;
+        }
+    </aura:html>
+    {!$CurrentPage.Name}
+</aura:component>

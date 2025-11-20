@@ -1,0 +1,12 @@
+Hello {!Receiving_User.FirstName},
+
+Welcome to ECCHO Online!
+
+To get started, go to {!Community_Url}
+
+Please verify and update your contact information if needed, then explore the site. Please reach out with any questions. 
+
+Username: {!Receiving_User.Username}
+
+
+Thank you,

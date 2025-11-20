@@ -1,0 +1,117 @@
+<apex:page sidebar="false" showHeader="false" docType="html-5.0" standardStylesheets="false">
+    <apex:composition template="PagesApi__default_template">
+        <apex:define name="title">{!$Label.PagesApi__Social_Login_Failed}</apex:define>
+
+        <apex:define name="main">
+            <style>
+                .m-r-30 {
+                    margin-right: 30px;
+                }
+                .m-t-30 {
+                    margin-top: 30px;
+                }
+                .m-b-30 {
+                    margin-bottom: 30px;
+                }
+                .m-l-30 {
+                    margin-left: 30px;
+                }
+                .m-r-20 {
+                    margin-right: 20px;
+                }
+                .m-t-20 {
+                    margin-top: 20px;
+                }
+                .m-b-20 {
+                    margin-bottom: 20px;
+                }
+                .m-l-20 {
+                    margin-left: 20px;
+                }
+                .m-r-10 {
+                    margin-right: 10px;
+                }
+                .m-t-10 {
+                    margin-top: 10px;
+                }
+                .m-b-10 {
+                    margin-bottom: 10px;
+                }
+                .m-l-10 {
+                    margin-left: 10px;
+                }
+                .glyphicon-lg {
+                    font-size: 3em;
+                }
+                .blockquote-box {
+                    border-right: 5px solid #e6e6e6;
+                    margin-bottom: 25px;
+                }
+                .blockquote-box .square {
+                    width: 100px;
+                    min-height: 50px;
+                    margin-right: 22px;
+                    text-align: center !important;
+                    background-color: #e6e6e6;
+                    padding: 20px 0;
+                }
+                .blockquote-box.blockquote-danger {
+                    border-color: #d43f3a;
+                }
+                .blockquote-box.blockquote-danger .square {
+                    background-color: #d9534f;
+                    color: #fff;
+                }
+            </style>
+
+            <div class="social-login-error">
+                <div class="container">
+                    <div class="row m-t-30 m-b-10">
+                        <div class="col-md-12 text-center">
+                            <div class="page-header">
+                                <h1>{!$Label.PagesApi__Social_Login_Failed}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <apex:outputPanel layout="block"
+                        styleClass="row"
+                        rendered="{!NOT(ISBLANK($CurrentPage.Parameters.ErrorDescription))}"
+                    >
+                        <div class="blockquote-box blockquote-danger clearfix">
+                            <div class="square pull-left">
+                                <span class="glyphicon glyphicon-record glyphicon-lg"></span>
+                            </div>
+                            <p>
+                                <apex:outputText value="{!$CurrentPage.Parameters.ErrorDescription}" escape="true" />
+                            </p>
+                        </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block"
+                        styleClass="row"
+                        rendered="{!ISBLANK($CurrentPage.Parameters.ErrorDescription)}"
+                    >
+                        <div class="blockquote-box blockquote-danger clearfix">
+                            <div class="square pull-left">
+                                <span class="glyphicon glyphicon-record glyphicon-lg"></span>
+                            </div>
+                            <h4>{!$Label.Unknown_Error_Login}</h4>
+                            <p>
+                                {!$Label.Contact_System_Admin_Login_Failed}
+                            </p>
+                        </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block"
+                        styleClass="row text-center"
+                        rendered="{!NOT(ISBLANK($CurrentPage.Parameters.loginPage))}"
+                    >
+                        <div style="col-md-3">
+                            <button href="{!$CurrentPage.Parameters.loginPage}" class="btn-lg btn btn-primary">
+                                {!$Label.Back_To_Login}
+                            </button>
+                        </div>
+                    </apex:outputPanel>
+                </div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Saved_Payment_Method__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to the Payment Method that will be used/has been used for the Schedule Payment.</description>
+    <inlineHelpText>Link to the Payment Method that will be used/has been used for the Schedule Payment.</inlineHelpText>
+    <label>Payment Method</label>
+    <referenceTo>OrderApi__Payment_Method__c</referenceTo>
+    <relationshipLabel>Scheduled Payment Methods</relationshipLabel>
+    <relationshipName>Scheduled_Payments_Methods</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

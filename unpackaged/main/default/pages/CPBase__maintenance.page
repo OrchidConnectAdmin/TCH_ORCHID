@@ -1,0 +1,30 @@
+<apex:page showHeader="false"
+  standardStylesheets="false"
+  docType="html-5.0"
+  applyHtmlTag="false"
+  applyBodyTag="false"
+  title="{!$Label.CPBase__MaintenanceTitle}"
+  controller="CPBase.ErrorController">
+
+  <apex:composition template="CPBase__error_template">
+    <apex:define name="title">
+      <apex:outputPanel rendered="{!siteObj != null && !ISBLANK(siteObj.Maintenance_Title__c) }">
+        {!siteObj.CPBase__Maintenance_Title__c}
+      </apex:outputPanel>
+      <apex:outputPanel rendered="{!siteObj == null || ISBLANK(siteObj.Maintenance_Title__c) }">
+        {!$Label.CPBase__MaintenanceTitle}
+      </apex:outputPanel>
+    </apex:define>
+    <apex:define name="error">
+      5<i class="btr bt-times-circle"></i><i class="btr bt-times-circle"></i>/5<i class="btr bt-times-circle"></i>3
+    </apex:define>
+    <apex:define name="description">
+      <apex:outputPanel rendered="{!siteObj != null && !ISBLANK(siteObj.Maintenance_Description__c) }">
+        <apex:outputField value="{!siteObj.CPBase__Maintenance_Description__c}"/>
+      </apex:outputPanel>
+      <apex:outputPanel rendered="{!siteObj == null || ISBLANK(siteObj.Maintenance_Description__c) }">
+        {!$Label.CPBase__MaintenanceDescription}
+      </apex:outputPanel>
+    </apex:define>
+  </apex:composition>
+</apex:page>

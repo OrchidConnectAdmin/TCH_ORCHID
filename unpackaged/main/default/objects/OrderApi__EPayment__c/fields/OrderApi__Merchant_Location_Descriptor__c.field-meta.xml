@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Merchant_Location_Descriptor__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** The merchant location descriptor returned in the e-payment api transaction response.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>**System Calculated** The merchant location descriptor returned in the e-payment api transaction response.</inlineHelpText>
+    <label>Merchant Location Descriptor</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

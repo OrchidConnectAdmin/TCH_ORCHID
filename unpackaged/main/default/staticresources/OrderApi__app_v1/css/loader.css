@@ -1,0 +1,190 @@
+/**
+ * Fonteva Base UI
+ * ===============
+ * loader.css
+ * ---------------
+ * {!URLFOR($Resource.baseui,'css/loader.css')}
+ *
+ * Styles for the loading animation used to visually indicate
+ * the status of ajax requests made to the server.
+ */
+#floatingCirclesG{
+position:relative;
+width:176px;
+height:176px;
+-moz-transform:scale(0.6);
+-webkit-transform:scale(0.6);
+-ms-transform:scale(0.6);
+-o-transform:scale(0.6);
+transform:scale(0.6);
+}
+
+.f_circleG{
+position:absolute;
+background-color:#006FA3;
+height:32px;
+width:32px;
+-moz-border-radius:16px;
+-moz-animation-name:f_fadeG;
+-moz-animation-duration:0.96s;
+-moz-animation-iteration-count:infinite;
+-moz-animation-direction:linear;
+-webkit-border-radius:16px;
+-webkit-animation-name:f_fadeG;
+-webkit-animation-duration:0.96s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-direction:linear;
+-ms-border-radius:16px;
+-ms-animation-name:f_fadeG;
+-ms-animation-duration:0.96s;
+-ms-animation-iteration-count:infinite;
+-ms-animation-direction:linear;
+-o-border-radius:16px;
+-o-animation-name:f_fadeG;
+-o-animation-duration:0.96s;
+-o-animation-iteration-count:infinite;
+-o-animation-direction:linear;
+border-radius:16px;
+animation-name:f_fadeG;
+animation-duration:0.96s;
+animation-iteration-count:infinite;
+animation-direction:linear;
+}
+
+#frotateG_01{
+left:0;
+top:72px;
+-moz-animation-delay:0.36s;
+-webkit-animation-delay:0.36s;
+-ms-animation-delay:0.36s;
+-o-animation-delay:0.36s;
+animation-delay:0.36s;
+}
+
+#frotateG_02{
+left:21px;
+top:21px;
+-moz-animation-delay:0.48s;
+-webkit-animation-delay:0.48s;
+-ms-animation-delay:0.48s;
+-o-animation-delay:0.48s;
+animation-delay:0.48s;
+}
+
+#frotateG_03{
+left:72px;
+top:0;
+-moz-animation-delay:0.6s;
+-webkit-animation-delay:0.6s;
+-ms-animation-delay:0.6s;
+-o-animation-delay:0.6s;
+animation-delay:0.6s;
+}
+
+#frotateG_04{
+right:21px;
+top:21px;
+-moz-animation-delay:0.72s;
+-webkit-animation-delay:0.72s;
+-ms-animation-delay:0.72s;
+-o-animation-delay:0.72s;
+animation-delay:0.72s;
+}
+
+#frotateG_05{
+right:0;
+top:72px;
+-moz-animation-delay:0.84s;
+-webkit-animation-delay:0.84s;
+-ms-animation-delay:0.84s;
+-o-animation-delay:0.84s;
+animation-delay:0.84s;
+}
+
+#frotateG_06{
+right:21px;
+bottom:21px;
+-moz-animation-delay:0.96s;
+-webkit-animation-delay:0.96s;
+-ms-animation-delay:0.96s;
+-o-animation-delay:0.96s;
+animation-delay:0.96s;
+}
+
+#frotateG_07{
+left:72px;
+bottom:0;
+-moz-animation-delay:1.08s;
+-webkit-animation-delay:1.08s;
+-ms-animation-delay:1.08s;
+-o-animation-delay:1.08s;
+animation-delay:1.08s;
+}
+
+#frotateG_08{
+left:21px;
+bottom:21px;
+-moz-animation-delay:1.2s;
+-webkit-animation-delay:1.2s;
+-ms-animation-delay:1.2s;
+-o-animation-delay:1.2s;
+animation-delay:1.2s;
+}
+
+@-moz-keyframes f_fadeG{
+0%{
+background-color:#00D4F0}
+
+100%{
+background-color:#006FA3}
+
+}
+
+@-webkit-keyframes f_fadeG{
+0%{
+background-color:#00D4F0}
+
+100%{
+background-color:#006FA3}
+
+}
+
+@-ms-keyframes f_fadeG{
+0%{
+background-color:#00D4F0}
+
+100%{
+background-color:#006FA3}
+
+}
+
+@-o-keyframes f_fadeG{
+0%{
+background-color:#00D4F0}
+
+100%{
+background-color:#006FA3}
+
+}
+
+@keyframes f_fadeG{
+0%{
+background-color:#00D4F0}
+
+100%{
+background-color:#006FA3}
+
+}
+
+#loader.fonteva-status-container {
+	position: absolute !important;
+	top: 0;
+	bottom: 0;
+	right: 50%;
+	bottom: 50%;
+	display: block;
+	z-index: 99;
+	width: 100%!important;
+	height: 100%!important;
+	background-color:rgba(255,255,255,0.20)!important;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Payment_Method_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** The payment method type used for the api transaction.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>**System Calculated** The payment method type used for the api transaction.</inlineHelpText>
+    <label>Payment Method Type</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

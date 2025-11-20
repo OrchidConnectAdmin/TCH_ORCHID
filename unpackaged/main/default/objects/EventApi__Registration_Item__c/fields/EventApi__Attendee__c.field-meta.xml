@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Attendee__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** Master-detail link to the related Attendee.</description>
+    <inlineHelpText>** Required ** Master-detail link to the related Attendee.</inlineHelpText>
+    <label>Attendee</label>
+    <referenceTo>EventApi__Attendee__c</referenceTo>
+    <relationshipLabel>Registration Items</relationshipLabel>
+    <relationshipName>Registration_Items</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>true</writeRequiresMasterRead>
+</CustomField>

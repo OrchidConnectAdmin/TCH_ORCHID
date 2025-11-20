@@ -1,0 +1,37 @@
+<apex:page id="create_refund" showHeader="true" sidebar="false" docType="html-5.0">
+<!--    Create Refund page is deprecated and logic moved to LTE.  Repurposed this page to display deprecated messages-->
+<!--    about no longer used layout buttons instead of using javascript which is not salesforce security compliant.-->
+
+    <apex:slds />
+    <div class="demo-only" style="height:4rem">
+        <div class="slds-notify_container slds-is-relative">
+            <div class="slds-notify slds-notify_toast slds-theme_warning" role="status">
+                <span class="slds-assistive-text">warning</span>
+                <span class="slds-icon_container slds-icon-utility-warning slds-m-right_small slds-no-flex slds-align-top"
+                      title="Description of icon when needed">
+                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                             xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#warning')}"/>
+                    </svg>
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small" id="deprecateMessage"></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-align_absolute-center">
+        <button class="slds-button slds-button_brand" onclick='window.history.back()'>
+            Go Back
+        </button>
+    </div>
+    <script>
+        const button = '{!JSENCODE($CurrentPage.Parameters.button)}';
+        let element = document.getElementById("deprecateMessage");
+        if(button){
+            element.textContent = `This button is deprecated. Remove from layout and add new ${button} button.`;
+        }else{
+            element.textContent = `This page is deprecated.`;
+        }
+    </script>
+</apex:page>

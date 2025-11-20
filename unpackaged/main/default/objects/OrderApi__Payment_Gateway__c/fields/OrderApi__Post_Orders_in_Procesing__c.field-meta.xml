@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Post_Orders_in_Procesing__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If selected, the offsite payment which have not been funded yet will be posted.</description>
+    <inlineHelpText>If selected, the offsite payment which have not been funded yet will be posted.</inlineHelpText>
+    <label>Post Orders in Processing</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Contact__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Conditionally Required ** Link to the subscribing Contact. Required if the Subscription &quot;Subscribing Entity&quot; is &quot;Contact&quot;. Defaults to the same Contact assigned to the Sales Order Line that created the Subscription.</description>
+    <inlineHelpText>** System Calculated Conditionally Required ** Link to the subscribing Contact. Required if the Subscription &quot;Subscribing Entity&quot; is &quot;Contact&quot;. Defaults to the same Contact assigned to the Sales Order Line that created the Subscription.</inlineHelpText>
+    <label>Contact</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Subscriptions</relationshipLabel>
+    <relationshipName>Subscriptions</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

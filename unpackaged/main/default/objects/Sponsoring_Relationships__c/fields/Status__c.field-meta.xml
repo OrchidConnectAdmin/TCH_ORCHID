@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Application in Process</fullName>
+                <default>true</default>
+                <label>Application in Process</label>
+            </value>
+            <value>
+                <fullName>Submitted to Sponsored Org Account for Review</fullName>
+                <default>false</default>
+                <label>Submitted to Sponsored Org Account for Review</label>
+            </value>
+            <value>
+                <fullName>Submitted to Sponsoring Account for Final Review</fullName>
+                <default>false</default>
+                <label>Submitted to Sponsoring Org for Final Review</label>
+            </value>
+            <value>
+                <fullName>Final Approval by Sponsor</fullName>
+                <default>false</default>
+                <label>Final Approval by Sponsor</label>
+            </value>
+            <value>
+                <fullName>Final Review by ECCHO Staff</fullName>
+                <default>false</default>
+                <label>Final Review by ECCHO Staff</label>
+            </value>
+            <value>
+                <fullName>Active</fullName>
+                <default>false</default>
+                <label>Active</label>
+            </value>
+            <value>
+                <fullName>Pending Drop</fullName>
+                <default>false</default>
+                <label>Pending Drop</label>
+            </value>
+            <value>
+                <fullName>Expired/Terminated</fullName>
+                <default>false</default>
+                <label>Expired/Terminated</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

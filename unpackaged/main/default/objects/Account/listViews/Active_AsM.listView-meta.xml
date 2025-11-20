@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_AsM</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Primary_R_T_Number__c</columns>
+    <columns>TCH_Membership_Type__c</columns>
+    <columns>Billing_Quarter__c</columns>
+    <columns>FON_Original_Member_Join_Date__c</columns>
+    <columns>Is_Sponsoring_Organization__c</columns>
+    <columns>Sponsored_Organization_Count__c</columns>
+    <columns>FON_AsM_PM_Tiered_Annual_Dues__c</columns>
+    <columns>Override_Annual_Dues__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>TCH_Membership_Type__c</field>
+        <operation>equals</operation>
+        <value>Associate Member</value>
+    </filters>
+    <label>Active AsM</label>
+</ListView>

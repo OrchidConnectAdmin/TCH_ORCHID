@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Display_Map__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked and the venue address is entered, displays a Google map on the event page as part of the venue information.</description>
+    <inlineHelpText>When checked and the venue address is entered, displays a Google map on the event page as part of the venue information.</inlineHelpText>
+    <label>Display Map</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

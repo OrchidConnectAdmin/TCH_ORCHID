@@ -1,0 +1,6 @@
+<apex:page showHeader="true" sidebar="false" docType="html-5.0" tabStyle="OrderApi__Sales_Order__c" standardController="OrderApi__Sales_Order__c" cache="false">
+  <c:lux_page >
+    <link href="https://s3.amazonaws.com/lux-dev/css/pages/shop.css" rel="stylesheet"/>
+    <c:shopping_cart soId="{!$CurrentPage.parameters.Id}"/>
+  </c:lux_page>
+</apex:page>

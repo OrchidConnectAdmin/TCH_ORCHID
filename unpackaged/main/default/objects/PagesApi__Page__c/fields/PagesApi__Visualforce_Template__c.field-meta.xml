@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Visualforce_Template__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** The Visualforce Page to use as the Template for the Page. Defaults to the value of the &quot;Default Visualforce Template&quot; configured for the related Site.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Required ** The Visualforce Page to use as the Template for the Page. Defaults to the value of the &quot;Default Visualforce Template&quot; configured for the related Site.</inlineHelpText>
+    <label>Visualforce Template</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

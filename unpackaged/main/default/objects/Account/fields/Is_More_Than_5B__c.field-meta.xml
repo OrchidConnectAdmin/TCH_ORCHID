@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_More_Than_5B__c</fullName>
+    <formula>IF(Total_Deposits__c &gt; 5000000000 &amp;&amp; Total_Deposits__c &lt;= 20000000000,true, false)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is More Than $5B</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

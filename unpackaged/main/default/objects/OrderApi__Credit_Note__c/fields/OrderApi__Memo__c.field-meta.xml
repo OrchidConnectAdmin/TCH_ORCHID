@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Memo__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Optional memo that will display on the credit note sent to the customer as well as on customer statements.</description>
+    <inlineHelpText>Optional memo that will display on the credit note sent to the customer as well as on customer statements.</inlineHelpText>
+    <label>Memo</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

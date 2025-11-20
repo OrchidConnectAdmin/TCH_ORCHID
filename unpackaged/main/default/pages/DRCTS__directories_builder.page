@@ -1,0 +1,56 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           standardController="DRCTS__Directories__c"
+           extensions="DRCTS.DirectoriesBuilderController"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           cache="false">
+  <apex:includeLightning />
+
+  <!-- Preloading scripts to avoid CORS issues -->
+  <!-- https://developer.salesforce.com/forums/?id=9062I000000BlHSQA0 -->
+  <apex:includeScript value="{!URLFOR($Resource.DRCTS__SLDS_BaseV2+'/js/scripts.min.js')}" />
+  <apex:includeScript value="{!URLFOR($Resource.DRCTS__SLDS_BaseV2+'/js/lodash.min.js')}" />
+  <apex:includeScript value="{!$Resource.Framework__UrlUtil}" />
+  <apex:includeScript value="{!URLFOR($Resource.DRCTS__Directories+'/Directories/FontevaStyler.js')}" />
+  <apex:includeScript value="{!URLFOR($Resource.DRCTS__FontevaHelper + '/FontevaHelper.js')}" />
+
+  <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.Framework__SLDS_Base,'css/styles.css')}"/>
+  <style>
+    div#auraErrorMessage {
+        display: none!important
+    }
+  </style>
+
+  <div id="lightning" class="hidden"/>
+
+  <div class="slds" id="drctsWrapper">
+    <div class="slds-grid slds-object-height--full slds-theme--shade">
+      <div class="slds-col slds-text-align--center slds-align-middle" >
+        <img src="{!URLFOR($Resource.Framework__SLDS_Base,'/img/spinners/slds_spinner_brand.gif')}" alt="saving" width="50" height="50" />&nbsp;
+        <span class="slds-text-heading--medium">{!$Label.Loading}</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var drctsId = '{!JSENCODE($CurrentPage.parameters.id)}';
+    if (window.location.hash.substring(1) != null && window.location.hash.substring(1).length > 0 && drctsId.length == 0) {
+        drctsId = window.location.hash.substring(1);
+    }
+    function componentLoaded() {
+        document.getElementById('drctsWrapper').classList.add('hidden');
+        document.getElementById('lightning').classList.remove('hidden');
+    }
+    $Lightning.use("{!Namespace}:DirectoriesBuilder", function() {
+        $Lightning.createComponent("{!Namespace}:DirectoriesBuilderTemplate",
+            {directoriesId : drctsId},
+            "lightning",
+            function(cmp) {
+                $A.eventService.addHandler({ "event": "{!Namespace}:ComponentLoadedEvent", "handler" : componentLoaded});
+            }
+        );
+    });
+  </script>
+</apex:page>

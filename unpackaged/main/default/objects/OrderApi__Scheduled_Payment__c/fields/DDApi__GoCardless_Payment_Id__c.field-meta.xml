@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__GoCardless_Payment_Id__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Direct Debit ** System Calculated ** Populates this field with GoCardless Payment Id, when Member Nation pings GoCardless.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Direct Debit ** System Calculated ** Populates this field with GoCardless Payment Id, when Member Nation pings GoCardless.</inlineHelpText>
+    <label>GoCardless Payment Id</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

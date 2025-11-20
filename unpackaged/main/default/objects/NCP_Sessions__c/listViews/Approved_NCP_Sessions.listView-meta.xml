@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved_NCP_Sessions</fullName>
+    <columns>NAME</columns>
+    <columns>Search_Date__c</columns>
+    <columns>Published__c</columns>
+    <columns>Provider_Name__c</columns>
+    <columns>Session_ID__c</columns>
+    <columns>Account__c</columns>
+    <columns>Application__c</columns>
+    <columns>Members_Only__c</columns>
+    <columns>Status__c</columns>
+    <columns>ECCHOEdu_Category__c</columns>
+    <columns>NCP_Training_Category__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Approved</value>
+    </filters>
+    <label>Approved NCP Sessions</label>
+</ListView>

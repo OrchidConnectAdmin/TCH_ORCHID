@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Site__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** Required ** Link to the Site which owns the Community Group.</description>
+    <inlineHelpText>** Required ** Link to the Site which owns the Community Group.</inlineHelpText>
+    <label>Site</label>
+    <referenceTo>PagesApi__Site__c</referenceTo>
+    <relationshipLabel>Community Groups</relationshipLabel>
+    <relationshipName>Community_Groups</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

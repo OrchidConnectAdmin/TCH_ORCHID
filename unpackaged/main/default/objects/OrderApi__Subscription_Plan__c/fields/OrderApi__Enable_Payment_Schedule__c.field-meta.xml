@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Enable_Payment_Schedule__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, subscribers will pay for subscriptions in installments - the frequency/amount is driven by the schedule options configuration fields. Defaults unchecked.</description>
+    <inlineHelpText>When checked, subscribers will pay for subscriptions in installments - the frequency/amount is driven by the schedule options configuration fields. Defaults unchecked.</inlineHelpText>
+    <label>DEPRECATED</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Manage_Payment_Methods_Contact</fullName>
+    <availability>online</availability>
+    <description>Display on the Contact related lists to manage payment methods linked to the contact record in context.</description>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Manage Payment Methods</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)}
+            window.open(&#39;{!$Site.Prefix}/apex/{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}payment_methods?customerid={!Contact.Id}&#39;);</url>
+</WebLink>

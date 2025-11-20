@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Billing_Country__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The value of this field will be updated with the Account&#39;s Billing Country or Contact&#39;s Mailing Country, based on &quot;Entity&quot; if not defined on record entry.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The value of this field will be updated with the Account&#39;s Billing Country or Contact&#39;s Mailing Country, based on &quot;Entity&quot; if not defined on record entry.</inlineHelpText>
+    <label>Billing Country</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

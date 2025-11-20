@@ -1,0 +1,7 @@
+Hello - {User} 
+
+ECCHO Invoicing has been submitted for your review and approval.
+
+Please proceed to https://cha.lightning.force.com/lightning/r/SO_Bundle__c/{!SO_Bundle__c.Id}/view
+
+Thank You.

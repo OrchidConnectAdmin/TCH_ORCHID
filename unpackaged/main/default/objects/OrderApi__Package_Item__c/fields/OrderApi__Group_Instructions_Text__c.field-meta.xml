@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Group_Instructions_Text__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Text that will display below the group label in the front end.</description>
+    <inlineHelpText>Text that will display below the group label in the front end.</inlineHelpText>
+    <label>Group Instructions</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

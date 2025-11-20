@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>37.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <label>error_template</label>
+    <packageVersions>
+        <majorNumber>121</majorNumber>
+        <minorNumber>4</minorNumber>
+        <namespace>EventApi</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>105</majorNumber>
+        <minorNumber>9</minorNumber>
+        <namespace>FDService</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>110</majorNumber>
+        <minorNumber>4</minorNumber>
+        <namespace>Framework</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>111</majorNumber>
+        <minorNumber>8</minorNumber>
+        <namespace>OrderApi</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>91</majorNumber>
+        <minorNumber>9</minorNumber>
+        <namespace>PagesApi</namespace>
+    </packageVersions>
+</ApexPage>

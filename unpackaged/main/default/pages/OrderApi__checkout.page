@@ -1,0 +1,457 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           action="{!checkUser}"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           cache="false"
+           controller="OrderApi.CheckoutController">
+	<apex:includeLightning />
+    <apex:composition template="PagesApi__default_template">
+        <apex:define name="head">
+            <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+            <meta http-equiv="Pragma" content="no-cache" />
+            <meta http-equiv="Expires" content="0" />
+        </apex:define>
+        <apex:define name="title">
+        {!Store.Name} {!$Label.OrderApi__Checkout}
+        </apex:define><!-- end: {def:title} -->
+        <apex:define name="styles">
+            <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.emerald_1_0,'css/pages/checkout.min.css')}"/>
+            <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.emerald_1_0,'css/pages/print.min.css')}"/>
+            <link rel="stylesheet" media="print" href="{!URLFOR($Resource.emerald_1_0,'css/pages/print.min.css')}"/>
+            <style>
+                .form-horizontal input[type=checkbox].create-account-checkbox {
+                    margin-top: 4px!important;
+                    min-height: 10px!important;
+                }
+                .htmlDetailElementTable tr {
+                    border: none!important;
+                }
+                @media print {
+                  .noprint { display: none!important; }
+                  .print { display: block!important; }
+                }
+                #transactionFrame {
+                    border: none;
+                }
+                .container .slds-modal .fonteva-input_spacing {
+                    flex-direction: column;
+                    display: flex;
+                }
+
+                .container .slds-modal .fonteva-input_spacing textarea {
+                    margin-bottom: 15px;
+                }
+            </style>
+        </apex:define>
+        <apex:define name="navbarProfileDropdownMenuItems">
+            <c:accessible_sites customerId="{!con.Id}"/>
+        </apex:define>
+        <apex:define name="navbarOverride">
+            <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(siteNav.Name))}">
+                <c:navlist name="{!siteNav.Name}"
+                           ulStyleClass="nav navbar-nav navbar-right open" contactId="{!con.Id}"/>
+            </apex:outputPanel>
+        </apex:define>
+        <apex:define name="main">
+            <apex:outputPanel id="errorPanel" rendered="{!hasError}">
+                <section class="error-404">
+                    <div class="container m-t-30">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="well text-center">
+                                    <h1>{!$Label.OrderApi__PageNotFoundTitle}</h1>
+                                    <p class="lead">{!$Label.OrderApi__PageNotFoundDescription}</p>
+                                    <Framework:messages />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </apex:outputPanel><!-- end: #errorPanel -->
+
+            <apex:outputPanel rendered="{!NOT(isSuccessful)}" layout="none" id="paymentError">
+                <div class="container m-t-10">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <Framework:messages />
+                            <c:epayment_result />
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel id="thePanel" rendered="{!NOT(hasError)}" layout="none">
+                <apex:outputPanel id="checkoutPanel" rendered="{!AND(NOT(isSuccessful), NOT(offsiteProcessing))}" layout="none">
+                    <div class="container m-t-30" id="checkout">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-7" id="checkout-form-wrapper">
+
+                                <!-- =========== L E F T   P A N E L S ========= -->
+                                <apex:outputPanel id="login-payment-panel" layout="none">
+                                    <apex:outputPanel layout="none" rendered="{!AND(OR(signedInAsGuest,signedInAsUser),IsZeroPricePriceFinal)}">
+                                        <div id="checkout-summary-component-wrapper">
+                                            <c:checkout_summary salesOrderId="{!salesOrderId}"/>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <script type="text/javascript">
+                                        var IsZeroDollarSalesOrder = {!IsZeroDollarSalesOrder};
+
+                                        $(document).ready(function() {
+                                            if ({!hasShippingItem}) {
+                                                IsZeroDollarSalesOrder = {!IsZeroPricePriceFinal};
+                                            }
+                                        });
+                                    </script>
+
+                                    <!-- LOGIN -->
+                                    <apex:outputPanel id="login-component-wrapper" rendered="{!NOT(signedInAsUser) && NOT(signedInAsGuest)}" layout="none">
+                                        <c:login contactMatchingField="{!store.OrderApi__Contact_Match_Custom_Field__c}"
+                                                 contactMatchingFieldName="{!contactMatchingFieldName}"
+                                                 guestCheckoutEnabled="{!enableGuestCheckout}"
+                                                 defaultCheckoutScreen="{!store.OrderApi__Default_Checkout__c}"
+                                                 pgController="{!this}"
+                                                 componentId="{!userlogincomkey}"
+                                                 contactfieldcsv="{!store.OrderApi__New_Contact_Fieldset_CSV__c}"
+                                                 requireContactMatchField="{!store.OrderApi__Require_Contact_Match_Custom_Field__c}"/>
+                                    </apex:outputPanel><!-- end: #login-component-wrapper -->
+                                    <!-- /LOGIN -->
+                                    <!-- NO SALES ORDER LINES -->
+                                    <apex:outputPanel id="noSalesOrderLines" rendered="{!AND(OR(signedInAsGuest,signedInAsUser),hasNoSalesOrderLines)}" layout="none">
+                                        <div class="panel">
+                                            <div class="panel-heading bg-info">
+                                                <h5 class="panel-title">
+                                                    <apex:outputText >{!HTMLENCODE($Label.OrderApi__No_Items_In_Cart_Heading)}</apex:outputText>
+                                                </h5>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12 text-center p-t-10 p-b-25">
+                                                        <apex:outputText >{!HTMLENCODE($Label.OrderApi__No_Items_In_Cart_Body)}</apex:outputText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel><!-- END: NO SALES ORDER LINES -->
+
+
+                                    <!-- PROFORMA INFO-->
+                                    <apex:outputPanel id="proforma" rendered="{!AND(isProforma,OR(signedInAsGuest,signedInAsUser),NOT(IsZeroPricePriceFinal),NOT(hasNoSalesOrderLines))}" layout="none">
+                                        <div class="panel">
+                                            <div class="panel-heading bg-info">
+                                                <h5 class="panel-title">
+                                                    <apex:outputText >{!$Label.OrderApi__Checkout_Proforma_Title}</apex:outputText>
+                                                </h5>
+                                            </div>
+
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <h4 style="text-align: center;"><apex:outputText >{!$Label.Checkout_Proforma_Text} : #{!salesOrder.Name}</apex:outputText></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <!-- /PROFORMA INFO-->
+
+
+
+                                    <!-- SHIPPING AND BILLING -->
+                                    <apex:outputPanel id="shippingAndBilling" rendered="{!AND(OR(signedInAsGuest,signedInAsUser),Not(IsZeroPricePriceFinal),NOT(hasNoSalesOrderLines))}" layout="none">
+                                      <div class="panel-heading bg-info">
+                                        <h5 class="panel-title">
+                                          <apex:outputText rendered="{!hasShippingItem}"> {!$Label.OrderApi__Shipping_Payment_Information}</apex:outputText>
+                                          <apex:outputText rendered="{!NOT(hasShippingItem)}">{!$Label.OrderApi__Payment_Information}</apex:outputText>
+                                        </h5>
+                                      </div>
+
+                                      <div class="panel-body">
+                                        <apex:outputPanel rendered="{!knownAddressEnabled}" layout="none">
+                                          <div class="slds" id="knownAddress"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!NOT(knownAddressEnabled)}" layout="none">
+                                            <div class="row">
+                                              <div class="col-sm-12">
+                                                <div class="nav" id="accordionCheckout">
+
+                                                  <apex:outputPanel rendered="{!OR(hasShippingItem,hasTaxableItem)}" id="shippingPanel" layout="none">
+                                                    <c:checkout_shipping />
+                                                  </apex:outputPanel> <!-- /#shippingPanel -->
+
+
+                                                  <apex:outputPanel id="paymentPanel" layout="none">
+
+                                                    <div class="panel m-b-5">
+                                                      <apex:outputPanel rendered="{!OR(hasShippingItem,hasTaxableItem)}">
+                                                        <a id="paymentaccordion" data-toggle="collapse" data-parent="#accordionCheckout" href="#checkout2" class="rotate-180-animate title" aria-expanded="true" aria-controls="checkout2" role="button">
+                                                          <div class="panel-heading bg-gray-lighter">
+                                                            <h5 class="panel-title">
+																															{!$Label.Payment} <i class="btb bt-angle-down bt-fw pull-right"></i>
+                                                            </h5>
+                                                          </div>
+                                                        </a>
+                                                      </apex:outputPanel>
+
+                                                      <div id="checkout2" class="p-l-15 p-r-15 collapse " aria-expanded="false">
+                                                        <c:epayment signedInAsUser="{!signedInAsUser}"
+                                                                    gatewayToken="{!sGatewayToken}" store="{!store}"
+                                                                    salesOrder="{!salesOrder}" epayment="{!epayment}" customerId="{!customerId}" redirectUrl="{!redirectURL}"
+                                                                    hide_save_payment="{!canSavePaymentMethod}"
+                                                                    has_payment_error="{!hasPaymentError}"
+                                                                    isEpayment="{!isEpayment}"
+                                                                    requireSavePaymentMethod="{!requireSavePaymentMethod}"/>
+                                                      </div> <!-- #checkout2 -->
+                                                    </div> <!-- / .panel m-b-5 -->
+                                                  </apex:outputPanel><!-- /#paymentPanel -->
+
+                                                </div> <!-- / #accordionCheckout -->
+                                              </div> <!-- / .col-sm-12 -->
+                                            </div> <!-- / .row -->
+
+                                        </apex:outputPanel>
+                                      </div>
+
+                                    </apex:outputPanel>
+                                    <!-- / SHIPPING AND BILLING -->
+
+                                </apex:outputPanel>
+                                <!-- /=========== L E F T   P A N E L S ========= -->
+
+                            </div><!-- end: #checkout-form-wrapper -->
+
+
+                            <!-- =========== R I G H T   P A N E L S ========= -->
+                            <div class="col-md-6 col-lg-5 row">
+                                <apex:outputPanel layout="none" rendered="{!AND(NOT(IsZeroPricePriceFinal),isOrder)}">
+                                    <div id="checkout-summary-component-wrapper" class="col-sm-5 col-sm-push-7 col-md-12 col-md-push-0">
+                                        <c:checkout_summary salesOrderId="{!salesOrderId}"/>
+                                    </div>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel layout="none" rendered="{!isOrder}">
+                                    <div id="order-summary-component-wrapper" class="col-sm-7 col-sm-pull-5 col-md-12 col-md-pull-0">
+                                        <c:order_summary pgController="{!this}"
+                                                         componentId="{!orderSummaryComKey}"
+                                                         subjectId="{!salesOrder.Id}"
+                                                         pageRerenderPanels="creditcardPanelWrapper,echeckPanelWrapper"
+                                                         totalLabel="{!$ObjectType.OrderApi__Sales_Order_Line__c.Fields.OrderApi__Total__c.Label}"
+                                                         cartHeader="{!$Label.OrderApi__Checkout}"/>
+                                    </div><!-- end: #order-summary-component-wrapper -->
+                                </apex:outputPanel>
+
+                                <apex:outputPanel layout="none" rendered="{!isEpayment}">
+                                    <div id="invoice-summary-component-wrapper">
+                                        <c:invoice_summary pgController="{!this}"
+                                                           componentId="{!orderSummaryComKey}"
+                                                           subjectId="{!epayment.Id}"
+                                                           pageRerenderPanels="creditcardPanelWrapper,echeckPanelWrapper"
+                                                           totalLabel="{!$ObjectType.OrderApi__Receipt_Line__c.Fields.OrderApi__Total__c.Label}"
+                                                           cartHeader="{!$Label.OrderApi__Checkout}"/>
+                                    </div><!-- end: #invoice-summary-component-wrapper -->
+                                </apex:outputPanel>
+                            </div>
+                            <!-- =========== R I G H T   P A N E L S ========= -->
+
+                        </div>
+                    </div><!-- end: #checkout -->
+
+
+                </apex:outputPanel><!-- end: #checkoutPanel -->
+
+                <apex:outputPanel rendered="{!isSuccessful}" id="epayment-success-message">
+                    <div class="container bg-white print" id="success_confirmation_message">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="well">
+                                    <div class="col-xs-12">
+                                      <apex:outputField value="{!store.OrderApi__Payment_Confirmation_Message_HTML__c}" id="success_confirmation_field"/>
+                                    </div>
+                                    <apex:outputPanel rendered="{!AND(isInvoiced, NOT(ISNULL(invoiceId)))}" layout="none">
+                                      <iframe src="{!URLFOR($Page.web_invoice)}?id={!JSENCODE(invoiceId)}&language={!isoLanguage}" title="Invoice" scrolling="no" scroll="false" id="transactionFrame" border="none" width="100%" frameborder="none" onload="em.setFrameHeight(this);"></iframe>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!AND(NOT(ISNULL(receiptId)), OR(NOT(isInvoiced), ISNULL(invoiceId)))}" layout="none">
+                                        <iframe src="{!URLFOR($Page.receipt)}?id={!JSENCODE(receiptId)}&language={!isoLanguage}" title="Receipt" scrolling="no" scroll="false" id="transactionFrame" border="none" width="100%" frameborder="none" onload="em.setFrameHeight(this);"></iframe>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!AND(ISNULL(receiptId), OR(NOT(isInvoiced), ISNULL(invoiceId)))}" layout="none">
+                                        <iframe src="{!URLFOR($Page.proforma_invoice_email_pdf)}?soid={!JSENCODE(salesOrderId)}&language={!isoLanguage}" title="Invoice" id="transactionFrame" border="none" width="100%" height="400px" frameborder="none" ></iframe>
+                                    </apex:outputPanel>
+                                  <div class="col-xs-12 text-center m-b-30">
+                                    <button class="btn btn-default noprint" id="printInvoice"><i class="btr bt-print m-r-5"></i>Print</button>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </apex:outputPanel><!-- end: #epayment-success-message -->
+
+                <apex:outputPanel rendered="{!offsiteProcessing}" id="epayment-process-message">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12 col-sm-12 p-h-25 p-v-50 bg-white">
+                                <div class="row">
+                                    <div class="col-sm-12 text-center p-b-15">
+                                        <i class="fa fa-check-circle fa-5x text-success" aria-hidden="true"></i>
+                                    </div>
+                                    <apex:outputPanel rendered="{!NOT(achPayment)}">
+                                        <div class="col-sm-12 text-center p-b-15" >
+                                            <span class="h3">{!$Label.Order_In_Processing}</span>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!achPayment}">
+                                        <div class="col-sm-12 text-center p-b-15" >
+                                            <span class="h3">{!achConfirmationMessage}</span>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <div class="col-sm-12 text-center p-b-15">
+                                        {!$ObjectType.OrderApi__Sales_Order__c.label} #<apex:outputText value="{!salesOrder.Name}" />
+                                    </div>
+                                    <div class="col-sm-12 text-center">
+                                        <apex:outputPanel rendered="{!NOT(ISBLANK(backToURL))}">
+                                            <button class="btn btn-success" id="returnToStore">
+                                                {!$Label.OrderApi__Continue}
+                                            </button>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </apex:outputPanel><!-- end: #epayment-success-message -->
+            </apex:outputPanel><!-- end: #thePanel -->
+        </apex:define><!-- end: {def:main} -->
+        <apex:define name="scripts">
+            <script type="text/javascript">
+                $(document).ready(function(event){
+                    $('#wrapper').before($('#success_confirmation_message'));
+                    $('#wrapper').addClass('noprint');
+                });
+                $(document).on('click','#printInvoice',function(event){
+                    event.preventDefault();
+                    var printWindow = window.open('','','width=2,height=2,top=300,left=800,toolbar=no,menubar=no,scrollbars=no,location=no,directories=no');
+                    var printContent = $('iframe#transactionFrame').contents().find("body").html();
+                    var printCSS = 'font-family: "Helvetica+Neue", Arial, sans-serif !important; padding: 0px; margin: 0px;';
+                    var printHTML = "<html><body style='"+ printCSS + "'><style>.print-button, body { display: none } @media print { body { display: inherit } }</style>" + printContent + "</body></html>";
+                    printWindow.document.write(printHTML);
+                    setTimeout(function () {
+                        printWindow.focus();
+                        printWindow.print();
+                        if (printWindow.stop()) {
+                            printWindow.reload();
+                            printWindow.stop();
+                        }
+                        printWindow.close();
+                    }, 500);
+                });
+
+                $(document).on('click','#returnToStore',function(event){
+                    event.preventDefault();
+                    window.location.href = "{!backToURL}";
+                });
+
+                $('.pmbtnLoader').attr('data-style', 'zoom-in').addClass('ladda-button');
+
+                if({!hasShippingItem} || {!hasTaxableItem}) {
+                $('#paymentaccordion').addClass('collapsed');
+                }
+                if({!NOT(hasShippingItem)} || {!NOT(hasTaxableItem)}) {
+                $('#checkout2').addClass('in');
+                }
+
+                $(document).on('submit', '#checkout #credit_card_form', function (e) {
+                    em.loader.start(document.querySelector('#checkout #credit_card_form #submit'));
+                    return true;
+                });
+                $(document).on('submit', '#checkout #bank_account_form', function (e) {
+                    em.loader.start(document.querySelector('#checkout #bank_account_form #submit'));
+                    return true;
+                });
+                $(document).on('click', '.pmbtnLoader', function (e) {
+                    em.loader.start(this);
+                });
+                 window.onload = function() {
+    var history_api = typeof history.pushState !== 'undefined';
+
+    if (location.hash === '#no-back') {
+        if (history_api) {
+            history.pushState(null, '', '#stay');
+        } else {
+            location.hash = '#stay';
+        }
+    }
+
+    window.addEventListener('popstate', function(event) {
+        if (location.hash === '#stay') {
+            if (history_api) {
+                history.back();
+            } else {
+                location.hash = '#no-back';
+            }
+        }
+    });
+}
+            </script>
+        </apex:define>
+        <apex:define name="cookiePrompt">
+            <div id="cookiePrompt"/>
+        </apex:define>
+    </apex:composition>
+	<script>
+        $(document).ready(function(){
+            if (document.getElementById('knownAddress')) {
+                $Lightning.use("{!namespace}:CheckoutAddressApp", function () {
+                    $Lightning.createComponent("{!namespace}:CheckoutWrapper",
+                        {
+                            storeId : '{!store.Id}',
+                            epaymentJSON : '{!JSENCODE(epaymentObj)}',
+                            showProformaPayment:{!AND(store.OrderApi__Enable_Proforma_Invoice_Payment_Option__c,NOT(isEpayment))},
+                            showOfflinePayment: {!AND(store.OrderApi__Enable_Invoice_Payment_Option__c,NOT(isEpayment))},
+                            offsiteRedirectUrl: window.location.href,
+                            postbackRedirectUrl: window.location.href,
+                            salesOrderJSON: '{!JSENCODE(salesOrderObj)}',
+                            redirectUrl: '{!JSENCODE(redirectUrl)}' + '&salesorder=' + encodeURIComponent('{!JSENCODE(salesOrderId)}'),
+                            salesOrderId: "{!JSENCODE(salesOrderId)}",
+                            customerId: "{!JSENCODE(customerId)}",
+                            environmentKey : "{!JSENCODE(environmentKey)}",
+                            iFrameStyles: '.slds .slds-form-element__label {color: '+text_color+';font-weight: 700;font-size: 14px; font-family:Proxima-Nova,“Helvetica Neue”,Helvetica,Arial,sans-serif }'
+                        },
+                        "knownAddress",
+                        function (cmp) {
+                            $A.eventService.addHandler({"event": "{!namespace}:SalesOrderUpdateEvent", "handler": updateSummary});
+                        });
+                    $Lightning.createComponent("PagesApi:CookieUsagePrompt",
+                        {
+                            site : '{!JSENCODE(siteId)}',
+                            contact : '{!JSENCODE(customerId)}',
+                            isGuest : {!ISPICKVAL($User.UserType,'Guest')}
+                        },
+                        "cookiePrompt",
+                        function (cmp) {
+
+                        });
+                });
+
+                function updateSummary(event) {
+                    checkoutSummary.loadTotals();
+                }
+            }
+            else {
+                $(document).ready(function(){
+                    $Lightning.use("{!namespace}:CustomPaymentTypeApp", function () {
+                        $Lightning.createComponent("PagesApi:CookieUsagePrompt",
+                            {
+                                site : '{!JSENCODE(siteId)}',
+                                contact : '{!JSENCODE(customerId)}',
+                                isGuest : {!ISPICKVAL($User.UserType,'Guest')}
+                            },
+                            "cookiePrompt",
+                            function (cmp) {
+
+                            });
+                    });
+                });
+            }
+        });
+    </script>
+</apex:page>

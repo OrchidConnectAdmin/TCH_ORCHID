@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Entity__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required** Select &quot;Account&quot; if the invoice should be billed to the related account, select &quot;Contact&quot; if the invoice should be sent to the related &quot;Contact&quot;.</description>
+    <inlineHelpText>**Required** Select &quot;Account&quot; if the invoice should be billed to the related account, select &quot;Contact&quot; if the invoice should be sent to the related &quot;Contact&quot;.</inlineHelpText>
+    <label>Entity</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account</fullName>
+                <default>true</default>
+                <label>Account</label>
+            </value>
+            <value>
+                <fullName>Contact</fullName>
+                <default>false</default>
+                <label>Contact</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

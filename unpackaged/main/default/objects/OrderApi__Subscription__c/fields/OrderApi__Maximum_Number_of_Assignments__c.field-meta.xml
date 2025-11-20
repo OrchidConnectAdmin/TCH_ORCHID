@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Maximum_Number_of_Assignments__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Required Override ** The maximum number of &quot;Assignments&quot; aka &quot;Subscribers&quot; allowed for &quot;Assignment&quot; against the Subscription is derived from the related &quot;Subscription&quot; Item &quot;Maximum Number of Assignments&quot; field.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** System Calculated Required Override ** The maximum number of &quot;Assignments&quot; aka &quot;Subscribers&quot; allowed for &quot;Assignment&quot; against the Subscription is derived from the related &quot;Subscription&quot; Item &quot;Maximum Number of Assignments&quot; field.</inlineHelpText>
+    <label>zDEPRACATED</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

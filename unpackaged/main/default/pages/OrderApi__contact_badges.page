@@ -1,0 +1,46 @@
+<apex:page id="contact_badges" standardController="Contact" extensions="OrderApi.ContactBadgesController">
+    <apex:form >
+      <apex:pageBlock title="{!$Label.OrderApi__Badge_Badges_Label}">
+        <apex:pageBlockButtons location="TOP">
+          <apex:commandLink value="{!$Label.OrderApi__Badge_New_Badge_Label}" action="{!newBadge}" target="_top" styleClass="btn" rendered="{!$User.UIThemeDisplayed != 'Theme4d'}"
+                            style="text-decoration:none;padding:4px;"/>
+        </apex:pageBlockButtons>
+        <apex:pageBlockTable value="{!badges}" var="bg">
+          <apex:column headerValue="{!$Label.OrderApi__Badge_Action_Label}" styleClass="actionColumn"
+                       rendered="{!$User.UIThemeDisplayed != 'Theme4d'}">
+            <apex:outputLink value="{!URLFOR($Action.OrderApi__Badge__c.Edit,bg.bg.Id,[retURL='/' + Contact.Id])}" target="_top"
+                             styleclass="actionLink">{!$Label.OrderApi__Badge_Edit_Label}</apex:outputLink>
+            |&nbsp;
+            <apex:outputLink value="{!URLFOR($Action.OrderApi__Badge__c.Delete,bg.bg.Id,[retURL='/' + Contact.Id])}"
+                             target="_top" styleclass="actionLink">{!$Label.OrderApi__Badge_Del_Label}</apex:outputLink>
+          </apex:column>
+          <apex:column headerValue="{!$Label.OrderApi__Badge_NAME_Label}">
+            <!-- SECURITY REVIEW FALSE POSITIVE: -->
+            <!-- The 'Badge_Type_Icon__c' field should not be escaped because it is a formula field that returns an <img> element -->
+            <apex:outputText value="{!bg.bg.OrderApi__Badge_Type_Icon__c}" escape="false"/>
+          </apex:column>
+          <apex:column value="{!bg.reference}" headervalue="{!$Label.OrderApi__Badge_Relationship_Label}"/>
+          <apex:column headerValue="{!$Label.OrderApi__Badge_ACCOUNT_Label}">
+            <apex:outputLink value="/{!bg.bg.OrderApi__Account__c}" target="_blank">
+              {!bg.bg.Account__r.Name}
+            </apex:outputLink>
+          </apex:column>
+          <apex:column value="{!bg.bg.OrderApi__Awarded_Date__c}" headerValue="{!$Label.OrderApi__Badge_AWARDED_Label}"/>
+          <apex:column value="{!bg.bg.OrderApi__Expired_Date__c}" headerValue="{!$Label.OrderApi__Badge_EXPIRES_Label}"/>
+          <apex:column value="{!bg.bg.OrderApi__Engagement_Score__c}" headerValue="{!$Label.OrderApi__Badge_ENGAGEMENT_SCORE_Label}"/>
+        </apex:pageBlockTable>
+        <div class="pShowMore">
+          <apex:outputPanel rendered="{!viewAll}">
+            <apex:outputLink value="/{!Contact.Id}">
+                    {!$Label.OrderApi__Badge_Go_Back_Label}
+            </apex:outputLink>
+          </apex:outputPanel>
+          <apex:outputPanel rendered="{!hasMore}">
+            <apex:outputLink value="{!$Page.OrderApi__contact_badges}?id={!Contact.Id}&viewAll=true" target="_top">
+                    {!$Label.OrderApi__Badge_View_All_Label}
+            </apex:outputLink>
+          </apex:outputPanel>
+        </div>
+      </apex:pageBlock>
+    </apex:form>
+</apex:page>

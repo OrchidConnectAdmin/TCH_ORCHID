@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__Direct_Debit_API_Service_Connection__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Direct Debit ** API Service Connection Name for the GoCardless Connection for making future callouts to this Business Group</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Direct Debit ** API Service Connection Name for the GoCardless Connection for making future callouts to this Business Group</inlineHelpText>
+    <label>Direct Debit API Service Connection</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

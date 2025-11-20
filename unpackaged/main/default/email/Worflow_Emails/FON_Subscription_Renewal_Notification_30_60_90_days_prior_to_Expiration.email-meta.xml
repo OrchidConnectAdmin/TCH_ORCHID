@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This is a standard template for subscription renewal reminders 30, 60, and 90 days prior to expiration.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>FON - Subscription - Renewal Notification 30, 60, 90 days prior to Expiration</name>
+    <style>none</style>
+    <subject>Don&#39;t forget to renew your Subscription!</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

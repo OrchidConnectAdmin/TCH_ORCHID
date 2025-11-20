@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Form__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to a form created in the &quot;Form Builder&quot; app. Customers will see the form when they select the ticket type.</description>
+    <inlineHelpText>Link to a form created in the &quot;Form Builder&quot; app. Customers will see the form when they select the ticket type.</inlineHelpText>
+    <label>Ticket Type Form</label>
+    <referenceTo>PagesApi__Form__c</referenceTo>
+    <relationshipLabel>Ticket Types</relationshipLabel>
+    <relationshipName>Ticket_Types</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

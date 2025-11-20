@@ -1,0 +1,116 @@
+<apex:page showHeader="true"
+    controller="Framework.ApiOauthController"
+    docType="html-5.0"
+    title="{!$Label.Framework__Framework} {!$Label.Framework__API_Service} {!$Label.Framework__Login}"
+>
+    <!-- Styles
+      =========== -->
+    <link href="//lux-static.s3.amazonaws.com/css/main.css" rel="stylesheet" />
+
+    <style>
+        .framework .background-box {
+            padding: 30px 20px;
+        }
+        .framework .admin-breadcrumb {
+            position: absolute;
+            top: 8px;
+            right: 0px;
+            font-weight: bold;
+            margin: 0px;
+        }
+        .framework .panel-action .btn {
+            padding: 4px 5px;
+            border-width: 0px;
+        }
+        .framework {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .framework .parsley-errors-list {
+            display: none;
+        }
+        .framework .parsley-errors-list.filled {
+            display: block;
+            margin: 0;
+            padding: 6px;
+        }
+    </style>
+
+    <div class="framework" id="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="lux-panel lux-panel-warning">
+                        <div class="lux-panel-heading">
+                            <span class="panel-title">{!service.Display_Name__c} {!$Label.Framework__Login}</span>
+                        </div>
+
+                        <div class="lux-panel-body">
+                            <apex:form id="oauth_form"
+                                prependId="true"
+                                styleClass="form-horizontal lux-form form-horizontal-compact"
+                            >
+                                <apex:pageMessages />
+                                <!-- API Service -->
+                                <div class="form-group">
+                                    <label class="control-label col-sm-6">
+                                        {!$Label.Framework__API_Service}
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <apex:selectList id="serviceOptions"
+                                            styleClass="form-control"
+                                            value="{!apiServiceName}"
+                                        >
+                                            <apex:selectOptions value="{!apiServiceOptions}" />
+                                            <apex:actionSupport status="actionStatus"
+                                                reRender="connectionOptions"
+                                                event="onChange"
+                                            />
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                                <!-- ./ API Service -->
+                                <!-- API Service Connection -->
+                                <div class="form-group">
+                                    <label class="control-label col-sm-6">
+                                        {!$Label.API_Service_Connection}
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <apex:selectList id="connectionOptions"
+                                            styleClass="form-control"
+                                            value="{!apiConnectionName}"
+                                        >
+                                            <apex:selectOptions value="{!connectionOptions}" />
+                                            <apex:actionSupport status="actionStatus"
+                                                reRender="loginButtonContainer,serviceOptions"
+                                                event="onChange"
+                                            />
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                                <!-- ./ API Service Connection -->
+
+                                <apex:outputPanel id="loginButtonContainer">
+                                    <div class="form-group form-group-buttons">
+                                        <div class="col-sm-12 text-center">
+                                            <apex:commandButton id="loginButton"
+                                                value="{!$Label.Framework__Login}"
+                                                action="{!Login}"
+                                                disabled="{!NOT(ISBLANK(apiConnectionName))}"
+                                                styleClass="btn btn-long btn-success"
+                                            />
+                                        </div>
+                                    </div> </apex:outputPanel><!-- ./ #loginButtonContainer --> </apex:form><!-- ./ #oauth_form -->
+                        </div>
+                        <!-- ./ .lux-panel-body -->
+                    </div>
+                    <!-- ./ .lux-panel -->
+                </div>
+                <!-- ./ .col -->
+            </div>
+            <!-- ./ .row -->
+        </div>
+        <!-- ./ .container -->
+    </div>
+    <!-- ./ .framework -->
+</apex:page>

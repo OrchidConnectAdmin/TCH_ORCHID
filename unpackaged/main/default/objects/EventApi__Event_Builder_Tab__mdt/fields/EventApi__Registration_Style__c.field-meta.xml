@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Registration_Style__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This defines the type of registration used that will display this tab.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>This defines the type of registration used that will display this tab.</inlineHelpText>
+    <label>Registration Style</label>
+    <referenceTo>EventApi__Event_Registration_Style__mdt</referenceTo>
+    <relationshipLabel>Event Builder Tabs</relationshipLabel>
+    <relationshipName>Event_Builder_Tabs</relationshipName>
+    <required>false</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

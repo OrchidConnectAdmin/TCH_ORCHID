@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Workshops_Attended2__c</fullName>
+    <label>Workshops Attended</label>
+    <summaryFilterItems>
+        <field>NCP_Credits__c.Session_Type__c</field>
+        <operation>equals</operation>
+        <value>NCP CE Workshop</value>
+    </summaryFilterItems>
+    <summaryForeignKey>NCP_Credits__c.Program_Term__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

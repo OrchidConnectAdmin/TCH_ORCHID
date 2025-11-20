@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prospects</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Primary_R_T_Number__c</columns>
+    <columns>TCH_Membership_Type__c</columns>
+    <columns>ACCOUNT.ADDRESS1_STATE</columns>
+    <columns>ACCOUNT.CREATED_DATE</columns>
+    <columns>DFI_Type__c</columns>
+    <columns>FON_Annual_Dues__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>TCH_Membership_Type__c</field>
+        <operation>notEqual</operation>
+        <value>Full Member,Participating Member,Associate Member,Affiliate Member,Sponsored Member</value>
+    </filters>
+    <filters>
+        <field>Primary_R_T_Number__c</field>
+        <operation>greaterThan</operation>
+        <value>0</value>
+    </filters>
+    <label>Prospects</label>
+</ListView>

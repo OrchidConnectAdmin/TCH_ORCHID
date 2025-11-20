@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__System_Refresh__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Check this box to refresh the Sales Order and related Sales Order lines, Invoices, Invoice Lines, and Scheduled Payments as appropriate.</description>
+    <inlineHelpText>Check this box to refresh the Sales Order and related Sales Order lines, Invoices, Invoice Lines, and Scheduled Payments as appropriate.</inlineHelpText>
+    <label>Refresh</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

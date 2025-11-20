@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Contact_Me_Button_Label__c</fullName>
+    <defaultValue>&quot;Send Email&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field defines the button label for the contact me functionality.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field defines the button label for the contact me functionality.</inlineHelpText>
+    <label>Contact Me Button Label</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

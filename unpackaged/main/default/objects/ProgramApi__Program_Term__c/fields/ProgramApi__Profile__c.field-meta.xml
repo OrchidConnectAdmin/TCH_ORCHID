@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProgramApi__Profile__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>SYSTEM. Relates the program profile to the term</description>
+    <inlineHelpText>SYSTEM. Relates the program profile to the term</inlineHelpText>
+    <label>Program Profile</label>
+    <referenceTo>ProgramApi__Program_Profile__c</referenceTo>
+    <relationshipLabel>Program Terms</relationshipLabel>
+    <relationshipName>Program_Terms</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

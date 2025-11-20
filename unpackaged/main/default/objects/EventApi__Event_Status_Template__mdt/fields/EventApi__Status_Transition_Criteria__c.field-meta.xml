@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Status_Transition_Criteria__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** CONDITIONALLY REQUIRED ** SOQL query WHERE clause for automating the transition to this status on the Event. A value for this field is required when the Enable Transition for Status checkbox is checked.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>** CONDITIONALLY REQUIRED ** SOQL query WHERE clause for automating the transition to this status on the Event. A value for this field is required when the Enable Transition for Status checkbox is checked.</inlineHelpText>
+    <label>Status Transition Criteria</label>
+    <required>false</required>
+    <type>TextArea</type>
+</CustomField>

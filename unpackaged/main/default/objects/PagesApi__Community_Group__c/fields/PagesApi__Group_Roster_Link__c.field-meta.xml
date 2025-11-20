@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Group_Roster_Link__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Page where the user should be redirected when they click the roster link. Defaults to the group roster page.</description>
+    <inlineHelpText>Page where the user should be redirected when they click the roster link. Defaults to the group roster page.</inlineHelpText>
+    <label>Group Roster Link</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

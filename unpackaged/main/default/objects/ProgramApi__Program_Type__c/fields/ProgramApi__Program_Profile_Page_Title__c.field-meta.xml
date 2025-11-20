@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProgramApi__Program_Profile_Page_Title__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The value in this field will be displayed at the top of the Program Profile page.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The value in this field will be displayed at the top of the Program Profile page.</inlineHelpText>
+    <label>Program Profile Page Title</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

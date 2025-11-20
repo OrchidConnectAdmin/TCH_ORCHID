@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Preferred_Phone__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** The Preferred Phone for the Contact is calculated by mapping the Preferred Phone Type to it&#39;s corresponding field&#39;s value.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(OrderApi__Preferred_Phone_Type__c,&quot;Mobile&quot;) &amp;&amp; NOT(OrderApi__Mobile_Do_Not_Call__c), MobilePhone,
+IF(ISPICKVAL(OrderApi__Preferred_Phone_Type__c,&quot;Home&quot;) &amp;&amp; NOT(OrderApi__Home_Do_Not_Call__c), HomePhone,
+IF(ISPICKVAL(OrderApi__Preferred_Phone_Type__c,&quot;Work&quot;) &amp;&amp; NOT(OrderApi__Work_Do_Not_Call__c),OrderApi__Work_Phone__c,
+IF(ISPICKVAL(OrderApi__Preferred_Phone_Type__c,&quot;Other&quot;) &amp;&amp; NOT(OrderApi__Other_Do_Not_Call__c),OtherPhone,
+IF(ISPICKVAL(OrderApi__Preferred_Phone_Type__c,&quot;Assistant&quot;) &amp;&amp; NOT(OrderApi__Assistant_Do_Not_Call__c),AssistantPhone,
+&#39;&#39;)))))</formula>
+    <inlineHelpText>**System Calculated** The Preferred Phone for the Contact is calculated by mapping the Preferred Phone Type to it&#39;s corresponding field&#39;s value.</inlineHelpText>
+    <label>Preferred Phone</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

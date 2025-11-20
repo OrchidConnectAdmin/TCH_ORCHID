@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DirectoryApi__All</fullName>
+    <columns>NAME</columns>
+    <columns>DirectoryApi__Criteria__c</columns>
+    <columns>DirectoryApi__Directory_Object__c</columns>
+    <columns>DirectoryApi__Display_Results__c</columns>
+    <columns>DirectoryApi__Email_Me_From_Address__c</columns>
+    <columns>DirectoryApi__Email_Me_To_Address_API_Field__c</columns>
+    <columns>DirectoryApi__Enable_Email_Me__c</columns>
+    <columns>DirectoryApi__Enable_Profile_Link__c</columns>
+    <columns>DirectoryApi__Profile_Display_Name_Fields__c</columns>
+    <columns>DirectoryApi__Profile_Fields__c</columns>
+    <columns>DirectoryApi__Search_Fields__c</columns>
+    <columns>DirectoryApi__Search_Results_Fields__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

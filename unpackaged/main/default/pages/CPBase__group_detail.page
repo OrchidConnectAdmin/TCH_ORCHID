@@ -1,0 +1,1273 @@
+<apex:page showHeader="false" standardStylesheets="false" docType="html-5.0" applyHtmlTag="false" applyBodyTag="false" controller="CPBase.GroupDetailController">
+  <apex:composition template="CPBase__template">
+    <apex:define name="pageTitle">
+      {!commGroup.Name}
+    </apex:define>
+    <apex:define name="pageStyles">
+      <script src="//s3.amazonaws.com/fonteva-cdn/global/plugins/tags/bootstrap-tagsinput.min.js"></script>
+      <script src="//s3.amazonaws.com/fonteva-cdn/vendor/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+      <link rel="stylesheet" href="//s3.amazonaws.com/fonteva-cdn/global/plugins/tags/bootstrap-tagsinput.css"/>
+      <link rel="stylesheet" href="//s3.amazonaws.com/fonteva-cdn/vendor/bootstrap-fileinput-master/css/fileinput.min.css"/>
+      <style type="text/css">
+        .group-cover {
+          background-image: url('{!commGroup.PagesApi__Banner__c}');
+        }
+        #fileFeedDiv .fileinput-remove-button{
+          display: none;
+        }
+        #fileFeedDiv .fileinput-upload-button{
+          display: none;
+        }
+        .group-button-action a {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .group-button-action {
+            white-space: normal;
+        }
+        .em-cover.group-cover .admin {
+          height: 250px!important;
+        }
+        body > .pg-loading-screen.pg-loading:last-of-type {display: none!important;}
+      </style>
+    </apex:define>
+    <apex:define name="pageMain">
+      <div class="group-detail-container">
+        <Framework:messages />
+        <div class="em-cover superhero {!IF(commGroup.PagesApi__Banner__c != null,'group-cover','')}" >
+          <div class="transparency">
+            <div class="container">
+              <div class="row">
+                <apex:outputPanel id="headerpanel">
+                  <div class="col-sm-3 detail">
+                    <div class="row ">
+                      <div class="tile">
+                        <div id="avatar" class="tile-content text-center">
+                          <div class="profile-photo-container">
+                            <div class="profile-photo groupProfilePhoto" style="background-image: url('{!commGroup.PagesApi__Group_Image_Url__c}')"></div>
+                            <apex:outputpanel rendered="{!IsCurrentUserOwner}">
+                              <div class="edit-image">
+                                <a href="#" class="edit-image-prompt" id="changePhoto">
+                                  <i class="btr bt-photo"></i><br/>
+                                  {!$Label.Group_Detail_Change_Photo_Button}
+                                </a>
+                              </div>
+                            </apex:outputpanel>
+                          </div>
+                          <div class="text-center" style="padding-left:30px;word-wrap: break-word;padding-right:30px;">
+                            <span class="profile-name">{!commGroup.Name}</span><br/>
+                            <apex:outputPanel rendered="{!!ISBLANK(commGroup.PagesApi__Email__c)}">
+                              <small>{!commGroup.PagesApi__Email__c}</small>
+                            </apex:outputPanel>
+                          </div>
+                          <div class="profile-social-buttons event-speaker m-t-10 m-b-10">
+                            <div class="row">
+                              <div class="col-xs-6 col-xs-offset-3 col-sm-offset-2 col-sm-8">
+                                <div class="{!If(commGroup.PagesApi__Is_Contact_Member_Entity__c,'col-xs-4','col-xs-6')} p-0">
+                                  <div class="bt-stack bt-2x">
+                                    <i class="btr {!If(commGroup.PagesApi__Is_Public__c,'bt-lock-open','bt-lock')} bt-stack-sm"></i>
+                                    <i class="btl bt-circle bt-stack-1x"></i>
+                                  </div>
+                                  <center><p><small>{!commGroup.PagesApi__Privacy_Setting__c}</small></p></center>
+                                </div>
+                                <div class="{!If(commGroup.PagesApi__Is_Contact_Member_Entity__c,'col-xs-4','col-xs-6')} p-0">
+                                  <div class="bt-stack bt-2x">
+                                    <i class="btr bt-user bt-stack-sm"></i>
+                                    <i class="btl bt-circle bt-stack-1x"></i>
+                                  </div>
+                                  <center><p>
+                                    <small>
+                                      <apex:outputText value="{0, number,###,###,##0}"><apex:param value="{!activeMembers}"/></apex:outputText>
+                                    </small></p></center>
+                                </div>
+                                <apex:outputPanel rendered="{!commGroup.PagesApi__Is_Contact_Member_Entity__c}">
+                                  <div class="col-xs-4 p-0">
+                                    <div class="bt-stack bt-2x">
+                                      <i class="{!If(isCurrentUserActiveMember,'bts','btr')} bt-star bt-stack-sm"></i>
+                                      <i class="btl bt-circle bt-stack-1x"></i>
+                                    </div>
+                                    <center><p><small>{!If(isCurrentUserActiveMember,$Label.Member,$Label.Non_Member)}</small></p></center>
+                                  </div>
+                                </apex:outputPanel>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="visible-xs">
+                            <div class="socialIcons">
+                            </div>
+                          </div>
+                          <div class="visible-xs p-h-15">
+                            <apex:outputpanel rendered="{!IsCurrentUserOwner}">
+                              <button class="btn btn-primary btn-block m-b-15" id="changeBanner">{!$Label.CPBase__Group_Detail_Change_Banner_Button}</button>
+                            </apex:outputpanel>
+                            <div class="group-button-action">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 hidden-xs description">
+                    <div class="row">
+                      <div class="col-sm-12 text p-t-10">
+                        <p>{!TRIM(conciseDescription)}<apex:outputPanel layout="none" rendered="{!LEN(commGroup.PagesApi__Description__c) > 200}">&nbsp;...</apex:outputPanel> <a href="#" id="readmore" class="m-l-10 p-5 btn btn-sm btn-outline"><strong>{!$Label.Group_Detail_Read_More_Label}</strong></a></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 pull-right hidden-xs admin">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="socialIcons text-right m-b-30" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 edits">
+                        <apex:outputpanel rendered="{!IsCurrentUserOwner}">
+                          <button class="btn btn-primary btn-upload btn-block" id="changeBanner">{!$Label.CPBase__Group_Detail_Change_Banner_Button}</button>
+                        <br/>
+                        </apex:outputpanel>
+                        <div class="group-button-action">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </apex:outputPanel>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav class="navbar navbar-page navbar-inverse groupnav">
+        </nav>
+        <div role="tabpanel">
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade" id="empty">
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="feedPane">
+              <div class="container">
+                <div class="row well">
+                  <h3 class="section-heading">{!$Label.Chatter}</h3>
+                  <div class="row">
+                    <div class="col-xs-offset-1 col-xs-10">
+                      <apex:outputPanel rendered="{!AND(isAuthenticated, commGroup.PagesApi__Enable_Community_Feed__c, OR(!commGroup.PagesApi__Private_Community_Feed__c, isCurrentUserActiveMember))}">
+                        <PagesApi:feed subjectid="{!commGroup.PagesApi__Chatter_Group_Id__c}"/>
+                      </apex:outputPanel>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="members">
+              <div class="container">
+                <div class="row">
+                  <div class="col-xs-12 member-group-listing">
+                    <apex:outputPanel layout="none" rendered="{!communityGroupExtendFieldEnabled}">
+                      <PagesApi:groupmembers subjectId="{!commGroup.Id}"
+                                             filterFieldcsv="{!commGroup.PagesApi__Member_Search_Filter_Field_s_CSV__c}"
+                                             defaultsortfield="{!commGroup.PagesApi__Search_Results_Sort_Field__c}"
+                                             defaultsortorder="{!commGroup.PagesApi__Search_Results_Sort_Order__c}"
+                                             descriptionfieldCSV="{!commGroup.PagesApi__Member_Search_Display_Field_s_CSV__c}"
+                                             imagefield="PagesApi__Image_URL__c"
+                                             modaldescriptionfieldsetCSV="{!commgroup.PagesApi__Group_Member_View_Field_Sets_CSV__c}"
+                                             modaltitlefield="PagesApi__Display_Name__c" titlefield="PagesApi__Display_Name__c"
+                                             defaultpagesize="{!commGroup.PagesApi__Search_Results__c}"
+                                             showfilters="{!commGroup.PagesApi__Show_Search_Filters__c}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!NOT(communityGroupExtendFieldEnabled)}">
+                      <PagesApi:groupmembers subjectId="{!commGroup.Id}"
+                                             filterFieldcsv="{!commGroup.PagesApi__Member_Search_Filter_Fields_CSV__c}"
+                                             defaultsortfield="{!commGroup.PagesApi__Search_Results_Sort_Field__c}"
+                                             defaultsortorder="{!commGroup.PagesApi__Search_Results_Sort_Order__c}"
+                                             descriptionfieldCSV="{!commGroup.PagesApi__Member_Search_Display_Fields_CSV__c}"
+                                             imagefield="PagesApi__Image_URL__c"
+                                             modaldescriptionfieldsetCSV="{!commgroup.PagesApi__Group_Member_View_Field_Sets_CSV__c}"
+                                             modaltitlefield="PagesApi__Display_Name__c" titlefield="PagesApi__Display_Name__c"
+                                             defaultpagesize="{!commGroup.PagesApi__Search_Results__c}"
+                                             showfilters="{!commGroup.PagesApi__Show_Search_Filters__c}"/>
+                    </apex:outputPanel>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="events">
+               <c:event_search groupId="{!commGroup.Id}"/>
+            </div>
+            <apex:insert name="customGroupTabPanels">
+
+            </apex:insert>
+          </div>
+        </div>
+        <!-- modals-->
+        <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div id="uploadInput">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal modal-profile fade" id="groupDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div role="tabpanel">
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="groupdetailtab">
+                  <div class="modal-content" id="groupDetail">
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="groupdetailedit">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                      </button>
+                      <h3 class="modal-title">{!$Label.Group_Detail_Edit_Group_Label}</h3>
+                    </div>
+                    <div class="modal-body panel panel-body">
+
+                      <div class="container-fluid">
+                        <div class="row">
+                          <apex:form styleClass="form-horizontal p-20" prependId="true" id="groupform">
+                            <apex:inputHidden value="{!commGroup.PagesApi__Banner__c}" id="groupBannerHidden"/>
+                            <apex:inputHidden value="{!commGroup.PagesApi__Group_Image_URL__c}" id="groupImageUrlHidden"/>
+                            <apex:repeat value="{!$ObjectType.PagesApi__Community_Group__c.FieldSets.CPBase__Default_Group_Edit}" var="f">
+                              <div class="col-sm-12">
+                                <div class="form-group">
+                                  <label class="control-label col-sm-4">
+                                    {!$ObjectType.PagesApi__Community_Group__c.Fields[f].Label}
+                                  </label>
+                                  <div class="col-sm-8">
+                                    <apex:inputField value="{!commGroup[f]}" styleClass="form-control {!If(f.type='boolean','js-switch','')}"/>
+                                  </div>
+                                </div>
+                              </div>
+                            </apex:repeat>
+                            <div class="col-sm-8 col-sm-offset-2">
+                              <div role="presentation" align="center">
+                                <apex:commandButton value="{!$Label.CPBase__Group_Detail_Save_Button}"
+                                        action="{!saveGroupDetail}"
+                                        rerender="groupform,headerpanel"
+                                        styleClass="btn btn-primary btn-block savebtn m-b-20"
+                                        oncomplete="loadgroupDetail();$('#groupDetailModal').modal('hide');"/>
+                              </div>
+                            </div>
+                          </apex:form>
+                        </div>
+                      </div><!-- /.container-fluid -->
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal modal-profile fade" id="memberDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div role="tabpanel">
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="memberdetailtab">
+                  <div class="modal-content" id="memberDetail">
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="memberdetailedit">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                      </button>
+                      <h3>{!$Label.Group_Detail_My_Group_Profile_Label}</h3>
+                    </div>
+                    <div class="modal-body panel panel-body">
+                      <div class="container-fluid">
+                        <div class="row no-margin">
+                          <div class="col-sm-12 profile-background p-t-10" id="profile-pic">
+                            <div class="col-xs-8 col-xs-offset-2 text-center edit-profile-photo-container">
+                              <Framework:img src="{!commGroupMemberObj.PagesApi__Image_URL__c}" clazz="edit-profile-photo img-responsive center" id="memberProfilePhoto"/>
+                              <div class="edit-profile-image">
+                                <a href="#" class="edit-profile-image-prompt" id="changeMyDisplayPic">
+                                  <i class="btr bt-photo"></i><br/>
+                                  {!$Label.Group_Detail_Change_Photo_Button}
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <apex:form styleClass="form-horizontal m-20" prependId="true" id="memberform">
+                          <apex:inputHidden value="{!commGroupMemberObj.PagesApi__Image_URL__c}" id="memberProfileUrlHidden"/>
+                          <apex:repeat value="{!EditMemberDetailFieldset}" var="fieldset">
+                            <apex:repeat value="{!EditMemberDetailFieldset[fieldset]}" var="f">
+                              <div class="form-group">
+                                <label class="control-label col-sm-4">
+                                  {!$ObjectType.PagesApi__Community_Group_Member__c.Fields[f].Label}
+                                </label>
+                                <div class="col-sm-8">
+                                  <apex:inputField value="{!commGroupMemberObj[f.fieldpath]}" styleClass="form-control {!If(f.type='boolean','js-switch','')}"/>
+                                </div>
+                              </div>
+                            </apex:repeat>
+                          </apex:repeat>
+                          <div class="col-sm-8 col-sm-offset-2">
+                            <div role="presentation" align="center">
+                              <apex:commandButton value="{!$Label.CPBase__Edit_My_profile_Save_Button}" action="{!saveGroupMemberDetail}" rerender="memberform" styleClass="btn btn-primary btn-block savebtn m-b-20" oncomplete="$('#memberDetailModal').modal('hide');location.reload();"/>
+                            </div>
+                          </div>
+                        </apex:form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal modal-manage-group fade" id="memberManageModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div role="tabpanel">
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active">
+                  <div class="modal-content">
+                    <div class="modal-header bg-info">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                        </span>
+                      </button>
+                      <h3 class="modal-title">
+                        {!$Label.Manage_Members_title}
+                      </h3>
+                    </div>
+                    <div class="well p-t-30">
+                      <div class="row">
+                        <div class="col-xs-8">
+                          <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="memberViewMenu" data-toggle="dropdown" aria-expanded="true">
+                              {!$Label.Group_Members_View} : <span id="member_view">{!$Label.Manage_Members_All}</span>
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="memberViewMenu" id="memberViewMenuUL">
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-xs-4 ">
+                          <div class="input-group bordered round">
+                            <input type="text" id="member_searchBox" class="form-control no-border bg-transparent"/>
+                            <span class="input-group-btn">
+                              <button onclick="searchMembers()" class="btn btn-link p-r-15 p-b-15 p-t-15" type="button">
+                                <i class="btb bt-search"></i>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <br/>
+                      <div id="fluid-tables">
+                        <table class="table-striped">
+                          <thead class="bg-info">
+                            <tr>
+                              <th>
+                                {!$ObjectType.PagesApi__Community_Group_Member__c.fields.PagesApi__Display_Name__c.Label}
+                              </th>
+                              <th>
+                                {!$ObjectType.PagesApi__Community_Group_Member__c.fields.PagesApi__Email__c.Label}
+                              </th>
+                              <th>
+                                {!$ObjectType.PagesApi__Community_Group_Member__c.fields.PagesApi__Role__c.Label}
+                              </th>
+                              <th>
+                                {!$ObjectType.PagesApi__Community_Group_Member__c.fields.PagesApi__Status__c.Label}
+                              </th>
+                              <th>
+                                {!$ObjectType.PagesApi__Community_Group_Member__c.fields.PagesApi__Is_Manager__c.Label}
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody id="memberList">
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6 col-sm-offset-6">
+                          <div class="infoBar pull-right">
+                            {!$Label.Total_Records}
+                            <span id="members-resultSize"/>
+                             - {!$Label.Showing_Page}
+                            <span id="members-pageNumber"/>
+                          </div>
+                          <br/>
+                          <ul class="pagination pull-right" id="member-pagination">
+                            <li class="first" aria-disabled="true">
+                              <a href="#" class="button">
+                                <i class="btr bt-angles-left">
+                                </i>
+                              </a>
+                            </li>
+                            <li class="prev" aria-disabled="true">
+                              <a href="#" class="button">
+                                <i class="btr bt-angle-left">
+                                </i>
+                              </a>
+                            </li>
+                            <li class="next" aria-disabled="false">
+                              <a href="#" class="button">
+                                <i class="btr bt-angle-right">
+                                </i>
+                              </a>
+                            </li>
+                            <li class="last" aria-disabled="false">
+                              <a href="#" class="button">
+                                <i class="btr bt-angles-right">
+                                </i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </apex:define>
+    <apex:define name="pageScripts">
+      <script id="social_icon_template" type="text/x-handlers-template">
+        <div class="profile-social-buttons event-speaker m-t-10 m-b-10">
+          {{#each socialfields}}
+            <a href="{{getMergeField ../group name}}" target="_blank" class="btn btn-social-icon circle btn-{{label}}">
+              <i class="fab fab-{{selector}}"></i>
+            </a>
+          {{/each}}
+        </div>
+      </script>
+      <script id="tab_template" type="text/x-handlers-template">
+        <div class="container">
+          <div class="row">
+            <ul class="nav page-menu nav-justified">
+              {{#each tabs}}
+                <li role="presentation">
+                  <a href="#{{pane}}" aria-controls="{{pane}}" role="tab" data-toggle="tab" class="secondary-nav">
+                    <h4>{{label}}</h4>
+                  </a>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </script>
+      <script id="button_template" type="text/x-handlers-template">
+        {{#if record.PagesApi__Show_Group_Roster__c}}
+          <a href="{{{record.PagesApi__Group_Roster_Link__c}}}" target="_blank" class="btn btn-primary outline m-b-15 btn-block btn-white">{{{record.PagesApi__Group_Roster_Label__c}}}</a>
+        {{/if}}
+        {{#if record.PagesApi__Is_Contact_Member_Entity__c}}
+          {{#if isCurrentUserActiveMember}}
+            <button type="button" class="btn btn-primary outline m-b-15 btn-block btn-white myprofilebtn">{{labels.Group_Detail_My_Profile_Button}}</button>
+            {{#if isCurrentUserManager}}
+              <button type="button" class="btn btn-primary outline m-b-15 btn-block btn-white manageGrpBtn">{{{labels.Manage_Group_Button_Label}}}</button>
+            {{/if}}
+            {{#unless isCurrentUserOwner}}
+              <button type="button" class="btn btn-primary outline m-b-15 btn-block btn-white savebtn leaveButton">{{{labels.Leave}}}</button>
+            {{/unless}}
+          {{else if isCurrentUserMember}}
+            <button type="button" class="btn btn-primary outline m-b-15 btn-block btn-white">{{{labels.Pending_Approval}}}</button>
+          {{else if isCurrentUserAuthenticated}}
+            {{#unless record.PagesApi__Disable_Join__c}}
+              <button type="button" class="btn btn-primary outline m-b-15 btn-block btn-white savebtn joinButton">{{{labels.Join}}}</button>
+            {{/unless}}
+          {{/if}}
+        {{/if}}
+      </script>
+      <script id="field_template" type="text/x-handlers-template">
+        <h4 class="text-uppercase">{{label}}</h4>
+        <p>{{{value}}}</p>
+      </script>
+      <script id="group_detail_template" type="text/x-handlers-template">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+          <h3>{{{group.Name}}}</h3>
+        </div>
+        <div class="modal-body">
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12 profile-background p-b-10 p-t-10">
+                <div class="col-xs-8 col-xs-offset-2 text-center">
+                  <Framework:img src="{{group.PagesApi__Group_Image_URL__c}}" clazz="profile-picture groupProfilePhoto img-responsive center"/>
+                  <div class="group-icons text-center">
+                    <div class="socialIcons"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="panel panel-body">
+                <div class="row">
+                  <div class="col-sm-12">
+                    {{#each fields}}
+                      {{{getMergeFieldHtml ../group this}}}
+                    {{/each}}
+                  </div>
+                </div>
+              </div>
+
+              {{#if isGroupOwner}}
+                <div class="panel panel-body">
+                  <div class="col-sm-8 col-sm-offset-2" role="tablist">
+                    <ul class="p-l-0">
+                      <div role="presentation" align="center">
+                        <a class="btn btn-primary btn-block" href="#groupdetailedit" aria-controls="groupdetailedit" role="button" role="tab" data-toggle="tab"><h4 class="m-t-0">{{{labels.Group_Detail_Edit_Group_Label}}}</h4></a>
+                      </div>
+                    </ul>
+                  </div>
+                </div>
+              {{/if}}
+
+            </div>
+          </div>
+
+        </div>
+      </script>
+      <script id="member_detail_template" type="text/x-handlers-template">
+        <div class="modal-header">
+          <h3>{{{member.PagesApi__Display_Name__c}}}</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12 profile-background p-b-10 p-t-10">
+                <div class="row">
+                  <div class="col-xs-8 col-xs-offset-2 text-center">
+                    <Framework:img src="{{member.PagesApi__Image_URL__c}}" clazz="profile-picture img-responsive center"/>
+                    <div class="group-icons">
+                      {{{getSocialIcons member}}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="panel panel-body">
+                <div class="row">
+                  <div class="col-sm-12">
+                    {{#each fields}}
+                      {{{getMergeFieldHtml ../member this}}}
+                    {{/each}}
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-body">
+                <div class="col-sm-8 col-sm-offset-2" role="tablist">
+                  <ul class="p-l-0">
+                    <div role="presentation" align="center">
+                      <a class="btn btn-primary btn-block" href="#memberdetailedit" role="button" role="tab" data-toggle="tab"><h4 class="m-t-0">{{{labels.Group_Detail_Edit_Member_Button}}}</h4></a>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </script>
+      <script id="members_template" type="text/x-handlers-template">
+        {{#each members}}
+          <tr id="{{Id}}">
+            {{{loadMembers this ../groupOwner}}}
+          </tr>
+        {{/each}}
+      </script>
+      <script id="member_template" type="text/x-handlers-template">
+        <td>
+          {{{member.PagesApi__Display_Name__c}}}
+        </td>
+        <td>
+          {{{member.PagesApi__Email__c}}}
+        </td>
+        <td>
+          <div class="{{member.Id}}-detail collapse in">
+            {{{member.PagesApi__Role__c}}}
+          </div>
+          <div class="{{member.Id}}-edit collapse">
+            <select class="form-control" id="{{member.Id}}-role">
+              {{#each rolePicklistValues}}
+                <option value="{{value}}" {{#validateEquality value ../member.PagesApi__Role__c}}selected{{/validateEquality}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </td>
+        <td>
+          <div class="{{member.Id}}-detail collapse in">
+            {{{member.PagesApi__Status__c}}}
+          </div>
+          <div class="{{member.Id}}-edit collapse">
+            <select class="form-control" id="{{member.Id}}-status">
+              {{#each statusPicklistValues}}
+                <option value="{{value}}" {{#validateEquality value ../member.PagesApi__Status__c}}selected{{/validateEquality}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </td>
+        <td>
+          <div class="{{member.Id}}-detail collapse in">
+            <input type="checkbox" class="form-control" disabled {{#if member.PagesApi__Is_Manager__c}}
+              checked
+            {{/if}}>
+          </div>
+          <div class="{{member.Id}}-edit collapse">
+            <input type="checkbox" class="form-control" id="{{member.Id}}-manager" {{#if member.PagesApi__Is_Manager__c}}
+              checked
+            {{/if}}>
+          </div>
+        </td>
+        <td class="selectbutton text-right">
+          <div class="{{member.Id}}-detail collapse in">
+            <a href="#" class="btn btn-default btn-primary editMemberDetailBtn ladda-button {{#validateEquality member.PagesApi__User__c groupOwner}}
+                hidden
+              {{/validateEquality}}" data-memberId="{{member.Id}}" data-style="zoom-in">
+              <span class="ladda-label">
+                {{labels.Manage_Members_Edit}}
+              </span>
+            </a>
+          </div>
+          <div class="{{member.Id}}-edit collapse">
+            <a href="#" class="btn btn-default btn-primary updateMemberBtn ladda-button" data-memberId="{{member.Id}}" data-style="zoom-in">
+              <span class="ladda-label">
+                {{labels.Manage_Members_Save}}
+              </span>
+            </a>
+          </div>
+        </td>
+      </script>
+      <script id="member_list_view_template" type="text/x-handlers-template">
+        <li role="presentation">
+          <a onclick="searchMembers('{{labels.Manage_Members_All}}')" role="menuitem" tabindex="-1" href="#">
+            {{labels.Manage_Members_All}}
+          </a>
+        </li>
+        {{#each statusPicklistValues}}
+          <li role="presentation">
+            <a onclick="searchMembers('{{value}}')" role="menuitem" tabindex="-1" href="#">
+              {{label}}
+            </a>
+          </li>
+        {{/each}}
+      </script>
+      <apex:outputPanel id="javascriptVars">
+        <script type="text/javascript">
+          var isCurrentUserActiveMember = {!IF(isCurrentUserActiveMember && isAuthenticated, true, false)};
+          var isCurrentUserMember = {!isCurrentUserMember};
+          var currentgroupMemberId = '{!JSENCODE(commGroupMemberObj.Id)}';
+        </script>
+      </apex:outputPanel>
+      <script type="text/javascript">
+        var currentgroupMember;
+        var member_pageNumber = 0;
+        var members = new Array();
+        var hasContactCreationStarted = false;
+        var rolePicklistValues = {!RolePicklistValues};
+        var statusPicklistValues = {!StatusPicklistValues};
+        var groupdetailfieldset = {!ViewGroupDetailFieldset};
+        var memberdetailfieldset = {!ViewMemberDetailFieldset};
+
+        var tabTemplate;
+        var buttonTemplate;
+        var groupDetailTemplate;
+        var memberDetailTemplate;
+        var socialIconTemplate;
+        var membersTemplate;
+        var memberTemplate;
+        var memberlistviewtemplate;
+
+        var pagelabels = {
+            Group_Detail_Edit_Group_Label: '{!JSENCODE($Label.CPBase__Group_Detail_Edit_Group_Label)}',
+            Group_Detail_Edit_Member_Button: '{!JSENCODE($Label.CPBase__Group_Detail_Edit_Member_Button)}',
+            Group_Detail_My_Profile_Button: '{!JSENCODE($Label.CPBase__Group_Detail_My_Profile_Button)}',
+            Leave: '{!JSENCODE($Label.CPBase__Leave)}',
+            Join: '{!JSENCODE($Label.CPBase__Join)}',
+            Pending_Approval: '{!JSENCODE($Label.CPBase__Pending_Approval)}',
+            Manage_Group_Button_Label: '{!JSENCODE($Label.CPBase__Manage_Group_Button_Label)}',
+            Manage_Members_Edit: '{!JSENCODE($Label.CPBase__Manage_Members_Edit)}',
+            Manage_Members_Save: '{!JSENCODE($Label.CPBase__Manage_Members_Save)}',
+            Manage_Members_All: '{!JSENCODE($Label.CPBase__Manage_Members_All)}',
+        };
+
+        tabTemplate = Handlebars.compile($('#tab_template').html());  
+        buttonTemplate = Handlebars.compile($('#button_template').html());  
+        fieldTemplate = Handlebars.compile($('#field_template').html());  
+        groupDetailTemplate = Handlebars.compile($('#group_detail_template').html());  
+        socialIconTemplate = Handlebars.compile($('#social_icon_template').html());  
+        memberDetailTemplate = Handlebars.compile($('#member_detail_template').html());  
+        membersTemplate = Handlebars.compile($('#members_template').html());  
+        memberTemplate = Handlebars.compile($('#member_template').html());  
+
+        Handlebars.registerHelper('getMergeFieldHtml', function(object, field) {
+            if (object[field.name]) {
+                var record_data = {
+                    label: field.label,
+                    value: object[field.name],
+                };
+                return fieldTemplate(record_data);
+            }
+        });
+        Handlebars.registerHelper('getMergeField', function(object, field) {
+            return object[field];
+        });
+        Handlebars.registerHelper('getSocialIcons', function(object) {
+            return getSocialIconshtml(object);
+        });
+        Handlebars.registerHelper('loadMembers', function(member, groupOwner) {
+            var record_data = {
+                member: member,
+                labels: pagelabels,
+                rolePicklistValues: rolePicklistValues,
+                statusPicklistValues: statusPicklistValues,
+                groupOwner: groupOwner
+            };
+            return memberTemplate(record_data);
+        });
+        Handlebars.registerHelper('validateEquality', function(value1, value2, options) {
+            if(value1 && value2 && value1 == value2) {
+                return options.fn(this);
+            }
+            else {
+                return options.inverse(this);
+            }
+        });
+
+        function getSocialIconshtml(object) {
+            var socialfields = new Array();
+            if (object.PagesApi__Facebook_Profile_URL__c)
+                socialfields.push({
+                    name: "PagesApi__Facebook_Profile_URL__c",
+                    label: "facebook",
+                    selector: "facebook-alt"
+                });
+            if (object.PagesApi__Twitter_Profile_URL__c)
+                socialfields.push({
+                    name: "PagesApi__Twitter_Profile_URL__c",
+                    label: "twitter",
+                    selector: "twitter"
+                });
+            if (object.PagesApi__LinkedIn_Profile_URL__c)
+                socialfields.push({
+                    name: "PagesApi__LinkedIn_Profile_URL__c",
+                    label: "linkedin",
+                    selector: "linkedin-alt"
+                });
+            if (object.PagesApi__Google_Profile_URL__c)
+                socialfields.push({
+                    name: "PagesApi__Google_Profile_URL__c",
+                    label: "google-plus",
+                    selector: "googleplus-alt"
+                });
+            var record_data = {
+                group: object,
+                socialfields: socialfields
+            };
+            return socialIconTemplate(record_data);
+        }
+        function loadGroupSocialIcons(object) {
+            var result_html = getSocialIconshtml(object);
+            $('.socialIcons').html(result_html);
+        }
+        function calculateTabs(object) {
+            var tablis = new Array();
+            if ({!isAuthenticated} && object.PagesApi__Enable_Community_Feed__c && (!object.PagesApi__Private_Community_Feed__c || isCurrentUserActiveMember))
+                tablis.push({
+                    pane: 'feedPane',
+                    label: '{!$Label.CPBase__Tab_Community_Feed}'
+                });
+            if (object.PagesApi__Enable_Members__c && (isCurrentUserActiveMember || !object.PagesApi__Private_Members__c))
+                tablis.push({
+                    pane: 'members',
+                    label: '{!$Label.CPBase__Tab_Members}'
+                });
+            if (object.PagesApi__Enable_Events__c && (isCurrentUserActiveMember || !object.PagesApi__Private_Events__c))
+                tablis.push({
+                    pane: 'events',
+                    label: '{!$Label.CPBase__Tab_Events}'
+                });
+            if (tablis.length == 0) {
+                tablis.push({
+                    pane: 'empty',
+                    label: ''
+                });
+            }
+            var record_data = {
+                tabs: tablis
+            };
+            var result_html = tabTemplate(record_data);
+            $(".groupnav").html(result_html);
+            $('.groupnav a:first').tab('show');
+        }
+        function caluclateButtons(object) {
+            var record_data = {
+                record: object,
+                labels: pagelabels,
+                isCurrentUserOwner: {!isCurrentUserOwner},
+                isCurrentUserManager: {!isCurrentUserManager},
+                isCurrentUserActiveMember: isCurrentUserActiveMember,
+                isCurrentUserMember: isCurrentUserMember,
+                isCurrentUserAuthenticated: {!isAuthenticated}
+            };
+            var result_html = buttonTemplate(record_data);
+            $(".group-button-action").html(result_html);
+        }
+        function loadgroupDetail() {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.GroupDetailController.getDetail}',
+                '{!commGroup.Id}',
+                function(result, event) {
+                    if (event.status) {
+                        var record_data = {
+                            group: result,
+                            labels: pagelabels,
+                            fields: groupdetailfieldset,
+                            isGroupOwner: {!isCurrentUserOwner}
+                        };
+                        var result_html = groupDetailTemplate(record_data);
+                        $('#groupDetail').html(result_html);
+                        loadGroupSocialIcons(result);
+                        calculateTabs(result);
+                        caluclateButtons(result);
+                    }
+                });
+        }
+        function loadmemberDetail() {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.GroupDetailController.getMemberDetail}',
+                currentgroupMemberId,
+                function(result, event) {
+                    if (event.status) {
+                        currentgroupMember = result;
+                        var record_data = {
+                            member: result,
+                            labels: pagelabels,
+                            fields: memberdetailfieldset
+                        };
+                        var result_html = memberDetailTemplate(record_data);
+                        $('#memberDetail').html(result_html);
+                        $('#memberDetailModal').modal('show');
+                        $('#memberdetailtab').addClass('active in');
+                        $('#memberdetailedit').removeClass('active in');
+                    }
+                });
+        }
+        function searchMembers(view) {
+            if (view) {
+                $("#member_view").html(view);
+            } else {
+                view = $("#member_view").html();
+            }
+            if (view == pagelabels.Manage_Members_All) {
+                view = undefined;
+            }
+            var searchVal = $("#member_searchBox").val();
+            searchVal = searchVal.trim();
+            if (!searchVal || searchVal.replace(/\*/g,'').length > 1) {
+                retrieveMembers(searchVal,view);
+            }
+        }
+        function retrieveMembers(searchString, displayType) {
+            var jsonData = {
+                groupId: '{!commGroup.Id}',
+                searchString: searchString,
+                displayType: displayType
+            };
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.GroupDetailController.searchMembers}',
+                JSON.stringify(jsonData),
+                function(result, event) {
+                    if (event.status) {
+                        var members_size = result.length
+                        $("#members-resultSize").html(members_size);
+                        member_pageNumber = 0;
+                        if (members_size < 10) {
+                            $("#member-pagination").hide();
+                        }
+                        else {
+                            $("#member-pagination").show();
+                        }
+                        members = new Array();
+                        for (i = 0, j = 1, temp = new Array(); i < members_size; i++, j++) {
+                            temp.push(result[i]);
+                            if (j == 10 || i == members_size -1) {
+                                members.push(temp);
+                                temp = new Array();
+                                j = 1;
+                            }
+                        }
+                        loadMembers();
+                    }
+                }
+            );
+        }
+        function loadMembers() {
+            var record_data = {
+                members: members[member_pageNumber],
+                groupOwner: '{!commGroup.PagesApi__Group_Owner__c}'
+            };
+            var result_html = membersTemplate(record_data);
+            $("#memberList").html(result_html);
+            $("#member-pagination li.disabled").removeClass("disabled");
+            $("#members-pageNumber").html(member_pageNumber + 1);
+            if (member_pageNumber == 0) {
+                $("#member-pagination li.first").addClass("disabled");
+                $("#member-pagination li.prev").addClass("disabled");
+            }
+            if (member_pageNumber == members.length - 1 ) {
+                $("#member-pagination li.next").addClass("disabled");
+                $("#member-pagination li.last").addClass("disabled");
+            }
+        }
+
+        $(document).ready(function() {
+            loadgroupDetail();
+            $(document).on('click', '#readmore', function(e) {
+                e.preventDefault();
+                $('#groupDetailModal').modal('show');
+                $('#groupdetailtab').addClass('active in');
+                $('#groupdetailedit').removeClass('active in');
+            });
+            $(document).on('click', '.myprofilebtn', function(e) {
+                e.preventDefault();
+                loadmemberDetail();
+            });
+            $(document).on('click', '.joinButton', function(e) {
+                e.preventDefault();
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.GroupDetailController.addGroupMember}',
+                    '{!commGroup.Id}', currentgroupMemberId,
+                    function(result, event) {
+                        if (event.status) {
+                            currentgroupMember = result;
+                            location.reload();
+                        }
+                    }, {
+                        escape: true
+                    }
+                );
+            });
+            $(document).on('click', '.leaveButton', function(e) {
+                e.preventDefault();
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.GroupDetailController.removeMember}',
+                    currentgroupMemberId,
+                    function(result, event) {
+                        if (event.status) {
+                            location.reload();
+                        }
+                    }, {
+                        escape: true
+                    }
+                );
+            });
+
+            $(document).on('click', '.close', function(e) {
+                $('#uploadModal').modal('hide');
+            });
+            $(document).on('click', '#changePhoto', function(e) {
+                e.preventDefault();
+                $('#uploadInput').html('<input id="groupImageInput" name="groupImageInput" type="file" class="file-loading"/>')
+                $('#uploadModal').modal('show');
+                $("#groupImageInput").fileinput({
+                    uploadUrl: "/group_detail",
+                    uploadAsync: true,
+                    dropZoneTitle: "<h4>{!$Label.CPBase__Drag_And_Drop}</h4><i class='btr bt-photo bt-4x text-white'></i>",
+                    removeIcon: "<i class='btb bt-trash text-danger'></i>",
+                    removeLabel: "",
+                    uploadIcon: "<i class='btb bt-check text-white'></i>",
+                    uploadClass: "btn btn-success",
+                    uploadLabel: "",
+                });
+                $('#groupImageInput').on('filepreupload', function(event, data, previewId, index, jqXHR) {
+                    var file = data.files[0];
+                    if (file.size > 2000000) {
+                        $('#groupImageInput').fileinput('cancel')
+                        return {
+                            message: '{!$Label.CPBase__Group_Detail_Picture_Large}',
+                            data: {
+                                key1: 'Key 1',
+                                detail1: 'Detail 1'
+                            }
+                        };
+                    } else {
+                        $('.kv-fileinput-error').css("background-color", "#2ECC71").css("color", "#fff");
+                    }
+                    var reader = new FileReader();
+                    reader.onload = (function(file) {
+                        return function(e) {
+                            var fileContent = String(e.target.result);
+                            fileContent = fileContent.substr(fileContent.indexOf(',') + 1);
+                            Visualforce.remoting.Manager.invokeAction(
+                                '{!$RemoteAction.GroupDetailController.uploadFile}',
+                                '{!commGroup.PagesApi__Community_Network_ID__c}',
+                                '{!commGroup.PagesApi__Chatter_Group_Id__c}',
+                                '{!commGroup.Id}',
+                                fileContent, file.type, file.name,
+                                function(result, event) {
+                                    if (event.status) {
+                                        $('#uploadModal').modal('hide');
+                                        $('#groupImageInput').fileinput('cancel');
+                                        $('#groupImageInput').fileinput('clear');
+                                        $('input[id$=groupImageUrlHidden]').val(result);
+                                        $(".groupProfilePhoto").attr("src", result);
+                                    } else {
+                                        return {
+                                            message: '{!$Label.CPBase__Group_Detail_Upload_Failed}',
+                                            data: {
+                                                key1: 'Key 1',
+                                                detail1: 'Detail 1'
+                                            }
+                                        };
+                                    }
+                                }, {
+                                    escape: true
+                                }
+                            );
+                        }
+                    }(file));
+                    reader.readAsDataURL(file);
+                    return {
+                        message: '{!$Label.CPBase__Group_Detail_Uploading}',
+                        data: {
+                            key1: 'Key 1',
+                            detail1: 'Detail 1'
+                        }
+                    };
+                });
+            });
+            $(document).on('click', '#changeBanner', function(e) {
+                e.preventDefault();
+                $('#uploadInput').html('<input id="groupBannerInput" name="groupBannerInput" type="file" class="file-loading"/>')
+                $('#uploadModal').modal('show');
+                $("#groupBannerInput").fileinput({
+                    uploadUrl: "/group_detail",
+                    uploadAsync: true,
+                    dropZoneTitle: "<h4>{!$Label.CPBase__Drag_And_Drop}</h4><i class='btr bt-photo bt-4x text-white'></i>",
+                    removeIcon: "<i class='btb bt-trash text-danger'></i>",
+                    removeLabel: "",
+                    uploadIcon: "<i class='btb bt-check text-white'></i>",
+                    uploadClass: "btn btn-success",
+                    uploadLabel: "",
+                });
+                $('#groupBannerInput').on('filepreupload', function(event, data, previewId, index, jqXHR) {
+                    var file = data.files[0];
+                    if (file.size > 2000000) {
+                        $('#groupBannerInput').fileinput('cancel')
+                        return {
+                            message: '{!$Label.CPBase__Group_Detail_Picture_Large}',
+                            data: {
+                                key1: 'Key 1',
+                                detail1: 'Detail 1'
+                            }
+                        };
+                    } else {
+                        $('.kv-fileinput-error').css("background-color", "#2ECC71").css("color", "#fff");
+                    }
+
+                    var reader = new FileReader();
+                    reader.onload = (function(file) {
+                        return function(e) {
+                            var fileContent = String(e.target.result);
+                            fileContent = fileContent.substr(fileContent.indexOf(',') + 1);
+                            Visualforce.remoting.Manager.invokeAction(
+                                '{!$RemoteAction.GroupDetailController.uploadBannerFile}',
+                                '{!commGroup.PagesApi__Community_Network_ID__c}',
+                                '{!commGroup.PagesApi__Chatter_Group_Id__c}',
+                                '{!commGroup.Id}',
+                                fileContent, file.type, file.name,
+                                function(result, event) {
+                                    if (event.status) {
+                                        $('#uploadModal').modal('hide');
+                                        $('#groupBannerInput').fileinput('cancel');
+                                        $('#groupBannerInput').fileinput('clear');
+                                        $('input[id$=groupBannerHidden]').val(result);
+                                        $(".group-cover").css('background-image', 'url(' + result + ')');
+                                    } else {
+                                        return {
+                                            message: '{!$Label.CPBase__Group_Detail_Upload_Failed}',
+                                            data: {
+                                                key1: 'Key 1',
+                                                detail1: 'Detail 1'
+                                            }
+                                        };
+                                    }
+                                }, {
+                                    escape: true
+                                }
+                            );
+                        }
+                    }(file));
+                    reader.readAsDataURL(file);
+                    return {
+                        message: '{!$Label.CPBase__Group_Detail_Uploading}',
+                        data: {
+                            key1: 'Key 1',
+                            detail1: 'Detail 1'
+                        }
+                    };
+                });
+            });
+            $(document).on('click', '#changeMyDisplayPic', function(e) {
+                e.preventDefault();
+                $('#profile-pic').html('<input id="input-mypic" name="input-mypic" type="file" class="file-loading"/>');
+                $("#input-mypic").fileinput({
+                    uploadUrl: "/group_detail",
+                    uploadAsync: true,
+                    dropZoneTitle: "<h4>{!$Label.CPBase__Drag_And_Drop}</h4><i class='btr bt-photo bt-4x text-white'></i>",
+                    removeIcon: "<i class='btb bt-trash text-danger'></i>",
+                    removeLabel: "",
+                    uploadIcon: "<i class='btb bt-check text-white'></i>",
+                    uploadClass: "btn btn-success",
+                    uploadLabel: "",
+                });
+
+                $('#input-mypic').on('filepreupload', function(event, data, previewId, index, jqXHR) {
+                    var file = data.files[0];
+                    var fileType = file.type;
+                    if (fileType.indexOf('image') === -1) {
+                        return {
+                            message: '{!$Label.CPBase__Group_Detail_Picture_Incorrect_Format}',
+                            data: {
+                                key1: 'Key 1',
+                                detail1: 'Detail 1'
+                            }
+                        };
+                    }
+                    if (file.size > 2000000) {
+                        $('#input-mypic').fileinput('cancel');
+                        return {
+                            message: '{!$Label.CPBase__Group_Detail_Picture_Large}',
+                            data: {
+                                key1: 'Key 1',
+                                detail1: 'Detail 1'
+                            }
+                        };
+                    } else {
+                        $('.kv-fileinput-error').css("background-color", "#2ECC71").css("color", "#fff");
+                    }
+
+                    var reader = new FileReader();
+                    reader.onload = (function(file) {
+                        return function(e) {
+                            var fileContent = String(e.target.result);
+                            fileContent = fileContent.substr(fileContent.indexOf(',') + 1);
+                            Visualforce.remoting.Manager.invokeAction(
+                                '{!$RemoteAction.GroupDetailController.uploadProfilePic}',
+                                '{!commGroup.PagesApi__Community_Network_ID__c}',
+                                currentgroupMember.PagesApi__Chatter_Group_Member_Id__c,
+                                currentgroupMember.Id,
+                                fileContent, file.type, file.name,
+                                function(result, event) {
+                                    if (event.status) {
+                                        $('input[id$=memberProfileUrlHidden]').val(result);
+                                        $('#profile-pic').html('<div class="col-sm-4 col-sm-offset-4 text-center edit-profile-photo-container">' + '<img src="' + result + '" class="edit-profile-photo img-responsive center" id="memberProfilePhoto"/>' + '<div class="edit-profile-image">' + '<a href="#" class="edit-profile-image-prompt" id="changeMyDisplayPic">' + '<i class="btr bt-photo"></i><br/>' + 'Change Photo</a></div></div>');
+                                        $('#input-mypic').fileinput('cancel');
+                                        $('#input-mypic').fileinput('clear');
+                                    } else {
+                                        return {
+                                            message: '{!$Label.CPBase__Group_Detail_Upload_Failed}',
+                                            data: {
+                                                key1: 'Key 1',
+                                                detail1: 'Detail 1'
+                                            }
+                                        };
+                                    }
+                                }, {
+                                    escape: true
+                                }
+                            );
+                        }
+                    }(file));
+                    reader.readAsDataURL(file);
+                    return {
+                        message: '{!$Label.CPBase__Group_Detail_Uploading}',
+                        data: {
+                            key1: 'Key 1',
+                            detail1: 'Detail 1'
+                        }
+                    };
+                });
+            });
+            $(document).on('click', '.manageGrpBtn', function(e) {
+                if (!memberlistviewtemplate) {
+                    memberlistviewtemplate = Handlebars.compile($('#member_list_view_template').html());  
+                    var record_data = {
+                        statusPicklistValues: statusPicklistValues,
+                        labels: pagelabels
+                    };
+                    var result_html = memberlistviewtemplate(record_data);
+                    $("#memberViewMenuUL").html(result_html);
+                }
+                searchMembers();
+                $('#memberManageModal').modal('show');
+            });
+            $('#member_searchBox').on('keypress',function(e) {
+                var code = e.keyCode || e.which;
+                if (code == 13) {
+                    e.preventDefault();
+                    searchMembers();
+                }
+            });
+            $(document).on('click', '.updateMemberBtn', function(e) {
+                var btnLoader = Ladda.create(this);
+                btnLoader.start();
+                var memberId = $(this).attr('data-memberId');
+                var displayName = $("#" + memberId + "-displayName").val();
+                var email = $("#" + memberId + "-email").val();
+                var role = $("#" + memberId + "-role").val();
+                var status = $("#" + memberId + "-status").val();
+                var isManager = $("#" + memberId + "-manager").prop( "checked" );
+                var jsonData = {
+                    memberId: memberId,
+                    displayName: displayName,
+                    email: email,
+                    role: role,
+                    status: status,
+                    isManager: isManager,
+                };
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.GroupDetailController.updateMember}',
+                    JSON.stringify(jsonData),
+                    function(result, event) {
+                        if (event.status) {
+                            var record_data = {
+                                member: result,
+                                labels: pagelabels,
+                                rolePicklistValues: rolePicklistValues,
+                                statusPicklistValues: statusPicklistValues,
+                                groupOwner: '{!commGroup.PagesApi__Group_Owner__c}'
+                            };
+                            var result_html = memberTemplate(record_data);
+                            $("#" + result.Id).html(result_html);
+                        }
+                        btnLoader.stop();
+                    }, {
+                      escape: true
+                    }
+                );
+            });
+            $(document).on('click', '.editMemberDetailBtn', function(e) {
+                var btnLoader = Ladda.create(this);
+                btnLoader.start();
+                var memberId = $(this).attr('data-memberId');
+                $("#" + memberId + " .collapse").collapse('toggle');
+                btnLoader.stop();
+            });
+            $('#memberManageModal').on('hide.bs.modal', function (e) {
+                showPageLoader();
+                location.reload();
+            });
+        });
+      </script>
+    </apex:define>
+	</apex:composition>
+</apex:page>

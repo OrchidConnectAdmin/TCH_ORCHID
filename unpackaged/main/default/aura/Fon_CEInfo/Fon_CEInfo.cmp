@@ -1,0 +1,766 @@
+<aura:component controller="Fon_CEInfoCntrl"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction">
+    
+    <!-- register event for refresh tab -->
+    <aura:registerEvent name="RefreshCreditTabs" type="c:RefreshCreditTabs"/>
+    
+    <!-- this attribute will be used to display tab 1 tables -->
+    <aura:attribute name="NCPCreditDetail" type="object" />
+    
+    <aura:attribute name="ncpSessionSelectedRec" type="object" />
+    
+    <!-- code to disable save button on modal -->
+    <aura:attribute name="disableSave" type="boolean" default="false"/>
+    
+    <!-- used to save the error message for date -->
+    <aura:attribute name="dateErrorMessage" type="string" />
+    
+    <!-- saving the new created CE -->
+    <aura:attribute name="crmanuualyrecId" type="string" />
+    
+    <!-- this attribute will be used to store the selected provider value -->
+    <aura:attribute name="selecteProvider" type="string" />
+    
+    <!-- this attribute display the provider name into picklist -->
+    <aura:attribute name="providerList" type="List" />
+    
+    <!-- this attribute display the session name based on provider name into picklist -->
+    <aura:attribute name="sessionProviderList" type="list" />
+    
+    <aura:attribute name="ncpSessionList" type="object[]" />
+    <!-- this attrubute helps display/hide modal popup -->
+    
+    <aura:attribute name="displayNCPSessionModal" type="Boolean" default="false"/>
+    <aura:attribute name="ncpCreditmodalValues" type="object" />
+    
+    <!-- hold the selected session record Id -->
+    <aura:attribute name="selectsessionname" type="string" />
+    
+    <!-- this will save if the edit icon of non approve is clicked -->
+    <aura:attribute name="nonapprovededit" type="boolean" default="false"/>
+    
+    
+    <!-- hold credit series name value -->
+    <aura:attribute name="creditSeriesName" type="string" />
+    
+    <!-- hold credit session Date value -->
+    <aura:attribute name="creditsessionDate" type="Date" />
+    
+    <!-- hold credit session preiod value -->
+    <aura:attribute name="creditsessionpreiod" type="Date" />
+    <!-- hold credit  value -->
+    <aura:attribute name="creditValue" type="integer" />
+    
+    <aura:attribute name="watchedDate" type="Date" />
+    
+    <aura:attribute name="nonApprovencpRecSel" type="object" />
+    <aura:attribute name="nonApprovencpRecSelmodal" type="boolean" default="false"/>
+    
+    <aura:attribute name="deletedRec" type="string" />
+    <aura:attribute name="deleteModal" type="boolean" default="false"/>
+    
+    <!-- hold speaker checkbox value -->
+    <aura:attribute name="speakercheckbox" type="boolean" default="false"/>    
+    <aura:attribute name="sessintypelist" type="list" />    
+    <aura:attribute name="ncPCreditRec" type="object" />    
+    <aura:attribute name="displayNCPCreditModal" type="Boolean" default="false"/>    
+    <aura:attribute name="displaySpinner" type="Boolean" default="false"/>
+    
+    <!-- 'fileName' attribute for display the selected file name --> 
+    <aura:attribute name="fileName" type="String" default="No File Selected.." />     
+    
+    <!-- Call doinit method when cmp is load -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- call providerValChng method when selecteProvider value is change (update session picklist)-->
+    <aura:handler name="change" value="{!v.selecteProvider}" action="{!c.providerValChng}"/>
+    
+    <!-- display create notes modal -->
+    <aura:attribute name="displayNotesModal" type="Boolean" default="false"/>
+    <!-- these attributes will be used to create contact notes records -->
+    <aura:attribute name="notesTitle" type="string" />
+    <aura:attribute name="notesDes" type="string" />
+    
+    <!-- call findCreditVal method when selectsessionname value is change (update credit value in popup)-->
+    <aura:handler name="change" value="{!v.selectsessionname}" action="{!c.findCreditVal}"/>
+    
+    <aura:if isTrue="{!v.displaySpinner}">
+        <div class="">
+            <lightning:spinner alternativeText="Loading" size="medium" style="position: fixed"/>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!or(v.NCPCreditDetail.lstNonApprovedNCPCredits,v.NCPCreditDetail.lstApprovedNCPCredits)}">
+        
+        <!-- Button -->
+        <div align="right">
+            <lightning:button variant="brand" label="I have a session ID #" title="I have a session ID #" onclick="{!c.openNCPsessioPOPUP}" />
+            <lightning:button variant="brand" label="I do not have a session ID #" title="I do not have a session ID #" onclick="{!c.openNCPCreditPOPUP}" />            
+            <lightning:button variant="brand" label="Add Notes" title="Add Notes" onclick="{!c.displayNotesModal}" />
+        </div> 
+    </aura:if>
+    
+    <!-- first table NonApprovedNCPCredits-->
+    
+    
+    <strong>Pending Credits</strong><br/><br/>
+    <div class="search-table-outter wrapper">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered" style="overflow:auto">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Session Id">Session Id</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Session Date">Session Date</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Submission Date">Submission Date</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Credit Value">Credit Value</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Credit Value">Session Title</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="CE Provider">CE Provider</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Description">Speaker</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Description"> </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.NCPCreditDetail.lstNonApprovedNCPCredits}" var="item">
+                <tr class="slds-hint-parent">
+                    <td data-label="Session Id" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.NCP_Session__r.Session_ID__c}">{!item.NCP_Session__r.Session_ID__c}</div>
+                    </td>
+                    
+                    <td data-label="Session Date" style="padding-left:10px">                        
+                        <aura:if isTrue="{!item.NCP_Session__c != null}">                            
+                            <div class="slds-truncate" title="{!item.NCP_Session__r.Session_Date__c}">
+                                <ui:outputDate value="{!item.NCP_Session__r.Session_Date__c}"/>                                
+                                
+                            </div>
+                            <aura:set attribute="else">
+                                <div class="slds-truncate" title="{!item.FON_Session_Date__c}">
+                                    <ui:outputDate value="{!item.FON_Session_Date__c}"/>                                    
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                        
+                    </td>
+                    
+                    <td data-label="Submission Date" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.CreatedDate}">
+                            <!--<lightning:formattedDateTime value="{!item.CreatedDate}"  year="numeric" month="numeric" day="numeric"/>-->
+                            <ui:outputDate value="{!item.CreatedDate}"/>
+                        </div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.FON_Total_Credits__c}">{!item.FON_Total_Credits__c}</div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.Session_Title__c}" style="white-space: pre-wrap;">{!item.Session_Title__c}</div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.FON_Provider_Name__c}" style="white-space: pre-wrap;">{!item.FON_Provider_Name__c}</div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.If_you_were_a_speaker_click_here__c}"
+                             style="white-space: pre-wrap;">                           
+                            <lightning:input type="checkbox" name="input1" label="" checked="{!item.If_you_were_a_speaker_click_here__c}" disabled="true"/>
+                        </div>
+                    </td>
+                    <td data-label="Account Name" style="padding-left:10px">
+                        <div class="slds-truncate" title="">                                
+                            <a href=""  onclick="{!c.handleClick}" name="{!item.Id}">
+                                <lightning:icon iconName="utility:edit" 
+                                                alternativeText="edit" 
+                                                size="xx-small"
+                                                title="xx-small size"/>
+                                
+                            </a>
+                            &nbsp;
+                            <a href=""  onclick="{!c.displaydelNonApproveModal}" name="{!item.Id}">
+                                <lightning:icon iconName="utility:close" 
+                                                alternativeText="close" 
+                                                size="xx-small"
+                                                title="xx-small size"/>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    </div>
+    <br/>
+    
+    <br/>
+    <!-- second table ApprovedNCPCredits-->
+    
+    <strong>Processed Credits</strong><br/><br/>
+    <div class="search-table-outter wrapper">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Session Id">Session Id</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Session Date">Session Date</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Submission Date">Submission Date</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Credit Value">Credit Value</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Credit Value">Session Title</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="CE Provider">CE Provider</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Description">Speaker</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Description"> </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.NCPCreditDetail.lstApprovedNCPCredits}" var="item">
+                <tr class="slds-hint-parent">
+                    <td data-label="Session Id" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.NCP_Session__r.Session_ID__c}">{!item.NCP_Session__r.Session_ID__c}</div>
+                    </td>
+                    
+                    <td data-label="Session Date" style="padding-left:10px">                        
+                        <aura:if isTrue="{!item.NCP_Session__c != null}">                            
+                            <div class="slds-truncate" title="{!item.NCP_Session__r.Session_Date__c}">
+                                <ui:outputDate value="{!item.NCP_Session__r.Session_Date__c}"/>
+                            </div>
+                            <aura:set attribute="else">
+                                <div class="slds-truncate" title="{!item.FON_Session_Date__c}">
+                                    <ui:outputDate value="{!item.FON_Session_Date__c}"/>
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                        
+                    </td>
+                    
+                    <td data-label="Submission Date" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.CreatedDate}">
+                            <!--<lightning:formattedDateTime value="{!item.CreatedDate}"  year="numeric" month="numeric" day="numeric"/>-->
+                            <ui:outputDate value="{!item.NCP_Session__r.Session_Date__c}"/>
+                        </div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.FON_Total_Credits__c}">{!item.FON_Total_Credits__c}</div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.Session_Title__c}" style="white-space: pre-wrap;">{!item.Session_Title__c}</div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.FON_Provider_Name__c}" style="white-space: pre-wrap;">{!item.FON_Provider_Name__c}</div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.If_you_were_a_speaker_click_here__c}"
+                             style="white-space: pre-wrap;">
+                            <lightning:input type="checkbox" name="input1" label=""  checked="{!item.If_you_were_a_speaker_click_here__c}" disabled="true"/>
+                        </div>
+                    </td>
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="">
+                            <a href=""  onclick="{!c.approvalRecEdit}" name="{!item.Id}">
+                                <lightning:icon iconName="utility:edit" 
+                                                alternativeText="edit" 
+                                                size="xx-small"
+                                                title="xx-small size"/>
+                            </a>                            
+                        </div>
+                    </td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    </div>
+    
+    <br/>
+    <!-- third table Workshop NCPCredits-->
+    
+    <strong>NCP CE Workshops</strong><br/><br/>
+    <div class="search-table-outter wrapper">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <tr class="slds-line-height_reset" style="width:15%;padding-left:10px">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Session Id">Session Id</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Session Date">Session Date</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Submission Date">Submission Date</div>
+                </th>
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Credit Value">Credit Value</div>
+                </th>
+                
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Credit Value">Session Title</div>
+                </th>
+                
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="CE Provider">CE Provider</div>
+                </th>
+                <!--
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Description" >Description</div>
+                </th>
+				-->
+                <th class="" scope="col" style="width:15%;padding-left:10px">
+                    <div class="slds-truncate" title="Description"> </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.NCPCreditDetail.lstWorkshopNCPCredits}" var="item">
+                <tr class="slds-hint-parent">
+                    <td data-label="Session Id" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.NCP_Session__r.Session_ID__c}">{!item.NCP_Session__r.Session_ID__c}</div>
+                    </td>
+                    
+                    <td data-label="Session Date" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.NCP_Session__r.Session_Date__c}">
+                            <ui:outputDate value="{!item.NCP_Session__r.Session_Date__c}"/>
+                        </div>
+                    </td>
+                    
+                    <td data-label="Submission Date" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.CreatedDate}">
+                            <!--<lightning:formattedDateTime value="{!item.CreatedDate}"  year="numeric" month="numeric" day="numeric"/>-->
+                            <ui:outputDate value="{!item.CreatedDate}"/>
+                        </div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.FON_Total_Credits__c}">{!item.FON_Total_Credits__c}</div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.Session_Title__c}">{!item.Session_Title__c}</div>
+                    </td>
+                    
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.FON_Provider_Name__c}">{!item.FON_Provider_Name__c}</div>
+                    </td>
+                    <!--
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="{!item.NCP_Session__r.Description__c}" style="white-space: pre-wrap;">{!item.NCP_Session__r.Description__c}</div>
+                    </td>
+					-->
+                    <td data-label="" style="padding-left:10px">
+                        <div class="slds-truncate" title="">
+                        </div>
+                    </td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    </div>
+    
+    
+    
+    <!-- NCP dession Modal --> 
+    <aura:if isTrue="{!v.displayNCPSessionModal}" >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                        
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"><strong>CE Activity</strong></h2>
+                    
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <table>
+                        <tr>
+                            <td style="width:30%">Provider
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </td>
+                            <td>
+                                <lightning:select aura:id="myinput" name="select1" variant="label-hidden"  class="label-hidden" label="" required="true" value="{!v.selecteProvider}">
+                                    <option value="">choose one...</option>
+                                    <aura:iteration items="{!v.providerList}" var="item">
+                                        <aura:if isTrue="{!item}">
+                                            <option value="{!item}">{!item}</option>
+                                        </aura:if>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </td>
+                        </tr>
+                        <br/>
+                        <tr>
+                            <td>NCP Session
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </td>
+                            <td>
+                                <lightning:select aura:id="myinput" name="select1" label="" variant="label-hidden"  class="label-hidden" required="true" value="{!v.selectsessionname}">
+                                    <option value="">choose one...</option>
+                                    <aura:iteration items="{!v.sessionProviderList}" var="item">
+                                        <aura:if isTrue="{!item}">
+                                            <option value="{!item.Id}">{!item.Session_Date__c} - {!item.Name}</option>
+                                        </aura:if>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </td>
+                        </tr>                        
+                        <!--
+                        <tr>
+                            <td>Session Date</td>
+                            <td>
+                                <lightning:input type="date" name="input1" label="" value="{!v.creditsessionDate}"/>
+                            </td>
+                        </tr>
+						-->  
+                        
+                        <tr>
+                            <td>Credit Value</td>
+                            <td>
+                                <lightning:input type="number" name="input1" label="" value="{!v.creditValue}" disabled="true"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Viewed Date</td>
+                            <td>
+                                <lightning:input type="date" name="input1" label="" displayDatePicker="true" format="MM/dd/yyyy" value="{!v.watchedDate}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Speaker</td>
+                            <td>
+                                <lightning:input type="checkbox" name="input1" label="" aura:id="speakercheck" value="{!v.speakercheckbox}"/>
+                            </td>
+                        </tr>
+                        <td></td>
+                        
+                    </table>
+                </div>
+                <footer class="slds-modal__footer">                    
+                    <table>
+                        <tr>
+                            <td style="width:60%">
+                                <p align="left"><i>OnDemand Credits are listed with a 4/1 date. After saving your selection, click the edit button to enter the date you viewed the recording.</i></p>
+                            </td>
+                            <td style="text-align:right">
+                                <lightning:button variant="brand" label="Save" title="Save" onclick="{!c.saveNCPCreditRec}" />
+                                <lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{!c.closeNCPsessioPOPUP}" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        
+    </aura:if>
+    
+    
+    <!--Add  NCP Manaual Button credit Modal --> 
+    <aura:if isTrue="{!v.displayNCPCreditModal}" >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                        
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"><strong>CE Manual Activity</strong></h2>
+                    
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <table width="100%">
+                        <tr width="100%">
+                            <td width="20%">Entry Date <abbr title="required" class="slds-required">*</abbr></td>
+                            <td width="25%"> <lightning:input variant="label-hidden" type="date" aura:id="myinput" name="input1" label="" required="true" value="{!v.ncPCreditRec.entryDate}"/></td>
+                            <td width="2%"></td>
+                            <td width="20%">Session Title <abbr title="required" class="slds-required">*</abbr></td>    
+                            <td width="25%"><lightning:input type="text" aura:id="myinput" variant="label-hidden" name="input1" label=""  value="{!v.ncPCreditRec.sessiontitle}" required="true"/></td>    
+                        </tr> 
+                        <br/>
+                        <tr>
+                            <td>Session Date <abbr title="required" class="slds-required">*</abbr></td>
+                            <td> <lightning:input type="date" variant="label-hidden" aura:id="myinput" name="input1" label="" required="true" value="{!v.ncPCreditRec.sessionDate}"  onchange="{!c.dateUpdate}"/>
+                            	<span style="color:red"><i>{!v.dateErrorMessage}</i></span> 
+                            </td>
+                            <td width="2%"></td>
+                            <td>Session Description<abbr title="required" class="slds-required">*</abbr></td>    
+                            <td><lightning:input type="text" aura:id="myinput" variant="label-hidden" name="input1" label="" value="{!v.ncPCreditRec.sessionDes}" required="true" maxlength="250" messageWhenTooLong="Description too long. Limit is 250 characters."/></td>    
+                        </tr>
+                        <br/>
+                        <tr>
+                            <td>Provider Name <abbr title="required" class="slds-required">*</abbr></td>
+                            <td> <lightning:input type="text" variant="label-hidden" aura:id="myinput" name="input1" label="" required="true" value="{!v.ncPCreditRec.providerName}"/></td>
+                            <td width="2%"></td>
+                            <td>Instructor</td>    
+                            <td><lightning:input type="text" variant="label-hidden" name="input1" label="" value="{!v.ncPCreditRec.instructor}"/></td>    
+                        </tr>
+                        <br/>
+                        <tr>
+                            <td>Provider Phone and/or Email <abbr title="required" class="slds-required">*</abbr></td>
+                            <td> <lightning:input type="text" variant="label-hidden" aura:id="myinput" name="input1" label="" required="true" value="{!v.ncPCreditRec.proiderphORemail}"/></td>
+                            <td width="2%"></td>
+                            <td>Instructor Title</td>    
+                            <td><lightning:input type="text" variant="label-hidden" name="input1" label="" value="{!v.ncPCreditRec.instructortitle}"/></td>    
+                        </tr>
+                        <br/>
+                        <tr>
+                            <td>Session Type <abbr title="required" class="slds-required">*</abbr></td>
+                            
+                            <td>
+                                <lightning:select name="select1" class="label-hidden" variant="label-hidden" aura:id="myinput" label="" required="true" value="{!v.ncPCreditRec.sessiontype}">
+                                    <option value="">choose one...</option>
+                                    <aura:iteration items="{!v.sessintypelist}" var="item">
+                                        <aura:if isTrue="{!item}">
+                                            <option value="{!item}">{!item}</option>
+                                        </aura:if>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </td>
+                            <td width="2%"></td>
+                            <td>Credit Value</td>    
+                            <td><lightning:input  variant="label-hidden" type="text" name="input1" label="" value="{!v.ncPCreditRec.creditvalue}" disabled="true"/></td>    
+                        </tr>
+                        <br/>
+                        <tr>
+                            <td>If you were a speaker click here</td>    
+                            <td><lightning:input variant="label-hidden" 
+                                                 type="Checkbox" 
+                                                 name="input1" 
+                                                 label="" 
+                                                 aura:id="speaker"
+                                                 value="{!v.ncPCreditRec.speakerCheckbox}"/></td>    
+                            <td width="2%"></td>
+                            <td>Minutes of Education</td>    
+                            <td><lightning:input  variant="label-hidden" type="text" name="input1" label="" value="{!v.ncPCreditRec.minuteofEDU}" /></td>    
+                            
+                        </tr>
+                        <tr>
+                            <td>Viewed Date</td>
+                            <td>
+                                <lightning:input type="date" name="input1" label="" displayDatePicker="true" format="MM/dd/yyyy" value="{!v.ncPCreditRec.watchedDate}" />
+                            </td>
+                            <td width="2%"></td>
+                            <td></td>    
+                            <td></td>    
+                        </tr>
+                        
+                        <!--  <br/>
+                        <tr>
+                            <td>Audit Year</td>    
+                            <td><lightning:input type="text" variant="label-hidden" aura:id="myinput" name="input1" label="" required="true" value="{!v.ncPCreditRec.audityear}"/></td>    
+                        </tr>  -->
+                        <br/>
+                        
+                    </table>
+                    
+                    <br/>
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <div align="right">
+                        <lightning:button variant="brand" label="Save" title="Save" disabled="{!v.disableSave}" onclick="{!c.saveNCPCreditMannaulRec}" />
+                        <lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{!c.closeNCPCreditPOPUP}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if> 
+    
+    <!-- Edit modal -->
+    <aura:if isTrue="{!v.nonApprovencpRecSelmodal}" >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">                        
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"><strong>Update Record</strong></h2>
+                    
+                </header> 
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <table>
+                        <tr>
+                            <td>NCP Session Id</td>
+                            <td>
+                                <lightning:input type="text" name="input1" label="" value="{!v.nonApprovencpRecSel.NCP_Session__r.Session_ID__c}" disabled="{!!v.nonapprovededit}"/>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NCP Session Date</td>
+                            <td>
+                                <lightning:input type="date" name="input1" label="" value="{!v.nonApprovencpRecSel.FON_Session_Date__c}" disabled="{!!v.nonapprovededit}"/>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Submission Date</td>
+                            <td>
+                                <lightning:input type="date" name="input1" label="" displayDatePicker="true" format="MM/dd/yyyy" value="{!v.nonApprovencpRecSel.CreatedDate}" disabled="{!!v.nonapprovededit}"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Viewed Date</td>
+                            <td>
+                                <lightning:input type="date" name="input1" label="" displayDatePicker="true" format="MM/dd/yyyy" value="{!v.nonApprovencpRecSel.FON_Watched_Date__c}" disabled="{!!v.nonapprovededit}"/>
+                            </td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td>Credit Value</td>
+                            <td>
+                                <lightning:input type="text" name="input1" label="" value="{!v.nonApprovencpRecSel.Credit_Value__c}" disabled="true"/>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Provider Name</td>
+                            <td>
+                                <lightning:input type="text" name="input1" label="" value="{!v.nonApprovencpRecSel.FON_Provider_Name__c}" disabled="{!!v.nonapprovededit}"/>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Speaker</td>
+                            <td>
+                                <lightning:input type="checkbox" 
+                                                 name="input1" 
+                                                 label="" 
+                                                 aura:id="speaker" 
+                                                 checked="{!v.nonApprovencpRecSel.If_you_were_a_speaker_click_here__c}" 
+                                                 disabled="{!!v.nonapprovededit}"/>
+                                <!--
+                                <lightning:input type="text" 
+                                                 aura:id="descUpdate"  
+                                                 name="input1" 
+                                                 label="" 
+                                                 value="{!v.nonApprovencpRecSel.NCP_Session__r.Description__c}" 
+                                                 disabled="{!!v.nonapprovededit}"/>
+								-->
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>File Upload</td>
+                            <td>
+                                <lightning:input aura:id="fileId" 
+                                                 onchange="{!c.handleFilesChange}" 
+                                                 type="file" name="file" 
+                                                 label="Upload Attachment" 
+                                                 multiple="false"
+                                                 accept=".pdf"/>
+                                <div class="slds-text-body_small slds-text-color_error">{!v.fileName} </div>
+                                <br/>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <div align="right">
+                        <lightning:button variant="brand" label="Save" title="Save" onclick="{!c.updatenonappModal}" />
+                        <lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{!c.closenonappModal}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    
+    <!-- delete modal -->
+    <aura:if isTrue="{!v.deleteModal}" >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                
+                <div align="center" class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <strong>Are you sure to delete this record.</strong>
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <div align="right">
+                        <lightning:button variant="brand" label="Delete" title="Delete" onclick="{!c.deleteSelRec}" />
+                        <lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{!c.closedelModal}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    
+    <!-- create Notes modal -->
+    <aura:if isTrue="{!v.displayNotesModal}" >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">                        
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"><strong>New Notes</strong></h2>
+                    
+                </header>
+                <div  class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:input type="text" aura:id="checkTtyl" name="input1" label="Title" value="{!v.notesTitle}" required="true"/>
+                    <lightning:textarea  name="input1" label="Description" value="{!v.notesDes}"/>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div align="right">
+                        <lightning:button variant="brand" label="Create" title="Delete" onclick="{!c.createNotesRec}" />
+                        <lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{!c.closeNotesModal}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    
+    <aura:html tag="style">
+.search-table-outter { overflow-x: scroll; }
+th, td { min-width: 100px; }
+.search-table-outter td:nth-of-type(5){
+    min-width: 400px !important;
+}
+.search-table-outter td:nth-of-type(6){
+    min-width: 200px !important;
+}
+    </aura:html>
+</aura:component>

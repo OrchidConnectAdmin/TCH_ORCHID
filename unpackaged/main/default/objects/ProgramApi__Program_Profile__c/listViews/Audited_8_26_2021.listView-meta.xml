@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Audited_8_26_2021</fullName>
+    <columns>NAME</columns>
+    <columns>ProgramApi__Contact__c</columns>
+    <columns>FON_Audited__c</columns>
+    <columns>FON_Audit_Date__c</columns>
+    <columns>PP_Candidate_ID__c</columns>
+    <columns>FON_Program_Start_Date__c</columns>
+    <columns>FON_Program_End_Date__c</columns>
+    <columns>FON_Total_Workshops__c</columns>
+    <columns>FON_Total_Credits__c</columns>
+    <columns>FON_Audit_Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>FON_Audited__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>FON_Audit_Date__c</field>
+        <operation>equals</operation>
+        <value>8/26/2021</value>
+    </filters>
+    <label>Audited 8/26/2021</label>
+</ListView>

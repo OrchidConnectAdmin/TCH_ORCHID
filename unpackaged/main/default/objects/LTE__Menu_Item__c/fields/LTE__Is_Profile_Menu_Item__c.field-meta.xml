@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Is_Profile_Menu_Item__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Defines the menu item to be the profile navigational item.</description>
+    <inlineHelpText>Defines the menu item to be the profile navigational item.</inlineHelpText>
+    <label>Is Profile Menu Item</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

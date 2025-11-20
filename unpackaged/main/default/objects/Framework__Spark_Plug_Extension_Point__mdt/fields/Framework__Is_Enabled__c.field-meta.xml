@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Framework__Is_Enabled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Is extension point enabled or not.</description>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>Is extension point enabled or not.</inlineHelpText>
+    <label>Extension Point enabled?</label>
+    <type>Checkbox</type>
+</CustomField>

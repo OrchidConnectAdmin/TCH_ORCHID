@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Payment_Terms__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>The payment terms for the invoice. If not defined on record creation the default terms defined on the Commerce custom setting will be used.</description>
+    <inlineHelpText>The payment terms for the invoice. If not defined on record creation the default terms defined on the Commerce custom setting will be used.</inlineHelpText>
+    <label>Payment Terms</label>
+    <referenceTo>OrderApi__Payment_Terms__c</referenceTo>
+    <relationshipLabel>Invoices</relationshipLabel>
+    <relationshipName>Invoices</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Average_Visitor_Value__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Total Revenue / Visits.</description>
+    <formula>if( OrderApi__Visits__c ==0,0, OrderApi__Total_Revenue__c /OrderApi__Visits__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>** System Calculated ** Total Revenue / Visits.</inlineHelpText>
+    <label>Average Visitor Value</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

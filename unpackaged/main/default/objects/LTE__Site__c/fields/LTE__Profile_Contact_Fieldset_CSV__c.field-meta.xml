@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Profile_Contact_Fieldset_CSV__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Comma separated field set names that will be displayed in the Community on the My Info page.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Comma separated field set names that will be displayed in the Community on the My Info page.</inlineHelpText>
+    <label>Profile Contact Fieldset(s) CSV</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

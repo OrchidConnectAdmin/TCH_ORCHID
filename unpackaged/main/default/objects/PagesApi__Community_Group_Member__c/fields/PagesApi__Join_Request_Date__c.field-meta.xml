@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Join_Request_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The date that the group member requested to join a private group.</description>
+    <inlineHelpText>The date that the group member requested to join a private group.</inlineHelpText>
+    <label>Join Request Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

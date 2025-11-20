@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Detail__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Customize the detail pick-list to assist you in categorizing the GL Accounts in accounting reports.</description>
+    <inlineHelpText>Customize the detail pick-list to assist you in categorizing the GL Accounts in accounting reports.</inlineHelpText>
+    <label>Detail</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>OrderApi__Report_Category__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Accounts Payable (A/P)</fullName>
+                <default>false</default>
+                <label>Accounts Payable (A/P)</label>
+            </value>
+            <value>
+                <fullName>Accounts Receivable (A/R)</fullName>
+                <default>false</default>
+                <label>Accounts Receivable (A/R)</label>
+            </value>
+            <value>
+                <fullName>Bank</fullName>
+                <default>false</default>
+                <label>Bank</label>
+            </value>
+            <value>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+                <label>Credit Card</label>
+            </value>
+            <value>
+                <fullName>Current Liabilities</fullName>
+                <default>false</default>
+                <label>Current Liabilities</label>
+            </value>
+            <value>
+                <fullName>Equity</fullName>
+                <default>false</default>
+                <label>Equity</label>
+            </value>
+            <value>
+                <fullName>Fixed Assets</fullName>
+                <default>false</default>
+                <label>Fixed Assets</label>
+            </value>
+            <value>
+                <fullName>Long-term Liabilities</fullName>
+                <default>false</default>
+                <label>Long-term Liabilities</label>
+            </value>
+            <value>
+                <fullName>Other Assets</fullName>
+                <default>false</default>
+                <label>Other Assets</label>
+            </value>
+            <value>
+                <fullName>Other Current Assets</fullName>
+                <default>false</default>
+                <label>Other Current Assets</label>
+            </value>
+            <value>
+                <fullName>Income</fullName>
+                <default>false</default>
+                <label>Income</label>
+            </value>
+            <value>
+                <fullName>Other Income</fullName>
+                <default>false</default>
+                <label>Other Income</label>
+            </value>
+            <value>
+                <fullName>Cost of Goods Sold</fullName>
+                <default>false</default>
+                <label>Cost of Goods Sold</label>
+            </value>
+            <value>
+                <fullName>Expense</fullName>
+                <default>false</default>
+                <label>Expense</label>
+            </value>
+            <value>
+                <fullName>Other Expense</fullName>
+                <default>false</default>
+                <label>Other Expense</label>
+            </value>
+            <value>
+                <fullName>Contributions/Pledges Receivable</fullName>
+                <default>false</default>
+                <label>Contributions/Pledges Receivable</label>
+            </value>
+            <value>
+                <fullName>Other Receivables</fullName>
+                <default>false</default>
+                <label>Other Receivables</label>
+            </value>
+            <value>
+                <fullName>Direct Contributions</fullName>
+                <default>false</default>
+                <label>Direct Contributions</label>
+            </value>
+            <value>
+                <fullName>Refunds Payable (R/P)</fullName>
+                <default>false</default>
+                <label>Refunds Payable (R/P)</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Accounts Payable (A/P)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Accounts Receivable (A/R)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Bank</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Credit Card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Current Liabilities</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Equity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Fixed Assets</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Long-term Liabilities</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Other Assets</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Other Current Assets</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Contributions/Pledges Receivable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Other Receivables</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Refunds Payable (R/P)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Income Statement</controllingFieldValue>
+            <valueName>Income</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Income Statement</controllingFieldValue>
+            <valueName>Other Income</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Income Statement</controllingFieldValue>
+            <valueName>Cost of Goods Sold</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Income Statement</controllingFieldValue>
+            <valueName>Expense</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Income Statement</controllingFieldValue>
+            <valueName>Other Expense</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Income Statement</controllingFieldValue>
+            <valueName>Direct Contributions</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

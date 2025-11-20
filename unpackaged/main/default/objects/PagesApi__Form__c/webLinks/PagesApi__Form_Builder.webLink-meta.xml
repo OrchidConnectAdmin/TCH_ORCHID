@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Form_Builder</fullName>
+    <availability>online</availability>
+    <description>Launches the form builder, a drag and drop user interface for building dynamic web forms.</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Form Builder</masterLabel>
+    <openType>replace</openType>
+    <page>PagesApi__form_builder</page>
+    <protected>false</protected>
+</WebLink>

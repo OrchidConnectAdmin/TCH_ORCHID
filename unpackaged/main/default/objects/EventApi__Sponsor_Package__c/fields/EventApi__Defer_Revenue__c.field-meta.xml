@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Defer_Revenue__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the deferred revenue recognition rules will be considered when posting transactions.</description>
+    <inlineHelpText>When checked, the deferred revenue recognition rules will be considered when posting transactions.</inlineHelpText>
+    <label>Defer Revenue</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

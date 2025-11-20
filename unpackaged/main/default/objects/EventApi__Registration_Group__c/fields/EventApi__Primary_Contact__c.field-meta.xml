@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Primary_Contact__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Override ** Link to related Primary Contact. Derived from the related Account&#39;s &quot;Primary Contact&quot;.</description>
+    <inlineHelpText>** System Calculated Override ** Link to related Primary Contact. Derived from the related Account&#39;s &quot;Primary Contact&quot;.</inlineHelpText>
+    <label>Primary Contact</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Registration Groups (Primary Contact) Do Not Display</relationshipLabel>
+    <relationshipName>Registration_Groups</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

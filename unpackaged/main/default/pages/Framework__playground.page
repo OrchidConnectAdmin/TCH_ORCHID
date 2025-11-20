@@ -1,0 +1,16 @@
+<apex:page id="playground"
+    standardStylesheets="false"
+    showHeader="true"
+    sidebar="false"
+    cache="false"
+    controller="Framework.AdminController"
+>
+    <apex:includeLightning />
+    <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.SLDS_BaseV2,'css/styles.css')}" />
+    <script>
+        $Lightning.use('{!Namespace}:Spark', function () {
+            $Lightning.createComponent('{!Namespace}:PlayGroundTemplate', {}, 'lightning', function (cmp) {});
+        });
+    </script>
+    <div id="lightning" />
+</apex:page>

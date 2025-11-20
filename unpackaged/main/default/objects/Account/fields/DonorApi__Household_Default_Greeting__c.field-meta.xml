@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Household_Default_Greeting__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated Field** Automatically sets the default greeting for the household based upon the selected value in the Household Default Greeting Type picklist.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(DonorApi__Household_Default_Greeting_Type__c,&quot;Household Informal Greeting&quot;), DonorApi__Household_Informal_Greeting__c, 
+IF(ISPICKVAL(DonorApi__Household_Default_Greeting_Type__c,&quot;Household Formal Greeting&quot;), DonorApi__Household_Formal_Greeting__c, DonorApi__Household_Informal_Greeting__c))</formula>
+    <inlineHelpText>**System Calculated Field** Automatically sets the default greeting for the household based upon the selected value in the Household Default Greeting Type picklist.</inlineHelpText>
+    <label>Household Default Greeting</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

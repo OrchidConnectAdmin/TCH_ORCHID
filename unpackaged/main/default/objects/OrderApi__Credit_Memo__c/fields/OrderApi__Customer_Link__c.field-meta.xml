@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Customer_Link__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Link to the customer record.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(OrderApi__Entity__c,&quot;Account&quot;), HYPERLINK(&quot;/&quot; &amp; OrderApi__Account__r.Id, OrderApi__Account__r.Name, &quot;&quot;),
+            HYPERLINK(&quot;/&quot; &amp; OrderApi__Contact__r.Id, OrderApi__Contact__r.FirstName &amp; &quot; &quot; &amp; OrderApi__Contact__r.LastName, &quot;&quot;))</formula>
+    <inlineHelpText>**System Calculated** A link to the record the system considers the &quot;Customer&quot;  as determined by the &quot;Entity&quot; field.</inlineHelpText>
+    <label>Customer</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

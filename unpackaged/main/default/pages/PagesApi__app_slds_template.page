@@ -1,0 +1,67 @@
+<apex:page showHeader="true"
+    standardStylesheets="false"
+    sidebar="false"
+    applyHtmlTag="true"
+    applyBodyTag="false"
+    docType="html-5.0"
+>
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <!--<link href="{!URLFOR($Resource.slds_testing,'css/styles.css')}" rel="stylesheet"/>-->
+
+        <apex:insert name="styles" />
+
+        <div class="slds">
+            <div class="slds-grid slds-grid--align-center slds-wrap">
+                <!-- page body -->
+                <div class="slds-size--1-of-1 slds-grid slds-wrap">
+                    <div class="slds-col slds-size--1-of-1">
+                        <div class="slds-page-header">
+                            <div class="slds-media slds-media--center">
+                                <div class="slds-media__figure">
+                                    <apex:insert name="admin-icon" />
+                                </div>
+                                <!-- /.slds-media__figure -->
+                                <div class="slds-media__body">
+                                    <nav role="navigation">
+                                        <p id="bread-crumb-label" class="slds-assistive-text">You are here:</p>
+                                        <ol
+                                            class="slds-breadcrumb slds-list--horizontal"
+                                            aria-labelledby="bread-crumb-label"
+                                        >
+                                            <apex:insert name="breadcrumbs" />
+                                        </ol>
+                                    </nav>
+                                    <div class="slds-text-heading--medium">
+                                        <apex:insert name="title" />
+                                    </div>
+                                </div>
+                                <!-- /.slds-media__body -->
+
+                                <apex:insert name="new_button" />
+                            </div>
+                            <!-- /.slds-media -->
+                        </div>
+                        <!-- /.slds-page-header -->
+                    </div>
+                    <!-- /.slds-size--1-of-1 -->
+
+                    <div class="slds-grid slds-wrap slds-size--1-of-1">
+                        <apex:insert name="sidebar-left" />
+
+                        <apex:insert name="main" />
+
+                        <apex:insert name="sidebar-right" />
+                    </div>
+                    <!-- /.slds-grid -->
+
+                    <apex:insert name="footer" />
+                </div>
+                <!-- /.slds-size--1-of-1 -->
+            </div>
+            <!-- /.slds-grid -->
+        </div>
+        <!-- /.slds -->
+
+        <apex:insert name="scripts" />
+    </html>
+</apex:page>

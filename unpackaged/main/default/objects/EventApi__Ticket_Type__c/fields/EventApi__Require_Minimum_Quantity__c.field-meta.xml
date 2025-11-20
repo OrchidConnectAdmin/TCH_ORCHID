@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Require_Minimum_Quantity__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Restrict customers to a maximum quantity required per sale. Defaults unchecked.</description>
+    <inlineHelpText>Restrict customers to a minimum quantity required per sale. Defaults unchecked.</inlineHelpText>
+    <label>Require Minimum Sales Quantity</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

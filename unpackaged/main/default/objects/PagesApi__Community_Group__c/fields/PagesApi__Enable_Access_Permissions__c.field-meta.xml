@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Enable_Access_Permissions__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the Group will only be made visible when the Contact meets the criteria set in the &quot;Access Permissions&quot; related list. Unchecked by default.</description>
+    <inlineHelpText>When checked, the Group will only be made visible when the Contact meets the criteria set in the &quot;Access Permissions&quot; related list. Unchecked by default.</inlineHelpText>
+    <label>DEPRECATED</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

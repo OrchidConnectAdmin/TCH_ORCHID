@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Document_ID__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    RIGHT(OrderApi__Encrypted_Id__c, 1) = &quot;=&quot;,
+    LEFT(OrderApi__Encrypted_Id__c, LEN(OrderApi__Encrypted_Id__c) - 1) &amp; &quot;%3D&quot;,
+    OrderApi__Encrypted_Id__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Document ID</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

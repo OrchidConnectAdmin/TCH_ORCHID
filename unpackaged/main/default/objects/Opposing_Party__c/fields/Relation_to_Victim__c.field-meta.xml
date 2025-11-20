@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Relation_to_Victim__c</fullName>
+    <label>Relation to Victim</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Blood</fullName>
+                <default>false</default>
+                <label>Blood</label>
+            </value>
+            <value>
+                <fullName>Child in common</fullName>
+                <default>false</default>
+                <label>Child in common</label>
+            </value>
+            <value>
+                <fullName>Co-worker</fullName>
+                <default>false</default>
+                <label>Co-worker</label>
+            </value>
+            <value>
+                <fullName>Employer</fullName>
+                <default>false</default>
+                <label>Employer</label>
+            </value>
+            <value>
+                <fullName>Friend or acquaintance</fullName>
+                <default>false</default>
+                <label>Friend or acquaintance</label>
+            </value>
+            <value>
+                <fullName>Government</fullName>
+                <default>false</default>
+                <label>Government</label>
+            </value>
+            <value>
+                <fullName>Landlord</fullName>
+                <default>false</default>
+                <label>Landlord</label>
+            </value>
+            <value>
+                <fullName>Marriage</fullName>
+                <default>false</default>
+                <label>Marriage</label>
+            </value>
+            <value>
+                <fullName>Partner-in-common</fullName>
+                <default>false</default>
+                <label>Partner-in-common</label>
+            </value>
+            <value>
+                <fullName>Romantic or dating relationship</fullName>
+                <default>false</default>
+                <label>Romantic or dating relationship</label>
+            </value>
+            <value>
+                <fullName>Shared Residence (now or previously)</fullName>
+                <default>false</default>
+                <label>Shared Residence (now or previously)</label>
+            </value>
+            <value>
+                <fullName>Stranger</fullName>
+                <default>false</default>
+                <label>Stranger</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

@@ -1,0 +1,55 @@
+<!--
+  @description       : 
+  @author            : Malik Gray
+  @group             : 
+  @last modified on  : 10-30-2020
+  @last modified by  : Malik Gray
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   10-30-2020   Malik Gray   Initial Version
+-->
+<template>
+    <lightning-layout>
+        <lightning-layout-item size="12">
+            <lightning-accordion>
+                <lightning-accordion-section 
+                    name="Search Organization" 
+                    label="Search for an Organization by R/T Number or Name"
+                >
+                    <c-fon-r-t-n-search
+                        exact-match="true"
+                        onrecordselected={handleAccountSelected}
+                    >
+                    </c-fon-r-t-n-search>
+                    <c-fon-dynamic-search 
+                        label="Name Search" 
+                        onrecordselected={handleAccountSelected}
+                    >
+                    </c-fon-dynamic-search>
+                </lightning-accordion-section>
+                <lightning-accordion-section
+                    name="Create Organization"
+                    label="Create a new Organization"
+                >
+                <template if:true={primaryContactCreationMessage}>
+                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning">
+                        {primaryContactCreationMessage}
+                    </div>
+                </template>
+                <c-fon-onboarding-create-organization
+                    onrecordselected={handleAccountSelected}
+                >
+                </c-fon-onboarding-create-organization>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </lightning-layout-item>
+    </lightning-layout>
+    <button
+        class="slds-button slds-button_brand slds-button_stretch slds-m-top_small"
+        name="create"
+        disabled={disableSave}
+        onclick={createSponsoringRelationship}
+    >
+        {buttonLabel}
+    </button>
+</template>

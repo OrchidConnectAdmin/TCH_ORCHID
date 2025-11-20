@@ -1,0 +1,8 @@
+<aura:component description="ECCHO Page Title" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction,lightning:isUrlAddressable,flexipage:availableForAllPageTypes" access="global">
+    
+    
+<h1>
+    <img loading="lazy" class="aligncenter wp-image-23013 size-full" src="https://www.eccho.org/wordpress/wp-content/uploads/AboutECCHObanner.png" alt="" width="1950" height="154" srcset="https://www.eccho.org/wordpress/wp-content/uploads/AboutECCHObanner.png 1950w, https://www.eccho.org/wordpress/wp-content/uploads/AboutECCHObanner-300x24.png 300w, https://www.eccho.org/wordpress/wp-content/uploads/AboutECCHObanner-768x61.png 768w, https://www.eccho.org/wordpress/wp-content/uploads/AboutECCHObanner-1024x81.png 1024w" sizes="(max-width: 1950px) 100vw, 1950px"></img>
+    </h1>
+	
+</aura:component>

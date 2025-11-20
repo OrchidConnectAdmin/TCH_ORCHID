@@ -1,0 +1,309 @@
+<apex:page showHeader="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false"
+           controller="CPBase.StoreController">
+  <apex:composition template="CPBase__template">
+    <apex:define name="pageTitle">
+			{!$Label.CPBase__Store_Display_Label}
+    </apex:define>
+    <apex:define name="pageStyles">
+      <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.emerald_1_0,'css/pages/store.min.css')}"/>
+    </apex:define>
+    <apex:define name="pageMain">
+      <script type="text/javascript" src="{!URLFOR($Resource.eventSearch,'js/events/lodash.min.js')}"></script>
+
+      <div class="store-container">
+        <style>
+          /* enable absolute positioning */
+          .inner-addon {
+            position: relative;
+          }
+
+          .search-icon-input {
+            position: absolute;
+            height: 20px;
+            margin-top: 9px;
+            margin-right: 8px;
+            right: 0;
+          }
+          /* style icon */
+          .inner-addon .glyphicon {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+          }
+
+          .search-input-box::-ms-clear {
+            display: none;
+          }
+
+          /* align icon */
+          .left-addon .glyphicon  { left:  0px;}
+          .right-addon .glyphicon { right: 0px;}
+
+          /* add padding  */
+          .left-addon input  { padding-left:  30px; }
+          .right-addon input { padding-right: 30px; }
+          .search-input-box { height: 40px;}
+        </style>
+        <Framework:messages />
+        <Framework:currencyField />
+        <div class="container search m-t-30">
+          <div class="row">
+            <div class="col-sm-3 sidebar">
+              <div class="well filter text">
+                <div class="inner-addon right-addon">
+                  <img id="searchIcon" class="search-icon-input" src="{!URLFOR($Resource.Framework__SLDS_Icons, '/icons/utility/search_60.png')}"/>
+                  <img id="clearIcon" class="search-icon-input hidden" src="{!URLFOR($Resource.Framework__SLDS_Icons, '/icons/utility/clear_60.png')}"/>
+                  <img id="searchingIcon" class="search-icon-input hidden" src="{!URLFOR($Resource.Framework__SLDS_Icons, '/icons/fonteva/icons/spinner.gif')}"/>
+                  <input type="text" class="form-control search-input-box" placeholder="Search ..." id="searchBox"/>
+                </div>
+              </div>
+              <div class="well catalogFilters">
+                <ul class="nav nav-pills nav-stacked profile-page-nav" id="catalog-menu">
+                  <li class="all-catalogs">
+                    <a href="#" onclick="collapseAll();">
+											{!$Label.Store_All_Catologs}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-9">
+              <div class="tab-content">
+                <div class="well" id="itemsTileDiv">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </apex:define>
+    <apex:define name="pageScripts">
+      <!--Template For tree-->
+      
+      <script id="tree-item" type="text/x-handlebars-template">
+        {{#each catalogs}}
+        <li class="catalog-link catalog-{{catalog.Id}}" data-id="{{catalog.Id}}">
+          <a href="#{{catalog.Id}}" data-toggle="collapse" class="{{#if childCatalogs}}collapsed hasChilds{{/if}}" onclick="getResults('{{catalog.Id}}');">
+            {{name}}
+          </a>
+          {{#if childCatalogs}}
+          <ul class="nav nav-pills nav-stacked collapse" id="{{catalog.Id}}">
+            {{{constructCatolog childCatalogs}}}
+          </ul>
+          {{/if}}
+        </li>
+        {{/each}}
+      </script>
+      <script id="item-tiles" type="text/x-handlebars-template">
+        <h3 class="section-heading">{{items.length}} {{itemsFoundLabel}}</h3>
+        <div class="row">
+          <div class="col-md-12 shop-item">
+            {{#each items}}
+            <div class="search result col-lg-4 col-sm-6 m-b-10">
+              <a href="{!$Page.item}?id={{item.Id}}" class="item-link">
+                <div class="background" style="background-image: url('{{{item.OrderApi__Image_Path__c}}}');"></div>
+                <div class="information">
+                  <p class="m-b-0">
+                    {{{item.OrderApi__Display_Name__c}}}
+                    <i class="bts bt-angle-right pull-right"></i>
+                  </p>
+                  <h1 class="m-t-0">
+                    {{{formatCurrency item.OrderApi__Price__c currencyIsoCode}}}
+                  </h1>
+                  <hr/>
+                  <p class="description">
+                    {{{item.OrderApi__Line_Description__c}}}
+                  </p>
+                </div>
+              </a>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </script>
+      <script type="text/javascript">
+          var catalogTree;
+          var CatologTemplate = Handlebars.compile($('#tree-item').html());
+          var itemTilesTemplate = Handlebars.compile($('#item-tiles').html());
+          var CatologIdinContext;
+          var currentSearch;
+          var items;
+          var catalogsHeirarchyMapString;
+          function constructCatalogNode(result) {
+              var record_data = {
+                  catalogs: result
+              };
+              return CatologTemplate(record_data);
+          }
+          function constructCatalogTree() {
+              catalogTree = {!CatalogTree};
+              catalogsHeirarchyMapString = {!catalogsHeirarchyMapString};
+              $("#catalog-menu").append(constructCatalogNode(catalogTree));
+          }
+          Handlebars.registerHelper('constructCatolog', function(childCatalogs) {
+              return constructCatalogNode(childCatalogs);
+          });
+          Handlebars.registerHelper('formatCurrency', function(price,currencyIsoCode) {
+              if (price == undefined || (price != undefined && price == 0))
+                  return '{!$Label.Free_Cost}';
+              else
+                  return currencyComponentAPI.formatCurrency(price,currencyIsoCode);
+          });
+          function getResults(catalogId) {
+              var jsonData = {
+                  catalogId: catalogId,
+                  catalogsMapString: JSON.stringify(catalogsHeirarchyMapString),
+              };
+              CatologIdinContext = catalogId;
+              Visualforce.remoting.Manager.invokeAction(
+                  '{!$RemoteAction.StoreController.retrieveItems}',
+                  JSON.stringify(jsonData),
+                  function(result, event) {
+                      if (event.status) {
+                          if(result.length == '1')
+                          {
+                              var record_data = {
+                                  items: result,
+                                  itemsFoundLabel: '{!$Label.Store_One_Item_Found}'
+                              };
+                          }
+                          else{
+                              var record_data = {
+                                  items: result,
+                                  itemsFoundLabel: '{!$Label.Store_Items_Found}'
+                              };
+                          }
+                          $("#itemsTileDiv").html(itemTilesTemplate(record_data));
+                          items = record_data;
+                      }
+                  },
+                  {escape:true,immediate : true});
+          }
+          function search(searchString) {
+
+              var clearSearch = false;
+              if (searchString === null) {
+                  clearSearch = true;
+              }
+              var jsonData = {
+                  catalogId: '{!siteConfig.OrderApi__Store__c}',
+                  catalogsMapString: JSON.stringify(catalogsHeirarchyMapString),
+              };
+              currentSearch = searchString;
+              if (currentSearch !== null) {
+                  showIcon('clearIcon');
+              }
+              else {
+                  showIcon('searchIcon');
+              }
+
+              var result =_.filter(items.items,function(item){
+
+                  return item.item.OrderApi__Display_Name__c.toLowerCase().indexOf(currentSearch.toLowerCase())>-1;
+              });
+              var record_data = {
+                  items: result,
+                  itemsFoundLabel: '{!$Label.Store_Items_Found}'
+              };
+              $("#itemsTileDiv").html(itemTilesTemplate(record_data));
+
+          }
+          $(document).ready(function() {
+              messageTools.addMessages(JSON.parse('{!JSENCODE(storeMessages)}'),false,true);
+              constructCatalogTree();
+              if ('{!JSENCODE($CurrentPage.parameters.reloadSearchFilter)}' == 'true') {
+                  if (localStorage.getItem('store_catalogFilter') != ''){
+                      getResults(localStorage.getItem('store_catalogFilter'));
+                      CatologIdinContext = localStorage.getItem('store_catalogFilter');
+                      $('.catalog-'+CatologIdinContext).addClass('active');
+                  }
+                  else {
+                      $('.all-catalogs').addClass('active');
+                      getResults('{!siteConfig.OrderApi__Store__c}');
+                  }
+                  if (localStorage.getItem('store_search') != 'undefined' && localStorage.getItem('store_search') != ''){
+                      $('#searchBox').val(localStorage.getItem('store_search'));
+                      if (CatologIdinContext == null) {
+                          CatologIdinContext = '';
+                      }
+                      search(localStorage.getItem('store_search'));
+                  }
+              }
+              else if ('{!JSENCODE($CurrentPage.parameters.catalog)}' != null && '{!JSENCODE($CurrentPage.parameters.catalog)}' != '') {
+                  var catalogsMapString =  JSON.stringify(catalogsHeirarchyMapString);
+                  var catalogId = '{!JSENCODE($CurrentPage.parameters.catalog)}';
+                  if(catalogsMapString.indexOf(catalogId) > -1) {
+                      getResults(catalogId);
+                      var catalogLinks = document.getElementsByClassName("catalog-link");
+                      for(var i=0; i<catalogLinks.length; i++) {
+                          if(catalogLinks[i].className.indexOf(catalogId) != -1) {
+                              $(catalogLinks[i]).addClass('active');
+                          }
+                          else {
+                              $(catalogLinks[i]).addClass('hidden');
+                          }
+                      }
+                  }
+                  else {
+                      $('.catalog-link').addClass('hidden');
+                  }
+                  $('.all-catalogs').addClass('hidden');
+              }
+              else {
+                  $('.all-catalogs').addClass('active');
+                  getResults('{!siteConfig.OrderApi__Store__c}');
+              }
+
+              $(document).on('click','#clearIcon',function(e){
+                  showIcon('searchingIcon');
+                  $('#searchBox').val(null);
+                  $("#itemsTileDiv").html(itemTilesTemplate(items));
+                  showIcon('searchIcon');
+              });
+              $(document).on('click','.all-catalogs',function(e){
+                  $('.all-catalogs').addClass('active');
+                  $('.catalog-link').removeClass('active');
+              })
+              $(document).on('click','.catalog-link',function(e){
+                  $('.catalog-link').removeClass('active');
+                  $('.all-catalogs').removeClass('active');
+                  $('.catalog-'+$(this).data('id')).addClass('active');
+              });
+
+              $(document).on('click','.item-link',function(e){
+                  localStorage.setItem('store_catalogFilter',CatologIdinContext);
+                  localStorage.setItem('store_search',currentSearch);
+              });
+          });
+
+          $('#searchBox').on('keyup',function(e) {
+              showIcon('searchingIcon');
+              var searchStr = $(this).val();
+              if (searchStr === '' || searchStr === null) {
+                  searchStr = null;
+                  showIcon('searchIcon');
+                  $("#itemsTileDiv").html(itemTilesTemplate(items));
+
+              }else{
+                  search(searchStr);
+              }
+          });
+
+          function collapseAll() {
+              $(".catalogFilters ul.collapse.in").removeClass('in');
+              $(".hasChilds").addClass('collapsed');
+              getResults('{!siteConfig.OrderApi__Store__c}');
+          }
+
+          function showIcon(iconToShow) {
+              $('#searchIcon').addClass('hidden');
+              $('#clearIcon').addClass('hidden');
+              $('#searchingIcon').addClass('hidden');
+
+              $('#'+iconToShow).removeClass('hidden');
+          }
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

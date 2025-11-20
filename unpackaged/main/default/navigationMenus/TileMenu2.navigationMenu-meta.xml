@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NavigationMenu xmlns="http://soap.sforce.com/2006/04/metadata">
+    <container>ECCHO Online</container>
+    <containerType>Network</containerType>
+    <label>TileMenu</label>
+    <navigationMenuItem>
+        <label>FON - Technology Special Interest</label>
+        <menuItemBranding>
+            <tileImage>nyXWPwUDPti_ONOafv3sNhXLP3wFZ0wuuWu</tileImage>
+        </menuItemBranding>
+        <position>0</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>https://us-tdm-tso-15eb63ff4c6-1626e3c741a.force.com/LightningMemberPortal/s/group/0F96g00000003P9SAA</target>
+        <type>ExternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>FON - Annual Conference</label>
+        <menuItemBranding>
+            <tileImage>F</tileImage>
+        </menuItemBranding>
+        <position>1</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>https://us-tdm-tso-15eb63ff4c6-1626e3c741a.force.com/LightningMemberPortal/s/group/0F96g00000003PASAA</target>
+        <type>ExternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>FON-Communication Task Force</label>
+        <menuItemBranding>
+            <tileImage>F_1</tileImage>
+        </menuItemBranding>
+        <position>2</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>https://us-tdm-tso-15eb63ff4c6-1626e3c741a.force.com/LightningMemberPortal/s/group/0F96g00000003PBSAQ/foncommunication-task-force</target>
+        <type>ExternalLink</type>
+    </navigationMenuItem>
+</NavigationMenu>

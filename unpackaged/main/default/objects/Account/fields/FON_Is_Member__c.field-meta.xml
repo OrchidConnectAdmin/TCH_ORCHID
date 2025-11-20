@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Is_Member__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>*System Generated* Identifies whether an Account is a Member or Not a Member. Default is unchecked</inlineHelpText>
+    <label>Is Member?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

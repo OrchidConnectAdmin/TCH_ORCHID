@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Enable_Access_Permissions__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked access to the Store is controlled by the related user-defined Access Permissions. Defaults unchecked - essentially enabling all public and authenticated Users access to the Store and related content.</description>
+    <inlineHelpText>When checked access to the Store is controlled by the related user-defined Access Permissions. Defaults unchecked - essentially enabling all public and authenticated Users access to the Store and related content.</inlineHelpText>
+    <label>RESERVED</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

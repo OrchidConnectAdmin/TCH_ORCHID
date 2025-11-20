@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>I_Have_Verified_The_Information__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>For Sponsoring Organization, Marking the Application as Final Approval</description>
+    <inlineHelpText>For Sponsoring Organization, Marking the Application as Final Approval - updated via Sponsor Agreement form</inlineHelpText>
+    <label>I Have Verified The Information</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

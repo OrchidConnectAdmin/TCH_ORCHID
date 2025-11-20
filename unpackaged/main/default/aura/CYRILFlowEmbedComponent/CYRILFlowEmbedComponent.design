@@ -1,0 +1,8 @@
+<design:component label="CYRIL: Screen Flow Embed Component">
+   <design:attribute name="flowName" label="Flow Api Name" />
+   <design:attribute name="rID" label="Record ID" />
+   <design:attribute name="rIDName" label="Record ID Flow Variable Name" />
+   <design:attribute name="redirectVarValName" label="Name Of Variable To Pass To Redirect URL" />
+   <design:attribute name="redirectVar" label="Flow Redirect Variable Name (Boolean)" />
+   <design:attribute name="redirectPath" label="Redirect Path" />
+</design:component>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PriceApi__Bulk_Price_Rule__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Relates the price rule to the Price Rules Manager.</description>
+    <inlineHelpText>Relates the price rule to the Price Rules Manager.</inlineHelpText>
+    <label>Price Rules Manager</label>
+    <referenceTo>PriceApi__Bulk_Price_Rule__c</referenceTo>
+    <relationshipLabel>Price Rules</relationshipLabel>
+    <relationshipName>Price_Rules</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

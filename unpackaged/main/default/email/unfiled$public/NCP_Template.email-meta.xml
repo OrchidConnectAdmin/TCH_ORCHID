@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>NCP Template</name>
+    <style>none</style>
+    <subject>Welcome NCP Test Registrant</subject>
+    <textOnly>WELCOME!
+2023 NCP Exam Info
+
+Login to ECCHO Online and complete your info. Registrant first and last name must exactly match your legal driver’s license name (or other id) to access the test center or online exam.
+https://www.ecchoonline.org/s/login/
+
+Access ECCHO’s NCP Study Center for the PREP Guide and more here.
+https://www.ecchoonline.org/s/login/
+
+Know that test center registration is a separate step. You’ll receive your Registrant ID in early February. Register as soon as possible to secure desired time to test at a location of choice. See calendar below for general timing.
+
+Contact us ncp@theclearinghouse.org or 214 273 3218</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

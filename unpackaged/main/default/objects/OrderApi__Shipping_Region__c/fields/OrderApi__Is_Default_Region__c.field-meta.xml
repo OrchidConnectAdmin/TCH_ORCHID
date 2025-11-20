@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Default_Region__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>The default region will match any shipping destination that is not explicitly defined in another region. Leave the Address Field Values (CSV) field blank when enabling this feature.</description>
+    <inlineHelpText>The default region will match any shipping destination that is not explicitly defined in another region. Leave the Address Field Values (CSV) field blank when enabling this feature.</inlineHelpText>
+    <label>Is Default Region</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

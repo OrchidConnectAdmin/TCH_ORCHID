@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Image_Path__c</fullName>
+    <defaultValue>&quot;https://s3.us-east-1.amazonaws.com/fonteva-customer-media/00D1U000000FLVyUAO/WcRwRzNr_placeholder_svg&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>URL path of the image you want to display for this item</description>
+    <externalId>false</externalId>
+    <inlineHelpText>URL path of the image you want to display for this item</inlineHelpText>
+    <label>Image URL</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,73 @@
+<apex:page id="FileUploadFrame" showHeader="false" showChat="false" sidebar="false" controller="Framework.FileController">
+    <script type="text/javascript">
+        function uploadFile(
+            bucketName,
+            region,
+            params,
+            usePublicBucket,
+            signature,
+            policyJson,
+            isoDate,
+            credential,
+            expires
+        ) {
+            window.keys = window.keys || [];
+            window.keys['{!JSENCODE($CurrentPage.parameters.identifier)}'] = params.Key;
+
+            var formData = new FormData();
+            if (usePublicBucket) {
+                formData.append('acl', 'public-read');
+            } else {
+                formData.append('acl', 'bucket-owner-full-control');
+            }
+            formData.append('success_action_status', '201');
+            formData.append('policy', btoa(policyJson));
+            formData.append('x-amz-credential', credential);
+            formData.append('x-amz-algorithm', 'AWS4-HMAC-SHA256');
+            formData.append('x-amz-date', isoDate);
+            formData.append('x-amz-expires', expires);
+            formData.append('x-amz-signature', signature);
+            formData.append('key', params.Key);
+            formData.append('content-type', params.ContentType);
+            formData.append('file', params.Body);
+            var onload = function (oEvent) {
+                if (parseInt(request.status / 100) === 2) {
+                    var dataObj = { identifier: '{!JSENCODE($CurrentPage.parameters.identifier)}' };
+                    var key = window.keys['{!JSENCODE($CurrentPage.parameters.identifier)}'];
+                    dataObj.data = {};
+                    if (usePublicBucket) {
+                        dataObj.data.Location = 'https://s3.' + region + '.amazonaws.com/' + bucketName + '/' + key;
+                    } else {
+                        dataObj.data.Location =
+                            '{!baseUrl}{!URLFOR($Page.Framework__AwsProxy)}' + '?key=' + key + '&bucket=' + bucketName;
+                    }
+                    parent.window.postMessage(dataObj, '*');
+                } else {
+                }
+            };
+            
+            var request = new XMLHttpRequest();
+            request.open('POST', 'https://' + bucketName + '.s3.' + region + '.amazonaws.com/');
+            request.send(formData);
+            request.onload = onload;
+        }
+
+        function receiveMessage(event) {
+            if (event.data.identifier === '{!JSENCODE($CurrentPage.parameters.identifier)}') {
+                uploadFile(
+                    event.data.bucketName,
+                    event.data.region,
+                    event.data.params,
+                    event.data.usePublicBucket,
+                    event.data.signature,
+                    event.data.policyJson,
+                    event.data.isoDate,
+                    event.data.credential,
+                    event.data.expires
+                );
+            }
+        }
+
+        window.addEventListener('message', receiveMessage, false);
+    </script>
+</apex:page>

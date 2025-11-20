@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Valid__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** Validates that Total Debits = Total Credits for all Transaction Lines.</description>
+    <formula>((OrderApi__Total_Credits__c &gt; 0) &amp;&amp; (OrderApi__Total_Credits__c ==  OrderApi__Total_Debits__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>**System Calculated** Validates that Total Debits = Total Credits for all Transaction Lines.</inlineHelpText>
+    <label>Is Valid</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

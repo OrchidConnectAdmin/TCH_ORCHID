@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>FON_SUBSCRIPTION_Renewed_Membership</fullName>
+        <ccEmails>implementations@fonteva.com</ccEmails>
+        <description>FON-SUBSCRIPTION-Renewed Subscription</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OrderApi__Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        
+        <senderType>CurrentUser</senderType>
+        <template>Worflow_Emails/FON_SUBSCRIPTION_Renewed_Membership</template>
+    </alerts>
+    <alerts>
+        <fullName>Subscription_Renewal_Notification_0_days_prior_to_Expiration</fullName>
+        <ccEmails>implementations@fonteva.com</ccEmails>
+        <description>FON-SUBSCRIPTION - Renewal Notification 0 days prior to Expiration</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OrderApi__Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        
+        <senderType>CurrentUser</senderType>
+        <template>Worflow_Emails/FON_Subscription_Renewal_Expiration_Today</template>
+    </alerts>
+    <alerts>
+        <fullName>Subscription_Renewal_Notification_30_60_90_120_150_days_after_Expiration</fullName>
+        <ccEmails>implementations@fonteva.com</ccEmails>
+        <description>FON-SUBSCRIPTION- Renewal Notification 30,60,90,120 days after Expiration</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OrderApi__Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Worflow_Emails/FON_Subscription_Renewal_Notification_30_60_90_and120_days_after_Expiration</template>
+    </alerts>
+    <alerts>
+        <fullName>Subscription_Renewal_Notification_30_60_90_days_prior_to_Expiration</fullName>
+        <description>FON-SUBSCRIPTION- Renewal Notification 30, 60, 90 days prior to Expiration</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OrderApi__Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        
+        <senderType>CurrentUser</senderType>
+        <template>Worflow_Emails/FON_Subscription_Renewal_Notification_30_60_90_days_prior_to_Expiration</template>
+    </alerts>
+    <rules>
+        <fullName>FON-SUBSCRIPTION - Renewal Notification 0 days prior to Expiration</fullName>
+        <actions>
+            <name>Subscription_Renewal_Notification_0_days_prior_to_Expiration</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1</booleanFilter>
+        <criteriaItems>
+            <field>OrderApi__Subscription__c.OrderApi__Days_To_Lapse__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </criteriaItems>
+        <description>This workflow fires a notification to the customer that the subscription has lapsed.  (Days to Lapse = 0)</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>FON-SUBSCRIPTION- Email Alert to Staff</fullName>
+        <actions>
+            <name>New_Subscription_Purchased</name>
+            <type>Task</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>OrderApi__Subscription__c.OrderApi__Is_Active__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>This workflow fires a Task to staff to notify them of a subscription purchase.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>FON-SUBSCRIPTION- Renewal Notification 30%2C 60%2C 90 days prior to Expiration</fullName>
+        <actions>
+            <name>Subscription_Renewal_Notification_30_60_90_days_prior_to_Expiration</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1 OR 2 OR 3</booleanFilter>
+        <criteriaItems>
+            <field>OrderApi__Subscription__c.OrderApi__Days_To_Lapse__c</field>
+            <operation>equals</operation>
+            <value>30</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OrderApi__Subscription__c.OrderApi__Days_To_Lapse__c</field>
+            <operation>equals</operation>
+            <value>60</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OrderApi__Subscription__c.OrderApi__Days_To_Lapse__c</field>
+            <operation>equals</operation>
+            <value>90</value>
+        </criteriaItems>
+        <description>This workflow fires an email alert to the related contact 30, 60 and 90 days prior to the term of the subscription.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>FON-SUBSCRIPTION- Renewal Notification 30%2C60%2C90%2C and 120 days after Expiration</fullName>
+        <actions>
+            <name>Subscription_Renewal_Notification_30_60_90_120_150_days_after_Expiration</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+        <criteriaItems>
+            <field>OrderApi__Subscription__c.OrderApi__Days_To_Lapse__c</field>
+            <operation>equals</operation>
+            <value>-30</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OrderApi__Subscription__c.OrderApi__Days_To_Lapse__c</field>
+            <operation>equals</operation>
+            <value>-60</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OrderApi__Subscription__c.OrderApi__Days_To_Lapse__c</field>
+            <operation>equals</operation>
+            <value>-90</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OrderApi__Subscription__c.OrderApi__Days_To_Lapse__c</field>
+            <operation>equals</operation>
+            <value>-120</value>
+        </criteriaItems>
+        <description>This workflow fires an email alert to the related contact 30, 60, 90, and 120 days after the term of the subscription.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>FON-SUBSCRIPTION-Renewed Subscription</fullName>
+        <actions>
+            <name>FON_SUBSCRIPTION_Renewed_Membership</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow fires an email notification to the subscriptions contact upon renewal.</description>
+        <formula>ISCHANGED(OrderApi__Current_Term_End_Date__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

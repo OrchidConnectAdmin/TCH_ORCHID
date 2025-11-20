@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Hotel_Cancellation_Policy__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Describe the hotel&#39;s cancellation policy.</description>
+    <inlineHelpText>Describe the hotel&#39;s cancellation policy.</inlineHelpText>
+    <label>Hotel Cancellation Policy</label>
+    <length>1000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>

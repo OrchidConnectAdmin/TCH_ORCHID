@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Price_Rule__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required** Price Rule Variables hold a Master-Detail relationship to Price Rules.</description>
+    <inlineHelpText>**Required** Price Rule Variables hold a Master-Detail relationship to Price Rules.</inlineHelpText>
+    <label>Price Rule</label>
+    <referenceTo>OrderApi__Price_Rule__c</referenceTo>
+    <relationshipLabel>Price Rule Variables</relationshipLabel>
+    <relationshipName>Price_Rule_Variables</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>true</writeRequiresMasterRead>
+</CustomField>

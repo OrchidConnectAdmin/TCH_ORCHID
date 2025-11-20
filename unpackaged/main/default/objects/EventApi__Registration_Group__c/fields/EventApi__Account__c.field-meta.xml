@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** Link to related Account. Required if the Group is defined as a &quot;Corporate Registration Group&quot;.</description>
+    <inlineHelpText>** Conditionally Required ** Link to related Account. Required if the Group is defined as a &quot;Corporate Registration Group&quot;.</inlineHelpText>
+    <label>Account</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Registration Groups</relationshipLabel>
+    <relationshipName>Registration_Groups</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

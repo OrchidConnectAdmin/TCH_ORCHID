@@ -1,0 +1,2 @@
+<apex:page id="router" controller="EventApi.RouterController" action="{!route}">
+</apex:page>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Auto_Sellout_Event__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, system will update Sold Out field automatically when number of registered attendees have reached to event capacity.</description>
+    <inlineHelpText>When checked, system will update Sold Out field automatically when number of registered attendees have reached to event capacity.</inlineHelpText>
+    <label>Auto Sellout Event</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

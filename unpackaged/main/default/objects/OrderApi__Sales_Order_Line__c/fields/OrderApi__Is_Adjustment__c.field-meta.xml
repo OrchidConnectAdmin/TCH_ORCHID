@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Adjustment__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the system will not the consider the line in inventory calculations. Adjustment lines are the only type of lines that can be added to sales orders w/o payments that have posted.</description>
+    <inlineHelpText>When checked, the system will not the consider the line in inventory calculations. Adjustment lines are the only type of lines that can be added to sales orders w/o payments that have posted.</inlineHelpText>
+    <label>Is Adjustment</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Network xmlns="http://soap.sforce.com/2006/04/metadata">
+    <allowInternalUserLogin>true</allowInternalUserLogin>
+    <allowMembersToFlag>false</allowMembersToFlag>
+    <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
+    <communityRoles/>
+    <disableReputationRecordConversations>true</disableReputationRecordConversations>
+    <emailFooterLogo>TCH/TCH_letterhead_logo.png</emailFooterLogo>
+    <emailFooterText>3710 Rawlins Street, Suite 1075 Dallas, TX 75219</emailFooterText>
+    <emailSenderAddress>ecchoinfo@theclearinghouse.org</emailSenderAddress>
+    <emailSenderName>ECCHO Online</emailSenderName>
+    <embeddedLoginEnabled>true</embeddedLoginEnabled>
+    <enableApexCDNCaching>true</enableApexCDNCaching>
+    <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>
+    <enableDirectMessages>true</enableDirectMessages>
+    <enableExpFriendlyUrlsAsDefault>false</enableExpFriendlyUrlsAsDefault>
+    <enableExperienceBundleBasedSnaOverrideEnabled>false</enableExperienceBundleBasedSnaOverrideEnabled>
+    <enableGuestChatter>false</enableGuestChatter>
+    <enableGuestFileAccess>true</enableGuestFileAccess>
+    <enableGuestMemberVisibility>true</enableGuestMemberVisibility>
+    <enableImageOptimizationCDN>true</enableImageOptimizationCDN>
+    <enableInvitation>false</enableInvitation>
+    <enableKnowledgeable>false</enableKnowledgeable>
+    <enableLWRExperienceConnectedApp>false</enableLWRExperienceConnectedApp>
+    <enableMemberVisibility>true</enableMemberVisibility>
+    <enableNicknameDisplay>false</enableNicknameDisplay>
+    <enablePrivateMessages>false</enablePrivateMessages>
+    <enableReputation>false</enableReputation>
+    <enableShowAllNetworkSettings>false</enableShowAllNetworkSettings>
+    <enableSiteAsContainer>true</enableSiteAsContainer>
+    <enableTalkingAboutStats>true</enableTalkingAboutStats>
+    <enableTopicAssignmentRules>true</enableTopicAssignmentRules>
+    <enableTopicSuggestions>false</enableTopicSuggestions>
+    <enableUpDownVote>false</enableUpDownVote>
+    <forgotPasswordTemplate>unfiled$public/CommunityForgotPasswordEmailTemplate</forgotPasswordTemplate>
+    <gatherCustomerSentimentData>false</gatherCustomerSentimentData>
+    <headlessForgotPasswordTemplate>unfiled$public/CommunityHeadlessForgotPasswordTemplate</headlessForgotPasswordTemplate>
+    <headlessRegistrationTemplate>unfiled$public/CommunityHeadlessRegistrationTemplate</headlessRegistrationTemplate>
+    <networkMemberGroups>
+        <permissionSet>PagesApi__Fonteva_Communities_Customer_Community_Login_User</permissionSet>
+        <permissionSet>PagesApi__Fonteva_Communities_Partner_Community_Login_User</permissionSet>
+        <permissionSet>PagesApi__Fonteva_Communities_Salesforce_Platform_User</permissionSet>
+        <permissionSet>PagesApi__Fonteva_Communities_Salesforce_User</permissionSet>
+        <permissionSet>OrderApi__Fonteva_eBusiness_Customer_Community_Login_User</permissionSet>
+        <permissionSet>OrderApi__Fonteva_eBusiness_Partner_Community_Login_User</permissionSet>
+        <permissionSet>OrderApi__Fonteva_eBusiness_Salesforce_Platform_User</permissionSet>
+        <permissionSet>OrderApi__Fonteva_eBusiness_Salesforce_User</permissionSet>
+        <permissionSet>EventApi__Fonteva_Events_Customer_Community_Login_User</permissionSet>
+        <permissionSet>EventApi__Fonteva_Events_Partner_Community_Login_User</permissionSet>
+        <permissionSet>EventApi__Fonteva_Events_Salesforce_Platform_User</permissionSet>
+        <permissionSet>EventApi__Fonteva_Events_Salesforce_User</permissionSet>
+        <permissionSet>CPBase__Fonteva_Communities_Portal_Customer_Community_Login_User</permissionSet>
+        <permissionSet>CPBase__Fonteva_Communities_Portal_Partner_Community_Login_User</permissionSet>
+        <permissionSet>CPBase__Fonteva_Communities_Portal_Salesforce_Platform_User</permissionSet>
+        <permissionSet>CPBase__Fonteva_Communities_Portal_Salesforce_User</permissionSet>
+        <permissionSet>DonorApi__Fonteva_DonorApi_Customer_Community_Login_User</permissionSet>
+        <permissionSet>DonorApi__Fonteva_DonorApi_Partner_Community_Login_User</permissionSet>
+        <permissionSet>DonorApi__Fonteva_DonorApi_Salesforce_Platform_User</permissionSet>
+        <permissionSet>DonorApi__Fonteva_DonorApi_Salesforce_User</permissionSet>
+        <permissionSet>Accounting_Developer</permissionSet>
+        <profile>Fonteva Standard Platform User</profile>
+        <profile>Admin</profile>
+        <profile>Fonteva Customer Community Login User</profile>
+        <profile>Customer Community User</profile>
+        <profile>Partner Community Login User</profile>
+        <profile>Analytics Cloud Integration User</profile>
+        <profile>Analytics Cloud Security User</profile>
+        <profile>Chatter Free User</profile>
+        <profile>High Volume Customer Portal User</profile>
+        <profile>Partner Community User</profile>
+        <profile>HighVolumePortal</profile>
+        <profile>Chatter Only User</profile>
+        <profile>Customer Community Login User</profile>
+        <profile>Company Communities User</profile>
+        <profile>Chatter Moderator User</profile>
+        <profile>StandardAul</profile>
+        <profile>Standard</profile>
+        <profile>Read Only</profile>
+        <profile>SolutionManager</profile>
+        <profile>MarketingProfile</profile>
+        <profile>ContractManager</profile>
+        <profile>Fonteva Partner Community Login User</profile>
+        <profile>Fonteva Chapter Leader User</profile>
+    </networkMemberGroups>
+    <networkPageOverrides>
+        <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
+        <forgotPasswordPageOverrideSetting>Designer</forgotPasswordPageOverrideSetting>
+        <homePageOverrideSetting>Designer</homePageOverrideSetting>
+        <loginPageOverrideSetting>Designer</loginPageOverrideSetting>
+        <selfRegProfilePageOverrideSetting>Designer</selfRegProfilePageOverrideSetting>
+    </networkPageOverrides>
+    <picassoSite>ECCHO_Online1</picassoSite>
+    <selfRegProfile>Fonteva Customer Community Login User</selfRegProfile>
+    <selfRegistration>true</selfRegistration>
+    <sendWelcomeEmail>true</sendWelcomeEmail>
+    <site>ECCHO_Online</site>
+    <siteArchiveStatus>NotArchived</siteArchiveStatus>
+    <status>Live</status>
+    <tabs>
+        <defaultTab>home</defaultTab>
+        <standardTab>Chatter</standardTab>
+    </tabs>
+    <urlPathPrefix>LightningMemberPortal</urlPathPrefix>
+    <welcomeTemplate>unfiled$public/CommunityWelcomeEmailTemplate</welcomeTemplate>
+</Network>

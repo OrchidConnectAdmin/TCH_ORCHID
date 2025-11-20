@@ -1,0 +1,120 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           controller="joinapi.JoinProcessMembershipListController"
+           action="{!processStepConditions}" >
+  <apex:composition template="joinapi__template">
+    <apex:define name="jpTitle">
+            {!step.joinapi__Page_Title__c}
+    </apex:define>
+    <apex:define name="jpStyles">
+      <style>
+        .clear-richtext-formatting .htmlDetailElementTable>tbody>tr>td,
+        .clear-richtext-formatting .htmlDetailElementTable>tbody>tr>td blockquote{
+        background-color: #eee!important;
+        border-left: 0px solid transparent!important;
+        }
+        .section-heading{
+        margin-bottom:0px;
+        }
+        h4{
+        margin-bottom:5px;
+        padding-top:10px;
+        font-weight:bold;
+        }
+        .item_desc{
+        float:left;
+        width:75%;
+        }
+        .item_buttons{
+        float:right;
+        width:22%;
+        }
+      </style>
+    </apex:define>
+    <apex:define name="jpMain">
+      <c:InvalidPermissionHeader enabledProcess="{!hasPermission}" />
+      <apex:outputPanel rendered="{!hasPermission}">
+        <apex:form >
+          <div class="in">
+            <div class="container m-t-30">
+              <div class="well col-md-12">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h1>{!step.joinapi__Page_Title__c}</h1>
+                    <hr class="m-b-15" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 m-b-20">
+                    <apex:outputText value="{!step.joinapi__Instructions__c}" escape="false" />
+                  </div>
+                </div>
+                <apex:repeat value="{!parentStepConditions}" var="parentStepCondition">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h3 class="section-heading">{!parentStepCondition.joinapi__Item_Group_Header__c}</h3>
+                      <apex:repeat value="{!parentStepConditionIds2Children[parentStepCondition.Id]}" var="childStepCondition">
+                        <h4>{!childStepCondition.stepCon.Display_Name__c}</h4>
+                        <div class="item_desc">
+                          <apex:outputText value="{!childStepCondition.stepCon.Description__c}" escape="false" />
+                        </div>
+                        <div class="item_buttons">
+                          <apex:outputPanel layout="none" rendered="{!AND(NOT(step.joinapi__Disable_Item_Navigation_URL__c), NOT(ISNULL(childStepCondition.stepCon.Next_Step__c)))}">
+                            <a href="" class="btn btn-primary ladda-button btn-wrap" role="button" onclick="em.loader.start(this); createRedirectCookie('{!childStepCondition.nextPageURL}');" data-style="expand-right">
+                                    {!IF(ISBLANK(childStepCondition.stepCon.Button_Label__c), $Label.Next_Step, childStepCondition.stepCon.Button_Label__c)}
+                            </a>
+                          </apex:outputPanel>
+                        </div>
+                        <div style="clear:both"></div>
+                        <hr class="m-b-15" />
+                      </apex:repeat>
+                      <div class="row">
+                        <div class="col-md-12">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </apex:repeat>
+                <div class="text-center" >
+                  <apex:outputPanel layout="none" rendered="{!AND(step.joinapi__Disable_Item_Navigation_URL__c)}">
+                    <a class="btn btn-primary ladda-button btn-wrap nextMarketing" data-style="expand-right">
+                      <span class="{!IF(step.joinapi__Next_Step_Button_Label__c != null , 'ladda-label' , 'hidden')}">
+                        {!step.joinapi__Next_Step_Button_Label__c}
+                      </span>
+                      <span class="{!IF(step.joinapi__Next_Step_Button_Label__c == null , 'ladda-label' , 'hidden')}">
+                        {!$Label.joinapi__Next}
+                      </span>
+                    </a>
+                  </apex:outputPanel>
+                  <apex:actionRegion renderRegionOnly="true">
+                    <apex:actionFunction name="createRedirectCookieActionFunction" action="{!redirectCookie}" reRender="none">
+                      <apex:param id="nextURL" name="nextStepURL" value="" />
+                    </apex:actionFunction>
+                    <apex:actionFunction name="nextMarketing" action="{!getNextPage}"/>
+                  </apex:actionRegion>
+                </div>
+              </div>
+            </div>
+          </div>
+        </apex:form>
+      </apex:outputPanel>
+    </apex:define>
+    <apex:define name="jpScripts">
+      <script type="text/javascript">
+        $(document).on('click', '.nextMarketing', function(e) {
+          em.loader.start(this);
+          var btnRef = this;
+          nextMarketing();
+          setTimeout(function(){ em.loader.stop(btnRef); }, 1000);
+        });
+
+        function createRedirectCookie(specificRedirectURL) {
+          createRedirectCookieActionFunction(specificRedirectURL);
+        }
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

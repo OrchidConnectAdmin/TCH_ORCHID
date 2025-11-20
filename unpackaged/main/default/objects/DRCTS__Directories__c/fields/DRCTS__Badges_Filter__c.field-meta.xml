@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Badges_Filter__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Defines the badges that are allowed to view the directory.</description>
+    <inlineHelpText>Defines the badges that are allowed to view the directory.</inlineHelpText>
+    <label>Badges Filter</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

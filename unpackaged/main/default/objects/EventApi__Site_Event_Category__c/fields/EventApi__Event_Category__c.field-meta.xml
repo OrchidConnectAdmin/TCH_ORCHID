@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Event_Category__c</fullName>
+    <deprecated>false</deprecated>
+    <label>Event Category</label>
+    <referenceTo>EventApi__Event_Category__c</referenceTo>
+    <relationshipLabel>Site Event Categories</relationshipLabel>
+    <relationshipName>Site_Event_Categories</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

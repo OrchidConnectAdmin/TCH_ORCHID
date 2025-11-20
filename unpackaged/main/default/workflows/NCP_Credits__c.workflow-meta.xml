@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Set_Speaker_Credits_for_staff</fullName>
+        <field>FON_Speaker_Credits__c</field>
+        <formula>Credit_Value__c</formula>
+        <name>Set Speaker Credits for staff</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Unset_Speaker_Credits_for_staff</fullName>
+        <field>FON_Speaker_Credits__c</field>
+        <name>Unset Speaker Credits for staff</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Set Speaker Credits for staff</fullName>
+        <actions>
+            <name>Set_Speaker_Credits_for_staff</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( IF(TEXT($User.UserType) == &#39;Standard&#39;, true, false), If_you_were_a_speaker_click_here__c)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Unset Speaker Credits for staff</fullName>
+        <actions>
+            <name>Unset_Speaker_Credits_for_staff</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( IF(TEXT($User.UserType) == &#39;Standard&#39;, true, false), NOT(If_you_were_a_speaker_click_here__c))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

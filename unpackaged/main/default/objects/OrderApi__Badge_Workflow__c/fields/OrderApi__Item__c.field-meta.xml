@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Item__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to the related Item</description>
+    <inlineHelpText>Link to the related Item</inlineHelpText>
+    <label>Item</label>
+    <referenceTo>OrderApi__Item__c</referenceTo>
+    <relationshipLabel>Badge Workflows</relationshipLabel>
+    <relationshipName>Badge_Workflows</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

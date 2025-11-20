@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Field__c</fullName>
+    <deprecated>false</deprecated>
+    <description>CSV field with list of fields the rule defined against.</description>
+    <inlineHelpText>CSV field with list of fields the rule defined against.</inlineHelpText>
+    <label>Field</label>
+    <referenceTo>PagesApi__Field__c</referenceTo>
+    <relationshipLabel>Skip Logic Rules</relationshipLabel>
+    <relationshipName>Skip_Logic_Rules</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

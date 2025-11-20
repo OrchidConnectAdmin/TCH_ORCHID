@@ -1,0 +1,212 @@
+<apex:page readOnly="true"
+           showHeader="false"
+           sidebar="false"
+           standardController="DRCTS__Directories__c"
+           extensions="DRCTS.DirectoriesBuilderController"
+           docType="html-5.0"
+           cache="false">
+  <head>
+    <meta charset="utf-8"/>
+    <script src="{!URLFOR($Resource.Directories,'Directories/handlebars.min.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Directories,'Directories/jquery.min.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Directories,'Directories/Moment/min/moment.min.js')}" type="text/javascript"></script>
+    <style>
+      @media print {
+          .m-v-30 {
+              margin-bottom: 30px!important;
+              margin-top: 30px!important;
+          }
+          .center {
+              text-align: center!important;
+          }
+          .listdiv, h1 {
+              display: block!important;
+          }
+          .p-20 {
+              padding: 20px!important;
+          }
+          .p-10 {
+              padding: 10px!important;
+          }
+          html {
+              background: none;
+              padding: 0;
+          }
+          .tabone tr,td,th {
+              padding: 5px!important;
+          }
+          .tabone th,td {
+              word-wrap: break-word!important;
+              word-break:break-all!important;
+          }
+          .tabone {
+              width: 100%!important;
+              table-layout: fixed!important;
+          }
+          @page {
+              margin-top: 10px!important;
+              margin-bottom: 10px!important;
+              margin-left: 0px!important;
+              margin-right: 0px!important;
+          }
+          a {
+              color: blue!important;
+              text-decoration: none!important;
+          }
+      }
+    </style>
+  </head>
+  <div class="container">
+    <Framework:currencyField />
+    <div class="row">
+      <apex:outputPanel >
+        <div class="well col-md-12 listdiv" id="listdiv" style="display:none;">
+        </div>
+      </apex:outputpanel>
+    </div>
+  </div>
+  <script id="result_template" type="text/x-handlers-template">
+    {{#if records.length}}
+    <div class="col-xs-12 p-20">
+      <div class="row">
+        <div class="col-xs-12 m-v-30 center">
+          <h1>{{{dirObj.displayName}}}</h1>
+        </div>
+        <table border="0" class="tabone">
+          <thead>
+            <tr>
+              {{#each columnHeadersLabels}}
+                <th>{{label}}</th>
+              {{/each}}
+            </tr>
+          </thead>
+          <tbody>
+          {{#each records}}
+            <tr>
+              {{#each recvalues}}
+                <td>
+                  {{#if value}}
+                    {{escapespecialchars value type}}
+                  {{/if}}
+                </td>
+              {{/each}}
+            </tr>
+          {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {{/if}}
+  </script>
+  <script>
+      var fieldLables = [];
+      var fieldNames = [];
+      var records;
+
+      Handlebars.registerHelper('escapespecialchars', function(value, type) {
+          switch(type) {
+              case "url" :
+                  return new Handlebars.SafeString("<a href='" + Handlebars.escapeExpression(value) + "' style='text-decoration: underline;color:blue;' target='_blank'>" + value + "</a>");
+                  break;
+              case "email" :
+                  return new Handlebars.SafeString("<a href='mailto:" + Handlebars.escapeExpression(value) + "' style='text-decoration: underline;color:black;'>" + value + "</a>");
+                  break;
+              case "date" :
+                  return moment(value).format('{!JSENCODE(userDateFormat)}');
+                  break;
+              case "datetime" :
+                  return moment(value).format('{!JSENCODE(userDateFormat)}'+' HH:mm');
+                  break;
+              case "currency" :
+                  return currencyComponentAPI.formatCurrency(value, '{!JSENCODE(UserDefaultCurrency)}');
+                  break;
+              default :
+                  return new Handlebars.SafeString(value);
+          }
+      });
+      Visualforce.remoting.timeout = 120000;
+      function vfRemoteAction(methodName, params, callback, options) {
+          Visualforce.remoting.Manager.invokeAction(
+              methodName,
+              params,
+              function(result, event) {
+                  if (event.status) {
+                    callback(result);
+                  } else if (event.type === 'exception') {
+
+                  }
+              },
+              options
+          );
+      }
+      function processRecords(result) {
+          records = new Array();
+          $.each(result.columnHeadersLabels, function(idx, fld) {
+              fieldLables.push({
+                  "label": fld
+              });
+          });
+          $.each(result.columnHeadersNames, function(idx, fld) {
+              fieldNames.push({
+                  "name": fld
+              });
+          });
+          result.currentPageRecs = result.currentPageRecs || [];
+          $.each(result.currentPageRecs, function(idx, value) {
+              var record = {};
+              var sobj = value;
+              var fieldTypes = result.fieldTypes;
+              record.recvalues = [];
+              $.each(result.columnHeadersNames, function(indx, fld) {
+                  if (fieldTypes[fld].fieldType.toLowerCase() === 'address') {
+                      var fieldNameApiPrefix = fld.replace("Address", "");
+                      var addressval = (typeof sobj[fieldNameApiPrefix+'Street'] === 'undefined' ? '' : (sobj[fieldNameApiPrefix+'Street'])) +
+                          (typeof sobj[fieldNameApiPrefix+'City'] === 'undefined' ? '' : (", " + sobj[fieldNameApiPrefix+'City'])) +
+                          (typeof sobj[fieldNameApiPrefix+'State'] === 'undefined' ? '' : (", " + sobj[fieldNameApiPrefix+'State'])) +
+                          (typeof sobj[fieldNameApiPrefix+'PostalCode'] === 'undefined' ? '' : (", " + sobj[fieldNameApiPrefix+'PostalCode'])) +
+                          (typeof sobj[fieldNameApiPrefix+'Country'] === 'undefined' ? '' : (", " + sobj[fieldNameApiPrefix+'Country'])) ;
+                      record.recvalues.push({
+                          "value": addressval,
+                          "type": fieldTypes[fld].fieldType.toLowerCase()
+                      });
+                  } else if (fieldTypes[fld].fieldType.toLowerCase() === 'url') {
+                      var hrefstr;
+                      if (typeof sobj[fld] !== 'undefined') {
+                          hrefstr = (sobj[fld].indexOf("http://") === -1 && sobj[fld].indexOf("https://") === -1) ? "http://" + sobj[fld] : sobj[fld];
+                      }
+                      record.recvalues.push({
+                          "value": hrefstr,
+                          "type": fieldTypes[fld].fieldType.toLowerCase()
+                      });
+                  } else {
+                      record.recvalues.push({
+                          "value": sobj[fld],
+                          "type": fieldTypes[fld].fieldType.toLowerCase()
+                      });
+                  }
+              });
+              records.push(record);
+          });
+          var record_data = {
+              "records": records,
+              "columnHeadersLabels" : fieldLables,
+              "columnHeadersNames" : fieldNames,
+              "dirObj" : result.dirObj
+          };
+
+          var resultListHTML = $("#result_template").html();
+          var resultListHTMLTemplate = Handlebars.compile(resultListHTML);
+          $('#listdiv').html(resultListHTMLTemplate(record_data));
+          window.print();
+      }
+      $(document).ready(function(){
+          var directoriesInfo = 'Directories__{!$CurrentPage.parameters.id}';
+          vfRemoteAction(
+              '{!$RemoteAction.DirectoriesBuilderController.renderList}',
+              localStorage.getItem(directoriesInfo),
+              processRecords,
+              {buffer: false, escape: false}
+          );
+      });
+  </script>
+</apex:page>

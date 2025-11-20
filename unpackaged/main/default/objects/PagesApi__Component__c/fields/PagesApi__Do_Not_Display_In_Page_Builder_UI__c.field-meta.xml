@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Do_Not_Display_In_Page_Builder_UI__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the Component will not be made available for selection in the page builder ui.</description>
+    <inlineHelpText>When checked, the Component will not be made available for selection in the page builder ui.</inlineHelpText>
+    <label>Do Not Display In Page Builder UI</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

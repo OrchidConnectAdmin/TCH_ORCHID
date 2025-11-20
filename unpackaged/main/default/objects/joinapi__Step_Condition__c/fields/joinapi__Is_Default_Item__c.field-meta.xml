@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>joinapi__Is_Default_Item__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field identifies the item that will be selected for an item flow step if the user does not meet any of the dynamic item criteria.</description>
+    <inlineHelpText>This field identifies the item that will be selected for an item flow step if the user does not meet any of the dynamic item criteria.</inlineHelpText>
+    <label>Is Default Item</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

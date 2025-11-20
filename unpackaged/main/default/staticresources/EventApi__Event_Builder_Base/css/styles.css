@@ -1,0 +1,254 @@
+.slds-template_default.js-active {
+    position: fixed;
+    z-index: 100;
+    padding: 0;
+    top: 0;
+}
+
+button.slds-button.slds-button_neutral {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid rgb(217, 219, 221);
+    transition: border .15s linear;
+    border-color: rgb(216, 221, 230);
+    background-color: rgb(255, 255, 255);
+}
+
+button.slds-button.slds-button_brand {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid rgb(217, 219, 221);
+    transition: border .15s linear;
+    background-color: rgb(0, 112, 210);
+    border-color: rgb(0, 112, 210);
+    color: rgb(255, 255, 255);
+}
+
+button.slds-button.slds-button_icon.slds-cell-edit__button.slds-m-left_x-small {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    line-height: 1;
+    vertical-align: middle;
+    color: rgb(107, 109, 112);
+}
+
+.slds-input-has-icon.slds-input-has-icon_right .slds-input__icon.slds-input__icon_right {
+    width: .875rem;
+    height: .875rem;
+    position: absolute;
+    top: 50%;
+    line-height: 1;
+    border: 0;
+    z-index: 2;
+    fill: rgb(171, 173, 176);
+}
+
+button.slds-button.slds-button_icon-bare {
+    line-height: 1;
+    vertical-align: middle;
+    color: rgb(107, 109, 112);
+    margin-top: -2px;
+}
+
+.slds-th__action-button.slds-dropdown-trigger {
+    position: absolute;
+    top: 50%;
+    right: .25rem;
+    transform: translateY(-50%);
+}
+
+
+
+.slds-fall-into-ground {
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(0%, 0%);
+    transition: opacity .1s linear,visibility .1s linear,transform .1s linear;
+    will-change: transform;
+}
+
+.slds-popover {
+    position: absolute;
+    border-radius: .25rem;
+    width: 20rem;
+    min-height: 2rem;
+    z-index: 6000;
+    background-color: rgb(22, 50, 92);
+    display: inline-block;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.16);
+    border: 1px solid rgb(221, 219, 218);
+    z-index: 1000000;
+}
+
+.slds-nubbin_bottom-left:before, .slds-nubbin--bottom-left:before, .slds-nubbin_bottom-left-corner:before {
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    transform: rotate(45deg);
+    content: '';
+    background-color: inherit;
+    left: 50%;
+    bottom: -.5rem;
+    margin-left: -.5rem;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.16);
+    z-index: -1;
+}
+
+.slds-nubbin_bottom-left:before, .slds-nubbin_bottom-left:after, .slds-nubbin--bottom-left:before, .slds-nubbin--bottom-left:after, .slds-nubbin_bottom-left-corner:before, .slds-nubbin_bottom-left-corner:after {
+    left: 1.5rem;
+    top: 100%;
+    margin-top: -.5rem;
+}
+
+.slds-popover_error .slds-popover__header, .slds-popover_warning .slds-popover__header {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.slds-popover_error .slds-popover__header {
+    background-color: rgb(194, 57, 52);
+    color: rgb(255, 255, 255);
+}
+
+.slds-popover__header {
+    border-bottom: 1px solid rgb(221, 219, 218);
+}
+
+.slds-popover__body, .slds-popover__header, .slds-popover__footer {
+    position: relative;
+    padding: .5rem .75rem;
+    word-wrap: break-word;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block;
+}
+
+.slds-popover__close {
+    position: relative;
+    margin: .25rem;
+    z-index: 6001;
+}
+
+.slds-float_right, .slds-float--right {
+    float: right;
+}
+
+.slds-rise-from-ground {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0%, 0%);
+    transition: opacity .1s linear,visibility .1s linear,transform .1s linear;
+    will-change: transform;
+}
+
+.slds-popover *:last-child:not(.slds-popover__body) {
+    margin-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+}
+
+.slds-popover__body, .slds-popover__header, .slds-popover__footer {
+    position: relative;
+    padding: .5rem .75rem;
+    word-wrap: break-word;
+    color: white;
+}
+
+.slds-media_center, .slds-media--center {
+    align-items: center;
+}
+
+.slds-media {
+    display: flex;
+    align-items: flex-start;
+}
+
+.slds-has-flexi-truncate {
+    flex: 1 1 0%;
+    min-width: 0;
+}
+
+.slds-media__figure {
+    flex-shrink: 0;
+    margin-right: .75rem;
+}
+
+.slds-media__body {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.slds-media__body, .slds-media__body>:last-child {
+    margin-bottom: 0;
+}
+
+.slds-truncate {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.slds-text-heading_medium, .slds-text-heading--medium {
+    font-weight: 300;
+    font-size: 1.25rem;
+    line-height: 1.25;
+}
+
+.slds-icon_container, .slds-icon__container {
+    display: inline-block;
+    border-radius: .25rem;
+    line-height: 1;
+}
+
+.slds-icon {
+    width: 2rem;
+    height: 2rem;
+    fill: rgb(255, 255, 255);
+}
+
+.slds-popover svg
+ {
+    width: 1rem;
+    height: 1rem;
+    line-height: 1;
+    fill: white;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+.slds-popover .slds-button {
+    position: relative;
+    display: inline-block;
+    padding: 0;
+    background: transparent;
+    background-clip: border-box;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    line-height: 1.875rem;
+    text-decoration: none;
+    color: rgba(27, 82, 151, 1);
+    -webkit-appearance: none;
+    white-space: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.slds-popover .slds-assistive-text {
+    display: none;
+}
+
+.slds-popover__body > ul {
+    margin-left: 0;
+}

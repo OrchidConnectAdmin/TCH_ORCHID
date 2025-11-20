@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Mapped_Field__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Displays the mapped field from the parent field.</description>
+    <externalId>false</externalId>
+    <formula>PagesApi__Field__r.PagesApi__Mapped_Field__c</formula>
+    <inlineHelpText>** System Calculated ** Displays the mapped field from the parent field.</inlineHelpText>
+    <label>Mapped Field</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

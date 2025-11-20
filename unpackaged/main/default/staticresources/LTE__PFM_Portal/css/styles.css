@@ -1,0 +1,108 @@
+#auraAppcacheProgress,
+#auraLoadingBox,
+#auraErrorMask,
+.forceCommunityToastManager,
+.forceHoverPrototype {
+    display: none !important;
+}
+
+/* VENDOR TOAST STYLES */
+
+.iziToast-wrapper .iziToast.iziToast-color-red {
+    background: #c23934;
+    background-color: #c23934;
+    border-color: #c23934;
+}
+
+.iziToast.iziToast-color-red .iziToast-body > p,
+.iziToast.iziToast-color-green .iziToast-body > p {
+    color: white;
+}
+
+.iziToast-wrapper .iziToast.iziToast-color-green {
+    background: #04844b;
+    background-color: #04844b;
+    border-color: #04844b;
+}
+
+.siteforceServiceBody .cCenterPanel {
+    max-width: 100%;
+}
+
+.siteforceStarterBody {
+    overflow: hidden;
+}
+
+.siteforceStarterBody,
+.cCenterPanel,
+.pfm-portal_content,
+.pfm-portal_content > div,
+.ui-widget {
+    height: 100%;
+}
+
+.cCenterPanel {
+    padding: 0;
+    margin: 0;
+}
+
+.siteforceStarterBody .cCenterPanel {
+    outline: none;
+    max-width: inherit;
+    margin-left: inherit;
+    margin-right: inherit;
+}
+
+lightning-formatted-rich-text.slds-rich-text-editor__output ul {
+    list-style: disc;
+}
+
+lightning-formatted-rich-text.slds-rich-text-editor__output ol {
+    list-style: decimal;
+}
+
+body {
+    width: 100vw;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+body.js-cart_position .siteforceStarterBody,
+body.js-cart_position .pfm-portal-layout {
+    overflow-x: hidden;
+    overflow-y: unset;
+}
+
+body.comm-page-custom-community-event .pfm-portal-layout {
+    overflow-y: unset;
+}
+
+/* Variables */
+
+:root {
+    --animation-dynamic: cubic-bezier(0.9, -0.01, 0.2, 1);
+    --animation-static: cubic-bezier(1, 0, 1, 1);
+}
+
+/* Salesforce Override */
+
+/* Help text Icon */
+c-pfm-help-text .slds-form-element__icon {
+    padding: 0;
+    padding-top: 0;
+}
+
+c-pfm-help-text .slds-form-element__label:empty {
+    margin: 0;
+    display: none;
+}
+
+body.comm-page-custom-lt-event .LTEEventAgenda *.slds-collapse-section-title, body.comm-page-custom-community-event .LTEEventAgenda *.slds-collapse-section-title,
+body.comm-page-custom-lt-event .LTEEventAgenda *.slds-collapse-section-title:hover, body.comm-page-custom-community-event .LTEEventAgenda *.slds-collapse-section-title:hover  {
+    color: currentColor;
+    background-color: currentColor;
+}
+
+body.comm-page-custom-lt-event .LTEEventAgenda *.slds-collapse-section-title > *, body.comm-page-custom-community-event .LTEEventAgenda *.slds-collapse-section-title > *  {
+    color: var(--c-colorTextBrowser);
+}

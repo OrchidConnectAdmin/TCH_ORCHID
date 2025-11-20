@@ -1,0 +1,44 @@
+<apex:page showHeader="false"
+    standardStylesheets="false"
+    docType="html-5.0"
+    applyHtmlTag="false"
+    applyBodyTag="false">
+
+  <apex:composition template="CPBase__template">
+
+    <apex:define name="pageTitle">
+      <apex:insert name="jpTitle"/>
+    </apex:define>
+
+    <apex:define name="pageStyles">
+      <apex:insert name="jpStyles"/>
+      <style>
+        img.fr-dib {
+            display: block;
+        }
+        img.fr-dib.fr-fic {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        img.fr-dib.fr-fir {
+            margin-left: auto;
+            margin-right: 0;
+        }
+        img.fr-dib.fr-fil {
+            margin-left: 0;
+            margin-right: auto;
+        }
+      </style>
+    </apex:define>
+
+    <apex:define name="pageMain">
+      <apex:insert name="jpMain"/>
+    </apex:define>
+
+    <apex:define name="pageScripts">
+      <apex:insert name="jpScripts"/>
+    </apex:define>
+
+  </apex:composition>
+
+</apex:page>

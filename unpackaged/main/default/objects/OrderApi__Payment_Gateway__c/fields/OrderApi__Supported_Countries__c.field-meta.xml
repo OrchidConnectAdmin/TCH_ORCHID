@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Supported_Countries__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Full list of supported countries for the Payment Gateway.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** System Calculated ** Full list of supported countries for the Payment Gateway.</inlineHelpText>
+    <label>Supported Countries</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

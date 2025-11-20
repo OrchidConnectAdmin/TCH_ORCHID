@@ -1,0 +1,28 @@
+#auraAppcacheProgress,
+#auraLoadingBox,
+#auraErrorMask,
+.forceCommunityToastManager,
+.forceHoverPrototype,
+.siteforcePanelsContainer {
+    display: none!important;
+}
+
+/* VENDOR TOAST STYLES */
+
+.iziToast-wrapper .iziToast.iziToast-color-red {
+    background: #c23934;
+    background-color: #c23934;
+    border-color: #c23934;
+}
+
+.iziToast.iziToast-color-red .iziToast-body > p,
+.iziToast.iziToast-color-green .iziToast-body > p {
+    color : white;
+}
+
+.iziToast-wrapper .iziToast.iziToast-color-green {
+    background: #04844b;
+    background-color: #04844b;
+    border-color: #04844b;
+}
+

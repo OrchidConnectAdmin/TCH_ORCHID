@@ -1,0 +1,5 @@
+<design:component>
+	<design:attribute name="lookupFieldAPIVar" label="Sales Order Lookup Field API" />
+    <design:attribute name="recordPageObjectvar" label="Object" />
+    <design:attribute name="fieldSetVar" label="Fieldset" />
+</design:component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>joinapi__Is_Marketing_Item__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Identifies step condition as Marketing Item (Used in Marketing List)</description>
+    <inlineHelpText>Identifies step condition as Marketing Item (Used in Marketing List)</inlineHelpText>
+    <label>Is Marketing Item</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

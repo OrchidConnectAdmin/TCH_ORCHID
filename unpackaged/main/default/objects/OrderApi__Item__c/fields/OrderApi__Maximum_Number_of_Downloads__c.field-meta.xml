@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Maximum_Number_of_Downloads__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** The value of this field will be used to restrict the number of times a customer can access a downloadable file via the API. Valid for &quot;Is Downloadable&quot; Items. Required when &quot;Restrict Number of Downloads&quot; is checked.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Conditionally Required ** The value of this field will be used to restrict the number of times a customer can access a downloadable file via the API. Valid for &quot;Is Downloadable&quot; Items. Required when &quot;Restrict Number of Downloads&quot; is checked.</inlineHelpText>
+    <label>Maximum Number of Downloads</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

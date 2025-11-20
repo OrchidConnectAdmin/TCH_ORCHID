@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Filter_Criteria__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field defines the filter used to create the order summary.</description>
+    <inlineHelpText>This field defines the filter used to create the order summary.</inlineHelpText>
+    <label>Filter Criteria</label>
+    <length>100000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>15</visibleLines>
+</CustomField>

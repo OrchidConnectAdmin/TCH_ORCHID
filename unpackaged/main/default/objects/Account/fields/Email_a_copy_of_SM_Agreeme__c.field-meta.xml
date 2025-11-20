@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_a_copy_of_SM_Agreeme__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Please email a copy of Sponsored Member Agreement to Mary Williams (mary.williams@ubb.com)</description>
+    <label>Email a copy of SM Agreeme</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

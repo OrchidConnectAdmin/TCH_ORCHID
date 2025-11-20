@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Available_for_Recurring_Payments__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, payment methods will be available for recurring payments.</description>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>When checked, payment methods will be available for recurring payments.</inlineHelpText>
+    <label>Available for Recurring Payments</label>
+    <type>Checkbox</type>
+</CustomField>

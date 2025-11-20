@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification Email sent to ECCHO to Approve Sponsor Agreement</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Classic_TCH_Letterhead</letterhead>
+    <name>Sponsor Agreement Awaiting Final Approval by ECCHO</name>
+    <style>freeForm</style>
+    <subject>Action Required | SM Agreement Approved by both {!Sponsoring_Relationships__c.Account_Sponsoring_the_Membership__c} and {!Sponsoring_Relationships__c.Legal_Organization_Name__c}</subject>
+    <textOnly>To Whom it May Concern,
+
+I have reviewed and approved the ECCHO Sponsored Member Agreement with The Clearing House.
+
+{!Sponsoring_Relationships__c.Legal_Organization_Name__c},  {!Sponsoring_Relationships__c.Primary_R_T_Number__c} accepted the Terms of the Agreement on {!Sponsoring_Relationships__c.FON_Date_Agreement_was_Approved_by_Child__c}.
+
+I reviewed and confirmed the agreement on {!Sponsoring_Relationships__c.Date_Approved_by_Sponsor__c}
+
+Please review and accept the agreement at your earliest convenience.
+
+https://eccho--tchfull.lightning.force.com/lightning/r/Sponsoring_Relationships__c/{!Sponsoring_Relationships__c.Id}/view
+
+Sincerely,
+{!Sponsoring_Relationships__c.SM_Coordinator_Full_Name__c}
+{!Account.Name}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

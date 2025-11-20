@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Mailing_Address__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Mailing_Address_Street__c != null,Mailing_Address_Street__c&amp;&#39;, &#39;,&#39;&#39;)&amp;
+IF( Mailing_Address_City__c != null,Mailing_Address_City__c&amp;&#39;, &#39;,&#39;&#39;)&amp;
+IF( Future_Notification_Address_State__c  != null,Future_Notification_Address_State__c &amp;&#39; &#39;,&#39;&#39;)&amp;
+IF( Mailing_Address_Zip_Code_Postal_Code__c != null,Mailing_Address_Zip_Code_Postal_Code__c&amp;&#39;, &#39;,&#39;&#39;)&amp;
+IF( Mailing_Country__c != null,Mailing_Country__c,&#39;&#39;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Mailing Address</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

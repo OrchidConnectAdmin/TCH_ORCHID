@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Preferred_Email__c</fullName>
+    <deprecated>false</deprecated>
+    <description>System field used for proforma invoice emails. Auto populated from related contact record&#39;s preferred email</description>
+    <externalId>false</externalId>
+    <inlineHelpText>System field used for proforma invoice emails. Auto populated from related contact record&#39;s preferred email</inlineHelpText>
+    <label>SYSTEM</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

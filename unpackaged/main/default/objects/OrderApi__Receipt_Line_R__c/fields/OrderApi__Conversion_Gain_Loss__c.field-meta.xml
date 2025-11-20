@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Conversion_Gain_Loss__c</fullName>
+    <defaultValue>0</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This value stores the sum of gains and losses created as a result of currency fluctuation for this item in the reporting currency.</description>
+    <inlineHelpText>This value stores the sum of gains and losses created as a result of currency fluctuation for this item in the reporting currency.</inlineHelpText>
+    <label>Conversion Gain/Loss</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

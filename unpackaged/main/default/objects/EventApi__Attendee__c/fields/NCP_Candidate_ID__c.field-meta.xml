@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NCP_Candidate_ID__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(EventApi__Attendee_Event__r.Is_NCP_Exam__c==true,EventApi__Contact__r.FON_NCP_Candidate_ID__c,&#39;&#39;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>NCP Candidate ID</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

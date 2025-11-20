@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Icon__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The value populated in this field defines the image to be displayed for the tab&#39;s icon.</description>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>The value populated in this field defines the image to be displayed for the tab&#39;s icon.</inlineHelpText>
+    <label>Icon</label>
+    <required>false</required>
+    <type>Url</type>
+</CustomField>

@@ -1,0 +1,462 @@
+/**
+ * Fonteva Base UI
+ * ===============
+ * custom.css
+ * ---------------
+ * {!URLFOR($Resource.baseui,'css/custom.css')}
+ *
+ * Custom styles for visualforce pages built
+ * that include the Salesforce.com header and backend
+ * stylesheets.
+ */
+
+/**
+ * Structural/Global Styles
+ */
+#fonteva {
+	min-height:500px;
+	padding: 10px 0;
+}
+
+#fonteva .container {
+	width: 100%;
+}
+
+/**
+ * DataTables and Table Styles
+ */
+#fonteva .panel table.table {
+	margin-bottom: 0;
+}
+
+#fonteva table.table > div.row {
+	/*max-height: 20px;*/
+}
+
+#fonteva .pagination {
+	margin:0;
+}
+
+#fonteva .dataTables_paginate.paging_bootstrap {
+	top: 0;
+}
+
+#fonteva table.table {
+	margin-bottom:0;
+}
+
+/**
+ * Collapse Styles
+ */
+#fonteva .collapse-switch,#fonteva .collapse-switch:hover {
+	color:#fff;
+	text-decoration:none;
+	text-shadow:none;
+}
+
+/**
+ * Page Button Styles
+ */
+#fonteva .page-buttons button,#fonteva .page-buttons button,#fonteva .page-buttons input[type="submit"] {
+	margin-right:8px;
+}
+
+/**
+ * Default Button Style Fixes
+ */
+/*#fonteva .btn.btn-default {
+	background-image:linear-gradient(tobottom,#fafafa0,#f2f2f3100%);
+	text-shadow:0 1px 0 rgba(255,255,255,0.5);
+}*/
+
+/**
+ * List Group Styles
+ */
+#fonteva a.list-group-item.active,#fonteva a.list-group-item.active:hover {
+	background-color:#e6f5ff;
+	border-color:#bfe6ff;
+	color:#344555;
+}
+
+#fonteva a.list-group-item {
+	color:#344555;
+}
+
+#fonteva a.list-group-item:hover {
+	background-color:#f8f8f8;
+	color:inherit;
+	text-decoration:none;
+}
+
+/**
+ * Divider
+ */
+#fonteva span.divider {
+	margin: 3px 0;
+}
+
+/**
+ * Action Panel Styles
+ */
+#fonteva .action-panel {
+	background-color:#f0f0f0;
+	border-bottom:1px solid #ddd;
+}
+
+#fonteva .action-msg {
+	font-size:16px;
+}
+
+/**
+ * Fonteva Dot Styles (Status Indicators)
+ */
+.fonteva-dot-left:before,.fonteva-dot-right:after {
+	border-radius:50%;
+	content:" ";
+	display:inline-block;
+	margin:0 6px;
+	min-height:12px!important;
+	position:relative;
+	top:2px;
+	width:12px!important;
+}
+
+.dot-red:before,.dot-red:after {
+	background-color:#f83936!important;
+}
+
+.dot-orange:after,.dot-orange:before {
+	background-color:#f8ac36!important;
+}
+
+.dot-green:before,.dot-green:after {
+	background-color:#2ed135!important;
+}
+
+.dot-grey:before,.dot-grey:after {
+	background-color:#ababab!important;
+}
+
+.dot-yellow:before,.dot-yellow:after {
+	background-color:#f8d336!important;
+}
+
+.dot-blue:before,.dot-blue:after {
+	background-color:#2e6ed1!important;
+}
+
+.dot-purple:before,.dot-purple:after {
+	background-color:#a02ed1!important;
+}
+
+.dot-marine:before,.dot-marine:after {
+	background-color:#2ea6d1!important;
+}
+
+.dot-pink:before,.dot-pink:after {
+	background-color:#dc308e!important;
+}
+
+.dot-lime:before,.dot-lime:after {
+	background-color:#b1e432!important;
+}
+
+/**
+ * Fonteva Text Color Styles
+ */
+.fonteva-red-text {
+	color:#f83936!important;
+}
+
+.fonteva-orange-text {
+	color:#f8ac36!important;
+}
+
+.fonteva-green-text {
+	color:#2ed135!important;
+}
+
+.fonteva-grey-text {
+	color:#ababab!important;
+}
+
+.fonteva-yellow-text {
+	color:#f8d336!important;
+}
+
+.fonteva-blue-text {
+	color:#2e6ed1!important;
+}
+
+.fonteva-purple-text {
+	color:#a02ed1!important;
+}
+
+.fonteva-marine-text {
+	color:#2ea6d1!important;
+}
+
+.fonteva-pink-text {
+	color:#dc308e!important;
+}
+
+.fonteva-lime-text {
+	color:#b1e432!important;
+}
+
+.fonteva-red {
+	background-color:#db3230!important;
+}
+
+.fonteva-orange {
+	background-color:#f8ac36!important;
+}
+
+.fonteva-green {
+	background-color:#28b672!important;
+}
+
+.fonteva-grey {
+	background-color:#ababab!important;
+}
+
+.fonteva-yellow {
+	background-color:#f8d336!important;
+}
+
+.fonteva-blue {
+	background-color:#2e6ed1!important;
+}
+
+.fonteva-purple {
+	background-color:#a02ed1!important;
+}
+
+.fonteva-marine {
+	background-color:#2ea6d1!important;
+}
+
+.fonteva-pink {
+	background-color:#dc308e!important;
+}
+
+.fonteva-lime {
+	background-color:#b1e432!important;
+}
+
+/**
+ * DL,DD,DT Element Style Adjustments
+ */
+#fonteva .dl-horizontal {
+	display:table!important;
+}
+
+/**
+ * Fonteva Logo Image Styles
+ */
+#fonteva img.fonteva-logo,img.fonteva-logo {
+	height:auto;
+	max-width:200px;
+	padding:10px 0;
+}
+
+/**
+ * Fonteva Error Message Styles
+ */
+#fonteva span.errorMsg {
+	color:#555!important;
+	display:block!important;
+	font-size:18px!important;
+	font-weight:300!important;
+	line-height:24px!important;
+	padding:10px 0!important;
+}
+
+/**
+ * Custom Fonteva Lookup Styling
+ */
+
+#fonteva a.lookup-control {
+	box-shadow: none !important;
+	border: none !important;
+	height: 0px !important;
+}
+
+#fonteva .form-group-lookup {
+	max-height: 30px;
+}
+
+#fonteva .lookup-control > .glyphicon,
+#fonteva .lookup-control > .glyphicon:hover,
+#fonteva .lookup-control > .glyphicon:focus,
+#fonteva .lookup-control > .glyphicon:active {
+	float: right;
+	text-decoration: none !important;
+	right: 8px;
+	top: -20px;
+}
+
+/**
+ * Fonteva Page Box (PEELS)
+ * ========================
+ */
+
+ul.box {
+	position: relative;
+	z-index: 1; /* prevent shadows falling behind containers with backgrounds */
+	overflow: hidden;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+
+ul.box li {
+	position: relative;
+	float: left;
+	width: 250px;
+	height: 150px;
+	padding: 0;
+	border: 1px solid #efefef;
+	margin: 0 30px 30px 0;
+	background: #fff;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+}
+
+
+ul.box li:before,
+ul.box li:after {
+	content: '';
+	z-index: -1;
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+	width: 70%;
+	max-width: 300px; /* avoid rotation causing ugly appearance at large container widths */
+	max-height: 100px;
+	height: 55%;
+	-webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+	-webkit-transform: skew(-15deg) rotate(-6deg);
+	-moz-transform: skew(-15deg) rotate(-6deg);
+	-ms-transform: skew(-15deg) rotate(-6deg);
+	-o-transform: skew(-15deg) rotate(-6deg);
+	transform: skew(-15deg) rotate(-6deg);
+}
+
+
+ul.box li:after {
+	left: auto;
+	right: 10px;
+	-webkit-transform: skew(15deg) rotate(6deg);
+	-moz-transform: skew(15deg) rotate(6deg);
+	-ms-transform: skew(15deg) rotate(6deg);
+	-o-transform: skew(15deg) rotate(6deg);
+	transform: skew(15deg) rotate(6deg);
+}
+
+.box-peel
+{
+  position: relative;
+  width: 100%;
+  padding: 50px;
+  margin: 0 auto;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+}
+
+.box-peel:before, .box-peel:after
+{
+  position: absolute;
+  width: 40%;
+  height: 10px;
+  content: ' ';
+  left: 12px;
+  bottom: 12px;
+  background: transparent;
+  -webkit-transform: skew(-5deg) rotate(-5deg);
+  -moz-transform: skew(-5deg) rotate(-5deg);
+  -ms-transform: skew(-5deg) rotate(-5deg);
+  -o-transform: skew(-5deg) rotate(-5deg);
+  transform: skew(-5deg) rotate(-5deg);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  z-index: -1;
+}
+
+.box-peel:after
+{
+  left: auto;
+  right: 12px;
+  -webkit-transform: skew(5deg) rotate(5deg);
+  -moz-transform: skew(5deg) rotate(5deg);
+  -ms-transform: skew(5deg) rotate(5deg);
+  -o-transform: skew(5deg) rotate(5deg);
+  transform: skew(5deg) rotate(5deg);
+}
+
+#fonteva dl dd { white-space: nowrap !important; }
+
+
+#fonteva input.ns-switch:empty {
+	margin-left: -999px;
+}
+
+#fonteva input.ns-switch:empty ~ label {
+	position: relative;
+	float: left;
+	line-height: 1.6em;
+	text-indent: 4em;
+	margin: 0.2em 0;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#fonteva input.ns-switch:empty ~ label:before,
+#fonteva input.ns-switch:empty ~ label:after {
+	position: absolute;
+	display: block;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	content: ' ';
+	width: 3.6em;
+	background-color: #c33;
+	border-radius: 0.3em;
+	box-shadow: inset 0 0.2em 0 rgba(0,0,0,0.3);
+	-webkit-transition: all 100ms ease-in;
+	transition: all 100ms ease-in;
+}
+
+#fonteva input.ns-switch:empty ~ label:after {
+	width: 1.4em;
+	top: 0.1em;
+	bottom: 0.1em;
+	margin-left: 0.1em;
+	background-color: #fff;
+	border-radius: 0.15em;
+	box-shadow: inset 0 -0.2em 0 rgba(0,0,0,0.2);
+}
+
+#fonteva input.ns-switch:checked ~ label:before {
+	background-color: #393;
+}
+
+#fonteva input.ns-switch:checked ~ label:after {
+	margin-left: 2.1em;
+}
+#fonteva .commandButton { margin-right: 15px; }
+#fonteva td.cellActions a:after { content: ' | '; }
+#fonteva td.cellActions a:hover
+ { text-decoration: none; }
+#fonteva td.cellActions a:last-child:after { content: ''; }
+#fonteva .pad-top { padding-top: 15px; }

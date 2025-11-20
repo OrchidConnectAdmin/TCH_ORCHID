@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <formulas>
+        <name>cDESC</name>
+        <dataType>String</dataType>
+        <expression>IF(LEN({!$Record.Description__c})&gt;200,
+TRIM(LEFT({!$Record.Description__c}, 200))&amp;&#39;&lt;a href=&quot;/LightningMemberPortal/s/ncp-sessions/&#39;&amp;{!$Record.Id}&amp;&#39;&quot; target=&quot;_blank&quot;&gt;click to read more&lt;/a&gt;&#39;,
+{!$Record.Description__c})</expression>
+    </formulas>
+    <interviewLabel>NCP SESSION: Update Short Description {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SCHEDULE: Update Short Description NCP Session</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Sessions</name>
+        <label>Update Sessions</label>
+        <locationX>180</locationX>
+        <locationY>346</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Short_Description__c</field>
+            <value>
+                <elementReference>cDESC</elementReference>
+            </value>
+        </inputAssignments>
+        <object>NCP_Sessions__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Update_Sessions</targetReference>
+        </connector>
+        <object>NCP_Sessions__c</object>
+        <schedule>
+            <frequency>Once</frequency>
+            <startDate>2021-05-19</startDate>
+            <startTime>14:45:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

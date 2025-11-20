@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>PagesApi__Community_Group__c$Name</field>
+    </columns>
+    <columns>
+        <field>PagesApi__Community_Group__c.PagesApi__Community_Group_Members__r$Name</field>
+    </columns>
+    <columns>
+        <field>PagesApi__Community_Group__c.PagesApi__Community_Group_Members__r$PagesApi__Image_URL__c</field>
+    </columns>
+    <description>Displays all community group members</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>PagesApi__Community_Group__c.PagesApi__Community_Group_Members__r$PagesApi__Display_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Community Group Members</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Community_Groups__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>PagesApi__Community_Group__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

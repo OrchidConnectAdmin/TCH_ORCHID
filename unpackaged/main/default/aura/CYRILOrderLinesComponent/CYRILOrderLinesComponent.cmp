@@ -1,0 +1,67 @@
+<aura:component description="CYRIL Order Lines Component" controller="GetCYRILOrderLinesController" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction,lightning:isUrlAddressable,flexipage:availableForAllPageTypes,lightning:availableForFlowScreens" access="global">
+	
+    <aura:handler name="init" value="{!this}" action="{!c.initDataTable}" />
+    
+    <aura:attribute name="bURL" type="String" /> 
+    
+    <!-- CONFIGS -->
+    <aura:attribute name="cObj" type="String" default="OrderApi__Sales_Order_Line__c"/>
+    <aura:attribute name="cFields" type="String"/>
+    <aura:attribute name="cInvoiceType" type="String"/>
+    <aura:attribute name="cID" type="String"/>
+	<aura:attribute name="isPreview" type="Boolean" default="false"/>
+    
+    <!-- data -->
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="items" type="List" />
+    <aura:attribute name="filters" type="List" />
+    <aura:attribute name="iLength" type="Integer" />
+    <aura:attribute name="iCount" type="Integer" />
+    
+	<aura:if isTrue="{!not(v.isPreview)}">
+        <div class="cyril-orderlines">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped cdtable">
+    
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <aura:iteration items="{!v.columns}" var="col" indexVar="index">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="{!col}">{!col}</div>
+                        </th>
+                    </aura:iteration>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <aura:iteration items="{!v.items}" var="item" indexVar="i">
+                            <tr class="slds-hint-parent" data-id="{!item.id}">
+                                <aura:iteration items="{!item.data[0]}" var="it" indexVar="j">
+                                    <td class='slds-cell-wrap' scope="row">
+                                        <aura:unescapedHtml value="{!it}"/>
+                                    </td>
+                                </aura:iteration>
+                                
+                            </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        </div>
+    </aura:if>
+<aura:html tag="Style">
+    .cdtable tr td,.cdtable tr th{
+    	padding: 5px !important;
+    }
+    .cdtable tr td:last-of-type,.cdtable tr th:last-of-type{
+       text-align: right;
+        padding-right: 15px !important;
+    }
+    .cdtable tr td:first-of-type,.cdtable tr th:first-of-type{
+        padding-left: 15px !important;
+    }
+	.cyril-orderlines tr td {
+        page-break-before: auto;
+        page-break-inside: avoid !important;
+    }
+    </aura:html>
+    
+</aura:component>

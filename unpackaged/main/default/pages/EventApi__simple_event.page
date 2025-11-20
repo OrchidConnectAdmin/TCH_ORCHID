@@ -1,0 +1,572 @@
+<apex:page controller="EventApi.SimpleEventController" showHeader="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+
+  <apex:composition template="EventApi__template">
+
+    <apex:define name="pageTitle">{!TRIM(event.EventApi__Display_Name__c)}</apex:define>
+
+    <apex:define name="pageStyles">
+      <style type="text/css">
+        /* globals */
+        .event-container section{padding-top:0}
+        /* hide the shopping cart in the supernav */
+        #shoppingcart-supernav {display:none!important;visibility:hidden!important;}
+        .event-container .heading-1{font-size:38px;font-weight:500;margin:0 0 20px}
+        .event-container .heading-2{font-size:26px;font-weight:500;margin:0 0 16px;color:#a0a0a0}
+        /* vendor: add-to-calendar */
+        .calendar-block .calendar{display:block;float:left;width:43px;text-align:center;text-transform:uppercase;border-radius:4px;-webkit-box-shadow:0 3px 6px 0 rgba(0,0,0,0.10);-moz-box-shadow:0 3px 6px 0 rgba(0,0,0,0.10);box-shadow:0 3px 6px 0 rgba(0,0,0,0.10)}
+        .calendar-block .calendar .month{font-size:11px;font-weight:700;line-height:11px;text-shadow:0 2px 1px rgba(0,0,0,0.15);display:block;background-color:#0f9ddc;padding:3px 0;border-radius:4px 4px 0 0;box-shadow:inset 0 -2px 2px 0 rgba(0,0,0,0.15);color:#fff}
+        .calendar-block .calendar .date{font-size:24px;line-height:25px;font-weight:800;display:block;background-color:#fff;color:#000;border-radius:0 0 4px 4px;padding:1px 0 2px}
+        /* event-style--simple */
+        .event-style--simple .ticket-type-field--display-name{font-weight:700;font-size:16px;line-height:20px}
+        .event-style--simple .event-field--image-url {
+          width: 100%;
+          height: 250px;
+          overflow: hidden;
+          position: relative;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+        }
+        /* event-style--simple: #tt-table */
+        .event-style--simple #tt-table{border:1px solid #eee;border-right-width:0;border-left-width:0}
+        .event-style--simple #tt-table > tbody > tr > td{vertical-align:top}
+        .event-style--simple #tt-table .tt-quantity-select,
+        .event-style--simple #tt-table .tt-quantity-input{min-width:60px!important;}
+          td.fullname {
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        .event-style--simple .attendee-form-wrapper .well.well--default {
+            padding: 0!important;
+        }
+        #event-section--registration-information .btn {
+            margin-bottom: 5px!important;
+        }
+        .fonteva-venue--description {
+            word-break : break-word;
+        }
+      </style>
+    </apex:define>
+
+    <apex:define name="main">
+
+    <apex:outputPanel rendered="{!NOT(haveAccess)}">
+      <div class="container m-t-30 event-container event-style--simple">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well text-center">
+                    <h2>{!$Label.Cannot_Find_Event}</h2>
+                    <h1 style="font-size:44px;font-weight:bold;margin-bottom:35px;">
+                        <i class="btr bt-times-circle bt-2x"></i>
+                    </h1>
+                </div>
+            </div>
+        </div>
+      </div>
+    </apex:outputPanel>
+
+      <apex:outputPanel id="page-wrapper" rendered="{!haveAccess}">
+
+        <div class="container m-t-30 event-container event-style--simple">
+
+          <apex:outputPanel id="active-event-view" rendered="{!OR(event.EventApi__Is_Published__c,isPreview)}">
+
+            <div class="row">
+
+              <!-- Main Content -->
+              <div class="col-md-8">
+
+                <div class="well">
+
+                  <!-- Registration Form -->
+                  <apex:outputPanel id="registrationForm">
+
+                    <!-- Hero -->
+                    <section id="event-section--hero">
+                      <h1 class="event-field--display-name heading-1">
+                        {!event.EventApi__Display_Name__c}
+                            <apex:outputPanel style="block" styleClass="row" rendered="{!event.EventApi__Sold_Out__c}">
+                                <h2 class="event-field--display-name heading-2" style="color:#CC3300;"> <b>{!$Label.EventApi__Sold_Out}</b> </h2>
+                            </apex:outputPanel>
+                      </h1>
+
+
+                      <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(event.EventApi__Image_URL__c))}">
+                        <img class="img-responsive" alt="" src="{!directImageUrl}"/>
+                      </apex:outputPanel>
+                    </section>
+                    <!-- / Hero -->
+
+
+                    <!-- REGISTRATION/TICKET TABLE -->
+                    <section id="event-section--registration-information">
+
+
+                      <apex:outputPanel rendered="{!AND(NOT(step1Complete),ticketsAvailablePurchase)}">
+
+                        <h2>{!$Label.EventApi__Simple_Event_Ticket_Type_Table_Heading}</h2>
+
+                        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(event.EventApi__Registration_Instructions__c))}">
+                          <div class="event-field--registration-instructions m-b-30">
+                            <apex:outputField value="{!event.EventApi__Registration_Instructions__c}"/>
+                          </div>
+                        </apex:outputPanel>
+
+                      </apex:outputPanel>
+
+
+                      <!-- TICKET TYPE TABLE -->
+                      <div class="ticket-type-table--wrapper">
+
+                        <!-- Messages -->
+                        <apex:outputPanel id="pageMessages">
+                          <Framework:messages />
+                        </apex:outputPanel>
+                        <!-- / Messages -->
+
+                        <!-- FORM -->
+                        <apex:form id="simpleEventRegistrationForm"
+                                   rendered="{!isActiveEvent}"
+                                   html-data-parsley-validate="true"
+                                   styleClass="simple-event-reg-form">
+
+                          <!-- #step1Form -->
+                          <apex:outputPanel id="step1Form" rendered="{!AND(NOT(step1Complete),ticketsAvailablePurchase)}">
+                            <table id="tt-table">
+                              <tbody>
+                                <!-- REPEAT -->
+                                <apex:repeat value="{!ticketTypeOptions}" var="tt">
+                                  <tr>
+                                    <td class="fullname">
+                                      <span class="ticket-type-field--display-name display-block">
+                                        {!tt.ticketType.Name}
+                                        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(tt.ticketType.EventApi__Description__c))}">
+                                          <small>
+                                            <a href="#" onclick="return false;" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="right" data-content="{!tt.ticketType.Description__c}">
+                                              <i class="btr bt-question-circle"></i>
+                                            </a>
+                                          </small>
+                                        </apex:outputPanel>
+                                      </span>
+                                      <apex:outputPanel layout="none" rendered="{!tt.ticketType.EventApi__Display_Available_Inventory__c}">
+                                        <small><apex:outputField value="{!tt.ticketType.EventApi__Quantity_Remaining__c}"/>&nbsp;{!$Label.Simple_Event_Quantity_Remaining_Suffix}</small>
+                                      </apex:outputPanel>
+                                    </td>
+                                    <td class="price">
+                                      <span class="ticket-type-field--price">
+                                        <apex:outputField value="{!tt.priceRule.OrderApi__Price__c}"/>
+                                        <apex:outputPanel layout="none" rendered="{!NOT(tt.priceRule.OrderApi__Is_Default__c)}">
+                                          <br/>
+                                          <small>{!tt.priceRule.Name}<apex:outputPanel layout="none" rendered="{!tt.priceRule.OrderApi__End_Date__c != null}">&nbsp;{!$Label.Simple_Event_Price_Rule_End_Date_Joiner}&nbsp;<apex:outputField value="{!tt.priceRule.OrderApi__End_Date__c}"/></apex:outputPanel></small>
+                                        </apex:outputPanel>
+                                      </span>
+                                    </td>
+                                    <td class="quantity">
+                                      <apex:outputPanel id="simple-ticket-type-quantity-options" layout="none">
+                                          <apex:outputPanel rendered="{!tt.ticketType.EventApi__Is_Active__c && tt.ticketType.EventApi__Quantity_Remaining__c == 0 && tt.ticketType.EventApi__Enable_Waitlist__c}">
+                                            <a data-ticket-type-id="{!tt.ticketType.Id}" href="#waitlist-modal" data-toggle="modal" class="btn btn-info btn-sm waitlist-modal-launch-button waitlist-launch-button-{!tt.ticketType.Id} {!IF(tt.isWaitlisted,'hidden','')}">{!$Label.Simple_Event_Join_Waitlist}</a>
+                                          </apex:outputPanel>
+                                          <span class="{!IF(tt.isWaitlisted,'','hidden')} simple-ticket-type-waitlist-{!tt.ticketType.Id}">
+                                            <strong>{!$Label.EventApi__Simple_Event_On_Waitlist}</strong>
+                                          </span>
+                                           <span class="{!IF( tt.ticketType.EventApi__Quantity_Remaining__c == 0 && NOT(tt.ticketType.EventApi__Enable_Waitlist__c) ,'','hidden')}">
+                                            <strong class="text-danger">{!$Label.EventApi__Simple_Event_Ticket_Type_Sold_Out}</strong>
+                                          </span>
+                                          <apex:selectList disabled="{!event.EventApi__Sold_Out__c}" size="1" value="{!tt.selectedQuantity}" rendered="{!tt.ticketType.EventApi__Is_Active__c && tt.ticketType.EventApi__Quantity_Remaining__c > 0}" styleClass="form-control input tt-quantity-select">
+                                            <apex:selectOptions value="{!tt.quantityOptions}"/>
+                                          </apex:selectList>
+                                      </apex:outputPanel>
+                                    </td>
+                                  </tr>
+                                </apex:repeat>
+                              </tbody>
+                            </table>
+                            <apex:outputPanel style="block" styleClass="row" rendered="{!AND(!isPreview,!event.EventApi__Sold_Out__c)}">
+                              <div class="col-md-12 text-center">
+                                <a id="action--create-registration" href="#" data-style="expand-right" class="ladda-button btn btn-primary btn-lg event-action--register">
+                                  <span class="ladda-label">{!$Label.Simple_Event_Register_Now}</span>
+                                </a>
+                              </div>
+                            </apex:outputPanel>
+
+                            <apex:actionFunction name="apexaction_createRegistration"
+                                                 rerender="registrationForm"
+                                                 action="{!createRegistration}"
+                                                 oncomplete="simple_event.step1OnCompleteHandler();"/>
+                          </apex:outputPanel>
+                          <!-- / #step1Form -->
+                        </apex:form>
+                        <apex:form id="simpleEventRegistrationFormStep2"
+                                             rendered="{!isActiveEvent}"
+                                             html-data-parsley-validate="true"
+                                             styleClass="event-form-step-2">
+                          <!-- Step #2 -->
+                          <apex:outputPanel id="step2Form" rendered="{!step1Complete}">
+
+                            <section id="event-section--event-overview">
+                              <h2 class="heading-2">{!$Label.EventApi__Simple_Event_Registration_Form_Heading}</h2>
+
+                              <hr/>
+
+                              <apex:repeat value="{!attendeeGroups}" var="grp">
+
+                                <apex:repeat value="{!grp.attendees}" var="at">
+
+                                  <div class="attendee-form-wrapper">
+                                      <div class="row">
+
+                                        <fieldset class="form m-b-0 p-v-0">
+                                            <div class="col-sm-12">
+                                              <span class="section-heading">{!$ObjectType.Attendee__c.Label} {!at.Index} - {!grp.tto.ticketType.Name}</span>
+
+                                              <!-- Full Name -->
+                                              <div class="form-group">
+                                                <label class="control-label required true">
+                                                  {!$ObjectType.EventApi__Attendee__c.Fields.EventApi__Full_Name__c.Label}
+                                                </label>
+                                                <div class="">
+                                                  <apex:inputField value="{!at.assignment.OrderApi__Full_Name__c}"
+                                                                   html-placeholder="{!$ObjectType.EventApi__Attendee__c.Fields.EventApi__Full_Name__c.Label}"
+                                                                   styleClass="form-control input"
+                                                                   required="true"
+                                                                   html-data-parsley-validate-if-empty="true"/>
+                                                </div>
+                                              </div>
+                                              <!-- / Full Name -->
+                                              <!-- Email -->
+                                              <div class="form-group">
+                                                <label class="control-label required true">
+                                                  {!$ObjectType.EventApi__Attendee__c.Fields.EventApi__Preferred_Email__c.Label}
+                                                </label>
+                                                <div class="">
+                                                  <apex:inputField value="{!at.assignment.OrderApi__Email__c}"
+                                                                   html-placeholder="{!$ObjectType.EventApi__Attendee__c.Fields.EventApi__Preferred_Email__c.Label}"
+                                                                   styleClass="form-control input"
+                                                                   required="true"
+                                                                   html-data-parsley-validate-if-empty="true"
+                                                                   html-data-parsley-type="email"/>
+                                                </div>
+                                              </div>
+                                              <!-- / Email -->
+                                            </div>
+                                        </fieldset>
+                                      </div>
+
+                                    <apex:outputPanel rendered="{!AND(NOT(ISBLANK(grp.tto.ticketType)),NOT(ISBLANK(grp.tto.ticketType.EventApi__Form__c)))}">
+                                      <c:form formId="{!grp.tto.ticketType.EventApi__Form__c}" componentNamespace="{!at.assignment.Id}" subjectId="{!at.assignment.Id}" subjectLookupField="{!formSubjectField}" formIdentifier=".event-form-step-2" onSubmit="apexaction_goToCheckout();"/>
+                                    </apex:outputPanel>
+                                  </div>
+                                  <!-- / Attendee Form Wrapper -->
+
+                                </apex:repeat>
+
+                              </apex:repeat>
+
+                              <div class="row">
+                                <div class="col-md-12 text-center">
+                                  <a id="action--init" data-style="expand-right" class="ladda-button btn btn-primary">
+                                    <apex:outputPanel layout="none" rendered="{!ticketTypeOptions.size > 1}">
+                                      <span class="ladda-label">{!$Label.EventApi__Simple_Event_Change_Tickets}</span>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!ticketTypeOptions.size == 1}">
+                                        <span class="ladda-label">{!$Label.EventApi__Simple_Event_Change_Ticket_Quantity}</span>
+                                    </apex:outputPanel>
+                                  </a>
+                                  <a id="action--checkout" href="#" data-style="expand-right" class="ladda-button btn btn-primary event-action--checkout">
+                                    <span class="ladda-label">{!$Label.Simple_Event_Checkout_Button_Label}</span>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </section>
+
+                          </apex:outputPanel>
+                          <!-- / Step #2 -->
+
+                          <!-- actionFunctions -->
+
+                          <apex:actionFunction name="apexaction_init"
+                                               rerender="registrationForm"
+                                               action="{!init}"
+                                               oncomplete="em.loader.stopAll();simple_event.resetTooltips();"
+                                               immediate="true"/>
+
+                          <apex:actionFunction name="apexaction_goToCheckout"
+                                               action="{!goToCheckout}"/>
+
+                          <!-- / actionFunctions -->
+
+                        </apex:form>
+                        <!-- / Form -->
+
+                      </div>
+                    </section>
+                    <!-- / Ticket Table -->
+
+                    <!-- Event Overview -->
+                    <apex:outputPanel layout="none" rendered="{!NOT(step1Complete)}">
+                      <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(event.EventApi__Overview_HTML__c))}">
+                        <section id="event-section--event-overview">
+                          <h2 class="heading-2">{!$Label.EventApi__Simple_Event_Overview_Heading}</h2>
+                          <div class="event-field--overview-html">
+                            <apex:outputField value="{!event.EventApi__Overview_HTML__c}"/>
+                          </div>
+                        </section>
+                      </apex:outputPanel>
+                    </apex:outputPanel>
+                    <!-- / Event Overview -->
+
+                  </apex:outputPanel>
+                  <!-- / Registration Form -->
+
+                </div>
+
+              </div>
+              <!-- / Main Content -->
+
+              <!-- Sidebar -->
+              <div class="col-md-4">
+
+                <!-- Panel -->
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <span class="panel-title">{!$Label.Simple_Event_Sidebar_Heading}</span>
+                  </div>
+                  <div class="panel-body">
+
+                    <!-- Calendar Block -->
+                    <div class="calendar-block">
+
+                      <span class="calendar pull-left">
+                        <span class="month bg-primary">
+                          <apex:outputText value="{!eventStartDateMonth}"/>
+                        </span>
+                        <span class="date">
+                           <apex:outputText value="{!eventStartDateDay}"/>
+                        </span>
+                      </span>
+
+                      <!-- Time & Location Data -->
+                      <div class="event-meta--time-location" style="padding-left:60px;">
+
+                        <apex:outputText value="{!eventDurationStringDates}"/>
+                        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(eventDurationStringTimes))}">
+                          <br/>
+                          <apex:outputText value="{!eventDurationStringTimes}"/>
+                        </apex:outputPanel>
+
+
+                        <!-- Venue City & State -->
+                        <apex:outputPanel rendered="{!hasPrimaryVenue}">
+                          <div class="venue-field--city venue-field--state">
+                            <apex:outputPanel layout="none" rendered="{!AND(NOT(ISBLANK(primaryVenue.EventApi__City__c)),NOT(ISBLANK(primaryVenue.EventApi__State__c)))}">
+                                <span>{!primaryVenue.EventApi__City__c}, {!primaryVenue.EventApi__State__c}</span>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!AND(NOT(ISBLANK(primaryVenue.EventApi__City__c)),ISBLANK(primaryVenue.EventApi__State__c))}">
+                                <span>{!primaryVenue.EventApi__City__c}</span>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!AND(ISBLANK(primaryVenue.EventApi__City__c),NOT(ISBLANK(primaryVenue.EventApi__State__c)))}">
+                                <span>{!primaryVenue.EventApi__State__c}</span>
+                            </apex:outputPanel>
+                          </div>
+
+
+                          <!-- Add to Calendar Button -->
+                          <div class="event--add-to-calendar m-b-15 m-t-5">
+                            <c:add_to_calendar event="{!event}" venue="{!primaryVenue}" startDateTime="{!calendarStartDateTime}" endDateTIme="{!calendarEndDateTime}"/>
+                          </div>
+                          <!-- / Add to Calendar Button -->
+                        </apex:outputPanel>
+                      </div>
+                      <!-- / Time & Location Date -->
+
+                      <hr/>
+
+                    </div>
+                    <!-- / Calendar Block -->
+
+                    <!-- VENUE INFO -->
+                    <apex:outputPanel rendered="{!hasPrimaryVenue}">
+                      <section id="map">
+                        <div class="venue-map--wrapper">
+                          <c:venue_map rendered="{!primaryVenue.EventApi__Display_Map__c}" venue="{!primaryVenue}" documentElementId="venueMap"/>
+                        </div>
+                        <br/>
+                        <h4><strong>{!primaryVenue.Name}</strong></h4>
+                        <hr/>
+                        <apex:outputText value="{!primaryVenue.EventApi__HTML_Description__c}" styleClass="fonteva-venue--description" escape="false"/>
+                      </section>
+                    </apex:outputPanel>
+                    <!-- / VENUE INFO -->
+
+                  </div>
+                </div>
+              </div>
+              <!-- / SIDEBAR -->
+            </div>
+
+          </apex:outputPanel>
+
+        </div>
+
+        <!-- Waitlist Modal -->
+        <div class="modal fade" id="waitlist-modal" tabindex="-1" role="dialog" aria-labelledby="waitlistModalTitle">
+          <apex:form id="waitlist-form" styleClass="waitlist-form">
+
+            <apex:inputText styleClass="hidden selTicketTypeInput" value="{!waitlist_ticketTypeIdStr}"/>
+            <apex:actionFunction name="apexaction_addToWaitlist" action="{!AddToWaitlist}" rerender="waitlist-form" oncomplete="simple_event.addToWaitlistCompleteHandler()"/>
+
+            <!-- Waitlist Modal Dialog -->
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                  <h4 class="modal-title" id="waitlistModalTitle">Join the Waitlist</h4>
+                </div>
+                <div class="modal-body">
+                  <!-- Waitlist Fieldset -->
+                  <fieldset class="form-horizontal p-t-20 p-b-20">
+
+                    <div class="form-group">
+                      <label class="control-label col-md-4 required true">{!$ObjectType.Waitlist_Entry__c.Fields.Full_Name__c.Label}</label>
+                      <div class="col-md-6">
+                        <apex:inputText html-type="text" value="{!waitlist_fullName}" html-data-parsley-required="true" styleClass="form-control"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-4 required true">{!$ObjectType.EventApi__Waitlist_Entry__c.Fields.EventApi__Email__c.Label}</label>
+                      <div class="col-md-6">
+                        <apex:inputText html-type="email" value="{!waitlist_email}" html-data-parsley-required="true" styleClass="form-control"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-4">{!$ObjectType.EventApi__Waitlist_Entry__c.Fields.EventApi__Phone__c.Label}</label>
+                      <div class="col-md-6">
+                        <apex:inputText html-type="tel" value="{!waitlist_phone}" html-placeholder="{!$ObjectType.EventApi__Waitlist_Entry__c.Fields.EventApi__Phone__c.Label}" html-data-parsley-required="false" styleClass="form-control"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-4">{!$ObjectType.EventApi__Waitlist_Entry__c.Fields.EventApi__Other_Phone__c.Label}</label>
+                      <div class="col-md-6">
+                        <apex:inputText html-type="tel" value="{!waitlist_otherPhone}" html-placeholder="{!$ObjectType.EventApi__Waitlist_Entry__c.Fields.EventApi__Other_Phone__c.Label}" html-data-parsley-required="false" styleClass="form-control"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-4 required true">{!$ObjectType.EventApi__Waitlist_Entry__c.Fields.EventApi__Quantity_Requested__c.Label}</label>
+                      <div class="col-md-6">
+                        <apex:inputText html-type="number" value="{!waitlist_quantityRequested}" html-placeholder="{!$ObjectType.EventApi__Waitlist_Entry__c.Fields.EventApi__Quantity_Requested__c.Label}" html-data-parsley-required="false" styleClass="form-control"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-4">{!$ObjectType.EventApi__Waitlist_Entry__c.Fields.EventApi__Message__c.Label}</label>
+                      <div class="col-md-6">
+                        <apex:inputTextArea value="{!waitlist_message}" html-placeholder="{!$ObjectType.EventApi__Waitlist_Entry__c.Fields.EventApi__Message__c.Label}" html-data-parsley-required="false" styleClass="form-control" style="width:100%;height:125px;"/>
+                      </div>
+                    </div>
+
+                  </fieldset>
+                  <!-- / Waitlist Fieldset -->
+                </div>
+
+                <div class="modal-footer">
+                  <a href="#" type="button" class="btn btn-default" data-dismiss="modal">{!$Label.Simple_Event_Cancel_Button}</a>
+                  <a id="add-to-waitlist-submit" href="#" class="btn btn-primary">{!$Label.Simple_Event_Submit_Button}</a>
+                </div>
+
+              </div>
+            </div>
+            <!-- / Waitlist Modal Dialog -->
+          </apex:form>
+        </div>
+
+      </apex:outputPanel>
+      <!-- Page Wrapper -->
+
+    </apex:define>
+
+    <apex:define name="scripts">
+      <script type="text/javascript">
+        var simple_event = simple_event || {};
+
+        simple_event.step1Button;
+        simple_event.step2Button;
+        simple_event.addToWaitlistButton;
+        simple_event.waitlistFormParsley;
+        simple_event.currentWaitlistedTicketTypeId;
+        $(document).ready(function(){
+          // initialize popovers for ticket type descriptions
+          simple_event.resetTooltips();
+          $(document).on('click', '#action--create-registration',function(event){
+            event.preventDefault();
+            em.loader.start(this);
+            apexaction_createRegistration();
+          });
+          $(document).on('click', '#action--checkout',function(event){
+            event.preventDefault();
+            var attendeeForm = $('.event-form-step-2').parsley();
+            if (attendeeForm.validate()) {
+              em.loader.start(this);
+              if (typeof formBuilder != 'undefined') {
+                  formBuilder.submitForm();
+              } else {
+                  apexaction_goToCheckout();
+              }
+            }
+          });
+          $(document).on('click', '.waitlist-modal-launch-button',function(event){
+            event.preventDefault();
+            var ttInput = $('.selTicketTypeInput');
+            ttInput.val($(this).data('ticket-type-id'));
+            simple_event.currentWaitlistedTicketTypeId =  ttInput.val();
+            $('#waitlist-modal').modal('show');
+            simple_event.waitlistFormParsley = $('.waitlist-form').parsley();
+          });
+          $(document).on('click', '#add-to-waitlist-submit',function(event){
+            event.preventDefault();
+            simple_event.waitlistFormParsley.validate();
+            if (simple_event.waitlistFormParsley.isValid()) {
+              em.loader.start(this);
+              apexaction_addToWaitlist();
+              $('#waitlist-modal').modal('hide');
+            }
+          });
+          $(document).on('click', '#action--init',function(event){
+            event.preventDefault();
+            em.loader.start(this);
+            apexaction_init();
+          });
+          if (parseInt($(".tt-quantity-select").length,10) == 0 ) {
+            $("#action--create-registration").hide();
+          }
+        });
+        simple_event.step1OnCompleteHandler = function() {
+          em.loader.stopAll();
+          simple_event.resetTooltips();
+        };
+        simple_event.addToWaitlistCompleteHandler = function() {
+          em.loader.stopAll();
+          simple_event.waitlistFormParsley.destroy();
+          $('.waitlist-launch-button-'+simple_event.currentWaitlistedTicketTypeId).addClass('hidden');
+          $('.simple-ticket-type-waitlist-'+simple_event.currentWaitlistedTicketTypeId ).removeClass('hidden');
+        }
+
+        simple_event.resetTooltips = function () {
+            setTimeout(function(){
+                $('[data-toggle="popover"]').popover({
+                    container: "body",
+                    html: true,
+                    placement: "right"
+                });
+            },500);
+        }
+        var venDesc = document.querySelector('.fonteva-venue--description');
+		venDesc.innerHTML = venDesc.innerHTML.replace(new RegExp('&'+'nbsp;', 'g'), ' ');
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

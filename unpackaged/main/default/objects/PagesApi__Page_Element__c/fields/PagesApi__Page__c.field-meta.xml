@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Page__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** Required ** Link to the page that renders the page element.</description>
+    <inlineHelpText>** Required ** Link to the page that renders the page element.</inlineHelpText>
+    <label>Page</label>
+    <referenceTo>PagesApi__Page__c</referenceTo>
+    <relationshipLabel>Page Elements</relationshipLabel>
+    <relationshipName>Page_Elements</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

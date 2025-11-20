@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Payments_Page_Instructions__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field displays as instructional text on the Payments page in the community.</description>
+    <inlineHelpText>This field displays as instructional text on the Payments page in the community.</inlineHelpText>
+    <label>Payments Page Instructions</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

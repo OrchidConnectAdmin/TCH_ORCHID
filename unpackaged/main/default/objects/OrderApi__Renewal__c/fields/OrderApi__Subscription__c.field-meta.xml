@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Subscription__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Required ** Link to related Subscription</description>
+    <inlineHelpText>** System Calculated Required ** Link to related Subscription</inlineHelpText>
+    <label>Subscription</label>
+    <referenceTo>OrderApi__Subscription__c</referenceTo>
+    <relationshipLabel>Terms</relationshipLabel>
+    <relationshipName>Renewals</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

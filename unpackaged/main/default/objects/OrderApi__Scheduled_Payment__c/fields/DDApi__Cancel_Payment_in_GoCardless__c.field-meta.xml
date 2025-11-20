@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__Cancel_Payment_in_GoCardless__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, System cancels the payment in GoCardless. Default Unchekced</description>
+    <inlineHelpText>When checked, System cancels the payment in GoCardless. Default Unchekced</inlineHelpText>
+    <label>Cancel Payment in GoCardless</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,64 @@
+<apex:page showHeader="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false"
+           sidebar="false" standardController="OrderApi__Sales_Order__c" extensions="DDApi.directdebitcheckoutbackendController">
+
+  <head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" media="print" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <style>
+        .modal-header {
+            background-color: #d9534f;
+            color: white;
+        }
+        .modal-header .close {
+            color: white;
+            opacity: .75;
+        }
+        .modal-header .close {
+            opacity: 1;
+        }
+        .m-0 {
+            margin: 0!important;
+        }
+        .modal-footer {
+            margin-top: 0;
+        }
+    </style>
+  </head>
+
+  <div class="modal fade" id="modalDirectDebit" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close redirectback" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">{!$label.Something_went_wrong}</h4>
+        </div>
+        <div class="modal-body">
+          <apex:outputPanel rendered="{!OrderApi__Sales_Order__c.OrderApi__Is_Posted__c}">
+            <p class="m-0">{!$Label.ddapi__posted_sales_order_error_message}</p>
+          </apex:outputPanel>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default redirectback" data-dismiss="modal">{!$label.close}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+        function redirectToCheckout(){
+            if ({!OrderApi__Sales_Order__c.OrderApi__Is_Posted__c}) {
+                $('#modalDirectDebit').modal('show');
+            } else {
+                window.parent.location="{!$Page.directdebitcheckout}?salesorder={!OrderApi__Sales_Order__c.Id}&paymenttype={!customPaymentTypeId}";
+            }
+        }
+        $( document ).ready(function() {
+            redirectToCheckout();
+        });
+        $( document ).on('click', '.redirectback', function(e) {
+            e.preventDefault();
+            window.parent.location = '/{!$CurrentPage.parameters.id}';
+        });
+    </script>
+</apex:page>

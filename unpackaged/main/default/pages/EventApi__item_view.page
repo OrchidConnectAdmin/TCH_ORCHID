@@ -1,0 +1,5 @@
+<apex:page standardController="OrderApi__Item__c" extensions="EventApi.ItemViewController" action="{!redirect}">
+    <apex:form >
+        <apex:detail subject="{!redirectId}" relatedList="true" title="false"/>
+    </apex:form>
+</apex:page>

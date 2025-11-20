@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.OrderApi__Primary_Contact__c</field>
+    </columns>
+    <columns>
+        <field>Account.OrderApi__Account_Email__c</field>
+    </columns>
+    <columns>
+        <field>ADDRESS2_LINE1</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_LINE2</field>
+    </columns>
+    <columns>
+        <field>ADDRESS2_LINE3</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_CITY</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_STATE</field>
+    </columns>
+    <columns>
+        <field>ADDRESS1_ZIP</field>
+    </columns>
+    <format>Tabular</format>
+    <name>New Accounts Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account.FON_Original_Member_Join_Date__c</dateColumn>
+        <endDate>2022-03-03</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2021-11-15</startDate>
+    </timeFrameFilter>
+</Report>

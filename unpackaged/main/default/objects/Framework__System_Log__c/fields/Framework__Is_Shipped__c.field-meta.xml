@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Framework__Is_Shipped__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Whether or not the log has shipped to our remote logging server.</description>
+    <inlineHelpText>Whether or not the log has shipped to our remote logging server.</inlineHelpText>
+    <label>Is Shipped</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

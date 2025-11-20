@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>joinapi__Navigation_URL__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Defines the navigation url as a result of clicking the action button.</description>
+    <inlineHelpText>Defines the navigation url as a result of clicking the action button.</inlineHelpText>
+    <label>Navigation URL</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

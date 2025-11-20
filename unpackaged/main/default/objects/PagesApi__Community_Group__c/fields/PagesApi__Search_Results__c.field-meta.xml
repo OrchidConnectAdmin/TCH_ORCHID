@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Search_Results__c</fullName>
+    <defaultValue>10</defaultValue>
+    <deprecated>false</deprecated>
+    <description>** Default 10 ** The value in this field defines the maximum number of results that will be returned for search results on the Group Members tab.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Default 10 ** The value in this field defines the maximum number of results that will be returned for search results on the Group Members tab.</inlineHelpText>
+    <label>Search Results</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Is_Hidden__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Does not display the field to end users when checked. This is typically used when you wish to pass default or constant values as the value for the field.</description>
+    <inlineHelpText>Does not display the field to end users when checked. This is typically used when you wish to pass default or constant values as the value for the field.</inlineHelpText>
+    <label>Hidden Field</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Logo_URL__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The url of the web page to direct users when they click the logo text or logo image on any web page using this Theme. Valid only for Themes using &quot;Fonteva Drive&quot; as a stylesheet template.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The url of the web page to direct users when they click the logo text or logo image on any web page using this Theme. Valid only for Themes using &quot;Fonteva Drive&quot; as a stylesheet template.</inlineHelpText>
+    <label>Logo URL</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

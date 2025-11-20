@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Renewal_Override__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Enter the URL to be directed upon clicking the renew button for subscriptions on the manage subscription page.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter the URL to be directed upon clicking the renew button for subscriptions on the manage subscription page.</inlineHelpText>
+    <label>RESERVED</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

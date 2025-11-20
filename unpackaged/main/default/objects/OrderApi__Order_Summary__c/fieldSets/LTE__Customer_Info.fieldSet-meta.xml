@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Customer_Info</fullName>
+    <description>Use to populate the customer info in the financial documents.</description>
+    <displayedFields>
+        <field>OrderApi__Address_To__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>Customer Info</label>
+</FieldSet>

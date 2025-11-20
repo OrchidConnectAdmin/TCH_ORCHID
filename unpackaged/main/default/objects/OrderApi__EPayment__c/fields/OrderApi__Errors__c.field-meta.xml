@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Errors__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** List of errors returned in the response of the api transaction.</description>
+    <inlineHelpText>**System Calculated** List of errors returned in the response of the api transaction.</inlineHelpText>
+    <label>Errors</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Payment_Method__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Use a saved payment method for the customer without having to enter in a new credit card or bank account (not supported for all gateways - check with your administrator to see if you are using a gateway that supports this functionality).</description>
+    <inlineHelpText>Use a saved payment method for the customer without having to enter in a new credit card or bank account (not supported for all gateways - check with your administrator to see if you are using a gateway that supports this functionality).</inlineHelpText>
+    <label>Payment Method</label>
+    <referenceTo>OrderApi__Payment_Method__c</referenceTo>
+    <relationshipLabel>Receipts</relationshipLabel>
+    <relationshipName>Receipts</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

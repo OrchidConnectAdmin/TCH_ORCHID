@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quarter__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND((OrderApi__Activation_Date__c &gt;= DATE( 2020, 08, 01)),(OrderApi__Activation_Date__c &lt;= DATE( 2020, 10, 31))) ,&#39;Q1&#39; , &quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Quarter</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

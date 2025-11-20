@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Event__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** Required ** Link to related Event.</description>
+    <inlineHelpText>** Required ** Link to related Event.</inlineHelpText>
+    <label>Event</label>
+    <referenceTo>EventApi__Event__c</referenceTo>
+    <relationshipLabel>Rooms</relationshipLabel>
+    <relationshipName>Rooms</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

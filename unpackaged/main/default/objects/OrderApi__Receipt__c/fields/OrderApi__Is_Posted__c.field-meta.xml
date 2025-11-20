@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Posted__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Default unchecked. When checked, the receipt will create a new cash transaction (journal entry) and the posted date will populate with the value of today&#39;s date.</description>
+    <inlineHelpText>Default unchecked. When checked, the receipts will create a new cash transaction (journal entry) and the posted date will populate with the value of today&#39;s date.</inlineHelpText>
+    <label>Is Posted</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

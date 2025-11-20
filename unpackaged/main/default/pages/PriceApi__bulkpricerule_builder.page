@@ -1,0 +1,30 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           standardController="PriceApi__Bulk_Price_Rule__c"
+           extensions="PriceApi.BulkPriceRuleController"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           cache="false">
+  <apex:includeLightning />
+
+  <script src="{!URLFOR($Resource.Framework__SLDS_BaseV2,'js/scripts.js')}" type="text/javascript"></script>
+  <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.Framework__SLDS_BaseV2,'css/fullStyles.css')}"/>
+
+  <div id="lightning" />
+
+  <script>
+      var bulkPriceRuleId = '{!$CurrentPage.parameters.id}';
+	  if (window.location.hash.substring(1) != null && window.location.hash.substring(1).length > 0 && bulkPriceRuleId.length == 0) {
+		bulkPriceRuleId = window.location.hash.substring(1);
+	  }
+	  $Lightning.use("{!Namespace}:BulkPriceRuleBuilder", function() {
+		  $Lightning.createComponent("{!Namespace}:BulkPriceRuleBuilderTemplate",
+              {bulkPriceRuleId : bulkPriceRuleId,
+               dateFormat : '{!UserDateFormat}'},
+              "lightning",
+              function(cmp) {}
+          );
+		});
+  </script>
+</apex:page>

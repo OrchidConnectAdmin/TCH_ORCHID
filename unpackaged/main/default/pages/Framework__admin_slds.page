@@ -1,0 +1,206 @@
+<apex:page showHeader="true" standardStylesheets="false" sidebar="false" applyHtmlTag="true" applyBodyTag="false" docType="html-5.0">
+	<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  
+	  <apex:composition template="Framework__admin_slds_template">
+
+      <apex:define name="sidebar">
+	  		<c:admin_slds_sidebar />
+	    </apex:define>
+
+	    <apex:define name="title">
+	    	{!$Label.framework__quick_links}
+	  	</apex:define>
+
+	  	<apex:define name="admin-icon">
+        <img src="//fonteva-cdn.s3.amazonaws.com/framework-admin/admin-routing.svg" style="height:50px;" alt="Placeholder" />
+      </apex:define>
+      
+      <apex:define name="breadcrumbs">
+        <li class="slds-list__item slds-text-heading--label"><a href="{!$Page.Framework__admin}">{!$Label.framework__dashboard}</a></li>
+      </apex:define>
+
+      <!-- MAIN -->
+	    
+	    <apex:define name="main">
+	    	<div class="slds-grid slds-wrap slds-p-around--small">
+              
+          <!-- Apps -->
+          <div class="slds-col slds-p-around--medium slds-size--1-of-1 slds-medium-size--1-of-2 service">
+            
+            <div class="slds-media">
+              <div class="slds-media__figure">
+                <a href="#">
+                  <img src="//fonteva-cdn.s3.amazonaws.com/framework-admin/admin-objects.svg" style="height:100px;" alt="Placeholder" />
+                </a>
+              </div><!-- /.slds-media__figure -->
+              <div class="slds-media__body">
+                <a href="#">
+                  <div class="slds-text-heading--small">{!$Label.Objects}</div>
+                </a>
+                <div class="slds-text-body--small">{!$Label.Objects_Description}</div>
+              </div><!-- /.slds-media__body -->
+            </div><!-- /.slds-media -->
+
+          </div><!-- /.slds-col -->
+
+          <!-- API Services -->
+	          
+	          <div class="slds-col slds-p-around--medium slds-size--1-of-1 slds-medium-size--1-of-2 service">
+	            
+	            <div class="slds-media">
+	              <div class="slds-media__figure">
+	                <a href="#">
+	                  <img src="//fonteva-cdn.s3.amazonaws.com/framework-admin/admin-rocket.svg" style="height:100px;" alt="Placeholder" />
+	                </a>
+	              </div><!-- /.slds-media__figure -->
+	              <div class="slds-media__body">
+	                  <div class="slds-text-heading--small">
+	                    <a href="{!$Page.admin_api_services}">{!$Label.API} {!$Label.Services}</a>
+	                  </div>
+	                <div class="slds-text-body--small">{!$Label.API_Service_Description}</div>
+	              </div><!-- /.slds-media__body -->
+	            </div><!-- /.slds-media -->
+	          </div><!-- /.slds-col -->
+
+          <!-- /API Services -->
+            
+          <!-- Marketplace -->
+            
+            <div class="slds-col slds-p-around--medium slds-size--1-of-1 slds-medium-size--1-of-2 service">
+              
+              <div class="slds-media">
+                <div class="slds-media__figure">
+                  <a href="#">
+                    <img src="//fonteva-cdn.s3.amazonaws.com/framework-admin/admin-marketplace.svg" style="height:100px;" alt="Placeholder" />
+                  </a>
+                </div><!-- /.slds-media__figure -->
+                <div class="slds-media__body">
+                    <div class="slds-text-heading--small">
+                      <a href="{!$Page.admin_marketplace}" class="">{!$Label.Marketplace}</a>
+                    </div>
+                  <div class="slds-text-body--small">{!$Label.Marketplace_Description}</div>
+                </div><!-- /.slds-media__body -->
+              </div><!-- /.slds-media -->
+
+          	</div><!-- /.slds-col -->
+            
+          <!-- /Marketplace -->
+            
+          <!-- Routing Rules -->
+            
+          	<div class="slds-col slds-p-around--medium slds-size--1-of-1 slds-medium-size--1-of-2 service">
+            
+              <div class="slds-media">
+                <div class="slds-media__figure">
+                  <a href="#">
+                    <img src="//fonteva-cdn.s3.amazonaws.com/framework-admin/admin-routing.svg" style="height:100px;" alt="Placeholder" />
+                  </a>
+                </div><!-- /.slds-media__figure -->
+                <div class="slds-media__body">
+                  <div class="slds-text-heading--small">
+                    <a href="{!$Page.admin_routing_rules}">{!$Label.Routing_Rules}</a>
+                  </div>
+                  <div class="slds-text-body--small">{!$Label.Routing_Rules_Description}</div>
+                </div><!-- /.slds-media__body -->
+              </div><!-- /.slds-media -->
+
+            </div><!-- /.slds-col -->
+            
+          <!-- /Routing Rules -->
+            
+          <!-- Rollup Summary Fields -->
+
+            <div class="slds-col slds-p-around--medium slds-size--1-of-1 slds-medium-size--1-of-2 service">
+              
+              <div class="slds-media">
+                <div class="slds-media__figure">
+                  <a href="#">
+                    <img src="//fonteva-cdn.s3.amazonaws.com/framework-admin/admin-calculator.svg" style="height:100px;" alt="Placeholder" />
+                  </a>
+                </div><!-- /.slds-media__figure -->
+                <div class="slds-media__body">
+                  <div class="slds-text-heading--small">
+                    <a href="{!$Page.admin_rollups}">{!$Label.Rollup_Summary_Fields}</a>
+                  </div>
+                  <div class="slds-text-body--small">{!$Label.Rollup_Summary_Fields_Description}</div>
+                </div><!-- /.slds-media__body -->
+              </div><!-- /.slds-media -->
+
+            </div><!-- /.slds-col -->
+
+          <!-- /Rollup Summary Fields -->
+            
+          <!-- Framework -->
+            
+            <div class="slds-col slds-p-around--medium slds-size--1-of-1 slds-medium-size--1-of-2 service">
+              
+              <div class="slds-media">
+                <div class="slds-media__figure">
+                  <a href="#">
+                    <img src="//fonteva-cdn.s3.amazonaws.com/framework-admin/admin-gear.svg" style="height:100px;" alt="Placeholder" />
+                  </a>
+                </div><!-- /.slds-media__figure -->
+                <div class="slds-media__body">
+                  <div class="slds-text-heading--small">
+                    <a href="{!$Page.admin_config}">{!$Label.Configuration} {!$Label.Summary}</a>
+                  </div>
+                  <div class="slds-text-body--small">{!$Label.Framework_Settings_Description}</div>
+                </div><!-- /.slds-media__body -->
+              </div><!-- /.slds-media -->
+
+            </div><!-- /.slds-col -->
+            
+          <!-- /Framework -->
+            
+          <!-- Help Resources -->
+            
+            <div class="slds-col slds-p-around--medium slds-size--1-of-1 slds-medium-size--1-of-2 service">
+              
+              <div class="slds-media">
+                <div class="slds-media__figure">
+                  <a href="#">
+                    <img src="//fonteva-cdn.s3.amazonaws.com/framework-admin/admin-help.svg" style="height:100px;" alt="Placeholder" />
+                  </a>
+                </div><!-- /.slds-media__figure -->
+                <div class="slds-media__body">
+                  <div class="slds-text-heading--small">
+                    <a href="{!$Page.admin_help}">{!$Label.Help} {!$Label.Resources}</a>
+                  </div>
+                  <div class="slds-text-body--small">{!$Label.Help_Resources_Description}</div>
+                </div><!-- /.slds-media__body -->
+              </div><!-- /.slds-media -->
+
+            </div><!-- /.slds-col -->
+
+          <!-- /Help Resources -->
+
+          <!-- Access Manager -->
+          
+            <div class="slds-col slds-p-around--medium slds-size--1-of-1 slds-medium-size--1-of-2 service">
+              
+              <div class="slds-media">
+                <div class="slds-media__figure">
+                  <a href="#">
+                    <img src="//framework8.na34.visual.force.com/resource/1442864060000/AUI_BASE/img/icons/svg/settings_bg.svg" style="height:100px;" alt="Placeholder" />
+                  </a>
+                </div><!-- /.slds-media__figure -->
+                <div class="slds-media__body">
+                  <div class="slds-text-heading--small">
+                    <a href="#"></a>
+                  </div>
+                  <div class="slds-text-body--small"></div>
+                </div><!-- /.slds-media__body -->
+              </div><!-- /.slds-media -->
+
+            </div><!-- /.slds-col -->
+            
+          <!-- /Access Manager -->
+
+        </div>
+	    </apex:define>
+
+	  </apex:composition>
+
+  </html>
+
+</apex:page>

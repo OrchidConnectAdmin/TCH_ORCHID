@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FDService__Advanced_Item_Settings</fullName>
+    <availability>online</availability>
+    <description>Advanced Item Settings Builder</description>
+    <displayType>massActionButton</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Advanced Item Settings</masterLabel>
+    <openType>replace</openType>
+    <page>FDService__ManagePackageItems</page>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+</WebLink>

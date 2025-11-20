@@ -1,0 +1,79 @@
+<apex:page id="unsupported_browser"
+    sideBar="false"
+    showHeader="false"
+    applyBodyTag="false"
+    applyHtmlTag="false"
+    standardStylesheets="false"
+    docType="html-5.0"
+    controller="PagesApi.DefaultTemplateController"
+>
+    <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.emerald_base_1_0,'css/styles.min.css')}" />
+    <style>
+        img.img-responsive.center {
+            width: 100px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 well p-25">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4 text-center">
+                        <apex:image styleClass="img-responsive"
+                            rendered="{!NOT(ISBLANK(theme.PagesApi__Logo_Image__c))}"
+                            value="{!theme.PagesApi__Logo_Image__c}"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <h2><strong>{!$Label.PagesApi__Browser_Not_Supported}</strong></h2>
+                    </div>
+                </div>
+                <div class="row m-t-20">
+                    <div class="col-sm-12 text-center">
+                        <h4>{!$Label.PagesApi__Browser_Not_Supported_Message}</h4>
+                    </div>
+                </div>
+                <div class="row m-t-30">
+                    <div class="col-sm-3 text-center">
+                        <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">
+                            <apex:image styleClass="img-responsive center"
+                                value="{!URLFOR($Resource.PagesApi__emerald_base_1_0,'img/browser-logos/ffLogo.png')}"
+                            />
+                            <h6>
+                                {!$Label.Firefox_Browser_Name} <br /><small>{!$Label.Most_Reset_Stable_Version}</small>
+                            </h6>
+                        </a>
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">
+                            <apex:image styleClass="img-responsive center"
+                                value="{!URLFOR($Resource.PagesApi__emerald_base_1_0,'img/browser-logos/ieLogo.jpg')}"
+                            />
+                            <h6>{!$Label.IE_Browser_Name} <br /><small>{!$Label.IE_Browser_Version}</small></h6>
+                        </a>
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <a href="http://www.apple.com/safari/" target="_blank">
+                            <apex:image styleClass="img-responsive center"
+                                value="{!URLFOR($Resource.PagesApi__emerald_base_1_0,'img/browser-logos/safariLogo.png')}"
+                            />
+                            <h6>{!$Label.Safari_Browser_Name} <br /><small>{!$Label.Safari_Browser_Version}</small></h6>
+                        </a>
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <a href="https://support.google.com/chrome/answer/95346?hl=en" target="_blank">
+                            <apex:image styleClass="img-responsive center"
+                                value="{!URLFOR($Resource.PagesApi__emerald_base_1_0,'img/browser-logos/chromeLogo.png')}"
+                            />
+                            <h6>
+                                {!$Label.Chrome_Browser_Name} <br /><small>{!$Label.Most_Reset_Stable_Version}</small>
+                            </h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</apex:page>

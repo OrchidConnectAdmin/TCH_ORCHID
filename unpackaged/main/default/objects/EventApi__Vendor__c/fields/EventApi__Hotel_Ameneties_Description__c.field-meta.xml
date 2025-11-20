@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Hotel_Ameneties_Description__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Describe the various amenities the hotel offers.</description>
+    <inlineHelpText>Describe the various amenities the hotel offers.</inlineHelpText>
+    <label>Hotel Amenities Description</label>
+    <length>2000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Registration_Limit__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The maximum number of Attendees allowed to register with the group. Required and restricted to Registration Groups where &quot;Limit Registrations&quot; is checked.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The maximum number of Attendees allowed to register with the group. Required and restricted to Registration Groups where &quot;Limit Registrations&quot; is checked.</inlineHelpText>
+    <label>Registration Limit</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

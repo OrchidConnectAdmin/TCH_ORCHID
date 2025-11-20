@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Lightning_Component__c</fullName>
+    <deprecated>false</deprecated>
+    <description>API Name of the lightning component that extends the custom payment type interface.(OrderApi:CustomPaymentType).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>API Name of the lightning component that extends the custom payment type interface.(OrderApi:CustomPaymentType).</inlineHelpText>
+    <label>RESERVED</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

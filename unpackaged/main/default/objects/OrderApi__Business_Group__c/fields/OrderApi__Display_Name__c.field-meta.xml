@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Display_Name__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Override ** The name that should be displayed when the Business Group is referenced on Invoices and other external pages and documents. Defaults to the &quot;Name&quot; defined for the Business Group.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** System Calculated Override ** The name that should be displayed when the Business Group is referenced on Invoices and other external pages and documents. Defaults to the &quot;Name&quot; defined for the Business Group.</inlineHelpText>
+    <label>Display Name</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

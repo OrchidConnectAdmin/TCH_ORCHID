@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Registration_Total__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Total registration sales derived from the total of all child registration items.</description>
+    <inlineHelpText>** System Calculated ** Total registration sales derived from the total of all child registration items.</inlineHelpText>
+    <label>Registration Total</label>
+    <summarizedField>EventApi__Registration_Item__c.EventApi__Total__c</summarizedField>
+    <summaryForeignKey>EventApi__Registration_Item__c.EventApi__Attendee__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>EventApi__Attendee__c$Name</field>
+    </columns>
+    <columns>
+        <field>EventApi__Attendee__c$EventApi__Full_Name__c</field>
+    </columns>
+    <columns>
+        <field>EventApi__Attendee__c$EventApi__Contact__c</field>
+    </columns>
+    <columns>
+        <field>EventApi__Attendee__c$EventApi__Preferred_Email__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>EventApi__Attendee__c$EventApi__Registration_Total__c</field>
+    </columns>
+    <description>Reports on the money earned on all event registrations by month.</description>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Month</dateGranularity>
+        <field>EventApi__Attendee__c$EventApi__Registration_Date__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <name>FON - Monthly Event Registration Revenue</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Attendees__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>EventApi__Attendee__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Field__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required** The API Name of the Field used to evaluate for the Price Rule Variable.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>**Required** The API Name of the Field used to evaluate for the Price Rule Variable.</inlineHelpText>
+    <label>Field</label>
+    <length>255</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

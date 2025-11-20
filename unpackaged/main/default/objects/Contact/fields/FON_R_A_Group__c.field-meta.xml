@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_R_A_Group__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>If checked, the user is a current member of the Exceptions &amp; Fraud working group</inlineHelpText>
+    <label>Exceptions &amp; Fraud WG</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

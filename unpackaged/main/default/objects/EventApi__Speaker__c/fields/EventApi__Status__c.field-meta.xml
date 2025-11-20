@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** The current Status for the Speaker.</description>
+    <inlineHelpText>** Required ** The current Status for the Speaker.</inlineHelpText>
+    <label>Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Considering</fullName>
+                <color>#0B6FCE</color>
+                <default>true</default>
+                <label>Considering</label>
+            </value>
+            <value>
+                <fullName>Invited</fullName>
+                <color>#78C953</color>
+                <default>false</default>
+                <label>Invited</label>
+            </value>
+            <value>
+                <fullName>Tentative</fullName>
+                <color>#E27001</color>
+                <default>false</default>
+                <label>Tentative</label>
+            </value>
+            <value>
+                <fullName>Negotiating</fullName>
+                <color>#A845DC</color>
+                <default>false</default>
+                <label>Negotiating</label>
+            </value>
+            <value>
+                <fullName>Accepted</fullName>
+                <color>#F3D904</color>
+                <default>false</default>
+                <label>Accepted</label>
+            </value>
+            <value>
+                <fullName>Declined</fullName>
+                <color>#A53711</color>
+                <default>false</default>
+                <label>Declined</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

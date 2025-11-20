@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Source_Code__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Optional source code for the receipt. This will populate on all invoices related to the receipt. If a source code is already on an invoice the receipt is applied to, the original source code will not be updated with the value of the source code on the receipt.</description>
+    <inlineHelpText>Populates on all invoices related to the receipt. If a source code is already assigned to an invoice the receipt is applied to, the invoice will not be updated with the new source code.</inlineHelpText>
+    <label>Source Code</label>
+    <referenceTo>OrderApi__Source_Code__c</referenceTo>
+    <relationshipLabel>Receipts</relationshipLabel>
+    <relationshipName>Receipts</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

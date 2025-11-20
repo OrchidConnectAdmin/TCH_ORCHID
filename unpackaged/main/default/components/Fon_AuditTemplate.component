@@ -1,0 +1,199 @@
+<apex:component controller="FON_AuditTemplateEmailController" access="global">
+    
+    <!-- attributes to save -->
+    <apex:attribute name="proId" type="string" description="To save the Program Profile Id" assignTo="{!programProfileId}"/>
+
+    <head>
+        
+        <style type="text/css">
+            
+            /* Client-specific Styles and Fixes */
+            #outlook a {padding:0;} /* Force Outlook to provide a "view in browser" menu link. */
+            body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0; line-height: 100% !important;}
+            
+            /*TABLET STYLES*/
+            @media only screen and (max-width: 479px) {
+            table[class=Responsive] {width: 100% !important;}
+            }
+            /*MOBILE STYLES*/
+            @media only screen and (max-width: 479px) {
+            table[class=Responsive] {width: 100% !important;}
+            }
+        </style>
+        
+        <style>
+            
+            .tableRowHeader{
+            
+            background-color: black !important;
+            }
+            
+            
+            .nCPtableRowHeader{
+            
+            background-color: #191970 !important;
+            }
+            
+            .tableColHeader{
+            
+            color:white !important;border: 1px solid black !important;padding-left:2Px !important;
+            }
+            
+            .tableColBody{
+            
+            color:black !important;border: 1px solid black !important;padding-left:2Px !important;
+            }
+        </style>
+        
+    </head>
+    <!-- include slds -->
+    <apex:slds /> 
+    
+    <!-- call method to get the data -->
+    {!displaydata}
+    
+    <!-- HTML place holder -->
+    <div class="slds-scope" style="mso-line-height-rule: exactly; line-height: auto;">
+        
+        <b>You have been randomly selected for an NCP Audit</b>. Following are the Audit parameters:<br/>
+        <br/>
+        NCP Name: <b>{!wrapObj.conDetails.Name}</b><br/>
+        Audit Year: <b>{!wrapObj.sendYear}</b><br/><br/>
+        Due Date: <b>{!wrapObj.calcDate}</b><br/>
+        <ul style="margin:0; padding-left:18px; line-height:1.5; mso-line-height-rule:exactly;">
+            <li style="margin:0 0 5px 0; padding:0;">All required documentation must be provided to support all Credits submitted for the year being audited.</li>
+            <li style="margin:0 0 5px 0; padding:0;">Any unsubstantiated Credits or Credits that fail to meet NCP Credit criteria will be disqualified. If this jeopardizes NCP status, a retention grace period is offered through 12/31 of this year.</li>
+            <li style="margin:0 0 5px 0; padding:0;">Determination regarding the viability or applicability of the Credits is at the sole discretion of ECCHO. An appeal process may be initiated by the NCP in the case of a dispute by contacting ECCHO.</li>
+            <li style="margin:0 0 5px 0; padding:0;">Lack of participation/completion of the Audit within the timeframe specified equals a risk of loss of NCP designation.</li>
+        </ul>
+
+        <br/><hr/><br/>
+        <b>Next Steps:</b> <br/>
+        <ol style="margin:0px 0 0 18px; padding:0; line-height:1.5; mso-line-height-rule:exactly;">
+            <li style="margin:0 0 5px 0; padding:0;">Below is a list of submitted NCP Credits for the Audit Year.</li>
+            <li style="margin:0 0 5px 0; padding:0;">Provide validation that you attended every session listed by uploading the supporting documentation for each Credit individually via ECCHO Online.</li>
+            <li style="margin:0 0 5px 0; padding:0;">For a list of acceptable CE Credit guidelines <a href="https://s3.us-east-1.amazonaws.com/fonteva-customer-media/00D6g000000CyAxEAK/eKlKoIrA_NCP_CE_Program_Guide_12_17_24_pdf">click here</a></li>
+            <li style="margin:0 0 5px 0; padding:0;">After uploading your documentation be sure to click submit to receive confirmation of your submission.</li>
+            <li style="margin:0 0 5px 0; padding:0;">We will contact you should we need more info submitted.</li>
+            <li style="margin:0 0 5px 0; padding:0;">Please contact us with any questions at ncp@theclearinghouse.org / 214-273-3218 or view the <a href="https://s3.us-east-1.amazonaws.com/fonteva-customer-media/00D6g000000CyAxEAK/jMHVPMFT_ECCHO_Online_User_Guide_NCP_Audit_Steps_And_FAQ_s_FINAL_10_16_23_pdf">NCP Audit Procedures and FAQs</a></li>
+            <li style="margin:0 0 5px 0; padding:0;">You will receive notification from ECCHO on the status of your Audit and any correlating requirements within 30 days of ECCHO’s receipt of all required documentation.</li>
+            <li style="margin:0 0 5px 0; padding:0;">ECCHO Online Login - https://www.ecchoonline.org/s/login/</li>
+        </ol>
+        <br/>
+        <!-- Program Profiles
+            <div class="slds-section slds-is-open">
+            <h3 class="slds-section__title clrClass" style="background-color:#1797C0;">
+            <span style="background-color:#1797C0;" aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">                
+            <span class="slds-truncate" title="Section Title" style="color:white;">&nbsp;Audit Transactions</span>
+            </span>
+            </h3>
+            <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+            <apex:outputPanel rendered="{!wrapObj.progProList.size != 0}">
+            <table style="border-collapse: collapse;">
+            <tr style=" background-color: black !important;">
+            <td style="color:white;background-color: black !important;border: 1px solid black !important;padding-left:2Px !important;">Options</td>
+            <td style="color:white;background-color: black !important;border: 1px solid black !important;padding-left:2Px !important;">Audited by</td>
+            <td style="color:white;background-color: black !important;border: 1px solid black !important;padding-left:2Px !important;">Audited Year</td>
+            <td style="color:white;background-color: black !important;border: 1px solid black !important;padding-left:2Px !important;">Audit Status</td>
+            <td style="color:white;background-color: black !important;border: 1px solid black !important;padding-left:2Px !important;">Total Submitted Credits</td>
+            <td style="color:white;background-color: black !important;border: 1px solid black !important;padding-left:2Px !important;">Adjusted Credit Values</td>
+            <td style="color:white;background-color: black !important;border: 1px solid black !important;padding-left:2Px !important;">Audit Date</td>
+            </tr>
+            <tr></tr>
+            
+            <tr>
+            <td style="color:black !important;border: 1px solid black !important;padding-left:2Px !important;"></td>
+            <td style="color:black !important;border: 1px solid black !important;padding-left:2Px !important;">{!wrapObj.progProList[0].FON_Audited_By__r.FirstName} &nbsp; {!wrapObj.progProList[0].FON_Audited_By__r.LastName} </td>
+            <td style="color:black !important;border: 1px solid black !important;padding-left:2Px !important;">{!wrapObj.progProList[0].FON_Audited_Year__c}</td>
+            <td style="color:black !important;border: 1px solid black !important;padding-left:2Px !important;">{!wrapObj.progProList[0].FON_Audit_Status__c}</td>
+            <td style="color:black !important;border: 1px solid black !important;padding-left:2Px !important;">{!wrapObj.progProList[0].FON_Total_Credits__c}</td>
+            <td style="color:black !important;border: 1px solid black !important;padding-left:2Px !important;"></td>
+            <td style="color:black !important;border: 1px solid black !important;padding-left:2Px !important;">
+            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+            <apex:param value="{!wrapObj.progProList[0].FON_Audit_Date__c}" /> 
+            </apex:outputText>
+            
+            </td>
+            </tr>
+            </table>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!wrapObj.progProList.size == 0}">
+            <table style="border-collapse: collapse;">
+            <tr style=" background-color: black !important;">
+            <td style="color:white;background-color: black !important;border: 1px solid white !important;padding-left:2Px !important;">Options</td>
+            <td style="color:white;background-color: black !important;border: 1px solid white !important;padding-left:2Px !important;">Audited by</td>
+            <td style="color:white;background-color: black !important;border: 1px solid white !important;padding-left:2Px !important;">Audited Year</td>
+            <td style="color:white;background-color: black !important;border: 1px solid white !important;padding-left:2Px !important;">Audit Status</td>
+            <td style="color:white;background-color: black !important;border: 1px solid white !important;padding-left:2Px !important;">Total Submitted Credits</td>
+            <td style="color:white;background-color: black !important;border: 1px solid white !important;padding-left:2Px !important;">Adjusted Credit Values</td>
+            <td style="color:white;background-color: black !important;border: 1px solid white !important;padding-left:2Px !important;">Audit Date</td>
+            </tr>
+            <tr></tr>                        
+            <tr>
+            <td colspan="7">
+            No data Found
+            </td>
+            </tr>
+            </table>
+            
+            </apex:outputPanel>
+            
+            </div>
+            </div>
+            <br/>
+            -->
+             
+        <h3 class="clrClass" style="background-color:#1797C0;padding:10px 5px 10px 5px;margin-bottom: 0;">
+            <span style="background-color:#1797C0;width:100%;" aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">                
+                <span title="Section Title" style="color:white;">&nbsp; CE Sessions</span>
+            </span>
+        </h3>
+        <body yahoo="fix" width="100%" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+            <table width="100%" class="Responsive" cellpadding="15" cellspacing="0" border="0" style="font-size:12px; color:#888888;">
+                <tr style="color:white"> 
+                    
+                    <td style="border-width:1px; border-style:solid; border-color:black;background-color:#191970;">Session ID</td>
+                    <td style="border-width:1px; border-style:solid; border-color:black;background-color:#191970;">Session Date</td>
+                    <td style="border-width:1px; border-style:solid; border-color:black;background-color:#191970;">Session Title</td>
+                    <td style="border-width:1px; border-style:solid; border-color:black;background-color:#191970;">Credit Value</td>
+                    <td style="border-width:1px; border-style:solid; border-color:black;background-color:#191970;">CE Provider</td>
+                    <td style="border-width:1px; border-style:solid; border-color:black;background-color:#191970;">Description</td>
+                </tr>
+                <apex:outputPanel rendered="{!wrapObj.ncpCreditList.size != 0}">                        
+                    <apex:repeat value="{!wrapObj.ncpCreditList}" var="item">
+                        <tr style="color:black">
+                            
+                            <td style="border-width:1px; border-style:solid; border-color:black">{!item.NCP_Session__r.Session_ID__c}</td>
+                            <td style="border-width:1px; border-style:solid; border-color:black">
+                                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                    <apex:param value="{!item.FON_Session_Date__c}" /> 
+                                </apex:outputText>
+                                
+                            </td>
+                            <td style="border-width:1px; border-style:solid; border-color:black">{!item.Session_Title__c}</td>
+                            <td style="border-width:1px; border-style:solid; border-color:black">{!item.Credit_Value__c}</td>
+                            <td style="border-width:1px; border-style:solid; border-color:black">{!item.FON_Provider_Name__c}</td>
+                            <td style="border-width:1px; border-style:solid; border-color:black">{!item.Session_Description__c}</td>
+                        </tr>
+                    </apex:repeat>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!wrapObj.ncpCreditList.size == 0}">
+                    <tr style="border-width:1px; border-style:solid; border-color:black;color:black">
+                        <td colspan="7" style="border-width:1px; border-style:solid; border-color:black;text-align:center">
+                            No data Found
+                        </td>
+                    </tr>
+                </apex:outputPanel>
+                
+            </table>
+            
+            
+            
+        </body>
+                    
+                    
+    </div>
+    
+    
+    
+</apex:component>

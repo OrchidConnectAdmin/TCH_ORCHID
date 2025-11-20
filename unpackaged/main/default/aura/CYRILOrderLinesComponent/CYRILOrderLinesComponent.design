@@ -1,0 +1,6 @@
+<design:component label="CYRIL: Order Lines Component">
+
+    <design:attribute name="cInvoiceType" label="Select Order Line Type Set" datasource="apex://GetCYRILOrderLineTypesController"/>
+    <design:attribute name="cID" label="Record Id" />
+
+</design:component>

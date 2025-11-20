@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Badges__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field lists all the active badges in alphabetical order including all badges inherited from it&#39;s parent account or it&#39;s parent account through flowdown (when enabled)</description>
+    <inlineHelpText>This field lists all the active badges in alphabetical order including all badges inherited from it&#39;s parent account or it&#39;s parent account through flowdown (when enabled)</inlineHelpText>
+    <label>Badges</label>
+    <length>131072</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

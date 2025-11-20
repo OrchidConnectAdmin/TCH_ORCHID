@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Sponsor__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Link between the Field Response and the Sponsor. Used to display Sponsor Contract &amp; Agreement information on the Sponsor record.</description>
+    <inlineHelpText>** System Calculated ** Link between the Field Response and the Sponsor. Used to display Sponsor Contract &amp; Agreement information on the Sponsor record.</inlineHelpText>
+    <label>Sponsor</label>
+    <referenceTo>EventApi__Sponsor__c</referenceTo>
+    <relationshipLabel>Sponsor Agreement Details</relationshipLabel>
+    <relationshipName>Field_Responses</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,16 @@
+<apex:page applyBodyTag="false" applyHtmlTag="false" showHeader="false" standardStylesheets="false" docType="html-5.0"
+           controller="CPBase.CustomPageController" action="{!checkIfAuthorized}">
+  <apex:composition template="CPBase__template">
+    <apex:define name="main">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="well">
+              <apex:dynamicComponent componentValue="{!PageElementsWrapper}"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </apex:define>
+  </apex:composition>
+</apex:page>

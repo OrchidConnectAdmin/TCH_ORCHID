@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <description>Design and publish custom forms to your community.</description>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Form Builder</label>
+    <logo>Fonteva1__Fonteva1/Fonteva1__Fonteva_LOGO.png</logo>
+    <tabs>PagesApi__Form__c</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>Case__c</tabs>
+    <tabs>Opposing_Party__c</tabs>
+    <tabs>Client_Inquiry__c</tabs>
+    <tabs>SO_Bundle__c</tabs>
+    <tabs>OrderApi__Scheduled_Payment__c</tabs>
+</CustomApplication>

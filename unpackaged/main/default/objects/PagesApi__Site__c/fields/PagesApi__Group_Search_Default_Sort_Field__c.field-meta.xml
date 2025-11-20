@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Group_Search_Default_Sort_Field__c</fullName>
+    <defaultValue>&quot;NAME&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>** Defaults Group Name ** Combined with the Search Results Sort Order, this field defines the field to sort group search results in ascending or descending order. Limited to Group Fields Only.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Defaults Group Name ** Combined with the Search Results Sort Order, this field defines the field to sort group search results in ascending or descending order. Limited to Group Fields Only.</inlineHelpText>
+    <label>Group Search Default Sort Field</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

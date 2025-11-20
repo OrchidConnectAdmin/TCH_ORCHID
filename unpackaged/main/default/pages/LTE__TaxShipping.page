@@ -1,0 +1,50 @@
+<apex:page id="TaxShipping"
+           showHeader="false"
+           sideBar="false"
+           standardStylesheets="false" >
+    <apex:includeLightning />
+    <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.PFM_Base,'css/styles.css')}"/>
+
+    <style>
+        html, body { min-height: 100vh; }
+        body {
+            margin: 0;
+            background-image: linear-gradient(#2A426C, #ffffff 200%);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        c-pfm-card .pfm-card__body {
+            background-color: #ffffff;
+        }
+
+        c-pfm-card .pfm-card .pfm-card__header {
+            background-color: #F3F2F2;
+        }
+        lightning-primitive-bubble {
+            top: 0;
+            z-index: -1;
+        }
+        .slds-scope .slds-form-element__icon {
+            padding-top: .125rem;
+        }
+        .slds-scope .pfm-m-right_xx-small {
+            margin-right: .25rem;
+        }
+        .slds-scope .pfm-table .slds-table thead th .slds-cell-fixed {
+            background-color: #fafaf9;
+        }
+    </style>
+    <div id="backendContainer"/>
+    <script>
+        $Lightning.use("LTE:TaxShippingApp", function () {
+           $Lightning.createComponent("LTE:TaxShippingPage",
+           {
+              orderIdsString: "{!$CurrentPage.parameters.orderIds}",
+              contactId: "{!$CurrentPage.parameters.contactId}"
+           },
+          "backendContainer",
+          function (cmp) {});
+         });
+    </script>
+</apex:page>

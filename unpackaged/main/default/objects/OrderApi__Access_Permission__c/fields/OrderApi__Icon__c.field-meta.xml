@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Icon__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Icon for the related Badge Type with Badge Name.</description>
+    <externalId>false</externalId>
+    <formula>IF(OrderApi__Badge_Type__c != null, OrderApi__Badge_Type__r.OrderApi__Icon__c, &quot;Image Not Available&quot;) &amp; &quot; &quot; &amp;  HYPERLINK(&quot;/&quot; &amp; OrderApi__Badge_Type__c, OrderApi__Badge_Type__r.Name, &quot;_tab&quot;)</formula>
+    <inlineHelpText>** System Calculated ** Icon for the related Badge Type with Badge Name.</inlineHelpText>
+    <label>Enabled Badge Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GDO_Community_Group_Compact_Layout</fullName>
+    <fields>Name</fields>
+    <fields>PagesApi__Type__c</fields>
+    <fields>PagesApi__Members__c</fields>
+    <fields>PagesApi__Privacy_Setting__c</fields>
+    <fields>PagesApi__Site__c</fields>
+    <fields>PagesApi__Member_Entity_Type__c</fields>
+    <fields>PagesApi__Group_Owner__c</fields>
+    <label>GDO Community Group Compact Layout</label>
+</CompactLayout>

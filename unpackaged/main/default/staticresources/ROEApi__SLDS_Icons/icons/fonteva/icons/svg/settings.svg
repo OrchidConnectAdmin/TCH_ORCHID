@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 130 130" enable-background="new 0 0 130 130" xml:space="preserve">
+<g>
+	<g>
+		<path fill="#9CCA41" d="M111,129h-0.2c-9.9,0-18-8.1-18-18V19c0-9.9,8.1-18,18-18h0.2c9.9,0,18,8.1,18,18V111
+			C129,120.9,120.9,129,111,129z"/>
+		<ellipse fill="#FFFFFF" cx="110.9" cy="45.4" rx="13.3" ry="13.2"/>
+	</g>
+	<g>
+		<path fill="#F15A2B" d="M65,129h-0.2c-9.9,0-18-8.1-18-18V19c0-9.9,8.1-18,18-18H65c9.9,0,18,8.1,18,18V111
+			C83,120.9,74.9,129,65,129z"/>
+		<ellipse fill="#FFFFFF" cx="64.9" cy="82.2" rx="13.3" ry="13.2"/>
+	</g>
+	<g>
+		<path fill="#74B9BB" d="M19.2,129H19c-9.9,0-18-8.1-18-18V19C1,9.1,9.1,1,19,1h0.2c9.9,0,18,8.1,18,18l0,92.1
+			C37.1,120.9,29,129,19.2,129z"/>
+		<ellipse fill="#FFFFFF" cx="19.1" cy="19.6" rx="13.3" ry="13.2"/>
+	</g>
+</g>
+</svg>

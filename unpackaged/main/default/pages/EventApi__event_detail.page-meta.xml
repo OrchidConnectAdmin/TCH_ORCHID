@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>31.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>DEPRECATED</description>
+    <label>event_detail</label>
+    <packageVersions>
+        <majorNumber>7</majorNumber>
+        <minorNumber>8</minorNumber>
+        <namespace>Framework</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>7</majorNumber>
+        <minorNumber>5</minorNumber>
+        <namespace>OrderApi</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>3</majorNumber>
+        <minorNumber>9</minorNumber>
+        <namespace>PagesApi</namespace>
+    </packageVersions>
+</ApexPage>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Session_ID__c</fullName>
+    <externalId>false</externalId>
+    <formula>(FON_Partner_Provider_ID__c + &#39;.&#39; +  FON_Auto_Generated_Item_Number__c + &#39;.&#39;+  FON_Session_Code__c +&#39;-&#39;+ TEXT(FON_NCP_CE_Value__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Session ID #</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

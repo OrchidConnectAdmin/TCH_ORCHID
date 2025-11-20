@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>NCP_Send_email_to_contact_when_the_exam_result_is_fail</fullName>
+        <description>NCP - Send email to contact when the exam result is fail</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>ncp@theclearinghouse.org</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Fonteva_Email_Templates/NCP_Exam_Results</template>
+    </alerts>
+    <alerts>
+        <fullName>NCP_Send_email_to_contact_when_the_result_is_pass</fullName>
+        <description>NCP - Send email to contact when the result is pass</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>ncp@theclearinghouse.org</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Fonteva_Email_Templates/Congratulations_NCP</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Audit_Email</fullName>
+        <ccEmails>nicole.williams@theclearinghouse.org</ccEmails>
+        <ccEmails>stephanie.porter@theclearinghouse.org</ccEmails>
+        <description>Send Audit Email (DO NOT USE)</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>ncp@theclearinghouse.org</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Audit_related/Fon_Audit_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Welcome_Email_To_New_Member</fullName>
+        <description>Send Welcome Email To New Member</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        
+        
+        
+        
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/NCP_Template_2026</template>
+    </alerts>
+    <rules>
+        <fullName>FON - Update Personal Email Field</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.Email</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow updates Personal Email field on Contact so that Preferred Email is always populated</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>FON-CONTACT-New Contact Email Alert</fullName>
+        <actions>
+            <name>New_Contact_has_been_created</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Workflow fires an email alert whenever a new Contact is created by the site guest user.</description>
+        <formula>ISPICKVAL($Profile.UserType,&#39;Guest&#39;)</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>NCP - Send email to contact when the exam result is Fail</fullName>
+        <actions>
+            <name>NCP_Send_email_to_contact_when_the_exam_result_is_fail</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.FON_Exam_Results__c</field>
+            <operation>equals</operation>
+            <value>Fail</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Send_Email__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>NCP - Send email to contact when the result is pass</fullName>
+        <actions>
+            <name>NCP_Send_email_to_contact_when_the_result_is_pass</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.FON_Exam_Results__c</field>
+            <operation>equals</operation>
+            <value>Pass</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Contact.Send_Email__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send audit email</fullName>
+        <actions>
+            <name>Send_Audit_Email</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Contact.Sent_Audit_Email__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

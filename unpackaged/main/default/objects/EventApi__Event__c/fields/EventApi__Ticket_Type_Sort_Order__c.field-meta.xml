@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Ticket_Type_Sort_Order__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Use with Ticket Type Sort Field. Specifies whether tickets are shown in ascending or descending order.</description>
+    <inlineHelpText>Use with Ticket Type Sort Field. Specifies whether tickets are shown in ascending or descending order.</inlineHelpText>
+    <label>Ticket Type Sort Order</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Ascending</fullName>
+                <default>true</default>
+                <label>Ascending</label>
+            </value>
+            <value>
+                <fullName>Descending</fullName>
+                <default>false</default>
+                <label>Descending</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

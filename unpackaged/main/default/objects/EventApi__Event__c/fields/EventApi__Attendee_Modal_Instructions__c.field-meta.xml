@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Attendee_Modal_Instructions__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This text displays as instructions in the attendee modal.</description>
+    <inlineHelpText>This text displays as instructions in the attendee modal.</inlineHelpText>
+    <label>Attendee Modal Instructions</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

@@ -1,0 +1,4 @@
+<design:component label="ECCHO: Memberships Search Box">
+    <design:attribute name="sstring" label="Search String"/>
+	
+</design:component>

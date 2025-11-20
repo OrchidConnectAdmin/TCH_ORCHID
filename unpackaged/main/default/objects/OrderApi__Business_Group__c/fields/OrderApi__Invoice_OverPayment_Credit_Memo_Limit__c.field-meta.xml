@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Invoice_OverPayment_Credit_Memo_Limit__c</fullName>
+    <deprecated>false</deprecated>
+    <description>When an invoice is overpaid by an amount less than or equal to the value of this field, a new credit memo will be created and applied against the customer&#39;s account automatically.</description>
+    <inlineHelpText>When an invoice is overpaid by an amount less than or equal to the value of this field, a new credit memo will be created and applied against the customer&#39;s account automatically.</inlineHelpText>
+    <label>Invoice Overpayment Credit Memo Limit</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

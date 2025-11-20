@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Framework__Data__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Data contains the current log at the time the System Log was generated either by an exception, Registered App event, Fonteva Framework event, or user triggered event.</description>
+    <inlineHelpText>Data contains the current log at the time the System Log was generated either by an exception, Registered App event, Fonteva Framework event, or user triggered event.</inlineHelpText>
+    <label>Data</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>

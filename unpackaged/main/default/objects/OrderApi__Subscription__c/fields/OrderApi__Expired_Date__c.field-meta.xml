@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Expired_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Required Override ** The date the Subscription expires. Automatically calculated from rules defined on the related Subscription Plan.</description>
+    <inlineHelpText>** System Calculated Required Override ** The date the Subscription expires. Automatically calculated from rules defined on the related Subscription Plan.</inlineHelpText>
+    <label>Expired Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Is_Enabled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Checking this field enables this tab to be viewed in the event builder.</description>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>Checking this field enables this tab to be viewed in the event builder.</inlineHelpText>
+    <label>Is Enabled</label>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Event Invitation Confirmation" recipientType="Contact" relatedToType="EventApi__Attendee__c">
+    <messaging:htmlEmailBody >
+        <c:group_confirmation_email attendeeId="{!relatedTo.Id}"/>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

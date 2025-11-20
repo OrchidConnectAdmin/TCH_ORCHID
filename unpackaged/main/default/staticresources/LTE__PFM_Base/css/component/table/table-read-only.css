@@ -1,0 +1,28 @@
+:root {
+    --columnsCount: 1
+}
+
+.pfm-table.js-read-only table thead svg {
+    display: none;
+}
+
+.pfm-table.js-read-only table .slds-th__action:hover,
+.pfm-table.js-read-only table tr:hover > th,
+.pfm-table.js-read-only table tbody tr:hover > th,
+.pfm-table.js-read-only table tbody tr:hover > td {
+    background-color: transparent;
+}
+
+.pfm-table.js-read-only table.slds-table th:focus,
+.pfm-table.js-read-only table.slds-table th.slds-has-focus,
+.pfm-table.js-read-only table.slds-table [role="gridcell"]:focus,
+.pfm-table.js-read-only table.slds-table [role="gridcell"].slds-has-focus,
+.pfm-table.js-read-only table tbody tr:hover > td:not(.slds-is-selected),
+.pfm-table.js-read-only table tbody tr:hover > th:not(.slds-is-selected),
+.pfm-table.js-read-only table .slds-has-focus .slds-th__action {
+    box-shadow: none;
+}
+
+.pfm-table.js-read-only table.slds-table .slds-truncate {
+    white-space: initial;
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Require_Contact_Match_Custom_Field__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Whenc checked, the field defined in the Contact Match Custom Field will be required when checking out as a guest/unauthenticated user.</description>
+    <inlineHelpText>When checked, the field defined in the Contact Match Custom Field will be required when checking out as a guest/unauthenticated user.</inlineHelpText>
+    <label>Require Contact Match Custom Field</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

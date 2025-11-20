@@ -1,0 +1,22 @@
+/* line 2, ../event-rsvp.scss */
+#accordionSchedule .media {
+  border-bottom: 1px solid #e3e3e3;
+}
+/* line 4, ../event-rsvp.scss */
+#accordionSchedule .media:last-of-type {
+  border-bottom: none;
+  margin-bottom: 15px;
+}
+
+/* line 12, ../event-rsvp.scss */
+#rsvpScheduleReview .media.review .media-object, #reviewSchedule .media.review .media-object, #reviewContactSchedule .media.review .media-object, #rsvpSingleScheduleReview .media.review .media-object {
+  width: 75px;
+}
+/* line 15, ../event-rsvp.scss */
+#rsvpScheduleReview .media.review, #reviewSchedule .media.review, #reviewContactSchedule .media.review, #rsvpSingleScheduleReview .media.review {
+  border-bottom: 1px solid #e3e3e3;
+}
+/* line 17, ../event-rsvp.scss */
+#rsvpScheduleReview .media.review:last-of-type, #reviewSchedule .media.review:last-of-type, #reviewContactSchedule .media.review:last-of-type, #rsvpSingleScheduleReview .media.review:last-of-type {
+  border-bottom: none;
+}

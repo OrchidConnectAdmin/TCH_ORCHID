@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Initial_Term_Months__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** The initial term, in number of months, for new subscribers of the plan. Required for termed subscription plans. Required for all non-calendar Subscription Plan types.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Conditionally Required ** The initial term, in number of months, for new subscribers of the plan. Required for termed subscription plans. Required for all non-calendar Subscription Plan types.</inlineHelpText>
+    <label>Initial Term (Months)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

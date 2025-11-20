@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Item_Based_SR</fullName>
+    <columns>Primary_R_T_Number__c</columns>
+    <columns>NAME</columns>
+    <columns>Sponsoring_Organization__c</columns>
+    <columns>Sponsored_Organization__c</columns>
+    <columns>Date_Accepted_by_ECCHO__c</columns>
+    <columns>Status__c</columns>
+    <columns>Volume_Upload__c</columns>
+    <columns>Rate_Upload__c</columns>
+    <columns>Billing_Type_Item_or_Deposit__c</columns>
+    <columns>Billing_Quarter__c</columns>
+    <columns>Invoice_Timing__c</columns>
+    <columns>is_First_Year__c</columns>
+    <columns>Executed_By_Lookup__c</columns>
+    <columns>Executed_By_Title__c</columns>
+    <columns>Fixed_Dues_Calculation__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Billing_Type_Item_or_Deposit__c</field>
+        <operation>equals</operation>
+        <value>Item Based</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <filters>
+        <field>Sponsoring_Organization__c</field>
+        <operation>contains</operation>
+        <value>Shared Financial</value>
+    </filters>
+    <label>Current Item Based SR</label>
+</ListView>

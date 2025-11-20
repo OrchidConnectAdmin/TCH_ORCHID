@@ -1,0 +1,37 @@
+<!--
+  @description       : 
+  @author            : Malik Gray
+  @group             : 
+  @last modified on  : 11-12-2020
+  @last modified by  : Malik Gray
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   11-12-2020   Malik Gray   Initial Version
+-->
+<template>
+  <lightning-record-view-form
+    record-id={recordId}
+    object-api-name="Contact"
+  >
+    <lightning-output-field
+      field-class="slds-form-element__control"
+      field-name="Name"
+    >
+    </lightning-output-field>
+    <lightning-output-field
+      field-class="slds-form-element__control"
+      field-name="Title"
+    >
+    </lightning-output-field>
+    <lightning-output-field
+      field-class="slds-form-element__control"
+      field-name="Email"
+    >
+    </lightning-output-field>
+    <lightning-output-field
+      field-class="slds-form-element__control"
+      field-name="OrderApi__Work_Phone__c"
+    >
+    </lightning-output-field>
+  </lightning-record-view-form>
+</template>

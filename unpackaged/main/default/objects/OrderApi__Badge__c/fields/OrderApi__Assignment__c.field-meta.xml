@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Assignment__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Badges can be auto-assigned to Contacts based on &quot;Assignment&quot; the link to the &quot;Assignment&quot; record is used to auto-unassign the badge when the Contact has been &quot;Unassigned&quot;.</description>
+    <inlineHelpText>** System Calculated ** Badges can be auto-assigned to Contacts based on &quot;Assignment&quot; the link to the &quot;Assignment&quot; record is used to auto-unassign the badge when the Contact has been &quot;Unassigned&quot;.</inlineHelpText>
+    <label>Assignment</label>
+    <referenceTo>OrderApi__Assignment__c</referenceTo>
+    <relationshipLabel>Badges</relationshipLabel>
+    <relationshipName>Badges</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

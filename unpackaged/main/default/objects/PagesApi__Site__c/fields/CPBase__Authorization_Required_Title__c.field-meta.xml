@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CPBase__Authorization_Required_Title__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Title for the authorization required page of the site</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Title for the authorization required page of the site</inlineHelpText>
+    <label>Authorization Required Title</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

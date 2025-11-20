@@ -1,0 +1,26 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" cache="true"
+           recordSetVar="invoiceLines"
+           standardController="OrderApi__Sales_Order_Line__c"
+           extensions="LTE.CreateCreditNoteController">
+  <apex:includeLightning />
+  <div id="lightning" />
+  <script>
+      $Lightning.use("LTE:SalesOrderApp", function() {
+          $Lightning.createComponent("LTE:createCreditNote", {
+            recordId : "{!$CurrentPage.parameters.id}",
+            "navigateToSOrder" : navigateToSOrder,
+            invoiceLines: {!invoiceLines},
+            theme : "{!$User.UITheme}"
+          }, "lightning", function(cmp, status, error) {
+              console.log(error);
+          });
+      });
+      function navigateToSOrder(url) {
+        if(sforce && sforce.one){
+            sforce.one.back(true)
+        } else {
+            window.location.href = url;
+        }
+    }
+	</script>
+</apex:page>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Value__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The value set for the page element configuration.</description>
+    <inlineHelpText>The value set for the page element configuration.</inlineHelpText>
+    <label>Value</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>

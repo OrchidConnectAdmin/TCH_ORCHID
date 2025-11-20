@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Directory_Footer__c</fullName>
+    <externalId>false</externalId>
+    <formula>&#39;&lt;div class=&quot;dir-duration&quot;&gt;&lt;span&gt;Length:&lt;/span&gt; &#39;&amp;Minutes_EDU_Submitting__c&amp;&#39;&lt;/div&gt;&#39;&amp;
+&#39;&lt;div class=&quot;dir-duration&quot;&gt;&lt;span&gt;NCP Credits:&lt;/span&gt; &#39;&amp;Credit_Val__c&amp;&#39;&lt;/div&gt;&#39;&amp;
+&#39;&lt;div class=&quot;dir-actions&quot;&gt;&#39;&amp;Actions__c&amp;&#39;&lt;/div&gt;&lt;/div&gt;&#39;</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Directory Footer</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

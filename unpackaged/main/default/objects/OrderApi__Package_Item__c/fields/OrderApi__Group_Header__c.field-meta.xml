@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Group_Header__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Text that will display in the front end as the group label.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Text that will display in the front end as the group label.</inlineHelpText>
+    <label>Group Header</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

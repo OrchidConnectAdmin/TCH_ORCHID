@@ -1,0 +1,80 @@
+<aura:component description="CYRIL PaymentConfirmation SparkPlug" controller="GetCYRILPCSparkPlugController" implements="FDService:SparkPlugComponentInterface" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent type="FDService:SparkPlugCompleteEvent" name="SparkPlugCompleteEvent"/>
+    <aura:registerEvent type="FDService:SparkPlugLoadedEvent" name="SparkPlugLoadedEvent"/>
+    
+    <aura:attribute name="message" type="String" default="{!$Label.c.CYRIL_PCSP_Message}"/>
+    <aura:attribute name="icon" type="String" default="{!$Label.c.CYRIL_PCSP_Icon}"/>
+    <aura:attribute name="receiptURL" type="String"/> 
+    <aura:attribute name="amountPaid" type="String"/> 
+    
+    <aura:attribute name="cerror" type="Boolean" default="false"/>
+    <aura:attribute name="cerrormsg" type="String"/>
+    
+    <!-- ECCHO Specific -->
+    <aura:attribute name="isNCP" type="Boolean" default="false"/> 
+    
+    <aura:if isTrue="{!v.cerror==true}">
+        <div class="slds-notify slds-notify_alert slds-alert_error" role="alert" style="width: 100%;">
+            <h2>{!v.cerrormsg}</h2>
+        </div>
+    </aura:if>
+    <div class="slds-grid slds-wrap slds-grid--pull-padded slds-p-horizontal--medium">
+        <div class="slds-grid slds-grid--vertical-align-center slds-grid--align-center slds-size--1-of-1 slds-object-height--min-half fonteva-receipt">
+            <div class="slds-size_1-of-1 slds-medium-size_2-of-3" id="confirmationWhenWhere"></div>
+            <div class="slds-grid slds-grid--vertical slds-text-align--center">
+                <div data-aura-rendered-by="1718:0">
+                    <aura:if isTrue="{!not(empty(v.icon))}">
+                        <lightning:icon size="large" class="cyril-pcsp-icon" iconName="{!v.icon}" alternativeText="Success" title="Success" />
+                        <aura:set attribute="else">
+                            <lightning:icon size="large" class="cyril-pcsp-icon" iconName="action:check" alternativeText="Success" title="Success" />
+                        </aura:set>
+                    </aura:if>
+                </div>
+                
+                <div class="slds-m-bottom_medium slds-m-top_medium pfm-text_x-large slds-text-align--center">
+                    Payment Successful
+                </div>
+                
+                <aura:if isTrue="{!not(empty(v.message))}">
+                    <aura:if isTrue="{!v.isNCP}">
+                        <div class="pfm-text_medium slds-text-align--center slds-m-bottom_x-large cpsp-message">
+                            <aura:unescapedHtml value="{!v.message}"/>
+                        </div>
+                    </aura:if>
+                </aura:if>
+                
+                <div class="pfm-text_medium slds-text-align--center slds-m-bottom_x-large">
+                    Your payment of&nbsp; <b data-aura-rendered-by="1763:0"><span class="currencyInputSpan FrameworkCurrencyField" data-aura-class="FrameworkCurrencyField" data-aura-rendered-by="1769:0">${!v.amountPaid}</span></b>&nbsp; was successfully completed.
+                </div>
+                <div class="slds-m-bottom--large" data-aura-rendered-by="1733:0">
+                    <a class="slds-button slds-button_brand" href="{!v.receiptURL}" target="_blank">View Receipt</a>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+    <aura:html tag="style">
+        .cpsp-message a, .LTECheckout a{
+        	font-size: inherit;
+        }
+        .LTECheckout{
+        position: relative;
+        padding-top: 0 !important;
+        display: block;
+        }
+        .pfm-spark-plug-container.FDServiceSparkPlugContainer{
+        max-width: 1024px;
+        margin: 100px auto;
+        left: 0;
+        right: 0;
+        position: relative !important;
+        }
+        #summary.LTEEventPaymentReceipt{
+        display: none;
+        }
+        
+    </aura:html>
+    
+    
+</aura:component>

@@ -1,0 +1,56 @@
+<apex:page id="CodeEditorFrame" showHeader="false" showChat="false" sidebar="false">
+    <script src="{!URLFOR($Resource.SLDS_BaseV2,'js/scripts.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.SLDS_BaseV2,'js/ace.js')}" type="text/javascript"></script>
+    <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.SLDS_BaseV2,'css/styles.css')}" />
+    <div class="slds">
+        <div class="slds-col slds-grid slds-m-bottom--medium editor" style="height: 400px;">
+            <div
+                class="slds-col slds-size--1-of-1 slds-p-horizontal--small ace-editor"
+                id="{!JSENCODE($CurrentPage.parameters.identifier)}_code_editor"
+            ></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var aceEditor;
+        function loadValue(value) {
+            aceEditor.setValue(value);
+        }
+
+        function clearValue() {
+            aceEditor.setValue(null);
+        }
+
+        $(document).ready(function () {
+            aceEditor = ace.edit('{!JSENCODE($CurrentPage.parameters.identifier)}_code_editor');
+            aceEditor.setTheme('ace/theme/github');
+            aceEditor.getSession().setMode('ace/mode/xml');
+            clearValue();
+            parent.window.postMessage(
+                { identifier: '{!JSENCODE($CurrentPage.parameters.identifier)}', type: 'initialized' },
+                '*'
+            );
+            aceEditor.getSession().on('change', function (e) {
+                parent.window.postMessage(
+                    {
+                        identifier: '{!JSENCODE($CurrentPage.parameters.identifier)}',
+                        type: 'setValue',
+                        value: aceEditor.getSession().getValue()
+                    },
+                    '*'
+                );
+            });
+        });
+
+        function receiveMessage(event) {
+            if (event.data.identifier === '{!JSENCODE($CurrentPage.parameters.identifier)}') {
+                if (event.data.type === 'clear') {
+                    clearValue();
+                } else if (event.data.type === 'loadValue') {
+                    loadValue(event.data.value);
+                }
+            }
+        }
+
+        window.addEventListener('message', receiveMessage, false);
+    </script>
+</apex:page>

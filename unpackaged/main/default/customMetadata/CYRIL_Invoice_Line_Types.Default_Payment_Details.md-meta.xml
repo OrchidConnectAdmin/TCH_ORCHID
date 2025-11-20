@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Default - Payment Details</label>
+    <protected>false</protected>
+    <values>
+        <field>Column_1_Fields__c</field>
+        <value xsi:type="xsd:string">Actual_Line_Total__c,OrderApi__Balance_Due__c</value>
+    </values>
+    <values>
+        <field>Column_1_Object__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_1_Span__c</field>
+        <value xsi:type="xsd:double">4.0</value>
+    </values>
+    <values>
+        <field>Column_1_Title__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_2_Fields__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_2_Object__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_2_Span__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_2_Title__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_3_Field__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_3_Object__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_3_Span__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_3_Title__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_4_Fields__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_4_Object__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_4_Span__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Column_4_Title__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Enabled__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Fields__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Order__c</field>
+        <value xsi:type="xsd:double">1.0</value>
+    </values>
+    <values>
+        <field>SOQL_Conditions__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Set_Group__c</field>
+        <value xsi:type="xsd:string">Payment_Details</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Order Information</value>
+    </values>
+</CustomMetadata>

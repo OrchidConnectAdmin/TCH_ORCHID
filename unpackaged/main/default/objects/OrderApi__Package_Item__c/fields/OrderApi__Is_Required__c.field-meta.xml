@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Required__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Denotes a required Package Item when the Package (Item) is selected in the parent Sales Order Line.</description>
+    <inlineHelpText>Denotes a required Package Item when the Package (Item) is selected in the parent Sales Order Line.</inlineHelpText>
+    <label>Is Required</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

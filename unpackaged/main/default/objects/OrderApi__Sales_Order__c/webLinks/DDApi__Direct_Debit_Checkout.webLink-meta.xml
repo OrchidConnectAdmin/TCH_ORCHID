@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__Direct_Debit_Checkout</fullName>
+    <availability>online</availability>
+    <description>Check out Direct Debit Items</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Direct Debit Checkout</masterLabel>
+    <openType>replace</openType>
+    <page>DDApi__directdebitcheckoutbackend</page>
+    <protected>false</protected>
+</WebLink>

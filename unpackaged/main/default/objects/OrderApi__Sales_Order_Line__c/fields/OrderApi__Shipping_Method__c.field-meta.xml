@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Shipping_Method__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Lookup to select a Shipping Method associated with the Sales Order Line.</description>
+    <inlineHelpText>Select the Shipping Method associated with this Sales Order Line.</inlineHelpText>
+    <label>Shipping Method</label>
+    <referenceTo>OrderApi__Shipping_Method__c</referenceTo>
+    <relationshipLabel>Sales Order Lines</relationshipLabel>
+    <relationshipName>Sales_Order_Lines</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

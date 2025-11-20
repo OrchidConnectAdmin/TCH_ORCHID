@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Preferred_Email_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Defaults to Personal Email** Select the Preferred Email Type for the Contact. The value of the corresponding email field will update the standard Contact Email field.</description>
+    <inlineHelpText>**Defaults to Personal Email** Select the Preferred Email Type for the Contact. The value of the corresponding email field will update the standard Contact Email field.</inlineHelpText>
+    <label>Preferred Email Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Personal</fullName>
+                <default>false</default>
+                <label>Personal</label>
+            </value>
+            <value>
+                <fullName>Work</fullName>
+                <default>false</default>
+                <label>Work</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Assistant</fullName>
+                <default>false</default>
+                <label>Assistant</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

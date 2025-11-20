@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Previous_Term__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>System Calculated ** Defines the next term to be activated as a result of a renewal purchase.</description>
+    <inlineHelpText>System Calculated ** Defines the next term to be activated as a result of a renewal purchase.</inlineHelpText>
+    <label>Previous Term</label>
+    <referenceTo>OrderApi__Renewal__c</referenceTo>
+    <relationshipLabel>Next Term</relationshipLabel>
+    <relationshipName>Next_Term</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

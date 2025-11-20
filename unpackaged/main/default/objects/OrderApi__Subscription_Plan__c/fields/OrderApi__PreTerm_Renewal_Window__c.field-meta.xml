@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__PreTerm_Renewal_Window__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The value entered in this field defines the number of days before the term (End Date) of a subscription term where a subscription will be renewable. User will not be able to renew prior to this period. An empty value is treated as no limit.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The value entered in this field defines the number of days before the term (End Date) of a subscription term where a subscription will be renewable. User will not be able to renew prior to this period. An empty value is treated as no limit.</inlineHelpText>
+    <label>Pre-Term Renewal Window</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

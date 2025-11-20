@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Is_Published__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the page becomes visible on the related event.</description>
+    <inlineHelpText>When checked, the page becomes visible on the related event.</inlineHelpText>
+    <label>Is Published</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

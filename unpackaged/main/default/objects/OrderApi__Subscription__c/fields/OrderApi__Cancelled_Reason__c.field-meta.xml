@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Cancelled_Reason__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** Select the most appropriate reason for cancelling the Subscription. Required when a Subscription &quot;Status&quot; equals &quot;Cancelled&quot;.</description>
+    <inlineHelpText>** Conditionally Required ** Select the most appropriate reason for cancelling the Subscription. Required when a Subscription &quot;Status&quot; equals &quot;Cancelled&quot;.</inlineHelpText>
+    <label>Cancelled Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Declined Renewal</fullName>
+                <default>false</default>
+                <label>Declined Renewal</label>
+            </value>
+            <value>
+                <fullName>M&amp;A</fullName>
+                <default>false</default>
+                <label>M&amp;A</label>
+            </value>
+            <value>
+                <fullName>Price</fullName>
+                <default>false</default>
+                <label>Price</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FDSSPR20__Configure_Merchant_Account</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <height>600</height>
+    <linkType>page</linkType>
+    <masterLabel>Configure Merchant Profile</masterLabel>
+    <openType>noSidebar</openType>
+    <page>FDSSPR20__providerKeyGenerator</page>
+    <protected>false</protected>
+</WebLink>

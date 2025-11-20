@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Session_Shopping_Cart_Instructions__c</fullName>
+    <defaultValue>$Label.eventapi__session_shopping_cart_instructions</defaultValue>
+    <deprecated>false</deprecated>
+    <description>The text in this field will be used to guide buyers through the shopping cart when selecting sessions.</description>
+    <inlineHelpText>The text in this field will be used to guide buyers through the shopping cart when selecting sessions.</inlineHelpText>
+    <label>Session Shopping Cart Instructions</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

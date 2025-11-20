@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Hero_Text_Color__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Color used for the directory banner text.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Color used for the directory banner text.</inlineHelpText>
+    <label>Search Bar Text Color</label>
+    <length>10</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

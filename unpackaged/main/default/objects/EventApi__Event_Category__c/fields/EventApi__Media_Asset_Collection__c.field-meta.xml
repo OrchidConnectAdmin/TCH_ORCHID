@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Media_Asset_Collection__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link between the Event Category and the Media Asset Collection.</description>
+    <inlineHelpText>Link between the Event Category and the Media Asset Collection.</inlineHelpText>
+    <label>Media Asset Collection</label>
+    <referenceTo>PagesApi__Media_Asset_Collection__c</referenceTo>
+    <relationshipLabel>Media Collection</relationshipLabel>
+    <relationshipName>Media_Asset_Collections</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

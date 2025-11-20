@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Is_Main_Business_Committee_Contact__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Check when the contact is a Business Committee Main Contact. Default is unchecked.</inlineHelpText>
+    <label>Is Main Business Committee Contact</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

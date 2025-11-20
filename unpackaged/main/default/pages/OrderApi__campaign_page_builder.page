@@ -1,0 +1,127 @@
+<apex:page tabStyle="OrderApi__Campaign_Page__c" standardController="OrderApi__Campaign_Page__c" extensions="OrderApi.CampaignPageBuilderController" showHeader="false" sidebar="false" docType="html-5.0" standardStylesheets="false" cache="false">
+
+  <apex:composition template="Framework__sidebar_template">
+
+    <apex:define name="sidebarTop">
+      {!$ObjectType.PagesApi__Page_Element__c.LabelPlural}
+    </apex:define>
+
+    <apex:define name="top">
+      {!$Label.OrderApi__Campaign_Page_Title}
+    </apex:define>
+
+    <!-- ==== BEGIN: SIDEBAR ==== -->
+    <apex:define name="sidebar">
+
+      <div id="draggable_id">
+        <div class="list-wrapper">
+          <apex:repeat value="{!availableComponents}" var="comp">
+            <div class="draggable" id="comp_{!comp.Id}" name="{!comp.Name}" compid="comp_{!comp.Id}">
+              <div class="bg-primary p-r-20 p-l-20 p-t-5 p-b-5 m-t-15 m-b-15 m-r-0 m-l-0">
+                <div class="text-center">
+                  <h4 class="text-white">{!comp.Name}</h4>
+                </div>
+              </div>
+            </div>
+          </apex:repeat>
+        </div>
+      </div>
+    </apex:define>
+
+    <apex:define name="main">
+
+      <apex:form id="pageForm">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1 button-group">
+              <apex:commandButton styleClass="btn btn-success" action="{!showPreview}" value="{!$Label.OrderApi__Preview}" />
+              <apex:commandButton styleClass="btn btn-primary" action="{!publish}" value="{!$Label.OrderApi__Publish}" />
+              <apex:commandButton styleClass="btn btn-default" action="{!cancel}" value="{!$Label.OrderApi__Go_Back}" />
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="screen">
+
+          <div class="toolbar">
+
+            <div class="buttons clearfix">
+              <span class="left red"></span>
+              <span class="left yellow"></span>
+              <span class="left green"></span>
+            </div>
+
+            <div class="title" id="pageTitle">
+              <span>{!$ObjectType.Campaign_Page__c.Label} - {!parentRec.Name}</span>
+            </div>
+
+          </div>
+
+          <div id="frameWrapper" class="frameWrapper">
+            <div id="pageList">
+
+              <ol style="min-height:520px;" id="draggablePanelList" class="ui-sortable">
+                <apex:repeat value="{!elements}" var="element">
+                  <li class="pageElementBlock" id="pgelem_{!element.pageElement.Id}" name="{!element.pageElement.Name}" >
+                    <div class="clearfix">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="selCompWrapper">
+                            <iframe src="{!$Page.campaign_page_element}?id={!element.pageElement.Id}&component={!element.component.Name}&hideNav=true"
+                              width="100%"
+                              height="200px"
+                              id="iframe__{!element.pageElement.Id}"
+                              marginheight="0"
+                              frameborder="0"
+                              onLoad="autoResize('{!element.pageElement.Id}');"></iframe>
+                          </div>
+                        </div>
+                        <div class="editorButtons">
+                          <button href="#" onclick="editElementAF('{!JSENCODE(element.pageElement.Id)}'); return false;" aria-label="Edit Page Element" class="btn btn-warning f-s-18"><i class="glyphicon glyphicon-pencil"></i></button>
+                          <button href="#" onclick="deleteElementAF('{!JSENCODE(element.pageElement.Id)}'); return false;" aria-label="Delete Page Element" class="btn btn-danger f-s-18"><i class="glyphicon glyphicon-trash"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </apex:repeat>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <apex:actionFunction name="editElementAF" action="{!editElement}" reRender="pageForm">
+          <apex:param value="{!selectedElementId}" name="elementId" assignTo="{!selectedElementId}" />
+        </apex:actionFunction>
+        <apex:actionFunction name="deleteElementAF" action="{!deleteElement}" reRender="pageForm">
+          <apex:param value="{!selectedElementId}" name="elementId" assignTo="{!selectedElementId}" />
+        </apex:actionFunction>
+        <apex:actionFunction name="createElementAF" action="{!createElement}" reRender="pageForm">
+          <apex:param value="{!selectedComponent}" name="componentName" assignTo="{!selectedComponent}" />
+        </apex:actionFunction>
+
+      </apex:form>
+
+    </apex:define>
+
+    <apex:define name="styles">
+      <link rel="stylesheet" href="{!URLFOR($Resource.aui,'css/pages/campaign-page-builder.min.css')}"/>
+    </apex:define>
+
+    <apex:define name="scripts">
+      <script src="//fonteva-cdn.s3.amazonaws.com/lux/plugins/jquery-zoomer-master/jquery.zoomer.js"></script>
+      <script src="//fonteva-cdn.s3.amazonaws.com/lux/plugins/jquery-ui/jquery-ui.min.js"></script>
+      <script type="text/javascript">
+        function getPageElementUrl(o,n) {
+          return '/apex/PagesApi__page_element?parentid={!JSENCODE(parentId)}&componentName=' + n + '&retURL={!JSENCODE(retURL)}' + '&order=' + o;
+        }
+        var sortableRemoteActionUpdateFunction = function() {
+          buildItemsArray();
+          Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.CampaignPageBuilderController.updateOrder}',items, function(result, event) {});
+        };
+      </script>
+      <script src="{!URLFOR($Resource.aui,'js/pages/campaign-page-builder.min.js')}"/>
+    </apex:define>
+
+  </apex:composition>
+</apex:page>

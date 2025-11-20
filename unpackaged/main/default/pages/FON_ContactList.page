@@ -1,0 +1,139 @@
+<apex:page controller="FON_ContactFilterCls" tabStyle="Contact" lightningStylesheets="true">
+    <apex:slds />
+    <style>
+        table.list {
+            border-width: 0 !important;
+        }
+        tr.dataRow.last td {
+            border-bottom-width: 0 !important;
+        } 
+        </style>
+    <apex:pageBlock id="block1">
+                <apex:pageBlockSection collapsible="true"  title="Primary Billing Contact" id="PBC">
+        <apex:dataTable value="{!PBcon}" var="contact" styleClass="tableClass" align="center">
+            <apex:column >
+                <apex:outputLink value="/{!contact.id}">{!contact.name}
+                </apex:outputLink>
+                </apex:column>
+            <apex:column >
+                    <apex:outputText value="{!contact.email}"/>
+            </apex:column>
+        </apex:dataTable>
+    </apex:pageBlockSection> 
+        <apex:pageBlockSection collapsible="true"  title="Billing Contacts" id="BC">
+        <apex:dataTable value="{!Bcon}" var="contact" styleClass="tableClass" align="center">
+            <apex:column >
+                <apex:outputLink value="/{!contact.id}">{!contact.name}
+                </apex:outputLink>
+                </apex:column>
+            <apex:column >
+                    <apex:outputText value="{!contact.email}"/>
+            </apex:column>
+        </apex:dataTable>
+    </apex:pageBlockSection> 
+    <script> twistSection(document.getElementById('{!$Component.block1.SM}').getElementsByTagName('img')[0])
+    </script>
+    <apex:pageBlockSection collapsible="true"  title="SM Coordinator Contacts" id="SM">
+        <apex:dataTable value="{!SMcon}" var="contact">
+             <apex:column >
+                <apex:outputLink value="/{!contact.id}">{!contact.name}
+                </apex:outputLink>
+            </apex:column>
+             <apex:column >
+                <apex:outputText value="{!contact.email}"/>
+            </apex:column>
+        </apex:dataTable>
+    </apex:pageBlockSection>
+    <script> twistSection(document.getElementById('{!$Component.block1.SMrep}').getElementsByTagName('img')[0])
+    </script> 
+    <apex:pageBlockSection collapsible="true"  title="SM Representative Contacts" id="SMrep">
+        <apex:dataTable value="{!SMrepcon}" var="contact">
+             <apex:column >
+                <apex:outputLink value="/{!contact.id}">{!contact.name}
+                </apex:outputLink>
+            </apex:column>
+             <apex:column >
+                <apex:outputText value="{!contact.email}"/>
+            </apex:column>
+        </apex:dataTable>
+    </apex:pageBlockSection> 
+     <script> twistSection(document.getElementById('{!$Component.block1.LPC}').getElementsByTagName('img')[0])
+    </script>
+    <apex:pageBlockSection collapsible="true"  title="LP Coordinator Contacts" id="LPC">
+        <apex:dataTable value="{!LPCcon}" var="contact">
+            <apex:column >
+                <apex:outputLink value="/{!contact.id}">{!contact.name}
+                </apex:outputLink>
+            </apex:column>
+             <apex:column >
+                <apex:outputText value="{!contact.email}"/>
+            </apex:column>
+        </apex:dataTable>
+    </apex:pageBlockSection>
+     <script> twistSection(document.getElementById('{!$Component.block1.LPR}').getElementsByTagName('img')[0])
+    </script>
+    <apex:pageBlockSection collapsible="true"  title="LP Representative Contacts" id="LPR">
+        <apex:dataTable value="{!LPRcon}" var="contact">
+             <apex:column >
+                <apex:outputLink value="/{!contact.id}">{!contact.name}
+                </apex:outputLink>
+            </apex:column>
+            <apex:column >
+                <apex:outputText value="{!contact.email}"/>
+            </apex:column>
+        </apex:dataTable>
+    </apex:pageBlockSection> 
+    <script> twistSection(document.getElementById('{!$Component.block1.EDU}').getElementsByTagName('img')[0])
+    </script>
+    <apex:pageBlockSection collapsible="true"  title="OPS Committee Main Contact" id="MainOps">
+        <apex:dataTable value="{!MainOpscon}" var="contact">
+             <apex:column >
+                <apex:outputLink value="/{!contact.id}">{!contact.name}
+                </apex:outputLink>
+            </apex:column>
+             <apex:column >
+                <apex:outputText value="{!contact.email}"/>
+            </apex:column>
+        </apex:dataTable>
+    </apex:pageBlockSection>
+    <script> twistSection(document.getElementById('{!$Component.block1.Oppsalt}').getElementsByTagName('img')[0])
+    </script>
+    <apex:pageBlockSection collapsible="true"  title="OPS Committee Alternate Contacts" id="Oppsalt">
+        <apex:dataTable value="{!Oppsconalt}" var="contact">
+             <apex:column >
+                <apex:outputLink value="/{!contact.id}">{!contact.name}
+                </apex:outputLink>
+            </apex:column>
+             <apex:column >
+                <apex:outputText value="{!contact.email}"/>
+            </apex:column>
+        </apex:dataTable>
+    </apex:pageBlockSection> 
+     <script> twistSection(document.getElementById('{!$Component.block1.EDU}').getElementsByTagName('img')[0])
+    </script>
+    <apex:pageBlockSection collapsible="true"  title="Business Committee Main Contact" id="BusComMain">
+        <apex:dataTable value="{!BusComMaincon}" var="contact">
+             <apex:column >
+                <apex:outputLink value="/{!contact.id}">{!contact.name}
+                </apex:outputLink>
+            </apex:column>
+             <apex:column >
+                <apex:outputText value="{!contact.email}"/>
+            </apex:column>
+        </apex:dataTable>
+    </apex:pageBlockSection>  
+    <script> twistSection(document.getElementById('{!$Component.block1.EDU}').getElementsByTagName('img')[0])
+    </script>
+    <apex:pageBlockSection collapsible="true"  title="Business Committee Alternate Contact" id="BusComAlt">
+        <apex:dataTable value="{!BusComAltcon}" var="contact">
+             <apex:column >
+                <apex:outputLink value="/{!contact.id}">{!contact.name}
+                </apex:outputLink>
+            </apex:column>
+             <apex:column >
+                <apex:outputText value="{!contact.email}"/>
+            </apex:column>
+        </apex:dataTable>
+    </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

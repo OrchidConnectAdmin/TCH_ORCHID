@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Image_URL__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Secure (&quot;https://&quot;) url where a large, 250 x 250 pixels, image is hosted to display on sponsor related pages and printed materials. Valid image file types include *.gif, *.png, *.jpg. Recommend the file size does not exceed 50kb.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Secure (&quot;https://&quot;) url where a large, 250 x 250 pixels, image is hosted to display on sponsor related pages and printed materials. Valid image file types include *.gif, *.png, *.jpg. Recommend the file size does not exceed 50kb.</inlineHelpText>
+    <label>Image URL</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

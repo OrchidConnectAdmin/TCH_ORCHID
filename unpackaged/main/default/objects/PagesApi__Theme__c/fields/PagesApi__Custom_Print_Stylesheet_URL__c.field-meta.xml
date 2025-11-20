@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Custom_Print_Stylesheet_URL__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Secure (&quot;https://&quot;) url to the location of a custom stylesheet to use for rendering pages for print media.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Secure (&quot;https://&quot;) url to the location of a custom stylesheet to use for rendering pages for print media.</inlineHelpText>
+    <label>Custom Print Stylesheet URL</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

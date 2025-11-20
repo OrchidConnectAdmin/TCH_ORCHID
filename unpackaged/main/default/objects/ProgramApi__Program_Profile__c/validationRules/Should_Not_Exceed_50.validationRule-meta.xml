@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Should_Not_Exceed_50</fullName>
+    <active>false</active>
+    <errorConditionFormula>FON_Total_Credits__c &gt; Allowed_Credits__c</errorConditionFormula>
+    <errorDisplayField>FON_Total_Credits__c</errorDisplayField>
+    <errorMessage>Approved credits cannot exceed the Allowed Credits</errorMessage>
+</ValidationRule>

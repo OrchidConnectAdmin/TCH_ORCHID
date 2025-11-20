@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Shopping_Cart_Enabled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the page will auto-integrate with the shopping cart configured for the related Store configuration.</description>
+    <inlineHelpText>When checked, the page will auto-integrate with the shopping cart configured for the related Store configuration.</inlineHelpText>
+    <label>Shopping Cart Enabled</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

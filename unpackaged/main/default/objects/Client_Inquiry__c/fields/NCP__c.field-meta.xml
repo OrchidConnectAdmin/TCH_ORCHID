@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NCP__c</fullName>
+    <label>NCP</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>NCP Billing</fullName>
+                <default>false</default>
+                <label>NCP Billing</label>
+            </value>
+            <value>
+                <fullName>NCP Continuing Education</fullName>
+                <default>false</default>
+                <label>NCP Continuing Education</label>
+            </value>
+            <value>
+                <fullName>NCP Events</fullName>
+                <default>false</default>
+                <label>NCP Events</label>
+            </value>
+            <value>
+                <fullName>NCP Exam</fullName>
+                <default>false</default>
+                <label>NCP Exam</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

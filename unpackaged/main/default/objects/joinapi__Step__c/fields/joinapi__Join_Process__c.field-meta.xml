@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>joinapi__Join_Process__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Relates the join process step to the join process.</description>
+    <inlineHelpText>Relates the join process step to the join process.</inlineHelpText>
+    <label>Join Process</label>
+    <referenceTo>joinapi__Join_Process__c</referenceTo>
+    <relationshipName>Join_Process_Steps</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

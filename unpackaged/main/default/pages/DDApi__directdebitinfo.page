@@ -1,0 +1,51 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           controller="DDApi.DirectDebitCheckoutController"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           standardStyleSheets="false"
+           cache="false">
+  <apex:composition template="CPBase__template">
+    <apex:define name="pageTitle">
+            {!$Label.ddapi__ddinfo_my_payments}
+    </apex:define>
+    <apex:define name="pageMain">
+      <apex:includeLightning />
+      <style>
+      html {
+        font-size: 16px;
+      }
+      body {
+        background-color: #eaeaea;
+      }
+      .slds-scope {
+          margin-top: 30px;
+      }
+      </style>
+
+      <div id="lightning" class=""/>
+
+      <script>
+      $( document ).ready(function() {
+         showPageLoader();
+      });
+      var mandateId = '{!JSENCODE($CurrentPage.parameters.id)}';
+      if (window.location.hash.substring(1) != null && window.location.hash.substring(1).length > 0 && mandateId.length == 0) {
+          mandateId = window.location.hash.substring(1);
+      }
+      function componentLoaded() {
+          document.getElementById('lightning').classList.remove('hidden');
+      }
+      $Lightning.use("{!Namespace}:directdebitinfoapp", function() {
+          $Lightning.createComponent("{!Namespace}:directdebitinfo",
+              {mandateId : mandateId},
+              "lightning",
+              function(cmp) {
+                  $A.eventService.addHandler({ "event": "{!Namespace}:ComponentLoadedEvent", "handler" : componentLoaded});
+              });
+      });
+    </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

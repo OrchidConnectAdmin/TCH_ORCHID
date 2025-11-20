@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Is_Tax_Deductible__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Check if the item is a tax deductible donation. The cost per unit will drive the tax deductible amount on the sales order.</description>
+    <inlineHelpText>Check if the item is a tax deductible donation. The cost per unit will drive the tax deductible amount on the sales order.</inlineHelpText>
+    <label>Is Tax Deductible</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Sales_Order_Submitted_for_Approval</fullName>
+        <ccEmails>tanya@orchidconnect.com</ccEmails>
+        <description>Sales Order Submitted for Approval</description>
+        <protected>false</protected>
+        <senderType>CurrentUser</senderType>
+        <template>Worflow_Emails/SO_Approval_Needed</template>
+    </alerts>
+    <alerts>
+        <fullName>Sales_Order_Submitted_for_Review</fullName>
+        <ccEmails>Stephanie.Porter@theclearinghouse.org</ccEmails>
+        <description>Sales Order Submitted for Review</description>
+        <protected>false</protected>
+        <senderType>CurrentUser</senderType>
+        <template>Worflow_Emails/SO_Approval_Needed</template>
+    </alerts>
+    <alerts>
+        <fullName>Sales_Orders_Submitted_for_Final_Approval</fullName>
+        <ccEmails>tanya@orchidconnect.com</ccEmails>
+        <description>Sales Orders Submitted for Final Approval</description>
+        <protected>false</protected>
+        <senderType>CurrentUser</senderType>
+        <template>Worflow_Emails/SO_Review_Needed</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Bundle_Reviewed</fullName>
+        <field>Status__c</field>
+        <literalValue>Reviewed</literalValue>
+        <name>Bundle Reviewed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Owner_Final_Approver</fullName>
+        <field>OwnerId</field>
+        <lookupValue>tanya.renne@theclearinghouse.org</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>Owner: Final Approver</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Owner_First_Reviewer</fullName>
+        <field>OwnerId</field>
+        <lookupValue>sporter@eccho.org</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>Owner: First Reviewer</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Owner_Submitter</fullName>
+        <field>OwnerId</field>
+        <lookupValue>sporter@eccho.org</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>Owner: Submitter</name>
+        <notifyAssignee>true</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reassign_to_First_Approver</fullName>
+        <description>First reviewer step</description>
+        <field>OwnerId</field>
+        <lookupValue>nhanlin@eccho.org</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>Reassign to First Approver</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Return_to_Submitter</fullName>
+        <field>OwnerId</field>
+        <lookupValue>tanya.renne@theclearinghouse.org</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>Owner: Submitter</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Status: Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Returned</fullName>
+        <field>Status__c</field>
+        <literalValue>Returned</literalValue>
+        <name>Status Returned</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Second_Review</fullName>
+        <field>Status__c</field>
+        <literalValue>Review</literalValue>
+        <name>Status Second Review</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Submitted</fullName>
+        <description>SOs submitted for review</description>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Status: Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

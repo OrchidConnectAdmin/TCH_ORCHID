@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Recommended__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, this item will display in the recommended item component on the parent item&#39;s detail page.</description>
+    <inlineHelpText>When checked, this item will display in the recommended item component on the parent item&#39;s detail page.</inlineHelpText>
+    <label>Is Recommended</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

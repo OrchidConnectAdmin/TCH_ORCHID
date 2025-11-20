@@ -1,0 +1,45 @@
+<apex:page id="ReceiptInvoice" controller="LTE.ReceiptsController"
+           docType="html-5.0"
+           showHeader="false"
+           standardStylesheets="false"
+           applyBodyTag="false"
+           action="{!redirect}"
+           applyHtmlTag="false" renderAs="{!renderAs}" contentType="{!contentType}">
+
+	<html lang="en">
+      <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.OrderApi__emerald_1_0,'css/pages/checkout.min.css')}"/>
+      <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.OrderApi__emerald_1_0,'css/pages/print.min.css')}"/>
+      <link rel="stylesheet" media="print" href="{!URLFOR($Resource.OrderApi__emerald_1_0,'css/pages/print.min.css')}"/>
+    <body>
+        <apex:outputPanel id="errorPanel" rendered="{!hasError}">
+            <section class="error-404">
+                <div class="container m-t-30">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="well text-center">
+                                <h1>{!$Label.OrderApi__PageNotFoundTitle}</h1>
+                                <p class="lead">{!$Label.OrderApi__PageNotFoundDescription}</p>
+                                    <p>{!error}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(hasError)}" layout="none">
+            <apex:outputPanel rendered="{!AND(NOT(isAppUpdateActivated),isReceipt)}" layout="none">
+                <OrderApi:receipt receiptId="{!receiptInvoiceId}"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!AND(NOT(isAppUpdateActivated),isInvoice)}" layout="none">
+                <OrderApi:invoice invoiceId="{!receiptInvoiceId}"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!and(isAppUpdateActivated, or(isReceipt, isInvoice))}" layout="none">
+                <OrderApi:new_receipt_invoice recInvId="{!receiptInvoiceId}"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!isProformaInvoice}" layout="none">
+                <OrderApi:proforma_invoice_email_pdf soId="{!$CurrentPage.parameters.soId}"/>
+            </apex:outputPanel>
+      </apex:outputPanel>
+    </body>
+	</html>
+</apex:page>

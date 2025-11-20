@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>PagesApi__Form_Response__c.PagesApi__Field_Responses__r$PagesApi__Field_Label__c</field>
+    </columns>
+    <columns>
+        <field>PagesApi__Form_Response__c.PagesApi__Field_Responses__r$PagesApi__Response__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>PagesApi__Form_Response__c.PagesApi__Field_Responses__r$PagesApi__Response__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>PagesApi__Form_Response__c$EventApi__Attendee__c.EventApi__Full_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Annual Conference Form Responses</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Form_Responses__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>PagesApi__Form_Response__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Gift_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <label>Gift Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Major Gift</fullName>
+                <default>false</default>
+                <label>Major Gift</label>
+            </value>
+            <value>
+                <fullName>Grant</fullName>
+                <default>false</default>
+                <label>Grant</label>
+            </value>
+            <value>
+                <fullName>Planned Giving</fullName>
+                <default>false</default>
+                <label>Planned Giving</label>
+            </value>
+            <value>
+                <fullName>Corporate Gift Match</fullName>
+                <default>false</default>
+                <label>Corporate Gift Match</label>
+            </value>
+            <value>
+                <fullName>Personal Gift Match</fullName>
+                <default>false</default>
+                <label>Personal Gift Match</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

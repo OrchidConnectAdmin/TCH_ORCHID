@@ -1,0 +1,147 @@
+<!---->
+<apex:page showHeader="false" showChat="false" applyBodyTag="false" applyHtmlTag="false" sidebar="false">
+    <html>
+    <head>
+        <script src="{!URLFOR($Resource.Framework__SLDS_BaseV2,'js/scripts.min.js')}" type="text/javascript"></script>
+        <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.Framework__SLDS_BaseV2,'css/fullStyles.css')}"/>
+        <style>
+            html, body.clear {
+                background-color: transparent !important;
+            }
+        </style>
+    </head>
+    <body>
+    <apex:includeLightning />
+    <div id="customPaymentType"/>
+    <script>
+        var component;
+        $(document).ready(function() {
+            parent.window.postMessage({
+                identifier: '{!JSENCODE($CurrentPage.parameters.identifier)}',
+                eventType: 'ready'
+            }, location.origin);
+        });
+
+        function receiveMessage(event) {
+            if (event.data.identifier === '{!JSENCODE($CurrentPage.parameters.identifier)}') {
+                if (event.data.eventType === 'initialize') {
+                    console.log(event.data);
+                    event.data.customPaymentTypeObj.identifier = event.data.identifier;
+                    const customPaymentTypeElement = document.getElementById('customPaymentType');
+                    if (customPaymentTypeElement && customPaymentTypeElement.hasChildNodes()) {
+                        customPaymentTypeElement.removeChild(customPaymentTypeElement.firstElementChild);
+                    }
+                    $Lightning.use("OrderApi:CustomPaymentTypeApp", function() {
+                        $Lightning.createComponent(event.data.componentToCreate, {
+                                customPaymentTypeObj: event.data.customPaymentTypeObj,
+                                epayment: event.data.epayment,
+                                salesOrder: event.data.salesOrder
+                            },
+                            "customPaymentType",
+                            function(cmp) {
+                                component = cmp;
+                                // give the new component 10 secs to render, adjusting the iFrame size along the way
+                                let totalWait = 0;
+                                const interval = 100; //ms
+                                const handle = setInterval(function() {
+                                    totalWait += interval;
+                                    if (totalWait > 1000 * 10) {
+                                        clearInterval(handle);
+                                    }
+                                    parent.window.postMessage({
+                                        identifier: '{!JSENCODE($CurrentPage.parameters.identifier)}',
+                                        eventType: 'resizeiFrame',
+                                        height: document.documentElement.scrollHeight
+                                    }, location.origin);
+                                }, interval);
+
+                                if (component.hideProcessPayment && component.hideProcessPayment()) {
+                                    parent.window.postMessage({
+                                        identifier: '{!JSENCODE($CurrentPage.parameters.identifier)}',
+                                        eventType: 'hideProcessPaymentBtn'
+                                    }, location.origin);
+                                }
+                            });
+                    });
+                }
+                else if (event.data.eventType === 'prePaymentTask') {
+                    // do any preliminary setup for the payment
+                    // e.g. tokenize a credit card number
+                    const returnObj = component.prePaymentTask();
+                    parent.window.postMessage({
+                            identifier: '{!JSENCODE($CurrentPage.parameters.identifier)}',
+                            returnObj: returnObj,
+                            eventType: 'prePaymentTask'
+                        }
+                        , location.origin);
+                }
+                else if (event.data.eventType === 'paymentTask') {
+                    // do the payment
+                    // e.g. charge the credit card
+                    const returnObj = component.paymentTask(event.data.orderInformation, event.data.record);
+                    returnObj.orders = event.data.orderInformation;
+                    returnObj.record = event.data.record;
+                    parent.window.postMessage({
+                            identifier: '{!JSENCODE($CurrentPage.parameters.identifier)}',
+                            returnObj: returnObj,
+                            eventType: 'paymentTask'
+                        }
+                        , location.origin);
+                }
+                else if (event.data.eventType === 'executePayment') {
+                    parent.window.postMessage({
+                            identifier: '{!JSENCODE($CurrentPage.parameters.identifier)}',
+                            eventType: 'executePayment'
+                        }
+                        , location.origin);
+                }
+                else if (event.data.eventType === 'initializeProcessPayment') {
+                    const returnObj = {executePayment: true};
+                    // 3rd party can initialize the process payment that means validation check and token will be generated by the gateway.
+                    // Once validation is failed or successful, they will fire the "executePayment" event which executes prePaymentTask and PaymentTask.
+                    if (component.initializeProcessPayment) {
+                        component.initializeProcessPayment(event.data.paymentObj);
+                        returnObj.executePayment = false;
+                    }
+                    parent.window.postMessage({
+                            identifier: '{!JSENCODE($CurrentPage.parameters.identifier)}',
+                            returnObj: returnObj,
+                            eventType: 'initializeProcessPayment'
+                        }
+                        , location.origin);
+                }
+                else if (event.data.eventType === 'togglePaymentModalEvent') {
+                    let e = {
+                        type: event.data.eventType,
+                        status: event.data.status
+                    };
+
+                    if (component?.resetForm) {
+                        component.resetForm(e);
+                    }
+
+                    if (event.data.status === "show" && component?.showForm) {
+                        component.showForm(e);
+                    } else if (event.data.status === "close" && component?.closeForm) {
+                        component.closeForm(e);
+                    }
+                }
+                else if (event.data.eventType === 'contactUpdateEvent' && component.updateContactId) {
+                        component.updateContactId(event.data.customerDetails);
+                }
+                else if (event.data.eventType === 'loadAddress') {
+                    parent.window.postMessage({
+                            eventType: 'loadAddress',
+                            detail: event.data.detail
+                        }
+                        , location.origin
+                    );
+                }
+            }
+        }
+
+        window.addEventListener("message", receiveMessage, false);
+    </script>
+    </body>
+    </html>
+</apex:page>

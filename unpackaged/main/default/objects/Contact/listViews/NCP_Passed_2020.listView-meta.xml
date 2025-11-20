@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NCP_Passed_2020</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CONTACT.PHONE1</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <columns>CONTACT.TITLE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>FON_My_Digital_Material_URL__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>FON_Exam_Results__c</field>
+        <operation>equals</operation>
+        <value>Pass</value>
+    </filters>
+    <filters>
+        <field>FON_Exam_Year__c</field>
+        <operation>equals</operation>
+        <value>2020</value>
+    </filters>
+    <label>NCP Passed 2020</label>
+</ListView>

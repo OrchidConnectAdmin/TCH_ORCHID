@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Subscription_Plan__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** Link to the related plan that controls Activation and Expiration dates related to any Subscription Item. Required when the EPayment Line is linked to a Item that is the child of a &quot;Subscription&quot; Item Class.</description>
+    <inlineHelpText>** Conditionally Required ** Link to the related plan that controls Activation and Expiration dates related to any Subscription Item. Required when the EPayment Line is linked to a Item that is the child of a &quot;Subscription&quot; Item Class.</inlineHelpText>
+    <label>Subscription Plan</label>
+    <referenceTo>OrderApi__Subscription_Plan__c</referenceTo>
+    <relationshipName>EPayment_Lines</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

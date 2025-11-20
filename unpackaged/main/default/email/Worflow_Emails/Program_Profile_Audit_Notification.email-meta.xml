@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>NCP CE Credit Audit Results Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Classic_TCH_Letterhead</letterhead>
+    <name>Program Profile Audit Notification</name>
+    <style>freeForm</style>
+    <subject>NCP CE Credit Audit Results</subject>
+    <textOnly>Dear NCP,
+
+
+
+Thank you for submitting the required audit documentation. Your audit is now closed. You may view the status and any commentary in your ECCHO Online account via the CE Audit Tab (under NCP Continuing Education).
+
+
+In addition to completing this audit, you cannot be audited again for the next 5 years.
+
+
+Please reach out with any questions at ncp@theclearinghouse.org.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

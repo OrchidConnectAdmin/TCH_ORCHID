@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Has_Rules_Access__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Denotes if a user has access to the Rules. Manually checked. specific members have access and there will be the several one-offs which TCH can grant rules access at any time. A badge is added to the Contact record when access is granted. Default unchecked</description>
+    <inlineHelpText>Denotes if a user has access to the Rules. Manually checked. Specific members have access and there will be several one-offs which TCH can grant rules access at any time. A badge is added to the Contact record when access is granted. Default unchecked</inlineHelpText>
+    <label>Has Rules Access?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

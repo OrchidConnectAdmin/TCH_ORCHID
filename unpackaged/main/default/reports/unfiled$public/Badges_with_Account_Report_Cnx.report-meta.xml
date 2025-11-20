@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OrderApi__Badge__c.Salesforce_ID__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Badge__c.OrderApi__Badge_Type__c</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.Membership_Type__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Badge__c.OrderApi__Contact__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Badge__c.OrderApi__Awarded_Date__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Badge__c.OrderApi__Expired_Date__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OrderApi__Badge__c.OrderApi__Is_Active__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Badges with Account Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$OrderApi__Badge__c@OrderApi__Badge__c.OrderApi__Account__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Badge__c.OrderApi__Awarded_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

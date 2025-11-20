@@ -1,0 +1,5 @@
+Dear {!OrderApi__Receipt__c.OrderApi__Contact__c} ,
+
+Thank you for your order (or recent payment). Please follow the link below to download a copy of your receipt. If you have any questions regarding your purchase or payment, please contact us.
+
+Receipt Link: https://us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.force.com/LightningMemberPortal/s/receipt?id={!OrderApi__Receipt__c.OrderApi__Encrypted_Id__c}

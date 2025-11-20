@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ECCHOEd_Sessions</fullName>
+    <columns>NAME</columns>
+    <columns>Search_Date__c</columns>
+    <columns>Published__c</columns>
+    <columns>Provider_Name__c</columns>
+    <columns>Session_ID__c</columns>
+    <columns>Account__c</columns>
+    <columns>Application__c</columns>
+    <columns>Members_Only__c</columns>
+    <columns>Status__c</columns>
+    <columns>ECCHOEdu_Category__c</columns>
+    <columns>NCP_Training_Category__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Published__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Provider_Name__c</field>
+        <operation>contains</operation>
+        <value>ECCHO</value>
+    </filters>
+    <filters>
+        <field>ECCHOEdu_Category__c</field>
+        <operation>equals</operation>
+        <value>All About Check,What do I do when . . .,Complimentary Webinars,ECCHO OPS Updates</value>
+    </filters>
+    <label>Published ECCHOEd Sessions</label>
+</ListView>

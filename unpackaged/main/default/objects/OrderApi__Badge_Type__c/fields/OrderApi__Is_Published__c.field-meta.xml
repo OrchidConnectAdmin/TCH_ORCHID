@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Published__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, Contacts assigned Badge related to the Badge Type will have the option to display the Badge on their Community Profile (valid only if Fonteva Communities is enabled for your environment - contact your administrator if you have any questions)</description>
+    <inlineHelpText>When checked, Contacts assigned Badge related to the Badge Type will have the option to display the Badge on their Community Profile (valid only if Fonteva Communities is enabled for your environment - contact your administrator if you have any questions)</inlineHelpText>
+    <label>Is Published</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

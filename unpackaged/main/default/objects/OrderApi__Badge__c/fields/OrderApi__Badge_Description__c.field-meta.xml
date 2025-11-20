@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Badge_Description__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Value of the &quot;Short Description&quot; field for the linked Badge Type.</description>
+    <externalId>false</externalId>
+    <formula>OrderApi__Badge_Type__r.OrderApi__Short_Description__c</formula>
+    <inlineHelpText>** System Calculated ** Value of the &quot;Short Description&quot; field for the linked Badge Type.</inlineHelpText>
+    <label>Badge Description</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

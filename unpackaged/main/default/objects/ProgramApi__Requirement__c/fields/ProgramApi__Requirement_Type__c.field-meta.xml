@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProgramApi__Requirement_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Identifies the requirement type</description>
+    <inlineHelpText>Identifies the requirement type</inlineHelpText>
+    <label>Requirement Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CEUs</fullName>
+                <default>false</default>
+                <label>CEUs</label>
+            </value>
+            <value>
+                <fullName>File Upload</fullName>
+                <default>false</default>
+                <label>File Upload</label>
+            </value>
+            <value>
+                <fullName>Exam</fullName>
+                <default>false</default>
+                <label>Exam</label>
+            </value>
+            <value>
+                <fullName>Course</fullName>
+                <default>false</default>
+                <label>Course</label>
+            </value>
+            <value>
+                <fullName>Webinar</fullName>
+                <default>false</default>
+                <label>Webinar</label>
+            </value>
+            <value>
+                <fullName>Reference Attestation</fullName>
+                <default>false</default>
+                <label>Reference Attestation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

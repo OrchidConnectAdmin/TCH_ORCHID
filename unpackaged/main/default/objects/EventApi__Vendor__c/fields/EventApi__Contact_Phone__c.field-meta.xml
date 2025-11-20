@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Contact_Phone__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Enter the primary contact&#39;s preferred phone number.</description>
+    <inlineHelpText>Enter the primary contact&#39;s preferred phone number.</inlineHelpText>
+    <label>Contact Phone</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Phone</type>
+</CustomField>

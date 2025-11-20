@@ -1,0 +1,151 @@
+#fonteva .page-block .page-block-icon {
+  width: 36px;
+  position: relative;
+  top: -5px;
+}
+#fonteva .page-block-title {
+  margin-bottom: 10px;
+}
+#fonteva a.list-group-item.active, #fonteva a.list-group-item.active:hover {
+  background-color: #e6f5ff;
+  color: #344555;
+  border-color: #bfe6ff;
+}
+#fonteva a.list-group-item {
+  color: #344555;
+}
+#fonteva a.list-group-item:hover {
+  text-decoration: none;
+  color: inherit;
+  background-color: #f8f8f8;
+}
+#fonteva h1, #fonteva h2, #fonteva h3 {
+  color: #333435;
+}
+#fonteva .customer-location:before {
+  content: " (";
+}
+#fonteva .customer-location:after {
+  content: ") ";
+}
+#fonteva .customer-location {
+  font-size: 11px;
+}
+#fonteva .list-group-item {
+  font-size: 12px;
+}
+#fonteva .customer-balance {
+  font-size: 11px;
+  font-weight: 500;
+}
+#fonteva .customer-name {
+  font-weight: 500;
+}
+#fonteva .list-group-item .negative {
+  color: #e94042;
+}
+#fonteva .list-group-item .positive {
+  color: #3775c8;
+}
+#fonteva .list-group-item .even {
+  color: #999;
+}
+#fonteva table a,#fonteva table a:hover {
+  text-decoration: underline;
+}
+#fonteva span.divider {
+  margin: 3px 0;
+}
+#fonteva .action-panel {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+}
+#fonteva .action-msg {
+  font-size: 16px;
+  font-weight: 300;
+}
+#invoices_filter input[type="text"] {
+  height: 32px;
+  padding: 6px 12px;
+  font-size: 13px;
+  line-height: 1.428571429;
+  color: #555555;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: all border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s ease-out;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -moz-transition: all border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s ease-out;
+  -o-transition: all border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s ease-out;
+  transition: all border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s ease-out;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+#invoices_filter input[type="text"]:focus {
+  border-color: #66afe9;
+  outline: 0;
+}
+#invoices_length {
+  position: relative;
+  left: 10px;
+}
+.dataTables_filter {
+  padding-right: 9px;
+}
+.dataTables_wrapper {
+  padding-top: 6px;
+}
+#invoices_wrapper > .row {
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+.dataTables_info {
+  padding-left: 10px;
+}
+.dataTables_paginate.paging_bootstrap {
+  padding-right: 10px;
+  position: relative;
+  top: -20px;
+}
+.btn-container {
+  text-align: center;
+  padding: 8px 0;
+}
+.btn-container-sm {
+  padding: 4px 0;
+}
+<<<<<<< HEAD
+      #fonteva .customer-center-header { margin-bottom: 10px; margin-top: 8px; }
+      #fonteva .customer-center-header img { max-width: 32px; height: auto; position: relative; top: -6px; left: -3px; }
+      #fonteva h4.customer-name, #fonteva h4.customer-name > i { font-weight: 400; font-size: 28px; }
+      #fonteva dl.dl-horizontal { font-size: 13px; }
+      #fonteva dl dt { color: #565656; font-weight: 400; }
+      #fonteva dl dd { color: #222; font-weight: 400; }
+      #fonteva .customer-balance-lg { color: #19a2bc; font-weight: 300; position: relative; display: block; top:-38px; font-size: 20px; }
+      #fonteva .stat-box { min-height: 100px; max-width: 100%; padding: 5px; }
+      #fonteva .box-desc { margin-top: 10px; }
+      #fonteva .badge-orange { background-color: #31b935; color: #fff; border: 1px solid #4dd050; }
+      #fonteva .tab-icon { width: 72px; padding: 10px; }
+      #fonteva .msg-success { background-color: #2ed135; color : #fff; border-color: #2ed135; }
+      #fonteva .msg-danger { background-color: #f83936; color: #fff; border-color: #f83936;}
+      #fonteva .msg-warning { background-color: #f8d336; color: inherit; border-color: #f8d336; }
+=======
+#fonteva .customer-center-header { margin-bottom: 10px; margin-top: 8px; }
+#fonteva .customer-center-header img { max-width: 32px; height: auto; position: relative; top: -6px; left: -3px; }
+#fonteva h4.customer-name, #fonteva h4.customer-name > i { font-weight: 400; font-size: 28px; }
+#fonteva dl.dl-horizontal { font-size: 13px; }
+#fonteva dl dt { color: #565656; font-weight: 400; }
+#fonteva dl dd { color: #222; font-weight: 400; }
+#fonteva .customer-balance-lg { color: #19a2bc; font-weight: 300; position: relative; display: block; top:-38px; font-size: 20px; }
+#fonteva .stat-box { min-height: 100px; max-width: 100%; padding: 5px; }
+#fonteva .box-desc { margin-top: 10px; }
+#fonteva .badge-orange { background-color: #31b935; color: #fff; border: 1px solid #4dd050; }
+#fonteva .tab-icon { width: 72px; padding: 10px; }
+#fonteva .msg-success { background-color: #2ed135; color : #fff; border-color: #2ed135; }
+#fonteva .msg-danger { background-color: #f83936; color: #fff; border-color: #f83936;}
+#fonteva .msg-warning { background-color: #f8d336; color: inherit; border-color: #f8d336; }
+>>>>>>> 75ddc8c9a7246477f2e3a9adf727c168759551c5

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Sales_Order_Line_R__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Relates the Transaction Line to the reporting Sales Order.</description>
+    <inlineHelpText>Relates the Transaction Line to the reporting Sales Order.</inlineHelpText>
+    <label>Sales Order Line (R)</label>
+    <referenceTo>OrderApi__Sales_Order_Line_R__c</referenceTo>
+    <relationshipLabel>Transaction Lines</relationshipLabel>
+    <relationshipName>Transaction_Lines</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProgramApi__ValidateCreateOnlyOneTerm</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ProgramApi__Create_Candidate_Term__c = TRUE , ProgramApi__Create_Maintenance_Term__c = TRUE )</errorConditionFormula>
+    <errorMessage>Please select only one: &quot;Create Candidate Term&quot; or &quot;Create Maintenance Term&quot;</errorMessage>
+</ValidationRule>

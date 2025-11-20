@@ -1,0 +1,371 @@
+<apex:page controller="SDOC.SDEmailController" 
+showHeader="false" tabstyle="SDOC__SDTemplate__c" standardStylesheets="true" sidebar="false" action="{!onLoad}"
+title="{!tm['Edit Document']}"
+lightningStylesheets="true"> 
+
+<apex:styleSheet value="{!URLFOR($Resource.SDOC__SDoc,'skin.css')}" />
+<apex:includeScript value="{!URLFOR($Resource.SDOC__SDoc,'yahoo-dom-event.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.SDOC__SDoc,'container-min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.SDOC__SDoc,'animation-min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.SDOC__ckEditor,'/ckeditor/ckeditor.js')}"/>
+<apex:stylesheet value="/sCSS/24.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+<style>
+.buttonStyle { min-width:75px; height:30px; }
+.buttonStyleL { width:150px; height:30px; }
+.right { text-align: right; }
+.left { text-align: left; }
+</style>
+
+<script type="text/javascript">
+function resizeEditor() {
+
+  var defaultHeight = 300;
+  var newHeight = window.innerHeight-200; 
+  var height = defaultHeight > newHeight ? defaultHeight: newHeight;
+  var CKEDITOR = window.CKEDITOR;
+        for ( var i in CKEDITOR.instances ){
+            var currentInstance = i;
+             break;
+        }
+     CKEDITOR.instances[currentInstance].resize('100%',height);
+}
+
+var AgreementForm = document.getElementById("blur");
+//AgreementForm.style.height = window.screen.availHeight + "px";
+//AgreementForm.style.width = window.screen.availWidth + "px";
+
+var ContainerElem = document.getElementById("StatusBox");
+//ContainerElem.style.display = "block";
+AlignToCenter(ContainerElem);
+
+function AlignToCenter(Element)
+{
+var availableHeight = 0;
+var availableWidth = 0;
+if (Element.ownerDocument)
+{
+var docElement = Element.ownerDocument.documentElement;
+availableHeight = parseInt(docElement.clientHeight);
+if (availableHeight == "NaN") availableHeight = 0;
+
+availableWidth = parseInt(docElement.clientWidth);
+if (availableWidth == "NaN") availableWidth = 0;
+}
+
+if (availableHeight == 0 || availableHeight == "NaN")
+availableHeight = window.screen.availHeight - 200;
+if (availableWidth == 0 || availableWidth == "NaN")
+availableWidth = window.screen.availWidth - 100;
+
+var msgBoxTop = parseInt((availableHeight - parseInt(Element.clientHeight))/2);
+var msgBoxleft = parseInt((availableWidth - parseInt(Element.style.width))/2);
+
+if (msgBoxTop == "NaN" || msgBoxTop == 0)
+msgBoxTop = 100;
+
+Element.style.left = msgBoxleft + "px";
+Element.style.top = msgBoxTop + window.pageYOffset + "px";
+}
+
+function reposition(){
+if(navigator.appName == 'Window Internet Explorer') AgreementForm.style.top = document.body.scrollTop;
+else AgreementForm.style.top = window.pageYOffset+"px";
+AlignToCenter(ContainerElem);
+}
+</script>
+<script>
+    function getQuerystring(key, default_)
+        {
+          if (default_==null) default_="";
+          key = key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+          var regex = new RegExp("[\\?&]"+key+"=([^&#]*)");
+          var qs = regex.exec(window.location.href);
+          if(qs == null)
+            return default_;
+          else
+            return qs[1];
+    }   
+
+    var newwindow;
+
+</script>
+
+
+<body>
+  <apex:outputPanel rendered="{!allowEditWhitelist}">
+    <apex:actionStatus id="statLoad">
+        <apex:facet name="start">
+            <div id="blur" style="position:absolute; left:1px; top:1px; width:100%; height:100%; text-align:center; vertical-align: middle; background-color: #dcdcdc; opacity:0.7;filter:alpha(opacity=70)">
+            </div>
+            <div id="StatusBox" style="position:absolute; left:50%; top:300px; width: 120px; height:50px; opacity:1;filter:alpha(opacity=100)">
+            <table border="1" cellpadding="0" cellspacing="0" style="border-left-color: #336699;
+            border-bottom-color: #336699; width: 120px; border-top-color: #336699; height:50px;
+            border-right-color:#336699; background-color:#ffffff;">
+            <tr>
+            <td align="left" valign="top"> 
+            <table border="0" cellpadding="4" cellspacing="0" style="width: 100%; height: 100%">
+            <tr>
+            <td style="border-bottom-color:#336699; border-bottom-width:0px; border-bottom-style:solid;vertical-align:middle;">
+            <img src="{!URLFOR($Resource.SDoc,'spinner_large.gif')}"/></td>
+            <td style="border-bottom-color:#336699; border-bottom-width:0px; border-bottom-style:solid;vertical-align:middle;color:darkred;font-size:11pt;font-weight:bold;">
+            &nbsp;Loading...</td>
+            </tr>
+            </table>
+            </td>
+            </tr>
+            </table>
+            </div>
+        </apex:facet>
+    </apex:actionStatus>
+
+    <apex:sectionHeader title="{!tm['Edit Document']}" subtitle="{!docName}"/>
+          <apex:form >
+            <apex:pageBlock >
+            <apex:outputPanel id="BtnsTopPanel">
+              <div>
+                  <div style="float: left;">
+                    <apex:actionStatus id="statTop">
+                        <apex:facet name="start">
+                            Creating attachments, please wait...
+                            <img src="{!URLFOR($Resource.SDoc,'spinner_large.gif')}" />
+                        </apex:facet>
+                    </apex:actionStatus>
+                    <apex:commandButton value="{!customURLButtonName}" onclick="window.open('{!URLFOR(customURL, null)}', '{!customURLButtonName}', 'width=700,height=700');" styleClass="buttonStyle left" style="width: 12em;text-align: center;background-color:{!customBtnBackgroundColor};color:{!customBtnTextColor};"
+                    rendered="{!customURLExists && customSaveType == null && NOT(returnToRecord)}" reRender="BtnsTopPanel"/>
+                    <apex:outputPanel layout="none">
+                      <apex:commandButton value="{!tm['Save & Create New Attachment']}" action="{!createNewAttachment}" status="statTop" styleClass="buttonStyle left" style="width: 16em;" rendered="{!allowNameNewAttachment}"/>
+                      <apex:outputPanel id="newAttachmentInput" rendered="{!allowNameNewAttachment}" styleClass="left">
+                        <apex:outputLabel for="editDocName"><b>New Attachment Name: </b></apex:outputLabel>
+                        <apex:inputText id="editDocName" value="{!editDocName}" style="width: 16em;"/>
+                      </apex:outputPanel>
+                    </apex:outputPanel>
+                  </div>
+                  <div style="float: right;">
+                    <apex:includeScript value="/support/console/44.0/integration.js"/>
+                    <script type="text/javascript">
+                      function openPreviewPage() {
+                        if (checkForChanges()) {
+                          alert("You have made changes to the document, this preview will not reflect those changes until the document is saved.");
+                        }
+                        var docLink = '{!URLFOR(docLink, null)}';
+                        if (sforce.console.isInConsole() && "{!$User.UIThemeDisplayed == 'Theme4t'}" === 'true') {
+                          var openSubtab = function openSubtab(result) {
+                              var primaryTabId = result.id;
+                              sforce.console.openSubtab(primaryTabId , docLink, true, 
+                                'View Document', null, null, 'View Document');
+                          };
+                          sforce.console.getEnclosingPrimaryTabId(openSubtab);
+                        }
+                        else {
+                          window.open(docLink, '_blank');
+                        }
+                      }
+                      function closeEditPage() {
+                        if ('{!isMobileTheme}' == 'true') {
+                          redirectToSDCreateMobile();
+                          return;
+                        }
+                        if (checkForChanges()) {
+                          alert("You have made changes to the document, closing this page will result in these changes not being saved.");
+                        }
+                        if (sforce.console.isInConsole() && "{!$User.UIThemeDisplayed == 'Theme4t'}" === 'true') {
+                          var closeSubtab = function closeSubtab(result) {
+                            var tabId = result.id;
+                            sforce.console.closeTab(tabId);
+                          };
+                          sforce.console.getEnclosingTabId(closeSubtab);
+                        }
+                        else {
+                          window.top.close();
+                        }
+                      }
+
+                      function saveEditPage() {
+                        saveEventOverride = true;
+                      }
+                    </script>
+                    <table>
+                      <tr>
+                        <!-- orignal button -->
+                        <td  style="padding-right: 2px;"><apex:commandButton onclick="saveEditPage();" value="{!tm['Save']}" action="{!saveDoc}" status="statTop" styleClass="buttonStyle" style="background-color:{!customBtnBackgroundColor};color:{!customBtnTextColor};" rendered="{!NOT(createNewAttachmentEachEdit)}" /></td>
+                        <td style="padding-right: 2px;"><apex:commandButton onclick="saveEditPage();" value="{!tm['Save']}" action="{!createNewAttachment}" status="statTop" styleClass="buttonStyle" style="background-color:{!customBtnBackgroundColor};color:{!customBtnTextColor};" rendered="{!createNewAttachmentEachEdit}"/></td>
+                        <!-- custom save button -->
+                        <apex:outputPanel layout="none" rendered="{!customSaveType == CUSTOMSAVE_NEWBUTTON}">
+                          <td style="padding-right: 2px;"><apex:commandButton onclick="saveEditPage();" value="{!saveButtonName}" action="{!saveDocAndRedirect}" status="statTop" styleClass="buttonStyle" style="background-color:{!customBtnBackgroundColor};color:{!customBtnTextColor};" /></td>
+                        </apex:outputPanel>
+                        <td style="padding-right: 2px;"><apex:commandButton value="{!tm['Preview Last Save']}" onclick="openPreviewPage();" styleClass="buttonStyle" oncomplete="" style="padding-left: 10px; padding-right: 10px;" /></td>
+                        <td style="padding-right: 2px;"><apex:commandButton value="{!tm['Revert Last Save']}" action="{!revertLastSave}" disabled="{!disableRevertButton}" status="statTop" styleClass="buttonStyle" style="padding-left: 10px; padding-right: 10px;" rendered="{!NOT(createNewAttachmentEachEdit)}"/></td>
+                        <td style="padding-right: 2px;">
+                          <apex:outputPanel rendered="{!NOT(sdeditSameTab || returnToRecord)}">
+                            <apex:commandButton onclick="closeEditPage();"  value="{!tm['Close']}" styleClass="buttonStyle" oncomplete="" />
+                          </apex:outputPanel>
+                          <apex:outputPanel rendered="{!sdeditSameTab || returnToRecord}">
+                            <apex:commandButton value="{!tm['Return To Record']}" styleClass="buttonStyle" action="{!returnToRecordSDEdit}" />
+                          </apex:outputPanel>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+            </apex:outputPanel> 
+            <apex:outputPanel id="emailSubPanel" >
+              <apex:outputpanel id="loading" rendered="{!EmailTo=='Loading...'}">
+              <center><img src="{!URLFOR($Resource.SDoc,'spinner.gif')}" />&nbsp;please wait...</center>
+              </apex:outputpanel>
+              </apex:outputPanel>
+              <apex:outputPanel id="editor">
+              <apex:pageBlockSection columns="1" rendered="{!allowEdit}">
+                <style>
+                  .ddsmPageBlockTableHeader {display:none;}
+                </style>
+                <br />
+                <apex:pageBlockTable value="{!ddsl}" var="dd" headerClass="ddsmPageBlockTableHeader">
+                  <apex:column rendered="{!dd.sectionData != null}">
+                    <apex:outputPanel >
+                      <div style="font-size: 14px; font-weight:bold; padding-bottom: 4px;">{!ddslSectionLabelsMap[dd.sectionName]}:</div>
+                      <apex:inputTextarea value="{!dd.sectionData}" styleClass="ckeditor1" />
+                      <br /><br /><br />
+                    </apex:outputPanel>
+                  </apex:column>
+                </apex:pageBlockTable>
+              </apex:pageBlockSection>
+            </apex:outputPanel>        
+            </apex:pageBlock>
+
+            <apex:actionFunction name="redirectToSDCreateMobile" action="{!mobileSDEditRedirect}" />
+
+          </apex:form>
+  </apex:outputPanel>
+  <apex:outputPanel rendered="{!NOT(allowEditWhitelist)}">
+    <apex:form >
+        <apex:actionFunction name="redirectToRecord" action="{!returnToRecordSDEdit}" />
+    </apex:form>
+    <script>
+      alert("You do not have edit access to this document. You will now be redirected back to the record.");
+      redirectToRecord();
+    </script>
+  </apex:outputPanel>
+</body>
+<script type="text/javascript">
+rebind = function() {
+    var CKEDITOR   = window.CKEDITOR;
+        for ( var i in CKEDITOR.instances ){
+            var currentInstance = i;
+             break;
+        }
+        delete CKEDITOR.instances[currentInstance];
+        bind();
+    };
+
+bind = function(){
+        var CKEDITOR_BASEPATH = '{!URLFOR($Resource.ckEditor,'ckeditor/')}';
+        CKEDITOR.editorConfig = function( config )
+            {
+            config.height = '100%';
+            config.disableNativeSpellChecker = false;
+            // Define changes to default configuration here. For example:
+            config.language = 'en';
+            config.filebrowserBrowseUrl = '{!$Page.SDFileList}';
+            config.filebrowserUploadUrl = '{!$Page.SDFileUpload}';
+            config.filebrowserImageBrowseUrl = '{!$Page.SDFileList}';
+            config.filebrowserImageUploadUrl = '{!$Page.SDFileUpload}'; 
+            config.enterMode = CKEDITOR.ENTER_BR;
+            config.shiftEnterMode = CKEDITOR.ENTER_P;
+            config.allowedContent = true;
+//            config.fullPage = true;
+            config.removePlugins = 'liststyle,tabletools,scayt,menubutton,contextmenu';
+            config.toolbar =
+            [
+            ['Undo','Redo'],
+            ['Styles','Format','Font','FontSize'],
+            ['TextColor','BGColor'],        
+            ['Bold','Italic','Underline','Strike','-',],
+            ['Image','PageBreak'],
+            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock']
+            ];
+            };
+        
+        if (!document.getElementsByClassName) {
+            document.getElementsByClassName = function (cn) { 
+                var rx = new RegExp("(?:^|\\s)" + cn+ "(?:$|\\s)");
+                var allT = document.getElementsByTagName("*"), allCN = [], ac="", i = 0, a;
+                    while (a = allT[i=i+1]) {
+                      ac=a.className;
+                      if ( ac && ac.indexOf(cn) !==-1) {
+                        if(ac===cn){ allCN[allCN.length] = a; continue;   }
+                        rx.test(ac) ? (allCN[allCN.length] = a) : 0;
+                      }
+                    }
+                return allCN;
+            }
+        }
+        
+        if (document.getElementsByClassName){
+            var e = document.getElementsByClassName( 'ckeditor1' );
+            for(var i=0;i<e.length;i++)
+                {
+                  var editor1 = CKEDITOR.replace( e[i],
+                          {  
+                            on:
+                            {
+                              instanceReady: function(ev)
+                              {
+                                setTimeout(resizeEditor, 500);
+                              }
+                              
+                            },
+                            on:
+                            {
+                              paste: function(ev) {
+                                if ('{!paramLinebreak}' === 'paragraph') {
+                                  if (ev.data.dataValue !== 'undefined') {
+                                    ev.data.dataValue = ev.data.dataValue.replace(/(\<br ?\/?\>)+/gi, '<p>');
+                                  }
+                                }
+                              }
+                            }
+                          });
+                }
+           }
+        };
+    
+windowonload = function() {
+  bind();
+}
+
+window.onresize = function() {
+  resizeEditor();
+}
+
+addEvent(window, 'load', function(){ windowonload() });
+function addEvent(element, event, fn) {
+    if (element.addEventListener)
+        element.addEventListener(event, fn, false);
+    else if (element.attachEvent)
+        element.attachEvent('on' + event, fn);
+}
+
+saveEventOverride = false;
+
+function checkForChanges() {
+  if(!saveEventOverride) {
+    var ck = CKEDITOR;
+    for (var i in ck.instances) {
+      var dirty = ck.instances[i].checkDirty();
+      if (dirty) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+window.onbeforeunload = function() {
+  return checkForChanges() ? "You have unsaved changes, do you want to close without saving?" : undefined;
+};
+</script>
+<apex:form >
+<apex:actionFunction name="attach" action="{!updateAtt}"  
+                    status="stat1"/>
+</apex:form>
+</apex:page>

@@ -1,0 +1,10 @@
+<apex:page tabStyle="Framework__tab" sidebar="false" showHeader="true">
+    <apex:composition template="Framework__admin">
+        <apex:define name="title">{!$Label.New} {!$Label.App}</apex:define>
+        <apex:define name="main">
+            <div class="row">
+                <div class="col-md-12"></div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

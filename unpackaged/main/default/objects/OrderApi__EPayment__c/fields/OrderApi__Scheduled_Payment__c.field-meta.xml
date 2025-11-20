@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Scheduled_Payment__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to the Scheduled Payment record that generated the E-Payment
+
+**Only populated when the E-Payment is generated from a Scheduled Payment record**</description>
+    <inlineHelpText>Link to the Scheduled Payment record that generated the E-Payment
+
+**Only populated when the E-Payment is generated from a Scheduled Payment record**</inlineHelpText>
+    <label>Scheduled Payment</label>
+    <referenceTo>OrderApi__Scheduled_Payment__c</referenceTo>
+    <relationshipName>E_Payments</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,82 @@
+<!--
+  @description       : 
+  @author            : Malik Gray
+  @group             : 
+  @last modified on  : 11-17-2020
+  @last modified by  : Malik Gray
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   11-12-2020   Malik Gray   Initial Version
+-->
+<template>
+    <!-- <lightning-layout multiple-rows="true" class="slds-m-bottom_medium">
+        <lightning-layout-item size="12">
+            <h1 class="slds-text-align_center slds-text-heading_large">Sponsoring Organization</h1>
+        </lightning-layout-item>
+        <template if:true={userAccountId.data}>
+            <lightning-layout-item size="12">
+                <lightning-record-view-form
+                    record-id={userAccountId.data}
+                    object-api-name="Account"
+                >
+                    <lightning-output-field
+                        field-class="slds-text-align_center slds-text-heading_medium"
+                        field-name="Name"
+                        variant="label-hidden"
+                    >
+                    </lightning-output-field>
+                </lightning-record-view-form>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="slds-m-top_medium">
+                <lightning-card class="slds-text-align_center" title="Sponsored Relationships">
+                    //old 'NEW' button position
+                    <div class="slds-p-horizontal_small">
+                        <c-fon-sponsoring-relationship-list sponsoring-organization-id={userAccountId.data}>
+                        </c-fon-sponsoring-relationship-list>
+                    </div>
+                </lightning-card>
+            </lightning-layout-item>
+        </template>
+    </lightning-layout> -->
+    <lightning-button label="New" slot="actions" class="btn-new-sr" onclick={openModal}>
+    </lightning-button>
+    <template if:true={isModalOpen}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section 
+            role="dialog"
+            tabindex="-1" 
+            aria-labelledby="modal-heading-01"
+            aria-modal="true"
+            aria-describedby="modal-content-id-1"
+            class="slds-modal slds-fade-in-open"
+        >
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button
+                        class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close"
+                        onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2
+                        id="modal-heading-01"
+                        class="slds-text-heading_medium slds-hyphenate"
+                    >
+                        Sponsored Member Search
+                    </h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <c-fon-create-sponsoring-relationship sponsoring-organization-id={userAccountId.data}>
+                    </c-fon-create-sponsoring-relationship>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

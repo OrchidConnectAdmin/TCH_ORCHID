@@ -1,0 +1,285 @@
+<apex:page title="{!$Label.joinapi__Login}"
+           showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           controller="joinapi.CustomLoginController"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           action="{!checkSession}">
+  <apex:composition template="joinapi__template">
+    <apex:define name="jpTitle">{!step.joinapi__Page_Title__c}</apex:define>
+    <apex:define name="jpStyles">
+    </apex:define>
+    <apex:define name="jpMain">
+      <c:InvalidPermissionHeader enabledProcess="{!hasPermission}" />
+      <apex:outputPanel rendered="{!hasPermission}">
+        <div class="container">
+          <div class="row m-t-30">
+            <div class="col-xs-12">
+              <Framework:messages />
+            </div>
+            <div class="col-xs-12">
+              <div class="well">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <h1>{!step.joinapi__Page_Title__c}</h1>
+                    <hr class="m-b-15" />
+                  </div>
+                </div>
+                <div class="row m-b-10">
+                  <div class="col-xs-12">
+                    <apex:outputText value="{!step.joinapi__Instructions__c}" escape="false"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="col-xs-12">
+            <div class="row">
+              <div class="col-xs-12 col-md-5 login-form">
+                <div class="row">
+                  <div class="well">
+                    <div class="row col-xs-12 m-b-20">
+                      <span><h3><strong>{!step.joinapi__Login_Header__c}</strong></h3></span>
+                      <hr class="m-v-10"/>
+                      <span class="clear-formatted-style"><apex:outputText escape="false" value="{!step.joinapi__Login_Instructions__c}" /></span>
+                    </div>
+                    <apex:form id="formLogin" forceSSL="true" styleClass="form-signin" acceptcharset="utf-8">
+                      <apex:outputPanel id="usr-pwd-auth" layout="block" styleClass="m-t-20">
+                        <div class="row">
+                          <div class="form-group col-xs-10">
+                            <label class="required-icon true">{!$Label.joinapi__Username}</label>
+                            <apex:inputText html-type="email" styleClass="form-control username-field" value="{!username}" html-autofocus="true"/>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-group col-xs-10">
+                            <label class="required-icon true">{!$Label.joinapi__Password}</label>
+                            <apex:inputSecret html-type="password" styleClass="form-control password-field" value="{!password}" />
+                          </div>
+                        </div>
+                        <div class="row m-b-20">
+                          <div class="reset-password-link f-s-10 col-xs-12">
+                            <a href="{!$Page.CPBase__forgot_password}" title="{!$Label.joinapi__Forgot_Password_Link_Anchor}">{!$Label.joinapi__Forgot_Password_Link_Anchor}</a>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="button-group col-xs-4">
+                            <a class="btn btn-md btn-primary ladda-button disabled loginButton" data-style="expand-right">
+                              <span class="ladda-label">
+                                {!$Label.joinapi__Login}
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+                        <apex:actionFunction name="nextLogin" action="{!login}"/>
+                      </apex:outputPanel>
+                    </apex:form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-1"/>
+              <div class="col-xs-12 col-md-6 well">
+                <div class="row" style="margin:0 10px 0 5px">
+                  <div class="row col-xs-12 m-b-20" >
+                    <span><h3><strong>{!step.New_User_Header__c}</strong></h3></span>
+                    <hr class="m-v-10"/>
+                    <span class="clear-formatted-style"><apex:outputText escape="false" value="{!step.joinapi__New_User_Instructions__c}" /></span>
+                  </div>
+                </div>
+                <div class="row" style="margin:0 10px 0 5px">
+                  <apex:form id="formNewUser" forceSSL="true" styleClass="form-signin login-component-form" acceptcharset="utf-8">
+                    <div class="row">
+                      <div class="form-group col-xs-10">
+                        <label class="required-icon true">{!$Label.joinapi__First_Name}</label>
+                        <apex:inputText html-type="text" styleClass="form-control first-name" value="{!firstName}" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-10">
+                        <label class="required-icon true">{!$Label.joinapi__Last_Name}</label>
+                        <apex:inputText html-type="text" styleClass="form-control last-name" value="{!lastName}" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-10">
+                        <label class="required-icon true">{!$Label.joinapi__Email}</label>
+                        <apex:inputText html-type="email" styleClass="form-control email-guest-new-user" value="{!email}" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-10">
+                        <label class="required-icon true">{!$Label.joinapi__Password}</label>
+                        <apex:inputSecret html-type="password" styleClass="form-control password-guest-new-user" value="{!password}" />
+                      </div>
+                    </div>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(Store.OrderApi__New_Contact_Fieldset_CSV__c))}">
+                      <apex:repeat value="{!fieldSets}" var="fieldSet">
+                        <apex:repeat value="{!fieldSetFields}" var="fieldSetName">
+                          <apex:outputPanel layout="none" rendered="{!fieldSetName == fieldSet}">
+                            <apex:repeat value="{!fieldSetFields[fieldSetName]}" var="fld">
+                              <div class="row">
+                                <div class="form-group col-xs-10">
+                                  <label class="required-icon {!OR(fld.DBRequired, fld.required)}">{!fieldLabelMap[fld]}</label>
+                                  <apex:outputPanel rendered="{!OR($ObjectType.Contact.fields[fld].Type == 'boolean', $ObjectType.Contact.fields[fld].Type == 'picklist')}">
+                                    <apex:inputField value="{!customFieldsContact[fld]}"
+                                                        styleClass="form-control"
+                                                        required="{!OR(fld.DBRequired, fld.required)}"/>
+                                  </apex:outputPanel>
+                                  <apex:outputPanel rendered="{!OR($ObjectType.Contact.fields[fld].Type == 'date', $ObjectType.Contact.fields[fld].Type == 'datetime')}">
+                                    <apex:inputField value="{!customFieldsContact[fld]}"
+                                                     styleClass="{!IF($ObjectType.Contact.fields[fld].Type == 'date','date-picker form-control','date-time-picker form-control')}"
+                                                     required="{!OR(fld.DBRequired, fld.required)}" />
+                                  </apex:outputPanel>
+                                  <apex:outputPanel rendered="{!NOT($ObjectType.Contact.fields[fld].Type == 'date') && NOT($ObjectType.Contact.fields[fld].Type == 'datetime') && NOT($ObjectType.Contact.fields[fld].Type == 'boolean') && NOT($ObjectType.Contact.fields[fld].Type == 'picklist')}">
+                                    <apex:input type="text"
+                                                value="{!customFieldsContact[fld]}"
+                                                styleClass="form-control"
+                                                required="{!OR(fld.DBRequired, fld.required)}"/>
+                                  </apex:outputPanel>
+                                </div>
+                              </div>
+                            </apex:repeat>
+                          </apex:outputPanel>
+                        </apex:repeat>
+                      </apex:repeat>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!captchaEnabled}">
+                      <div class="row">
+                        <div class="form-group col-xs-10">
+                          <div id="recaptcha"></div>
+                        </div>
+                      </div>
+                    </apex:outputPanel>
+                    <div class="row">
+                      <div class="button-group col-xs-4">
+                        <a class="btn btn-primary ladda-button disabled createNewUserBtn" data-style="expand-right">
+                          <span class="{!IF(step.joinapi__New_User_Button_Label__c != null , 'ladda-label' , 'hidden')}">
+                                  {!step.joinapi__New_User_Button_Label__c}
+                          </span>
+                          <span class="{!IF(step.joinapi__New_User_Button_Label__c == null , 'ladda-label' , 'hidden')}">
+                                  {!$Label.joinapi__Next}
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                    <apex:actionFunction name="nextCompleteNewUserGuestSignIn" action="{!completeNewUserGuestSignIn}"/>
+                  </apex:form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:outputPanel>
+    </apex:define>
+    <apex:define name="jpScripts">
+      <!--Recaptcha v3.0 site key here-->
+      <script src="https://www.google.com/recaptcha/api.js?render=6Lf9jusUAAAAAOrJm0jIisc-uhQB1lXI4pnjES5q"></script>
+      <script type="text/javascript">
+          var captchaPassed = false;
+          $(document).ready(function() {
+              $(document).on('keydown keyup input', '.password-field, .password-guest-new-user', function(event) {
+                  if (event.which === 32) {
+                      return false;
+                  }
+                  verifyLoginEnabled();
+                  return true;
+              });
+              $(document).on('keydown keyup input', '.username-field', function(event) {
+                  verifyLoginEnabled();
+              });
+              $(document).on('keydown keyup input', '.first-name, .last-name, .email-guest-new-user, .password-guest-new-user', function(event) {
+                  enableNextStepBtn();
+              });
+              captchaLoaded();
+          });
+
+          $(document).on('click', '.loginButton', function(e) {
+              em.loader.start(this);
+              var btnRef = this;
+              nextLogin();
+              setTimeout(function(){ em.loader.stop(btnRef); }, 1000);
+          });
+
+          $(document).on('click', '.createNewUserBtn', function(e) {
+              em.loader.start(this);
+              var btnRef = this;
+              nextCompleteNewUserGuestSignIn();
+              setTimeout(function(){ em.loader.stop(btnRef); }, 1000);
+          });
+
+          function verifyLoginEnabled() {
+             if (($('.username-field').val().length > 0)
+                 && ($('.password-field').val().length > 0)) {
+                     $('.loginButton').removeClass('disabled');
+             } else {
+                  $('.loginButton').addClass('disabled');
+             }
+          }
+
+          function enableNextStepBtn() {
+             if ($('.email-guest-new-user').val().length > 0 && $('.password-guest-new-user').val().length > 0
+                && $('.first-name').val().length > 0 && $('.last-name').val().length > 0 && (this.captchaPassed || !{!captchaEnabled})) {
+                     $('.createNewUserBtn').removeClass('disabled');
+             } else {
+                  $('.createNewUserBtn').addClass('disabled');
+             }
+          }
+
+          $(document).ready(function(){
+            $('.date-picker').each(function(){
+                $(this).daterangepicker({
+                    locale: {
+                        format : '{!UserDateFormat}'
+                    },
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    date: this.value.replace('GMT','')
+                });
+
+            });
+            $('.date-time-picker').each(function(){
+              $(this).daterangepicker({
+                  locale : {
+                      format : '{!UserDateFormat}' + ' hh:mm A'
+                  },
+                  singleDatePicker: true,
+                  timePicker: true,
+                  showDropdowns: true,
+                  date: this.value
+              });
+            });
+          });
+
+          //Recaptcha code here
+          function captchaLoaded() {
+              let self = this;
+              setTimeout(function(){
+                  grecaptcha.ready(function() {
+                      //hide the recaptcha v3.0 in the UI
+                      if (document.getElementsByClassName("grecaptcha-badge").length > 0) {
+                         document.getElementsByClassName("grecaptcha-badge")[0].style.visibility = "hidden";
+                      }
+                      grecaptcha.render("recaptcha", {
+                         //Recaptcha v2.0 site key here
+                         'sitekey' : '6LdzAfEUAAAAAOEtPDvBPn1kjTfaBi61l7mNPzYf',
+                         'callback' : callback
+                      });
+                  });
+              },1000);
+          }
+
+          var callback = function(response) {
+              //call the remote function
+              Visualforce.remoting.Manager.invokeAction( '{!$RemoteAction.CustomLoginController.passCaptcha}',response,
+                  function(result, event){
+                      this.captchaPassed = result;
+                      enableNextStepBtn();
+                  });
+          };
+        </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

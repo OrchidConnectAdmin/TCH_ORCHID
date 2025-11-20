@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Enable_Refund_Request__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, an attendee can request a refund and the attendee record will be updated to indicate he/she has cancelled.</description>
+    <inlineHelpText>When checked, an attendee can request a refund and the attendee record will be updated to indicate he/she has cancelled.</inlineHelpText>
+    <label>Enable Refund Request</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

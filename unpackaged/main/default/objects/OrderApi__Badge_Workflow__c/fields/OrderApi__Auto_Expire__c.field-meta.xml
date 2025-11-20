@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Auto_Expire__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the Badge will automatically unassign itself from the Contact record when the Assignment record becomes in active. &quot;Is Active&quot; is unchecked. Defaults unchecked.</description>
+    <inlineHelpText>When checked, the Badge will automatically unassign itself from the Contact record when the Assignment record becomes in active. &quot;Is Active&quot; is unchecked. Defaults unchecked.</inlineHelpText>
+    <label>Auto Expire</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

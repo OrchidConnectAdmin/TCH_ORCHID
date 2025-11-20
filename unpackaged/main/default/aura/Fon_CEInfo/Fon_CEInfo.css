@@ -1,0 +1,13 @@
+.THIS {
+}
+
+.THIS.exampleHolder{
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+.THIS .label-hidden > label {
+    display: none;
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Image__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The image used when viewing the related section in an event&#39;s registration. The provided image will also be cropped to fit a 200x200 pixel thumbnail.</description>
+    <inlineHelpText>The image used when viewing the related section in an event&#39;s registration. The provided image will also be cropped to fit a 200x200 pixel thumbnail.</inlineHelpText>
+    <label>Image</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

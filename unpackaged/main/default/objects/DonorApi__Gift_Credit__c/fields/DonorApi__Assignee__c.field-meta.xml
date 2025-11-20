@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Assignee__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** Link to the gift credit assignee record.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(DonorApi__Entity__c,&quot;Account&quot;),HYPERLINK(&quot;/&quot; &amp; DonorApi__Account__r.Id, DonorApi__Account__r.Name), IF(ISPICKVAL(DonorApi__Entity__c,&quot;Contact&quot;),HYPERLINK(&quot;/&quot; &amp; DonorApi__Contact__r.Id, DonorApi__Contact__r.FirstName &amp; &quot; &quot; &amp; DonorApi__Contact__r.LastName),HYPERLINK(&quot;/&quot; &amp; DonorApi__User__r.Id, DonorApi__User__r.FirstName &amp; &quot; &quot; &amp; DonorApi__User__r.LastName)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>**System Calculated** Link to the gift credit assignee record.</inlineHelpText>
+    <label>Assignee</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

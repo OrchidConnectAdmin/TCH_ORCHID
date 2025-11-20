@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>assign_date</name>
+        <label>assign date</label>
+        <locationX>50</locationX>
+        <locationY>503</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OrderApi__Expired_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>endDate</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>check_badge</name>
+        <label>check badge</label>
+        <locationX>182</locationX>
+        <locationY>395</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>if_NCP_Credit_Exemption</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Badge.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>NCP Credit Limit Exempted</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_date</targetReference>
+            </connector>
+            <label>if NCP Credit Exemption</label>
+        </rules>
+    </decisions>
+    <description>- set expire date to 6/30 for NCP Credit Exemption badge</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>endDate</name>
+        <dataType>Date</dataType>
+        <expression>IF(TODAY()&gt;=DATE(YEAR(TODAY()),6,30),DATE(YEAR(TODAY())+1,6,30),DATE(YEAR(TODAY()),6,30))</expression>
+    </formulas>
+    <interviewLabel>RT - SET {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT - Badge Set Expire Date for NCP Credit Exemption</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Badge</name>
+        <label>Get Badge</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>check_badge</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OrderApi__Badge_Type__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>OrderApi__Badge_Type__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Badge</targetReference>
+        </connector>
+        <object>OrderApi__Badge__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

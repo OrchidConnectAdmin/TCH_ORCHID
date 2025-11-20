@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CPBase__Limit_Exceeded_Title__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Title for the limit exceeded page of the site.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Title for the limit exceeded page of the site</inlineHelpText>
+    <label>Limit Exceeded Title</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

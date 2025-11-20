@@ -1,0 +1,19 @@
+<apex:page standardController="OrderApi__EPayment__c"
+		   sidebar="false"
+		   showHeader="true"
+		   docType="html-5.0"
+		   title="{!$ObjectType.OrderApi__EPayment__c.Label} > {!OrderApi__EPayment__c.Name}">
+
+	<apex:composition template="OrderApi__page_template">
+
+		<apex:define name="main">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-8 col-xs-offset-2 m-t-30 m-b-30">
+						<h2>You have found this page in error. Please press the back button in your browser.</h2>
+					</div>
+				</div>
+			</div>
+		</apex:define>
+	</apex:composition>
+</apex:page>

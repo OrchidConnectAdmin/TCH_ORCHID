@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Apply_Payment</fullName>
+    <availability>online</availability>
+    <description>This button will prepare the Sales Order to Apply Payment.</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Apply Payment</masterLabel>
+    <openType>replace</openType>
+    <page>LTE__PaymentRouter</page>
+    <protected>false</protected>
+</WebLink>

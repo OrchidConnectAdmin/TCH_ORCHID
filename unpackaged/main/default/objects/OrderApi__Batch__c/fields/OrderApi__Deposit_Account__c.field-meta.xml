@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Deposit_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>**System Calculated/Override/Required** The GL account related to the deposit account (bank) for the batch.</description>
+    <inlineHelpText>**System Calculated/Override/Required** The GL account related to the deposit account (bank) for the batch.</inlineHelpText>
+    <label>Deposit Account</label>
+    <referenceTo>OrderApi__GL_Account__c</referenceTo>
+    <relationshipLabel>Batches</relationshipLabel>
+    <relationshipName>Batches</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

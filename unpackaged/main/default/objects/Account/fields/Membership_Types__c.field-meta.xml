@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Membership_Types__c</fullName>
+    <label>Membership Types</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>FON_Associate Membership</fullName>
+                <default>false</default>
+                <label>FON_Associate Membership</label>
+            </value>
+            <value>
+                <fullName>FON_Company Membership</fullName>
+                <default>false</default>
+                <label>FON_Company Membership</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

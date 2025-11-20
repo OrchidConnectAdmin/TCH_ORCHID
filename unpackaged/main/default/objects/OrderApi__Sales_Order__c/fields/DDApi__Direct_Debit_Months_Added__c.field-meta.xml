@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__Direct_Debit_Months_Added__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** SYSETEM GENERATED ** Used to capture the Start Month of the first payment for calculation of the scheduled payment&#39;s Scheduled Date</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** SYSETEM GENERATED ** Used to capture the Start Month of the first payment for calculation of the scheduled payment&#39;s Scheduled Date</inlineHelpText>
+    <label>SYSTEM</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

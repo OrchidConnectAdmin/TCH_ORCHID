@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Annual_Engagement_Score__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Aggregates the Contact&#39;s active engagement scores from it&#39;s badge records for the current year.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Aggregates the Contact&#39;s active engagement scores from it&#39;s badge records for the current year.</inlineHelpText>
+    <label>Annual Engagement Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

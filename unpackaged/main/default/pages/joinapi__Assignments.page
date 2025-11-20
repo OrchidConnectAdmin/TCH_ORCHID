@@ -1,0 +1,65 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           controller="joinapi.AssignmentsController">
+  <apex:composition template="joinapi__template">
+    <apex:define name="jpStyles">
+      <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CPBase__emerald_1_0,'css/pages/store.min.css')}"/>
+    </apex:define>
+    <apex:define name="jpMain">
+      <c:InvalidPermissionHeader enabledProcess="{!hasPermission}" />
+      <apex:outputPanel rendered="{!hasPermission}">
+        <div>
+          <div class="container m-t-30">
+            <div class="well col-md-12">
+              <Framework:messages />
+              <CPBase:subscription_assignments />
+              <div class="row m-t-20 text-center">
+                <div class="col-xs-12">
+                  <apex:form id="redirectButtons">
+                    <apex:commandButton action="{!cancel}" value="{!$Label.joinapi__Assignments_Cancel}" styleClass="btn btn-mini m-r-5 btn-neutral ladda-button nextStep btn-wrap"/>
+                    <apex:commandButton action="{!previous}" value="{!$Label.joinapi__Assignments_Back}" styleClass="btn btn-mini m-r-5 btn-neutral ladda-button nextStep btn-wrap"/>
+                    <a class="btn btn-mini btn-primary ladda-button nextAssignments btn-wrap" data-style="expand-right">
+                      <span class="ladda-label">
+                              {!$Label.joinapi__Next}
+                      </span>
+                    </a>
+                    <apex:actionFunction name="nextAssignments" action="{!next}"/>
+                  </apex:form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:outputPanel>
+    </apex:define>
+    <apex:define name="jpScripts">
+      <script type="text/javascript">
+          var sub;
+          var item = JSON.parse('{!JSENCODE(item)}');
+          var subId;
+          var accId = '{!JSENCODE(accountId)}';
+          var conId = '{!JSENCODE(contactId)}';
+          var salesOrderLine = JSON.parse('{!JSENCODE(salesOrderLine)}');
+
+          // Dont change: Because the assignment is already created in this process, we need to reduce 1 from Active Assignments before we input to the CPBase:subscription_assignments component
+          salesOrderLine['OrderApi__Active_Assignments__c'] = salesOrderLine.OrderApi__Active_Assignments__c - 1;
+
+          var isRenewal = false;
+          $(document).ready(function() {
+              loadItemDetail('{!JSENCODE(itemId)}');
+          });
+          $(document).on('click', '.nextAssignments', function(e) {
+              em.loader.start(this);
+              var btnRef = this;
+              if (validate()) {
+                nextAssignments();
+              }
+              setTimeout(function(){ em.loader.stop(btnRef); }, 1000);
+          });
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

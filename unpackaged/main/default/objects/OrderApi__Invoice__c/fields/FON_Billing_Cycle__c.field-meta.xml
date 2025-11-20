@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Billing_Cycle__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Please provide the appropriate billing cycle from the following options:
+N/A, 1Q, 1Q Full, 2Q, 3Q, 4Q, All</inlineHelpText>
+    <label>Billing Cycle</label>
+    <length>8</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

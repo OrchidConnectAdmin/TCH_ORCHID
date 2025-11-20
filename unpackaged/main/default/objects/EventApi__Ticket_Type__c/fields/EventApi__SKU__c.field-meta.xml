@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__SKU__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A SKU (Stock Keeping Unit) is a unique Item identifier that references attributes associated with the Item and that distinguish it from all other Items primarily used for inventory control and management.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>A SKU (Stock Keeping Unit) is a unique Item identifier that references attributes associated with the Item and that distinguish it from all other Items primarily used for inventory control and management.</inlineHelpText>
+    <label>RESERVED</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Renewal_Term_Months__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Override ** The &quot;Renewal Term (Months)&quot; defaults to the &quot;Initial Term (Months)&quot; if no other value is specified.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** System Calculated Override ** The &quot;Renewal Term (Months)&quot; defaults to the &quot;Initial Term (Months)&quot; if no other value is specified.</inlineHelpText>
+    <label>Renewal Term (Months)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

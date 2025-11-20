@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Customer_Receipt</fullName>
+    <availability>online</availability>
+    <description>View the Receipt as it will display to the customer.</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Customer Receipt</masterLabel>
+    <openType>replace</openType>
+    <page>OrderApi__receipt</page>
+    <protected>false</protected>
+</WebLink>

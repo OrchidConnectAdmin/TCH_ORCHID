@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Supports_Credit__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** Gateway supports credit transactions. A credit is like a void, except it actually reverses a charge instead of just canceling a charge that hasn’t yet been made.</description>
+    <inlineHelpText>**System Calculated** Gateway supports credit transactions. A credit is like a void, except it actually reverses a charge instead of just canceling a charge that hasn’t yet been made.</inlineHelpText>
+    <label>Supports Credit</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

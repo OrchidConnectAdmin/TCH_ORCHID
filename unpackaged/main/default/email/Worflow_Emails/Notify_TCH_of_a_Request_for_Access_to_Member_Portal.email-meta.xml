@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notifies TCH Staff there has been a request made to access the Member Portal</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Notify TCH of a Request for Access to Member Portal</name>
+    <style>none</style>
+    <subject>Attention | An individual has made a request to access the Member Portal</subject>
+    <textOnly>Greetings,  This email is to inform you of a request to access the Member Portal made on {!PagesApi__Form_Response__c.CreatedDate}.   
+
+ Go to the form response record to review the submitted request, then enable to the user.  
+
+{!PagesApi__Form_Response__c.Link}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

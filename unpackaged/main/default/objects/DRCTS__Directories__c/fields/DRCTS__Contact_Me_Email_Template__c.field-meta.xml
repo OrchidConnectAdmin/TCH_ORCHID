@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Contact_Me_Email_Template__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field contains the email template to be used for all email&#39;s sent using the contact me functionality</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field contains the email template to be used for all email&#39;s sent using the contact me functionality</inlineHelpText>
+    <label>Contact Me Email Template</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

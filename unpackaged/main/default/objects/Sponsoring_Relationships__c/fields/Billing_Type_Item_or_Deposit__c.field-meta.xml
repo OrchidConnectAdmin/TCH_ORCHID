@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Billing_Type_Item_or_Deposit__c</fullName>
+    <inlineHelpText>When a new record is created, default is Deposit Based, however staff can manually change the value to Item Based.</inlineHelpText>
+    <label>Billing Type</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Deposit Based</fullName>
+                <default>true</default>
+                <label>Deposit Based</label>
+            </value>
+            <value>
+                <fullName>Item Based</fullName>
+                <default>false</default>
+                <label>Item Based</label>
+            </value>
+            <value>
+                <fullName>Exception</fullName>
+                <default>false</default>
+                <label>Exception</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

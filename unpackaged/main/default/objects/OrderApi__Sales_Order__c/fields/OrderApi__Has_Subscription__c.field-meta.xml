@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Has_Subscription__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Checked when the Sales Order contains a Sales Order Line that is linked to a Subscription.</description>
+    <formula>OrderApi__Subscription_Lines__c &gt; 0</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>** System Calculated ** Checked when the Sales Order contains a Sales Order Line that is linked to a Subscription.</inlineHelpText>
+    <label>Has Subscription</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__RFJSON__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Field ** Used to save the session_token for creation of DD payment method without transaction</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** System Field ** Used to save the session_token for creation of DD payment method without transaction</inlineHelpText>
+    <label>System</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

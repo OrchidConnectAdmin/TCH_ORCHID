@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Schedule_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Select &quot;Recurring&quot; to automatically charge a credit card or bank account for the total amount of the Sales Order on a set schedule, select &quot;Installment&quot; to Invoice the customer for a portion of the Sales Order on a set schedule.</description>
+    <inlineHelpText>Select &quot;Recurring&quot; to automatically charge a credit card or bank account for the total amount of the Sales Order on a set schedule, select &quot;Installment&quot; to Invoice the customer for a portion of the Sales Order on a set schedule.</inlineHelpText>
+    <label>Schedule Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>OrderApi__Posting_Entity__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Termed Recurring</fullName>
+                <default>false</default>
+                <label>Termed Recurring</label>
+            </value>
+            <value>
+                <fullName>Evergreen Recurring</fullName>
+                <default>false</default>
+                <label>Evergreen Recurring</label>
+            </value>
+            <value>
+                <fullName>Installment</fullName>
+                <default>false</default>
+                <label>Installment</label>
+            </value>
+            <value>
+                <fullName>Simple Invoice</fullName>
+                <default>false</default>
+                <label>Simple Invoice</label>
+            </value>
+            <value>
+                <fullName>Simple Receipt</fullName>
+                <default>true</default>
+                <label>Simple Receipt</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Invoice</controllingFieldValue>
+            <controllingFieldValue>Receipt</controllingFieldValue>
+            <valueName>Termed Recurring</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Invoice</controllingFieldValue>
+            <valueName>Installment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Invoice</controllingFieldValue>
+            <valueName>Simple Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Receipt</controllingFieldValue>
+            <valueName>Evergreen Recurring</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Receipt</controllingFieldValue>
+            <valueName>Simple Receipt</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

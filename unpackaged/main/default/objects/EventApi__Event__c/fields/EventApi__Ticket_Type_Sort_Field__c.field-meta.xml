@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Ticket_Type_Sort_Field__c</fullName>
+    <defaultValue>&quot;NAME&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Use with Ticket Type Sort Order. Specifies the field that is used to organize tickets on the registration page. Use &quot;EventApi__Price__c&quot; for price and &quot;Name&quot; for name.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Use with Ticket Type Sort Order. Specifies the field that is used to organize tickets on the registration page. Use &quot;EventApi__Price__c&quot; for price and &quot;Name&quot; for name.</inlineHelpText>
+    <label>Ticket Type Sort Field</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

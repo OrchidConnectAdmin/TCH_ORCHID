@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FPS__Match_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>How to match the user profile name.  If set to &quot;Exact&quot;, the profile name must exactly match (this match is case-sensitive).  If set to &quot;Like&quot;, the profile name can have &quot;%&quot; characters to do wildcard matching similar to the SOQL LIKE operator (this match is case-insensitive).  If set to &quot;Regex&quot;, the profile name is an Apex regular expression (case sensitivity is controlled by the regular expression).</description>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Match Type</label>
+    <required>true</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Exact</fullName>
+                <default>true</default>
+                <label>Exact</label>
+            </value>
+            <value>
+                <fullName>Like</fullName>
+                <default>false</default>
+                <label>Like</label>
+            </value>
+            <value>
+                <fullName>Regex</fullName>
+                <default>false</default>
+                <label>Regex</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

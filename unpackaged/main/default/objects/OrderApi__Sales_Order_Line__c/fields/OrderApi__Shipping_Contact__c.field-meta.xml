@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Shipping_Contact__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Optional shipping contact for the item&#39;s ordered on the sales order line. If left blank, the value of this field will be updated with the value of the parent sales order&#39;s &quot;Shipping Contact&quot; field.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Optional shipping contact for the item&#39;s ordered on the sales order line. If left blank, the value of this field will be updated with the value of the parent sales order&#39;s &quot;Shipping Contact&quot; field.</inlineHelpText>
+    <label>Shipping Contact</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

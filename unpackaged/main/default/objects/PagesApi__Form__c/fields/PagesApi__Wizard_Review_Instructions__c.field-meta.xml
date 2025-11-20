@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Wizard_Review_Instructions__c</fullName>
+    <defaultValue>&quot;Please review your answers and make any necessary corrections before submitting this form.&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>For Wizard-style forms only. This text appears on the final review screen.</description>
+    <inlineHelpText>For Wizard-style forms only. This text appears on the final review screen.</inlineHelpText>
+    <label>Wizard Review Instructions</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>8</visibleLines>
+</CustomField>

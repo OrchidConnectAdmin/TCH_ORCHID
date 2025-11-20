@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Download_Link__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Download the asset (opens new tab based on browser settings and behavior).</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK( PagesApi__Path__c , &quot;Click to Download&quot;, &quot;_tab&quot; )</formula>
+    <inlineHelpText>Download the asset (opens new tab based on browser settings and behavior).</inlineHelpText>
+    <label>Download Link</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

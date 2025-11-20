@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Lightning_Directory_URL__c</fullName>
+    <externalId>false</externalId>
+    <formula>&#39;https://tchfull-us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.cs43.force.com/LightningMemberPortal/s/searchdirectory?id=&#39; + Id</formula>
+    <label>Lightning Directory URL</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

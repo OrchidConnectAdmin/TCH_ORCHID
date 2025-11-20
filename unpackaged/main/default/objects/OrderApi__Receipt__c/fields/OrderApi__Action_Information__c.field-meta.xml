@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Action_Information__c</fullName>
+    <deprecated>false</deprecated>
+    <description>JSON Field that will store action information such as custom links that may need to be displayed.</description>
+    <inlineHelpText>JSON Field that will store action information such as custom links that may need to be displayed.</inlineHelpText>
+    <label>Action Information</label>
+    <length>2500</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

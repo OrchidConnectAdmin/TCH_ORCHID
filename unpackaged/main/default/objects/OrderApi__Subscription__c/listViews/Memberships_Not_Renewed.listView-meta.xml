@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Memberships_Not_Renewed</fullName>
+    <columns>NAME</columns>
+    <columns>OrderApi__Customer_Link__c</columns>
+    <columns>OrderApi__Activated_Date__c</columns>
+    <columns>OrderApi__Expired_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OrderApi__Current_Term_End_Date__c</field>
+        <operation>lessThan</operation>
+        <value>TODAY</value>
+    </filters>
+    <filters>
+        <field>OrderApi__Status__c</field>
+        <operation>equals</operation>
+        <value>Expired,Cancelled</value>
+    </filters>
+    <label>Memberships Not Renewed</label>
+</ListView>

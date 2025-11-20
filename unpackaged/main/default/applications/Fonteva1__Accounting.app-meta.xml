@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <description>Fonteva accounting and finance</description>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Accounting</label>
+    <logo>Fonteva1__Fonteva1/Fonteva1__Fonteva_LOGO.png</logo>
+    <tabs>OrderApi__Business_Group__c</tabs>
+    <tabs>OrderApi__Batch__c</tabs>
+    <tabs>OrderApi__Transaction__c</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <tabs>Case__c</tabs>
+    <tabs>Opposing_Party__c</tabs>
+    <tabs>Client_Inquiry__c</tabs>
+    <tabs>SO_Bundle__c</tabs>
+    <tabs>OrderApi__Scheduled_Payment__c</tabs>
+</CustomApplication>

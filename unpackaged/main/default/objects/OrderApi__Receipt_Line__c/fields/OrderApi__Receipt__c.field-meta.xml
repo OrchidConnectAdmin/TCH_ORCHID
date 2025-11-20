@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Receipt__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required** All Receipt details require a parent receipt that summarizes all receipt lines.</description>
+    <inlineHelpText>**Required** All Receipt details require a parent receipt that summarizes all receipt lines.</inlineHelpText>
+    <label>Receipt</label>
+    <referenceTo>OrderApi__Receipt__c</referenceTo>
+    <relationshipName>Receipt_Lines</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>true</writeRequiresMasterRead>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Filter_Condition__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Defines the filter condition used to filter the full list of possible results in directory.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Defines the filter condition used to filter the full list of possible results in directory.</inlineHelpText>
+    <label>Filter Condition</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

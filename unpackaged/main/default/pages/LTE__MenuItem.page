@@ -1,0 +1,47 @@
+<apex:page id="MenuItem"
+           standardController="LTE__Menu_Item__c"
+           extensions="LTE.MenuItemController"
+           docType="html-5.0" sidebar="false"
+           showHeader="false">
+  <apex:includeLightning />
+  <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.Framework__SLDS_BaseV2,'css/fullStyles.css')}"/>
+  <style>
+      .slds-loading-layout {
+        height: 100vh
+      }
+  </style>
+  <div class="slds" id="menuItemWrapper">
+    <div class="slds-grid slds-object-height--full slds-theme--shade">
+      <div class="slds-col slds-text-align--center slds-align-middle" >
+        <img src="{!URLFOR($Resource.Framework__SLDS_Base,'/img/spinners/slds_spinner_brand.gif')}" alt="saving" width="50" height="50" />&nbsp;
+        <span class="slds-text-heading--medium">{!$Label.Loading}</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var existingMenuItemId = '{!JSENCODE($CurrentPage.parameters.id)}';
+    var siteId = null;
+    var urlArr = window.location.href.replace(/^.*\?/,'').split('&');
+    function componentLoaded() {
+        document.getElementById('menuItemWrapper').classList.add('hidden');
+    }
+    urlArr.every(function(element){
+        if (element.indexOf('_lkid') > -1) {
+			      siteId = element.replace(/^.*=/,'');
+			      return false;
+        }
+			  return true;
+   	});
+    $Lightning.use("{!Namespace}:MenuItemBuilder", function() {
+			$Lightning.createComponent("{!Namespace}:MenuItem",
+			        {siteId: siteId,
+			         existingMenuItemId: existingMenuItemId},
+							"lightning",
+							function(cmp) {
+							    $A.eventService.addHandler({ "event": "{!Namespace}:ComponentLoadedEvent", "handler" : componentLoaded});
+      });
+    });
+  </script>
+  <div id="lightning" />
+</apex:page>

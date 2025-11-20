@@ -1,0 +1,7 @@
+Hello - {User} 
+
+Sales Orders have been rejected. Please review. 
+
+Please proceed to https://cha.lightning.force.com/lightning/r/SO_Bundle__c/{!SO_Bundle__c.Id}/view
+
+Thank You.

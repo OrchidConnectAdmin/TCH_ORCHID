@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Responder_Link__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Link to the responder record (Account, Contact, or User).</description>
+    <externalId>false</externalId>
+    <formula>IF ( ISPICKVAL(PagesApi__Entity__c,&#39;Contact&#39;),
+HYPERLINK(&quot;/&quot; + PagesApi__Contact__c, PagesApi__Contact__r.FirstName + &quot; &quot; +  PagesApi__Contact__r.LastName, &quot;_tab&quot;) ,
+IF (ISPICKVAL(PagesApi__Entity__c,&#39;Account&#39;),
+HYPERLINK(&quot;/&quot; + PagesApi__Account__c, PagesApi__Account__r.Name, &quot;_tab&quot;) ,
+IF (ISPICKVAL(PagesApi__Entity__c,&#39;User&#39;),
+HYPERLINK(&quot;/&quot; + PagesApi__User__c, PagesApi__User__r.FirstName + &quot; &quot; +  PagesApi__User__r.LastName, &quot;_tab&quot;) , &quot;&quot;)))</formula>
+    <inlineHelpText>** System Calculated ** Link to the responder record (Account, Contact, or User).</inlineHelpText>
+    <label>Responder</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

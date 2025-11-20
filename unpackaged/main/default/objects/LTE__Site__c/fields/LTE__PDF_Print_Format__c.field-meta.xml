@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__PDF_Print_Format__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This defines the size for financial documents (invoices, receipts, etc.) when downloaded as pdf</description>
+    <inlineHelpText>This defines the size for financial documents (invoices, receipts, etc.) when downloaded as pdf</inlineHelpText>
+    <label>PDF Print Format</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Letter</fullName>
+                <default>false</default>
+                <label>Letter: 8.5in x 11in</label>
+            </value>
+            <value>
+                <fullName>Legal</fullName>
+                <default>false</default>
+                <label>Legal: 8.5in x 14in</label>
+            </value>
+            <value>
+                <fullName>Tabloid</fullName>
+                <default>false</default>
+                <label>Tabloid: 11in x 17in</label>
+            </value>
+            <value>
+                <fullName>Ledger</fullName>
+                <default>false</default>
+                <label>Ledger: 17in x 11in</label>
+            </value>
+            <value>
+                <fullName>A0</fullName>
+                <default>false</default>
+                <label>A0: 33.1in x 46.8in</label>
+            </value>
+            <value>
+                <fullName>A1</fullName>
+                <default>false</default>
+                <label>A1: 23.4in x 33.1in</label>
+            </value>
+            <value>
+                <fullName>A2</fullName>
+                <default>false</default>
+                <label>A2: 16.5in x 23.4in</label>
+            </value>
+            <value>
+                <fullName>A3</fullName>
+                <default>false</default>
+                <label>A3: 11.7in x 16.5in</label>
+            </value>
+            <value>
+                <fullName>A4</fullName>
+                <default>false</default>
+                <label>A4: 8.27in x 11.7in</label>
+            </value>
+            <value>
+                <fullName>A5</fullName>
+                <default>false</default>
+                <label>A5: 5.83in x 8.27in</label>
+            </value>
+            <value>
+                <fullName>A6</fullName>
+                <default>false</default>
+                <label>A6: 4.13in x 5.83in</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

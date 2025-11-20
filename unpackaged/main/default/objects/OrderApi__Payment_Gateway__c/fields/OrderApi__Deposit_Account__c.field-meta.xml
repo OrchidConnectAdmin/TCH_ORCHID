@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Deposit_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to related GL Account to use for the Deposit Account.</description>
+    <inlineHelpText>Link to related GL Account to use for the Deposit Account.</inlineHelpText>
+    <label>Deposit Account</label>
+    <referenceTo>OrderApi__GL_Account__c</referenceTo>
+    <relationshipLabel>Payment Gateways</relationshipLabel>
+    <relationshipName>Payment_Gateways</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

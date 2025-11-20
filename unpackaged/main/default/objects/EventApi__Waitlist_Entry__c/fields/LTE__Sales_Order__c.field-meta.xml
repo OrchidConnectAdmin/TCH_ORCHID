@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Sales_Order__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Linked the to related Sales Order.</description>
+    <inlineHelpText>Linked the to related Sales Order.</inlineHelpText>
+    <label>SYSTEM</label>
+    <referenceTo>OrderApi__Sales_Order__c</referenceTo>
+    <relationshipName>Sales_Orders</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

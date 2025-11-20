@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Member_Search_Display_Field_s_CSV__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Defines the fields to be displayed on the group member tiles in the Group Members page using comma separated values of field API names. Limited to Group Member fields only.</description>
+    <inlineHelpText>Defines the fields to be displayed on the group member tiles in the Group Members page using comma separated values of field API names. Limited to Group Member fields only.</inlineHelpText>
+    <label>Member Search Display Fields (CSV)</label>
+    <length>31768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 130 130" enable-background="new 0 0 130 130" xml:space="preserve">
+<g>
+	<g>
+		<polygon fill="#B0E2FA" points="95.7,24.9 34.3,24.9 1,59.1 65,124.5 129,59.1 		"/>
+		<g>
+			<polygon opacity="0.7" fill="#F0F9FE" points="95.7,24.9 34.3,24.9 1,59.1 129,59.1 			"/>
+			<polygon opacity="0.5" fill="#FFFFFF" points="66.4,24.9 64.1,24.9 34,59.1 96,59.1 			"/>
+			<polygon opacity="0.8" fill="#B0E2FA" points="1,59.1 65,124.5 129,59.1 			"/>
+			<polygon opacity="0.5" fill="#F0F9FE" points="34,59.1 65.2,124.5 96,59.1 			"/>
+			<polygon opacity="0.8" fill="#FFFFFF" points="34.3,24.9 65,59.1 96,24.9 			"/>
+		</g>
+	</g>
+	
+		<radialGradient id="SVGID_1_" cx="103.4632" cy="172.8146" r="15.6362" gradientTransform="matrix(1 0 0 1.056 0 -124.3283)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="1" style="stop-color:#F0F1F1;stop-opacity:0"/>
+	</radialGradient>
+	<ellipse fill="url(#SVGID_1_)" cx="103.5" cy="58.2" rx="15.6" ry="16.5"/>
+	
+		<radialGradient id="SVGID_2_" cx="85.5285" cy="152.2982" r="11.3661" gradientTransform="matrix(1 0 0 1.056 0 -124.3283)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="1" style="stop-color:#F0F1F1;stop-opacity:0"/>
+	</radialGradient>
+	<ellipse fill="url(#SVGID_2_)" cx="85.5" cy="36.5" rx="11.4" ry="12"/>
+</g>
+</svg>

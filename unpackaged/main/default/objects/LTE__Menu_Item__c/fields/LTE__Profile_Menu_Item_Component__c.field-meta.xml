@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Profile_Menu_Item_Component__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field defines the component to be displayed for the profile menu item.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field defines the component to be displayed for the profile menu item.</inlineHelpText>
+    <label>Profile Menu Item Component</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

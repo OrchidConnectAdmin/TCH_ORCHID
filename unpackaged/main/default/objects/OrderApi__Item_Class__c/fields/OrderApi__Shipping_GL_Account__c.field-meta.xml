@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Shipping_GL_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Identifies the Shipping GL Account.</description>
+    <inlineHelpText>Identifies the Shipping GL Account.</inlineHelpText>
+    <label>Shipping GL Account</label>
+    <referenceTo>OrderApi__GL_Account__c</referenceTo>
+    <relationshipLabel>Item Classes (Shipping GL Account)</relationshipLabel>
+    <relationshipName>Item_Classes</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

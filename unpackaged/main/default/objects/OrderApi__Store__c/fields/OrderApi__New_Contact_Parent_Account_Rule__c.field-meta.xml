@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__New_Contact_Parent_Account_Rule__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** The account to use as the parent of new contacts created when checking out as a guest in this store. Required when the store is configured to enable guest checkout.</description>
+    <inlineHelpText>** Conditionally Required ** The account to use as the parent of new contacts created when checking out as a guest in this store. Required when the store is configured to enable guest checkout.</inlineHelpText>
+    <label>New Contact Parent Account Rule</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Guest Checkout Account</fullName>
+                <default>true</default>
+                <label>Guest Checkout Account</label>
+            </value>
+            <value>
+                <fullName>Person Account</fullName>
+                <default>false</default>
+                <label>Person Account</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

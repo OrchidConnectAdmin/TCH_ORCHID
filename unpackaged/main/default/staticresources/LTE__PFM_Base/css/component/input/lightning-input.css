@@ -1,0 +1,54 @@
+.pfm c-pfm-input.pfm-input_portal .slds-input,
+.pfm c-pfm-input.pfm-input_portal .slds-select_container select {
+    min-height: 40px;
+}
+
+.pfm c-pfm-input.pfm-input_portal .slds-select_container:before {
+    top: 12px;
+    margin-top: 0;
+    z-index: 1;
+}
+
+.pfm c-pfm-input.pfm-input_portal .slds-select_container:after {
+    bottom: 12px;
+    margin-bottom: 0;
+    z-index: 1;
+}
+
+.pfm c-pfm-input .slds-select[disabled] {
+    position: relative;
+    z-index: 2;
+}
+
+.pfm c-pfm-input.pfm-input_portal .slds-checkbox__label {
+    font-weight: 700;
+}
+
+c-pfm-input .slds-input[readonly] {
+    pointer-events: none;
+}
+
+c-pfm-input .slds-form-element_stacked .slds-form-element__label {
+    padding-top: 0;
+}
+
+c-pfm-input .slds-form-element.slds-form-element_stacked .slds-form-element__icon {
+    padding-top: .125rem;
+}
+
+c-pfm-input .slds-form-element_stacked .slds-form-element__control {
+    padding-top: .5rem;
+}
+
+c-pfm-input.pfm-input-align_right input[type='text'] {
+    text-align: right;
+}
+
+c-pfm-input.pfm-input-align_center input[type='text'] {
+    text-align: center;
+}
+
+c-pfm-input.pfm-input-align_center .slds-checkbox.slds-checkbox_standalone {
+    display: flex;
+    justify-content: center;
+}

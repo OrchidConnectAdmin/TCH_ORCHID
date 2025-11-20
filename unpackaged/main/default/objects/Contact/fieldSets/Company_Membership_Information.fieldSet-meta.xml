@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Company_Membership_Information</fullName>
+    <description>Used on the Member Portal to alert users of their company&#39;s membership status</description>
+    <displayedFields>
+        <field>FON_Membership_Status_Alert__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>Company Membership Information</label>
+</FieldSet>

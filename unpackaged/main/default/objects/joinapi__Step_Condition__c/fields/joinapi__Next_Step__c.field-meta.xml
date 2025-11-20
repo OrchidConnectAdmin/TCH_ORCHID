@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>joinapi__Next_Step__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>This is the step that is redirected after you choose this item</description>
+    <inlineHelpText>This is the step that is redirected after you choose this item</inlineHelpText>
+    <label>Next Step</label>
+    <referenceTo>joinapi__Step__c</referenceTo>
+    <relationshipLabel>Step Conditions (Next Step)</relationshipLabel>
+    <relationshipName>Step_Conditions1</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

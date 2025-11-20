@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Renew</fullName>
+    <availability>online</availability>
+    <description>Creates a Sales Order, Sales Order Lines automatically and redirects page to Sales Order.</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Renew</masterLabel>
+    <openType>replace</openType>
+    <page>LTE__RenewSubscription</page>
+    <protected>false</protected>
+</WebLink>

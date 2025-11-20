@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Cancellation_Requested__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field is checked when the customer requests to cancel their membership. To enable this in the community, enable cancellations on the item.</description>
+    <inlineHelpText>This field is checked when the customer requests to cancel their membership. To enable this in the community, enable cancellations on the item.</inlineHelpText>
+    <label>Cancellation Requested</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

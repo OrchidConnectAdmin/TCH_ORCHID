@@ -1,0 +1,411 @@
+<apex:page showHeader="false"
+    standardStylesheets="false"
+    docType="html-5.0"
+    applyHtmlTag="false"
+    applyBodyTag="false"
+    controller="CPBase.EventDetailController"
+    action="{!createNewSOIfPosted}">
+
+  <apex:composition template="CPBase__template">
+    <apex:define name="pageTitle">
+      {!event.EventApi__Display_Name__c}
+    </apex:define>
+    <apex:define name="pageStyles">
+      <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.emerald_1_0,'css/pages/events.min.css')}"/>
+    </apex:define>
+    <apex:define name="pageMain">
+    <style>
+      .register-event-modal-dialog {
+        z-index: 1099;
+      }
+      .iframe-height {
+        min-height: 100vh;
+      }
+      .event-venues-container .venue-desciption {
+        white-space: normal!important;
+        margin: 10px auto;
+        padding: 0;
+      }
+      .event-venues-container .venue-desciption.pre-line {
+        white-space: pre-line!important;
+        margin: 10px auto;
+        padding: 0;
+      }
+      .event-speakers-details-container .speaker-bio {
+          word-break: inherit!important;
+      }
+    </style>
+    <div class="container event-detail-container m-t-30">
+      <apex:outputPanel rendered="{!NOT(eventFound)}">
+        <div class="row">
+          <div class="col-md-12">
+           <div class="well text-center">
+              <h2>{!$Label.Cannot_Find_Event}</h2>
+             <h1 style="font-size:44px;font-weight:bold;margin-bottom:35px;">
+                <i class="btr bt-times-circle bt-2x"></i>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </apex:outputPanel>
+      <apex:outputPanel rendered="{!eventFound}">
+        <div class="row section">
+            <div class="col-sm-3">
+              <Framework:img src="{!imageURL}" clazz="img-responsive center" />
+               <apex:outputPanel rendered="{!attendee != null || ticketTypeObj != null}">
+                <div class="attendee-registered well m-t-20 p-20">
+                  <apex:outputPanel rendered="{!attendee != null}">
+                    <h4 class="m-t-0">{!$Label.CPBase__Your_Registered}</h4>
+                  </apex:outputPanel>
+                  <h6>{!$Label.Reg_Type} :<br /> <strong>{!ticketTypeObj.Name}</strong></h6>
+                </div>
+                 <apex:outputPanel rendered="{!passbookAvailable}">
+                   <div class="well m-t-20 p-20 hidden eticket">
+                    <EventApi:mobile_pass event="{!event}" attendee="{!attendee}" imageStyleClasses="center"/>
+                   </div>
+                 </apex:outputPanel>
+
+               <div class="well p-20 m-t-20">
+                <ul class="nav nav-pills nav-stacked profile-page-nav">
+                  <li class="agenda attendee-reg text-center" style="display:{!IF(event.EventApi__Enable_Schedule_Items__c,'block','none')}"><a data-toggle="tab" id="my_agenda_tab" href="#agenda">{!$Label.My_Agenda}</a></li>
+                  <li class="questions attendee-reg text-center" style="display:{!IF(hasQuestions,'block','none')}"><a data-toggle="tab" href="#questions">{!$Label.My_Registration}</a></li>
+                  <apex:outputPanel rendered="{!attendee != null && allowRegistration && !singleTicketWaitlist && isAuthenticated}" layout="none">
+                    <li class="questions attendee-reg text-center"><a href="#" class="event-register-another-user">{!$Label.Register_Another_Attendee}</a></li>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!isGroup && regGroup != null && regGroup.Id != null}" layout="none">
+                   <li class="group attendee-reg text-center"><a data-toggle="tab" href="#group">{!$Label.CPBase__My_Group}</a></li>
+                  </apex:outputPanel>
+                </ul>
+              </div>
+              </apex:outputPanel>
+              <apex:outputPanel rendered="{!singleTicketWaitlist && !isPreview && ticketsAvailablePurchase}">
+                <div class="well p-20 m-t-20">
+                    <a href="#" type="button" class="btn btn-primary event-waitlist-button btn-block" data-toggle="modal" data-target="#waitlistModal">{!$Label.Join_Waitlist}</a>
+                </div>
+                <!-- WAITLIST MODAL -->
+                <div class="modal fade waitlist-modal-lg" data-modal-overflow="true" id="waitlistModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+                  <div class="modal-dialog">
+                    <div class="modal-content" >
+                      <div class="modal-header bg-info">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                          <h3 class="modal-title" id="myModalLabel">{!$Label.Waitlist_Info}</h3>
+                        </div>
+                      <form id="add-waitlist-form"
+                        class="group-management form-horizontal text-center"
+                        data-parsley-validate="true">
+                        <div class="modal-body">
+                          <div class="container-fluid">
+                         <div class="row">
+                          <div class="col-sm-12">
+                            <fieldset>
+                              <div class="form-group">
+                                <label class="col-md-3 control-label required-icon true">{!$ObjectType.EventApi__Waitlist_Entry__c.fields.EventApi__Full_Name__c.Label}</label>
+                                <div class="col-md-8">
+                                  <input type="text"
+                                    required="true"
+                                    data-parsley-validate-if-empty="true"
+                                    class="form-control waitlist-input full-name-input"
+                                    name="fullName"/>
+                                </div>
+                              </div>
+                            </fieldset>
+                            <fieldset>
+                              <div class="form-group">
+                                <label class="col-md-3 control-label required-icon true">{!$ObjectType.EventApi__Waitlist_Entry__c.fields.EventApi__Email__c.Label}</label>
+                                <div class="col-md-8">
+                                  <input
+                                    type="text"
+                                    required="true"
+                                    data-parsley-type="email"
+                                    data-parsley-validate-if-empty="true"
+                                    class="form-control waitlist-input email-input"
+                                    name="email"/>
+                                </div>
+                              </div>
+                            </fieldset>
+                            <fieldset>
+                              <div class="form-group">
+                                <label class="col-md-3 control-label required-icon">{!$ObjectType.EventApi__Waitlist_Entry__c.fields.EventApi__Phone__c.Label}</label>
+                                <div class="col-md-8">
+                                  <input
+                                    type="text"
+                                    class="form-control waitlist-input phone-input"
+                                    name="phone"
+                                    data-parsley-pattern="^[\d\+\-\.\(\)\/\s]*$"/>
+                                </div>
+                              </div>
+                            </fieldset>
+                            <fieldset>
+                              <div class="form-group">
+                                <label class="col-md-3 control-label required-icon">{!$ObjectType.EventApi__Waitlist_Entry__c.fields.EventApi__Message__c.Label}</label>
+                                <div class="col-md-8">
+                                  <textarea
+                                    class="form-control waitlist-input message-input"
+                                    name="message"/>
+                                </div>
+                              </div>
+                            </fieldset>
+                              </div>
+                          </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <a type="button" href="#" class="btn btn-primary btn-wide cancel-waitlist">{!$Label.Cancel}</a>
+                          <a type="button" href="#" class="btn btn-primary btn-wide add-waitlist-btn">{!$Label.Add_To_Waitlist}</a>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <!-- END: WAITLIST MODAL -->
+              </apex:outputPanel>
+              <apex:outputPanel rendered="{!AND(allWaitlist,waitlistFound,allowWaitlistRegistration,NOT(singleTicketWaitlist))}">
+                  <div class="well p-20 m-t-20">
+                      <a href="{!waitlistUrl}" type="button" class="btn btn-primary btn-block">{!$Label.Join_Waitlist}</a>
+                  </div>
+              </apex:outputPanel>
+              <apex:outputPanel rendered="{!attendee == null && allowRegistration && ticketTypeObj == null  && !singleTicketWaitlist && !isPreview && ticketsAvailablePurchase}">
+
+
+              <apex:outputPanel rendered="{!NOT(event.EventApi__Sold_Out__c)}">
+                <div class="well p-20 m-t-20">
+                  <a href="#" type="button" class="btn btn-primary event-registration-button btn-block">{!$Label.Register_Now}</a>
+              </div>
+              </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!event.EventApi__Sold_Out__c}">
+                    <div class="well p-20 m-t-20">
+                        <h2 style="color:#CC3300;text-align:center;"> <b>{!$Label.CPBase__Sold_Out}</b> </h2>
+                    </div>
+              </apex:outputPanel>
+
+              </apex:outputPanel>
+              <div class="well p-20 m-t-20">
+                <ul class="nav nav-pills nav-stacked profile-page-nav">
+                  <li class="overview non-attendee-reg text-center"><a aria-expanded="false" data-toggle="tab" href="#overview">{!$Label.CPBase__Overview}</a></li>
+                  <apex:outputPanel layout="none" rendered="{!attendee == null && ticketTypeObj == null  && event.EventApi__Enable_Schedule_Items__c}">
+                    <li class="overall-agenda non-attendee-reg text-center"><a data-toggle="tab" id="agenda_tab" href="#agenda">{!$Label.Agenda}</a></li>
+                  </apex:outputPanel>
+                  <apex:outputPanel layout="none" rendered="{!hasSpeakers}">
+                    <li class="non-attendee-reg text-center"><a data-toggle="tab" href="#speakers">{!$Label.CPBase__Speakers}</a></li>
+                  </apex:outputPanel>
+                  <apex:outputPanel layout="none" rendered="{!hasSponsors}">
+                    <li class="non-attendee-reg text-center"><a data-toggle="tab" href="#sponsors">{!$Label.CPBase__Sponsors}</a></li>
+                  </apex:outputPanel>
+                  <apex:outputPanel layout="none" rendered="{!hasVenue}">
+                    <li class="non-attendee-reg text-center"><a data-toggle="tab" id="tab_map_link" href="#venue">{!$Label.Venue}</a></li>
+                  </apex:outputPanel>
+                </ul>
+              </div>
+             </div>
+            <div class="col-sm-9">
+
+                 <div class="tab-content">
+
+                  <div role="tabpanel" class="tab-pane fade" id="overview">
+                    <c:event_detail_overview />
+                  </div>
+
+                  <div role="tabpanel" class="tab-pane fade" id="venue">
+                    <c:event_detail_venues />
+                </div><!-- // #venue -->
+
+                  <div role="tabpanel" class="tab-pane fade" id="agenda">
+                  <apex:outputPanel rendered="{!event.EventApi__Enable_Schedule_Items__c}">
+                      <c:event_agenda_builder readonly="{!readOnlyAgenda}" />
+                  </apex:outputPanel>
+                </div><!-- // #agenda -->
+
+                  <div role="tabpanel" class="tab-pane fade" id="questions">
+                    <apex:outputPanel rendered="{!hasQuestions}">
+                      <div class="container-fluid">
+                        <div class="row well">
+                          <apex:iframe src="{!URLFOR($Page.CPBase__form)}?id={!ticketTypeObj.EventApi__Form__c}&response={!TicketTypeFormResponseId}&skeleton=true" html-onload="autoResize(this);"/>
+                        </div>
+                      </div>
+                    </apex:outputPanel>
+                </div><!-- // #questions -->
+
+                <div role="tabpanel" class="tab-pane fade" id="group">
+                  <apex:outputPanel rendered="{!isGroup && regGroup != null && regGroup.Id != null}" layout="none">
+                    <c:registration_group_manager event="{!event.Id}" regGroup="{!regGroup.Id}" attendee="{!attendee.Id}"/>
+                  </apex:outputPanel>
+                </div><!-- // #group -->
+
+                  <div role="tabpanel" class="tab-pane fade" id="speakers">
+                    <c:event_detail_speakers />
+                </div><!-- // #speakers -->
+
+                  <div role="tabpanel" class="tab-pane fade" id="sponsors">
+                    <c:event_detail_sponsors />
+                </div><!-- // #sponsors -->
+
+            </div><!-- // .tab-content -->
+            </div>
+        </div>
+        </apex:outputPanel>
+      </div>
+      <!-- MOBILE MODAL SESSION DETAILS -->
+        <div class="modal fade register-event-btn-modal" data-modal-overflow="true" id="register-event-btn-modal" tabindex="-1" role="dialog" aria-labelledby="register-event-btn-modal" aria-hidden="false">
+          <div class="modal-backdrop fade in" style="height: 100%"></div>
+            <div class="modal-dialog register-event-modal-dialog">
+              <div class="modal-content" >
+                <div class="modal-header bg-info p-b-20">
+                  <h3 id="myLargeModalLabel">{!$Label.Who_Is_Registering}</h3>
+                    <a href="#" class="close pull-right register-event-btn-modal-close" data-dismiss="modal" aria-hidden="true">
+                    </a>
+                </div>
+                <div class="modal-footer p-l-15 p-r-15">
+                <apex:form prependId="true">
+                  <div class="btn-navigation m-t-30">
+                    <apex:commandButton action="{!yourselfRegistration}" styleClass="btn btn-info btn-wide" value="{!$Label.CPBase__Registering_As_Yourself}" onclick="showPageLoader();"/>
+                    <apex:commandButton action="{!someoneElseRegistration}" styleClass="btn btn-info btn-wide" value="{!$Label.CPBase__Registering_As_Someone_Else}" onclick="showPageLoader();"/>
+                  </div><!-- /.btn-navigation -->
+                </apex:form>
+                </div>
+              </div>
+            </div>
+          </div><!-- END: MOBILE MODAL SESSION DETAILS-->
+      <div class="modal fade" data-modal-overflow="true" id="confirm-update-modal" tabindex="-1" role="dialog" aria-labelledby="confirm-update-modal" aria-hidden="false">
+        <div class="modal-backdrop fade in" style="height: 100%"></div>
+        <div class="modal-dialog register-event-modal-dialog">
+          <div class="modal-content" >
+            <div class="modal-header bg-info">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                </span>
+              </button>
+              <h3 class="modal-title">
+                {!$Label.Update_Event_Registration_Header}
+              </h3>
+            </div>
+            <div class="modal-body">
+              <h4 class="text-center">
+              {!$Label.Update_Event_Registration_Body} <b>{!updatingContactName}</b>{!$Label.Update_Event_Registration_Body_After_Name}
+              </h4>
+            </div>
+            <div class="modal-footer p-l-15 p-r-15">
+              <div class="btn-navigation">
+                <a href="#" class="btn btn-info" id="confirm-update-button">{!$Label.Update_Event_Registration_button}</a>
+                <a href="{!$page.OrderApi__Checkout}" class="btn btn-info">{!$Label.Update_Event_Registration_checkout}</a>
+              </div><!-- /.btn-navigation -->
+            </div>
+          </div>
+        </div>
+      </div><!-- END: MOBILE MODAL SESSION DETAILS-->
+          <apex:form prependId="true">
+            <apex:actionFunction name="yourselfCheckout" action="{!yourselfRegistration}"/>
+            <apex:actionFunction name="someoneElseRegistration" action="{!someoneElseRegistration}"/>
+            <apex:actionFunction name="addToWaitlistMethod" action="{!addToWaitlist}" reRender="none" onComplete="showSuccessAlert();">
+               <apex:param name="waitlistObj" value=""/>
+            </apex:actionFunction>
+          </apex:form>
+      <script type="text/javascript">
+        function showSuccessAlert() {
+          $('#waitlistModal').modal('hide');
+          var waitlistMessage = Object.create(em.message);
+          waitlistMessage.type = "success";
+          waitlistMessage.timer = 5000;
+          waitlistMessage.title = "{!JSENCODE($Label.CPBase__Successfully_Added_Waitlist_Header)}";
+          waitlistMessage.text = "{!JSENCODE($Label.CPBase__Successfully_Added_Waitlist_Description)}";
+          waitlistMessage.alert();
+          waitlistObj = {};
+          $('#add-waitlist-form')[0].reset();
+        }
+
+        var waitlistObj = {};
+
+        $(document).ready(function(){
+
+            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/) || navigator.userAgent.indexOf('Mac OS X') != -1) {
+                $('.eticket').removeClass('hidden');
+            }
+
+          if ('{!tab}' == 'agenda') {
+            $('.nav-pills a[href="#agenda"]').tab('show');
+          } else {
+            $('.nav-pills a[href="#overview"]').tab('show');
+          }
+
+          $(document).on('click','.non-attendee-reg',function(event){
+            $('.attendee-reg').removeClass('active');
+          });
+
+          $(document).on('click','.attendee-reg',function(event){
+            $('.non-attendee-reg').removeClass('active');
+          });
+
+          $(document).on('click','.add-waitlist-btn',function(e){
+            e.preventDefault();
+              var form = $('#add-waitlist-form').parsley();
+              if (form.validate()) {
+                $("#add-waitlist-form").serializeResourceObject();
+                addToWaitlistMethod(JSON.stringify(waitlistObj));
+              }
+          });
+
+          $(document).on('click','.cancel-waitlist',function(e){
+              e.preventDefault();
+              $('#waitlistModal').modal('hide');
+          })
+
+          $(document).on('click','.event-register-another-user',function(event){
+            event.preventDefault();
+            showPageLoader();
+            someoneElseRegistration();
+          });
+
+          $(document).on('click','.event-registration-button',function(event){
+            event.preventDefault();
+            if ({!hasTicketTypeAlreadySelected}) {
+              $('#confirm-update-modal').modal('show');
+            } else {
+              showEventbtnmodal();
+            }
+          });
+
+          $(document).on('click','#confirm-update-button',function(event){
+            event.preventDefault();
+            $('#confirm-update-modal').modal('hide');
+            showEventbtnmodal();
+          });
+        });
+
+        var showEventbtnmodal = function() {
+            if ({!isAuthenticated}) {
+              if("{!event.EventApi__Registration_Style__c}" == "Conference") {
+                $('#register-event-btn-modal').modal('show');
+              } else {
+                showPageLoader();
+                yourselfCheckout();
+              }
+           } else {
+             showPageLoader();
+             someoneElseRegistration();
+            }
+        }
+
+        function autoResize(iframe) {
+            $(iframe).contents().find('#main').addClass('well');
+            $(iframe).height($(iframe).contents().find('html').height()).addClass('iframe-height');
+        }
+
+        $.fn.serializeResourceObject = function()
+        {
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (this.name !== undefined && this.value != '') {
+                    var inputObj = $("[name='"+this.name+"']");
+                    if (inputObj.prop('type') == 'checkbox') {
+                      waitlistObj[this.name] = inputObj.prop('checked');
+                    }
+                    else {
+                      waitlistObj[this.name] = this.value;
+                    }
+                }
+            });
+        };
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

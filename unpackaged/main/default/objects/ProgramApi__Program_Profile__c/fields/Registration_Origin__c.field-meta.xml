@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Registration_Origin__c</fullName>
+    <label>Registration Origin</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Registrant</fullName>
+                <default>true</default>
+                <label>New Registrant</label>
+            </value>
+            <value>
+                <fullName>Retake</fullName>
+                <default>false</default>
+                <label>Retake</label>
+            </value>
+            <value>
+                <fullName>Transfer In (from a different year)</fullName>
+                <default>false</default>
+                <label>Transfer In (from a different year)</label>
+            </value>
+            <value>
+                <fullName>Transfer In (from a different person)</fullName>
+                <default>false</default>
+                <label>Transfer In (from a different person)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

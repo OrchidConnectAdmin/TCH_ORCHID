@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Assignments_Display_Label__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The label to display in the wizard for the step related to assigning people to a subscription.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The label to display in the wizard for the step related to assigning people to a subscription.</inlineHelpText>
+    <label>RESERVED</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Subscription_Plan__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** Link to the Subscription Plan that the related Subscription Item is being enabled for.</description>
+    <inlineHelpText>** Required ** Link to the Subscription Plan that the related Subscription Item is being enabled for.</inlineHelpText>
+    <label>Subscription Plan</label>
+    <referenceTo>OrderApi__Subscription_Plan__c</referenceTo>
+    <relationshipLabel>Items</relationshipLabel>
+    <relationshipName>Subscription_Plan_Items</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>true</writeRequiresMasterRead>
+</CustomField>

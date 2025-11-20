@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Issues_for_Referral__c</fullName>
+    <label>Legal Issues for Referral</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Civil Rights</fullName>
+                <default>false</default>
+                <label>Civil Rights</label>
+            </value>
+            <value>
+                <fullName>Disability Rights</fullName>
+                <default>false</default>
+                <label>Disability Rights</label>
+            </value>
+            <value>
+                <fullName>Government Claim</fullName>
+                <default>false</default>
+                <label>Government Claim</label>
+            </value>
+            <value>
+                <fullName>Police Misconduct</fullName>
+                <default>false</default>
+                <label>Police Misconduct</label>
+            </value>
+            <value>
+                <fullName>Consumer Law</fullName>
+                <default>false</default>
+                <label>Consumer Law</label>
+            </value>
+            <value>
+                <fullName>Bankruptcy</fullName>
+                <default>false</default>
+                <label>Bankruptcy</label>
+            </value>
+            <value>
+                <fullName>Creditor Harassment</fullName>
+                <default>false</default>
+                <label>Creditor Harassment</label>
+            </value>
+            <value>
+                <fullName>Debt Collection</fullName>
+                <default>false</default>
+                <label>Debt Collection</label>
+            </value>
+            <value>
+                <fullName>Identity Theft</fullName>
+                <default>false</default>
+                <label>Identity Theft</label>
+            </value>
+            <value>
+                <fullName>Predatory Lending</fullName>
+                <default>false</default>
+                <label>Predatory Lending</label>
+            </value>
+            <value>
+                <fullName>Unfair/Deceptive Sales Practices</fullName>
+                <default>false</default>
+                <label>Unfair/Deceptive Sales Practices</label>
+            </value>
+            <value>
+                <fullName>Crime Victims&#39; Rights</fullName>
+                <default>false</default>
+                <label>Crime Victims&#39; Rights</label>
+            </value>
+            <value>
+                <fullName>Crime Victims&#39; Compensation Program</fullName>
+                <default>false</default>
+                <label>Crime Victims&#39; Compensation Program</label>
+            </value>
+            <value>
+                <fullName>Declination</fullName>
+                <default>false</default>
+                <label>Declination</label>
+            </value>
+            <value>
+                <fullName>Filing Police Report</fullName>
+                <default>false</default>
+                <label>Filing Police Report</label>
+            </value>
+            <value>
+                <fullName>Grand Jury</fullName>
+                <default>false</default>
+                <label>Grand Jury</label>
+            </value>
+            <value>
+                <fullName>NonRepresentation and Advocacy</fullName>
+                <default>false</default>
+                <label>NonRepresentation and Advocacy</label>
+            </value>
+            <value>
+                <fullName>Other Representation Needs</fullName>
+                <default>false</default>
+                <label>Other Representation Needs</label>
+            </value>
+            <value>
+                <fullName>Privacy</fullName>
+                <default>false</default>
+                <label>Privacy</label>
+            </value>
+            <value>
+                <fullName>Restitution</fullName>
+                <default>false</default>
+                <label>Restitution</label>
+            </value>
+            <value>
+                <fullName>Right to be Heard</fullName>
+                <default>false</default>
+                <label>Right to be Heard</label>
+            </value>
+            <value>
+                <fullName>Right to be Present</fullName>
+                <default>false</default>
+                <label>Right to be Present</label>
+            </value>
+            <value>
+                <fullName>Right to Notice</fullName>
+                <default>false</default>
+                <label>Right to Notice</label>
+            </value>
+            <value>
+                <fullName>Criminal</fullName>
+                <default>false</default>
+                <label>Criminal</label>
+            </value>
+            <value>
+                <fullName>Defense</fullName>
+                <default>false</default>
+                <label>Defense</label>
+            </value>
+            <value>
+                <fullName>Record Sealing</fullName>
+                <default>false</default>
+                <label>Record Sealing</label>
+            </value>
+            <value>
+                <fullName>Education</fullName>
+                <default>false</default>
+                <label>Education</label>
+            </value>
+            <value>
+                <fullName>Access</fullName>
+                <default>false</default>
+                <label>Access</label>
+            </value>
+            <value>
+                <fullName>School Discipline</fullName>
+                <default>false</default>
+                <label>School Discipline</label>
+            </value>
+            <value>
+                <fullName>Special Education</fullName>
+                <default>false</default>
+                <label>Special Education</label>
+            </value>
+            <value>
+                <fullName>Title IX</fullName>
+                <default>false</default>
+                <label>Title IX</label>
+            </value>
+            <value>
+                <fullName>Employment</fullName>
+                <default>false</default>
+                <label>Employment</label>
+            </value>
+            <value>
+                <fullName>ADA</fullName>
+                <default>false</default>
+                <label>ADA</label>
+            </value>
+            <value>
+                <fullName>Discrimination</fullName>
+                <default>false</default>
+                <label>Discrimination</label>
+            </value>
+            <value>
+                <fullName>FMLA</fullName>
+                <default>false</default>
+                <label>FMLA</label>
+            </value>
+            <value>
+                <fullName>Harassment</fullName>
+                <default>false</default>
+                <label>Harassment</label>
+            </value>
+            <value>
+                <fullName>Unemployment Benefits</fullName>
+                <default>false</default>
+                <label>Unemployment Benefits</label>
+            </value>
+            <value>
+                <fullName>Unfair Firing</fullName>
+                <default>false</default>
+                <label>Unfair Firing</label>
+            </value>
+            <value>
+                <fullName>Wage and Hour</fullName>
+                <default>false</default>
+                <label>Wage and Hour</label>
+            </value>
+            <value>
+                <fullName>Workers&#39; Compensation</fullName>
+                <default>false</default>
+                <label>Workers&#39; Compensation</label>
+            </value>
+            <value>
+                <fullName>Estate Planning</fullName>
+                <default>false</default>
+                <label>Estate Planning</label>
+            </value>
+            <value>
+                <fullName>Advanced Directives</fullName>
+                <default>false</default>
+                <label>Advanced Directives</label>
+            </value>
+            <value>
+                <fullName>Trusts</fullName>
+                <default>false</default>
+                <label>Trusts</label>
+            </value>
+            <value>
+                <fullName>Wills</fullName>
+                <default>false</default>
+                <label>Wills</label>
+            </value>
+            <value>
+                <fullName>Family</fullName>
+                <default>false</default>
+                <label>Family</label>
+            </value>
+            <value>
+                <fullName>Adoption</fullName>
+                <default>false</default>
+                <label>Adoption</label>
+            </value>
+            <value>
+                <fullName>Adult Guardianship/Conservatorship</fullName>
+                <default>false</default>
+                <label>Adult Guardianship/Conservatorship</label>
+            </value>
+            <value>
+                <fullName>Child Custody  Petitioner</fullName>
+                <default>false</default>
+                <label>Child Custody  Petitioner</label>
+            </value>
+            <value>
+                <fullName>Child Custody  Respondent</fullName>
+                <default>false</default>
+                <label>Child Custody  Respondent</label>
+            </value>
+            <value>
+                <fullName>Child Support</fullName>
+                <default>false</default>
+                <label>Child Support</label>
+            </value>
+            <value>
+                <fullName>CPO  Extension</fullName>
+                <default>false</default>
+                <label>CPO  Extension</label>
+            </value>
+            <value>
+                <fullName>CPO  Petitioner</fullName>
+                <default>false</default>
+                <label>CPO  Petitioner</label>
+            </value>
+            <value>
+                <fullName>CPO  Respondent</fullName>
+                <default>false</default>
+                <label>CPO  Respondent</label>
+            </value>
+            <value>
+                <fullName>CPO  Violations</fullName>
+                <default>false</default>
+                <label>CPO  Violations</label>
+            </value>
+            <value>
+                <fullName>Divorce</fullName>
+                <default>false</default>
+                <label>Divorce</label>
+            </value>
+            <value>
+                <fullName>Gender Marker Change</fullName>
+                <default>false</default>
+                <label>Gender Marker Change</label>
+            </value>
+            <value>
+                <fullName>Grandparent/Family Access</fullName>
+                <default>false</default>
+                <label>Grandparent/Family Access</label>
+            </value>
+            <value>
+                <fullName>Legal Separation</fullName>
+                <default>false</default>
+                <label>Legal Separation</label>
+            </value>
+            <value>
+                <fullName>Name Change</fullName>
+                <default>false</default>
+                <label>Name Change</label>
+            </value>
+            <value>
+                <fullName>Other Family</fullName>
+                <default>false</default>
+                <label>Other Family</label>
+            </value>
+            <value>
+                <fullName>Parental Termination</fullName>
+                <default>false</default>
+                <label>Parental Termination</label>
+            </value>
+            <value>
+                <fullName>Paternity</fullName>
+                <default>false</default>
+                <label>Paternity</label>
+            </value>
+            <value>
+                <fullName>FOIA</fullName>
+                <default>false</default>
+                <label>FOIA</label>
+            </value>
+            <value>
+                <fullName>Health</fullName>
+                <default>false</default>
+                <label>Health</label>
+            </value>
+            <value>
+                <fullName>Access to Medication</fullName>
+                <default>false</default>
+                <label>Access to Medication</label>
+            </value>
+            <value>
+                <fullName>Alliance</fullName>
+                <default>false</default>
+                <label>Alliance</label>
+            </value>
+            <value>
+                <fullName>Children&#39;s Health Insurance Program</fullName>
+                <default>false</default>
+                <label>Children&#39;s Health Insurance Program</label>
+            </value>
+            <value>
+                <fullName>Gender Affirming Care</fullName>
+                <default>false</default>
+                <label>Gender Affirming Care</label>
+            </value>
+            <value>
+                <fullName>Longterm Health Facilities</fullName>
+                <default>false</default>
+                <label>Longterm Health Facilities</label>
+            </value>
+            <value>
+                <fullName>Medicaid</fullName>
+                <default>false</default>
+                <label>Medicaid</label>
+            </value>
+            <value>
+                <fullName>Medicare</fullName>
+                <default>false</default>
+                <label>Medicare</label>
+            </value>
+            <value>
+                <fullName>Private Insurance</fullName>
+                <default>false</default>
+                <label>Private Insurance</label>
+            </value>
+            <value>
+                <fullName>Housing</fullName>
+                <default>false</default>
+                <label>Housing</label>
+            </value>
+            <value>
+                <fullName>Discrimination_</fullName>
+                <default>false</default>
+                <label>Discrimination_</label>
+            </value>
+            <value>
+                <fullName>Eviction</fullName>
+                <default>false</default>
+                <label>Eviction</label>
+            </value>
+            <value>
+                <fullName>Foreclosure</fullName>
+                <default>false</default>
+                <label>Foreclosure</label>
+            </value>
+            <value>
+                <fullName>Homeownership</fullName>
+                <default>false</default>
+                <label>Homeownership</label>
+            </value>
+            <value>
+                <fullName>Landlord/Tenant</fullName>
+                <default>false</default>
+                <label>Landlord/Tenant</label>
+            </value>
+            <value>
+                <fullName>Public/Subsidized Housing</fullName>
+                <default>false</default>
+                <label>Public/Subsidized Housing</label>
+            </value>
+            <value>
+                <fullName>Identification Documents</fullName>
+                <default>false</default>
+                <label>Identification Documents</label>
+            </value>
+            <value>
+                <fullName>Birth Certificate</fullName>
+                <default>false</default>
+                <label>Birth Certificate</label>
+            </value>
+            <value>
+                <fullName>DC ID</fullName>
+                <default>false</default>
+                <label>DC ID</label>
+            </value>
+            <value>
+                <fullName>Passport</fullName>
+                <default>false</default>
+                <label>Passport</label>
+            </value>
+            <value>
+                <fullName>Social Security Card</fullName>
+                <default>false</default>
+                <label>Social Security Card</label>
+            </value>
+            <value>
+                <fullName>Immigration</fullName>
+                <default>false</default>
+                <label>Immigration</label>
+            </value>
+            <value>
+                <fullName>Adjustment of Status</fullName>
+                <default>false</default>
+                <label>Adjustment of Status</label>
+            </value>
+            <value>
+                <fullName>Asylum</fullName>
+                <default>false</default>
+                <label>Asylum</label>
+            </value>
+            <value>
+                <fullName>Consular Processing</fullName>
+                <default>false</default>
+                <label>Consular Processing</label>
+            </value>
+            <value>
+                <fullName>DACA</fullName>
+                <default>false</default>
+                <label>DACA</label>
+            </value>
+            <value>
+                <fullName>Detainment / Bond Hearings</fullName>
+                <default>false</default>
+                <label>Detainment / Bond Hearings</label>
+            </value>
+            <value>
+                <fullName>Employmentbased Visas</fullName>
+                <default>false</default>
+                <label>Employmentbased Visas</label>
+            </value>
+            <value>
+                <fullName>Naturalization/Citizenship</fullName>
+                <default>false</default>
+                <label>Naturalization/Citizenship</label>
+            </value>
+            <value>
+                <fullName>SIJS</fullName>
+                <default>false</default>
+                <label>SIJS</label>
+            </value>
+            <value>
+                <fullName>TVisa</fullName>
+                <default>false</default>
+                <label>TVisa</label>
+            </value>
+            <value>
+                <fullName>U Visa</fullName>
+                <default>false</default>
+                <label>U Visa</label>
+            </value>
+            <value>
+                <fullName>VAWA SelfPetition</fullName>
+                <default>false</default>
+                <label>VAWA SelfPetition</label>
+            </value>
+            <value>
+                <fullName>Indian/Tribal Law</fullName>
+                <default>false</default>
+                <label>Indian/Tribal Law</label>
+            </value>
+            <value>
+                <fullName>Juvenile</fullName>
+                <default>false</default>
+                <label>Juvenile</label>
+            </value>
+            <value>
+                <fullName>Delinquency</fullName>
+                <default>false</default>
+                <label>Delinquency</label>
+            </value>
+            <value>
+                <fullName>Emancipation</fullName>
+                <default>false</default>
+                <label>Emancipation</label>
+            </value>
+            <value>
+                <fullName>Minor Guardianship</fullName>
+                <default>false</default>
+                <label>Minor Guardianship</label>
+            </value>
+            <value>
+                <fullName>Name Change_</fullName>
+                <default>false</default>
+                <label>Name Change_</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Probate</fullName>
+                <default>false</default>
+                <label>Probate</label>
+            </value>
+            <value>
+                <fullName>Power of Attorney</fullName>
+                <default>false</default>
+                <label>Power of Attorney</label>
+            </value>
+            <value>
+                <fullName>Transfer on Death Deed</fullName>
+                <default>false</default>
+                <label>Transfer on Death Deed</label>
+            </value>
+            <value>
+                <fullName>Will Contestation</fullName>
+                <default>false</default>
+                <label>Will Contestation</label>
+            </value>
+            <value>
+                <fullName>Public Benefits</fullName>
+                <default>false</default>
+                <label>Public Benefits</label>
+            </value>
+            <value>
+                <fullName>SNAP</fullName>
+                <default>false</default>
+                <label>SNAP</label>
+            </value>
+            <value>
+                <fullName>Social Security Disability</fullName>
+                <default>false</default>
+                <label>Social Security Disability</label>
+            </value>
+            <value>
+                <fullName>Social Security Retirement</fullName>
+                <default>false</default>
+                <label>Social Security Retirement</label>
+            </value>
+            <value>
+                <fullName>Social Security Supplement (SSI)</fullName>
+                <default>false</default>
+                <label>Social Security Supplement (SSI)</label>
+            </value>
+            <value>
+                <fullName>TANF</fullName>
+                <default>false</default>
+                <label>TANF</label>
+            </value>
+            <value>
+                <fullName>Tax</fullName>
+                <default>false</default>
+                <label>Tax</label>
+            </value>
+            <value>
+                <fullName>Tort</fullName>
+                <default>false</default>
+                <label>Tort</label>
+            </value>
+            <value>
+                <fullName>Defamation Defense</fullName>
+                <default>false</default>
+                <label>Defamation Defense</label>
+            </value>
+            <value>
+                <fullName>Defamation Suit</fullName>
+                <default>false</default>
+                <label>Defamation Suit</label>
+            </value>
+            <value>
+                <fullName>Injunctive Relief</fullName>
+                <default>false</default>
+                <label>Injunctive Relief</label>
+            </value>
+            <value>
+                <fullName>Personal Injury</fullName>
+                <default>false</default>
+                <label>Personal Injury</label>
+            </value>
+            <value>
+                <fullName>Property Dispute</fullName>
+                <default>false</default>
+                <label>Property Dispute</label>
+            </value>
+            <value>
+                <fullName>Veterans</fullName>
+                <default>false</default>
+                <label>Veterans</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

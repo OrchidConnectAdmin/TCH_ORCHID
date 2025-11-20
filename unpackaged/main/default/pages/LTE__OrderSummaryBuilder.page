@@ -1,0 +1,45 @@
+<apex:page id="OrderSummaryBuilder" standardStylesheets="false" controller="LTE.OrderSummaryBuilderController"
+           showHeader="false" sideBar="false">
+    <apex:includeLightning />
+    <head>
+        <title>Order Summary Builder</title>
+    </head>
+    <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.PFM_Base,'css/styles.css')}"/>
+    <style>
+        body {
+            margin: 0;
+            background-image: linear-gradient(#263C62, #000000);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+        }
+    </style>
+    <div id="orderSummaryBuilderContainerLoader"/>
+    <div id="orderSummaryBuilderContainer"/>
+    <script>
+        $Lightning.use("{!namespace}:OrderSummaryBuilder", function () {
+            $Lightning.createComponent("{!namespace}:Loader",
+                    {
+
+                    },
+                    "orderSummaryBuilderContainerLoader",
+                    function (cmp) {
+                    });
+
+        });
+        $Lightning.use("{!namespace}:OrderSummaryBuilder", function () {
+            $Lightning.createComponent("{!namespace}:OrderSummaryBuilderLEX",
+                {
+                    headerTitle: "Statement Builder",
+                    entityId: "{!entityId}",
+                    statementBuilderType : "{!statementBuildType}"
+                },
+                "orderSummaryBuilderContainer",
+                function (cmp) {
+                });
+
+        });
+    </script>
+
+</apex:page>

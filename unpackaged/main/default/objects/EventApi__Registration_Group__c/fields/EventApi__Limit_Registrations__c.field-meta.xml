@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Limit_Registrations__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the group size will restricted to the &quot;Registration Limit&quot;. Defaults unchecked.</description>
+    <inlineHelpText>When checked, the group size will restricted to the &quot;Registration Limit&quot;. Defaults unchecked.</inlineHelpText>
+    <label>Limit Registrations</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

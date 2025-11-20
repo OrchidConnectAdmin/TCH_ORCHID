@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Tabs for Event Builder.</description>
+    <label>Event Builder Tab</label>
+    <pluralLabel>Event Builder Tabs</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

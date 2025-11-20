@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** User-friendly status display with icon indicating success/failure of the Payment Activity.</description>
+    <externalId>false</externalId>
+    <formula>IF (OrderApi__Succeeded__c, &quot;Success&quot;,
+            IF (OrderApi__Has_Errors__c, &quot;Unsuccessful&quot;,
+            IF (OrderApi__Cancelled__c,&quot;Cancelled&quot;,
+            &quot;In-Progress&quot; &amp; &quot;  &quot; &amp; &quot;Pending&quot;)))</formula>
+    <inlineHelpText>**System Calculated** User-friendly status display with icon indicating success/failure of the Payment Activity.</inlineHelpText>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Start_Time__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** The scheduled start time.</description>
+    <externalId>false</externalId>
+    <formula>EventApi__Schedule_Item__r.EventApi__Session_Start_Time__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>** System Calculated ** The scheduled start time.</inlineHelpText>
+    <label>Start Time</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field allows you to define a type of group to be available in the group search.  This field&#39;s values can be updated to better suite your organization&#39;s needs.</description>
+    <inlineHelpText>This field allows you to define a type of group to be available in the group search.  This field&#39;s values can be updated to better suite your organization&#39;s needs.</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Chapter</fullName>
+                <default>false</default>
+                <label>Chapter</label>
+            </value>
+            <value>
+                <fullName>Committee</fullName>
+                <default>false</default>
+                <label>Committee</label>
+            </value>
+            <value>
+                <fullName>Member Group</fullName>
+                <default>true</default>
+                <label>Member Group</label>
+            </value>
+            <value>
+                <fullName>Task-Force</fullName>
+                <default>false</default>
+                <label>Task-Force</label>
+            </value>
+            <value>
+                <fullName>Working Group</fullName>
+                <default>false</default>
+                <label>Working Group</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Custom_HTML_Config__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** SYSTEM ** (LABEL = SYSTEM, API NAME = DRCTS__Custom_HTML_Config__c)</description>
+    <inlineHelpText>** SYSTEM ** (LABEL = SYSTEM, API NAME = DRCTS__Custom_HTML_Config__c)</inlineHelpText>
+    <label>System</label>
+    <length>131072</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

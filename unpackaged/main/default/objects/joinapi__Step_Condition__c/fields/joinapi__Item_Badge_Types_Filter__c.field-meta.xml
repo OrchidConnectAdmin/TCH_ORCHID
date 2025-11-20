@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>joinapi__Item_Badge_Types_Filter__c</fullName>
+    <deprecated>false</deprecated>
+    <description>User defined badge types.</description>
+    <inlineHelpText>User defined badge types.</inlineHelpText>
+    <label>Item Badge Types Filter</label>
+    <length>131072</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

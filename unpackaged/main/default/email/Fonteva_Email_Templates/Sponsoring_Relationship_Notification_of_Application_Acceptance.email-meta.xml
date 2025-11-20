@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification Email sent to Sponsoring organizations from the Sponsoree</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Classic_TCH_Letterhead</letterhead>
+    <name>Sponsoring Relationship Notification of Application Acceptance</name>
+    <style>freeForm</style>
+    <subject>I Have Reviewed and Approved the ECCHO Sponsored Member Agreement</subject>
+    <textOnly>Dear {!Sponsoring_Relationships__c.SM_Coordinator_Full_Name__c}
+
+I have reviewed and approved the sponsored member agreement with The Clearing House.
+
+I have accepted the Terms on {!Sponsoring_Relationships__c.FON_Date_Agreement_was_Approved_by_Child__c}.
+
+Please confirm the agreement.
+
+{!Sponsoring_Relationships__c.Agreement_URL_Coordinator__c}
+
+Sincerely,
+{!Sponsoring_Relationships__c.Executed_By_First_Name__c} {!Sponsoring_Relationships__c.Executed_By_Last_Name__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

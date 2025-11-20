@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Cookie_Usage_Accepted__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the Contact has accepted the Cookie Usage Prompt and will not be prompted again.</description>
+    <inlineHelpText>When checked, the Contact has accepted the Cookie Usage Prompt and will not be prompted again.</inlineHelpText>
+    <label>Cookie Usage Accepted</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

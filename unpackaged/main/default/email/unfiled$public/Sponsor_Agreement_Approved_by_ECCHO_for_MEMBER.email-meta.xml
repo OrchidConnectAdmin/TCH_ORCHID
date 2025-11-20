@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification Email sent to Member when Membership Approved/Active</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Classic_TCH_Letterhead</letterhead>
+    <name>Sponsor Agreement Approved by ECCHO for MEMBER</name>
+    <style>freeForm</style>
+    <subject>Sponsored Membership Agreement Approved by ECCHO</subject>
+    <textOnly>To {!Sponsoring_Relationships__c.Executed_By_Name__c},
+
+The Clearing House Payments Company L,L,C, has reviewed and approved {!Sponsoring_Relationships__c.Legal_Organization_Name__c}’s Sponsored Member agreement with ECCHO. 
+
+Your Membership is active effective {!Sponsoring_Relationships__c.Membership_Start_Date_Formatted__c}. 
+
+Please reach out to your Sponsoring Organization with any questions.
+
+Sincerely,
+ECCHO Member Services
+214-273-3218
+ecchoinfo@theclearinghouse.org</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

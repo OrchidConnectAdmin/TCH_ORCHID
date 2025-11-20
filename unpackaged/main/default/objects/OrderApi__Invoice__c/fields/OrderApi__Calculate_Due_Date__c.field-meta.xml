@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Calculate_Due_Date__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the system will calculate the Due Date for the Invoice based on the selected Payment Terms.</description>
+    <inlineHelpText>When checked, the system will calculate the Due Date for the Invoice based on the selected Payment Terms.</inlineHelpText>
+    <label>Auto-Calculate Due Date</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

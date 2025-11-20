@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Session_Shopping_Cart_Label__c</fullName>
+    <defaultValue>$Label.eventapi__session_shopping_cart_label</defaultValue>
+    <deprecated>false</deprecated>
+    <description>The text in this field will display in the shopping cart side bar navigation once the ticket type has been selected.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The text in this field will display in the shopping cart side bar navigation once the ticket type has been selected.</inlineHelpText>
+    <label>Session Shopping Cart Label</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

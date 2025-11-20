@@ -1,0 +1,140 @@
+
+/* DYNAMIC LAYOUT COMPONENT */
+#fonteva .fonteva-page-title { margin:0px; color: #656565; display:inline-block; font-size:23px; position:relative; top:6px; font-weight: 600; }
+#fonteva .fonteva-section { padding-top: 0px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+#fonteva .fonteva-section-title { display: block; font-size: 13px; text-transform: UPPERCASE; font-weight: 600; color: #333; padding-bottom: 15px; padding-left: 15px; }
+
+#fonteva .lookup-control > .glyphicon, #fonteva .lookup-control > .glyphicon:hover, #fonteva .lookup-control > .glyphicon:focus, #fonteva .lookup-control > .glyphicon:active { top: -28px; }
+#fonteva .control-label { font-weight: 600; color: #656565; line-height: 28px; }
+#fonteva .fonteva-content-title { font-size: 13px; text-transform: UPPERCASE; font-weight: 600; color: inherit; }
+#fonteva .ns-content-block { padding-top: 14px; }
+
+#fonteva .simple-form { padding-top: 7px; padding-left: 10px; padding-right: 10px; }
+#fonteva .simple-form .fieldLabel { whitespace: nowrap; }
+#fonteva .simple-form .fieldValue { whitespace: nowrap; }
+#fonteva .simple-form .fieldLabel { display: inline-block; float: left; clear: left; width: 50%; text-align: right; padding: 4px 10px 0 0; font-weight: 600; color: #656565; }
+#fonteva .simple-form .fieldValue { display: inline-block; float: left; padding-top: 4px; color: #333; }
+
+#fonteva .ns-highlight-info { border-color: #8acbe1 !important; background-color: #d2ebf4 !important; color: #1195c3 !important; }
+#fonteva .ns-highlight-info > .ns-content-body h4 { color: #1195c3;  }
+#fonteva .ns-content-body h4 { color: #656565; }
+#fonteva .btn-info-highlight { border-width: 3px; background: #fff; background-image: none; border-color: #1195c3 !important; color: #1195c3 !important; font-size: 13px; font-weight: 600; }
+#fonteva .btn-info-highlight:hover { background: #fff; }
+#fonteva .commandbutton { margin-right: 10px; }
+
+#fonteva { font-size: 11px; }
+#fonteva .control-label { text-align: right; }
+#fonteva .form-group { margin-bottom: 14px; }
+#fonteva .form-group-lookup { margin-bottom: 0; }
+#fonteva a.lookup-control { margin: 0; padding: 0; }
+
+#fonteva .form-group-lookup > div[class*='col-md-'] { max-height: 30px; }
+#fonteva .lookup-control > .glyphicon , #fonteva .lookup-control:hover > .glyphicon , #fonteva .lookup-control:active > .glyphicon { top: -22px; }
+
+#fonteva .layout-row { margin-bottom: 6px; }
+#fonteva .readonly { line-height: 2.6em; display:block; }
+#fonteva span.dateFormat, #fonteva span.dateFormat > a { display: none!important; }
+#fonteva a.sectionToggle, #fonteva a.sectionToggle:hover, #fonteva a.sectionToggle.active { text-decoration: none; color: inherit; }
+
+#fonteva div.sectionTitleContainer { cursor: pointer; cursor: *pointer; }
+#fonteva div.sectionTitleContainer > h3 > i:before { content: '\f117'; }
+#fonteva div.sectionTitleContainer.active > h3 > i:before { content: '\f116'; }
+
+#fonteva .input-textarea { min-height: 65px; }
+#fonteva .fonteva-section-title { margin-top: 12px; margin-bottom: 0px; }
+#fonteva .fonteva-section { padding: 6px 0; }
+#fonteva table.table { font-size: 11px; }
+#fonteva .table>thead>tr>th, #fonteva .table>tbody>tr>th, #fonteva .table>tfoot>tr>th, #fonteva .table>thead>tr>td, #fonteva .table>tbody>tr>td, #fonteva .table>tfoot>tr>td { padding: 4.555px; }
+#fonteva tr.tableRow > td { padding: 0px; }
+#fonteva tr.tableRow > td  { padding: 0px; }
+#fonteva table.table-bordered.table-condensed { border-radius: 7px; }
+#fonteva .cell-input { padding: 5.55px; vertical-align: baseline; box-shadow: none; border: 1px solid transparent; background: transparent; width:100%;position:relative;top:0;bottom:0; }
+#fonteva .cell-input:active, #fonteva .cell-input:focus { border: 1px solid #29a1cb; box-shadow: none; outline: none; background: #fff; }
+#fonteva a.form-control-lookup.cell-input { position: relative; right: 30px; width: auto; border: 0px; padding: 0px; margin: 0px; }
+#fonteva table.table > tbody > tr > td.inputCell { padding: 0px !important; }
+#fonteva td.outputCell { padding: 0px !important; }
+#fonteva td.outputCell > span { padding: 5.55px; vertical-align: baseline; width:100%; height: 100%; display:block;  }
+#fonteva td.outputCell.rowTotal > span { font-weight: 600; }
+#fonteva .cell-label { line-height: 1.8em; font-weight: 600; color: #767676; }
+#fonteva .detail-label { background: #efefef !important; }
+#fonteva td.actionCell { border-top: 0px !important;  }
+#fonteva td.picklist { padding: 0px !important; vertical-align: top !important; }
+#fonteva .table-bordered > thead> tr > th { padding: 8px 6px; text-transform: UPPERCASE; font-weight: 700;}
+#fonteva .table-bordered {  }
+#fonteva select[size].tableSelectList { -webkit-appearance: none; vertical-align: middle; text-align: center; height:auto!important; min-height: 0px !important; background: #fff; border: 0; width: 100%; border-radius: 0px; padding: 0 5.5px; margin:0px; line-height: 2.5em; }
+#fonteva select[size].tableSelectList:active, #fonteva select[size].tableSelectList:focus { border: 1px solid #29a1cb; box-shadow: none; outline: none; background: #fff; }
+#fonteva td.outputCell > .row-total-value { font-weight: 600 !important; color: #767676 !important; }
+#fonteva .deleteLink { color: #cc1715; }
+#fonteva .deleteLink:before { content: "\e0c1"; position: relative; top: 1px; display: inline-block; font-family: "Fonteva-Icons"; line-height: inherit; -webkit-font-smoothing: antialiased; }
+#fonteva .row-expander:before { content: "LINE DESCRIPTION"; font-weight: bold; color: #999; text-shadow: 1px 1px 1px rgba(255,255,255,.50); position: absolute; left: 100px; margin-top: 6px; font-size: 11px; }
+#fonteva .row-expander { padding-left: 200px; }
+
+#fonteva .form-group-x-space { margin-top: 20px; }
+#fonteva .form-group-space { margin-top: 8px; }
+#fonteva .cell-input.digit { text-align: center; }
+
+#fonteva .actionPanel { position:fixed; bottom:0%; left:-1px; right:-1px; width:100%; background-color:#fff; border-top:1px solid #ddd; -webkit-box-shadow: 0px -2px 8px 0px rgba(50, 50, 50, 0.2); -moz-box-shadow: 0px -2px 8px 0px rgba(50, 50, 50, 0.2); box-shadow: 0px -2px 8px 0px rgba(50, 50, 50, 0.2); color:#565656; padding: 8px; }
+#fonteva h3.actionPanel-title {display:block; color: #454545; text-shadow:1px 1px 1px rgba(255,255,255,.50); text-transform:uppercase; margin-top:-10px; }
+#sol-wrapper { margin-bottom: 100px; }
+#fonteva .actionPanel-content { padding: 12px; }
+
+
+#fonteva .actionPanel {
+    background: #ffffff;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY0JSIgc3RvcC1jb2xvcj0iI2Y2ZjZmNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlZGVkZWQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 64%, #ededed 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(64%,#f6f6f6), color-stop(100%,#ededed));
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 64%,#ededed 100%);
+	background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 64%,#ededed 100%);
+	background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 64%,#ededed 100%);
+	background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 64%,#ededed 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
+}
+
+#fonteva .status { font-weight: 600; margin-left: 8px; padding: 6px 12px; font-size: 85%; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
+#fonteva .status-closed { color: #f9f9f9; background-color: #04ab00; text-shadow: 1px 1px 1px rgba(0,0,0,.5); }
+#fonteva .status-closed:before { font-size: 110%; top: 3px; position: relative; font-family: "Fonteva-Icons" !important; content: "\e12d"; }
+#fonteva .scheduler { min-height: 200px; }
+
+#fonteva .fonteva-section-title { color: #ce127c; }
+#fonteva .control-label { line-height: 2.2em; }
+#fonteva .form-group { margin-bottom: 6px; }
+#fonteva .card-button-container { padding: 15px 0; }
+#fonteva .btn.card-button:before { content: "\e0a3"; font-family: "Fonteva-Icons"; position: relative; top: 1px; }
+#fonteva .button-container { padding: 14px 0; text-align: center; }
+#fonteva .button-container > .btn { margin-right: 10px; }
+#fonteva .bs-callout-info { background-color: #f4f8fa; border-left-color: #bce8f1; }
+#fonteva .bs-callout {
+    margin: 20px 0;
+    padding: 10px;
+    border-left: 3px solid #bce8f1;
+}
+#fonteva .bs-callout-info h4 {
+    color: #34789a;
+}
+#fonteva .bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+    display:block;
+}
+#fonteva .bs-callout p {
+    font-size: 11px;
+    font-weight: normal;
+}
+#fonteva select {
+    line-height: 28px;
+    height: 28px;
+    background-color: #fff;
+    color:#555;
+    width: 100%;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    vertical-align:middle;
+}
+#fonteva .fonteva-section-title { padding-bottom: 0px; padding-top: 0px; margin: 10px 0px; }

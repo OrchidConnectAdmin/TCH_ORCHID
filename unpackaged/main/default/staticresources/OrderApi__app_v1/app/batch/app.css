@@ -1,0 +1,99 @@
+/**
+ * BatchReceiptEntry.page
+ * Custom Styles
+ */
+
+.aui .chosen-container {
+	display: inline-block;
+	width: 88%;
+	margin-left: 10px;
+}
+
+.aui .itmInputWrapper {
+	width: 88%;
+	display: inline-block;
+}
+
+.aui td .btn.btn-danger.btn-xs {
+	margin-top: 3px;
+}
+
+.aui .hud-wrapper {
+    height: 40px;
+    color: #666;
+    border-bottom: 1px solid #ddd;
+}
+
+.aui .nav-pills > li.active > a,
+.aui .nav-pills > li.active > a:hover,
+.aui .nav-pills > li.active > a:focus {
+    color: #334445;
+    background-color: #f4f5f5;
+    border-color: #ddd;
+    font-weight: bold;
+}
+
+.aui .nav-pills > li > a {
+    color: #666;
+    font-weight: bold;
+    border: 1px solid transparent;
+}
+
+.aui h4.section-title {
+    display: block;
+    margin-top: -24px;
+    margin-bottom: 14px;
+}
+
+.aui .hud-wrapper .hud-panel .title {
+    font-size: 11px;
+    display: block;
+    text-transform: UPPERCASE;
+    color: #beb458;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 0px;
+
+}
+
+.aui .hud-wrapper .hud-panel .value {
+    font-size: 14px;
+    display: block;
+    color: #9a9a9a;
+    font-weight: bold;
+}
+
+.aui .hud-panel {
+    border-right: 1px solid #ddd;
+    margin: 0;
+    height: 40px;
+}
+
+.aui a, .aui a:hover {
+    color: inherit;
+}
+
+.aui .alertMsg {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.aui .alert-warning {
+    background-color: rgb(255, 244, 234);
+    border-color: rgb(245, 161, 84);
+    color: rgb(245, 161, 84);
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.aui .alert-info {
+    background-color: rgb(240, 244, 245);
+    border-color: rgb(102, 142, 184);
+    color: rgb(105, 162, 206);
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.aui .modal-dialog {
+	margin: 155px auto;
+}

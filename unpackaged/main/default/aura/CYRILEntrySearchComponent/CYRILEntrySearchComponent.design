@@ -1,0 +1,33 @@
+<design:component label="CYRIL: Entry/Search Component">
+    
+    <design:attribute name="cTitle" label="Modal Title"/>
+    <design:attribute name="cNote" label="Modal Notes"/>
+    <design:attribute name="cObj" label="Object API Name" placeholder="ex. Contact"/>
+    <design:attribute name="cVField" label="Validating Field" placeholder="ex. Name or SSN__c"/>
+    <design:attribute name="cLField" label="Label Field for selected record" placeholder="ex. Name or LastName or SSN__c"/>
+    <design:attribute name="cPfield" label="Field to be passed" placeholder="ex. Id or SSN__c"/>
+    <design:attribute name="cSOQL" label="Additional SOQL Filter" placeholder="ex. SSN__!=null"/>
+    
+    <design:attribute name="xObj" label="Filter: Related Record Object" placeholder="ex. Contact, Badge__c"/>
+    <design:attribute name="xObjMField" label="Filter: Main Object Field referenced on related record" placeholder="ex. Id" description="Main object field referenced to cross object."/>
+    <design:attribute name="xObjField" label="Filter: Reference Object field referencing Main Object" placeholder="ex. Name or SSN__c"/>
+    <design:attribute name="xObjIDS" label="Filter: Additional SOQL Filter" placeholder="ex. Id=aXXXXXXXXXXXX"/>
+    <design:attribute name="xOperation" label="Filter operation" datasource="Include,Exclude" />
+    
+    <design:attribute name="cBtnLabel" label="Button Label" placeholder="Proceed"/>
+    <design:attribute name="cPath" label="Redirect Path" placeholder="/s/form?id=XXXX"/>
+    <design:attribute name="cAppendID" label="Append ID to View path" />
+    <design:attribute name="cEncloseID" label="Enclose ID with quotes" />
+    <design:attribute name="cParam" label="Additional URL Parameters" description="Additional parameters to pass the url"/>
+    <design:attribute name="cParamAppendID" label="Append ID to Additional URL Parameters"/>
+    <design:attribute name="cValid" label="URL Param Valid indicator" placeholder="ex. {!valid} if url param is https://...?valid=1"/>
+    <design:attribute name="cEnableAdd" label="Enable Add New Record" />
+    <design:attribute name="cFields" label="Add Record Fieldset" placeholder="ex. Add_Meeting_Event,Fieldset_1"/>
+    <design:attribute name="cEnableSkip" label="Allow User to skip and proceed" />
+    <design:attribute name="cEnableClose" label="Allow User to skip and close" />
+    <design:attribute name="cEnableTButton" label="Initialize Popup by Button" />
+    <design:attribute name="cTButtonLabel" label="Init Button Label" />
+    
+    
+	
+</design:component>

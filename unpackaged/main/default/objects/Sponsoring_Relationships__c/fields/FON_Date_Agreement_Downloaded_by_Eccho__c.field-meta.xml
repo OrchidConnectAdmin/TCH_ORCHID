@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Date_Agreement_Downloaded_by_Eccho__c</fullName>
+    <description>Date Agreement was downloaded by ECCHO staff and sent to Ariba for final review.</description>
+    <inlineHelpText>Date Agreement was downloaded by ECCHO staff and sent to Ariba for final review.</inlineHelpText>
+    <label>Date Agreement was Downloaded by Eccho</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Enable_Contact_Restriction__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, a contact cannot have more than one attendee under the event. This will restrict the contact to one registrant for the event.</description>
+    <inlineHelpText>When checked, a contact cannot have more than one attendee under the event. This will restrict the contact to one registrant for the event.</inlineHelpText>
+    <label>Enable Contact Restriction</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

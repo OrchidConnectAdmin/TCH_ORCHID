@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Event_Listing_Filters__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field holds the values for the fields that are used as filters in the Event Listing.</description>
+    <inlineHelpText>This field holds the values for the fields that are used as filters in the Event Listing.</inlineHelpText>
+    <label>Event Listing Filters</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

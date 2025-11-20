@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Manage_Known_Address</fullName>
+    <availability>online</availability>
+    <description>Display on the Contact related lists to manage known addresses linked to the contact record in context.</description>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Manage Known Addresses</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)}
+            window.open(&#39;{!$Site.Prefix}/apex/{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}ManageKnownAddresses?recordId={!Contact.Id}&amp;accountId={!Account.Id}&#39;);</url>
+</WebLink>

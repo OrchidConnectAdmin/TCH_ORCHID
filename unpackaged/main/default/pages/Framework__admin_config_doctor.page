@@ -1,0 +1,55 @@
+<apex:page controller="Framework.AdminConfigDoctorController" sidebar="false" tabStyle="Framework__tab">
+    <apex:composition template="Framework__admin">
+        <apex:define name="title">Framework Settings Data Check</apex:define>
+        <apex:define name="main">
+            <apex:outputPanel id="duplicatesPanel">
+                <div class="row">
+                    <div class="lux-panel lux-panel-info">
+                        <div class="lux-panel-heading">
+                            <span class="panel-title">Duplicate Settings</span>
+                            <div class="panel-actions">
+                                <div class="panel-action">
+                                    <apex:form >
+                                        <apex:commandButton value="Delete Duplicates"
+                                            action="{!deleteDuplicates}"
+                                            styleClass="btn btn-danger btn-long"
+                                            reRender="duplicatesPanel"
+                                        />
+                                    </apex:form>
+                                </div>
+                            </div>
+                        </div>
+                        <apex:outputPanel layout="block"
+                            styleClass="lux-panel-body info-message"
+                            rendered="{!NOT(duplicateSettingsFound)}"
+                        >
+                            {!$Label.No} Duplicate Settings {!$Label.Found}!
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!duplicateSettingsFound}">
+                            <table class="table lux-datatable table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:outputPanel id="duplicateSettingsPanel">
+                                        <apex:repeat value="{!duplicateSettings}" var="type">
+                                            <apex:repeat value="{!duplicateSettings[type]}" var="duplicateSetting">
+                                                <tr>
+                                                    <td>{!type}</td>
+                                                    <td>{!duplicateSetting['name']}</td>
+                                                </tr>
+                                            </apex:repeat>
+                                        </apex:repeat>
+                                    </apex:outputPanel>
+                                </tbody>
+                            </table>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+            </apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+</apex:page>

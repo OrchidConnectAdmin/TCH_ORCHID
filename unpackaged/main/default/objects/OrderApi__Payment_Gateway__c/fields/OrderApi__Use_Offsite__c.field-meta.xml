@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Use_Offsite__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When selected, the related payment gateway will use the offsite payment method. Displayed only if a payment gateway is a test gateway.</description>
+    <inlineHelpText>When selected, the related payment gateway will use the offsite payment method. Displayed only if a payment gateway is a test gateway.</inlineHelpText>
+    <label>Enable Offsite</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

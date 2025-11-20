@@ -1,0 +1,28 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           controller="CPBase.GroupsController">
+  <apex:composition template="CPBase__template">
+    <apex:define name="pageTitle">
+      {!$Label.CPBase__HTML_Title_Tag_Groups_Page}
+    </apex:define>
+    <apex:define name="pageStyles">
+      <link rel="stylesheet" href="//s3.amazonaws.com/fonteva-cdn/global/plugins/tags/bootstrap-tagsinput.css"/>
+      <script src="//s3.amazonaws.com/fonteva-cdn/global/plugins/tags/bootstrap-tagsinput.min.js"></script>
+    </apex:define>
+    <apex:define name="pageMain">
+      <Framework:messages />
+      <PagesApi:groups subjectid="{!siteObj.Id}" showmygroups="false" searchable="true" titlefield="Name" 
+                        imagefield="PagesApi__Group_Image_URL__c"
+                        descriptionfieldCSV="{!siteObj.PagesApi__Group_Search_Result_Display_Fields_CSV__c}" 
+                        defaultpagesize="{!siteObj.PagesApi__Group_Search_Page_Results__c}"
+                        defaultsortorder="{!siteObj.PagesApi__Group_Search_Results_Sort_Order__c}"
+                        defaultsortfield="{!siteObj.PagesApi__Group_Search_Default_Sort_Field__c}" 
+                        showfilters="{!siteObj.PagesApi__Show_Group_Search_Filters__c}"
+                        filterfieldCSV="{!siteObj.PagesApi__Group_Search_Filters_CSV__c}"
+                        navigateurl="{!PathPrefix}/{!Namespace}group_detail"/>
+    </apex:define>
+    </apex:composition>
+</apex:page>

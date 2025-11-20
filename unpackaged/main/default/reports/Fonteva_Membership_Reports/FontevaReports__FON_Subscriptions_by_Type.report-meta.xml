@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OrderApi__Subscription__c$Name</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Subscription__c$OrderApi__Customer_Link__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Subscription__c$OrderApi__Active_Assignments__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OrderApi__Subscription__c$OrderApi__Subscription_Dues_Total__c</field>
+    </columns>
+    <description>To report on the number of monthly subscriptions purchased by month</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OrderApi__Subscription__c$OrderApi__Item__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FON - Subscriptions by Type</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Subscriptions_with_Subscription_Lines__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Subscription__c$OrderApi__Activated_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

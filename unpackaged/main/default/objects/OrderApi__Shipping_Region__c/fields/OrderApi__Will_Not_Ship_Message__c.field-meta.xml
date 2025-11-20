@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Will_Not_Ship_Message__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This message is displayed in the checkout UI when the buyer enters a shipping destination that is in a Will Not Ship region.</description>
+    <inlineHelpText>Enter a message that will display in the checkout screen when a customer tries to ship to a Will Not Ship region.</inlineHelpText>
+    <label>Will Not Ship Message</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

@@ -1,0 +1,23 @@
+<apex:page showHeader="false"
+    standardStylesheets="false"
+    docType="html-5.0"
+    applyHtmlTag="false"
+    applyBodyTag="false">
+
+  <apex:composition template="CPBase__template">
+    <apex:define name="pageTitle">
+      {!$Label.CPBase__HTML_Title_Tag_Events_Page}
+    </apex:define>
+    <apex:define name="pageMain">
+      <c:event_search />
+    </apex:define>
+    <apex:define name="pageScripts">
+      <script type="text/javascript" src="{!URLFOR($Resource.eventSearch,'js/events/lodash.min.js')}"></script>
+      <script type="text/javascript" src="{!URLFOR($Resource.eventSearch,'js/events/rx.min.js')}"></script>
+      <script type="text/javascript" src="{!URLFOR($Resource.eventSearch,'js/events/fullcalendar301.min.js')}"></script>
+    </apex:define>
+    <apex:define name="pageStyles">
+      <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.eventSearch,'css/events/fullcalendar301.min.css')}"/>
+    </apex:define>
+  </apex:composition>
+</apex:page>

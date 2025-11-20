@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexClass xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>46.0</apiVersion>
+    <packageVersions>
+        <majorNumber>128</majorNumber>
+        <minorNumber>6</minorNumber>
+        <namespace>FDService</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>125</majorNumber>
+        <minorNumber>8</minorNumber>
+        <namespace>Framework</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>136</majorNumber>
+        <minorNumber>5</minorNumber>
+        <namespace>LTE</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>127</majorNumber>
+        <minorNumber>2</minorNumber>
+        <namespace>OrderApi</namespace>
+    </packageVersions>
+    <status>Active</status>
+</ApexClass>

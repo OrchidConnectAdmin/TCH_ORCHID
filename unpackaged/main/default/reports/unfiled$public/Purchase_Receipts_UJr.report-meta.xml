@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Receipt__c.OrderApi__Sales_Order__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Receipt__c.OrderApi__Account__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Receipt__c.OrderApi__Contact__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Receipt__c.OrderApi__Date__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OrderApi__Receipt__c.OrderApi__Applied_Amount__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Receipt__c.OrderApi__Gateway_Transaction_Id__c</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_NAME</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Purchase Receipts</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$OrderApi__Receipt__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>OrderApi__Receipt__c.OrderApi__Date__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Receipt__c.OrderApi__Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

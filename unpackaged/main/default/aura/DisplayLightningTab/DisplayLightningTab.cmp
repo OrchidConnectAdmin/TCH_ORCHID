@@ -1,0 +1,30 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" >    
+    
+    <!-- Display Tabs -->
+    <lightning:tabset >
+        
+        <!-- Tab 1 -->      
+        <lightning:tab label="Status" id="Status">
+            <c:Fon_CreditStaus></c:Fon_CreditStaus> 
+        </lightning:tab>
+        
+        <!-- Tab 2 -->
+        <lightning:tab label="CE Credits" id="CE Credits">
+            <c:Fon_CEInfo></c:Fon_CEInfo>
+        </lightning:tab>        
+        
+        <!-- Tab 3 -->        
+        <lightning:tab label="Audit" id="Audit">
+            <c:DisplayAuditProgram></c:DisplayAuditProgram> 
+        </lightning:tab>
+        
+        <!-- Tab 4         
+        <lightning:tab label="NCP Session" id="Session">
+            <c:Fon_CreateNCPSession></c:Fon_CreateNCPSession> 
+        </lightning:tab>
+        -->
+    </lightning:tabset>
+    
+    
+</aura:component>

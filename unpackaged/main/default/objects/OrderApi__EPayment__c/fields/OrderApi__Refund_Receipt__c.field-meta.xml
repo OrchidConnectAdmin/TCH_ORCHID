@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Refund_Receipt__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>**System Caluclated** Refund Reciept record for which the Epayment is processed</description>
+    <inlineHelpText>**System Caluclated** Refund Reciept record for which the Epayment is processed</inlineHelpText>
+    <label>Refund Receipt</label>
+    <referenceTo>OrderApi__Receipt__c</referenceTo>
+    <relationshipLabel>Refund ePayments</relationshipLabel>
+    <relationshipName>Refund_EPayments</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

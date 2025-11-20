@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <description>Manage your sites, pages, community groups, media collections, and themes.</description>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Communities</label>
+    <tabs>standard-Chatter</tabs>
+    <tabs>PagesApi__Communities</tabs>
+    <tabs>PagesApi__Site__c</tabs>
+    <tabs>PagesApi__Theme__c</tabs>
+    <tabs>PagesApi__Community_Group__c</tabs>
+    <tabs>DRCTS__Directories__c</tabs>
+    <tabs>PagesApi__Media_Asset_Collection__c</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <tabs>Case__c</tabs>
+    <tabs>Opposing_Party__c</tabs>
+    <tabs>Client_Inquiry__c</tabs>
+    <tabs>SO_Bundle__c</tabs>
+    <tabs>OrderApi__Scheduled_Payment__c</tabs>
+</CustomApplication>

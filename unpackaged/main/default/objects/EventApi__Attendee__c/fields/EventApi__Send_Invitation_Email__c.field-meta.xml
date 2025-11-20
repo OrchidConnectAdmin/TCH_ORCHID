@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Send_Invitation_Email__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, triggers an email to be sent the related attendee from an Invitation Only Event Email Workflow.</description>
+    <inlineHelpText>When checked, triggers an email to be sent the related attendee from an Invitation Only Event Email Workflow.</inlineHelpText>
+    <label>Send Invitation Email</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Link_Target__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Specifies how target link is opened in the browser. Valid values include &quot;_self&quot; to open in the same tab, and &quot;_blank&quot; to open in a new window or tab.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Specifies how target link is opened in the browser. Valid values include &quot;_self&quot; to open in the same tab, and &quot;_blank&quot; to open in a new window or tab.</inlineHelpText>
+    <label>Link Target</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

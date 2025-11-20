@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Suspended_Reason__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated/Conditionally Required** If a Standing/Recurring Sales Order is Suspended, Suspended Reason may be required depending on how your environment was configured.</description>
+    <inlineHelpText>**System Calculated/Conditionally Required** If a Standing/Recurring Sales Order is Suspended, Suspended Reason may be required depending on how your environment was configured.</inlineHelpText>
+    <label>Suspended Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Payment Method Declined</fullName>
+                <default>false</default>
+                <label>Payment Method Declined</label>
+            </value>
+            <value>
+                <fullName>Payment Method Expired</fullName>
+                <default>false</default>
+                <label>Payment Method Expired</label>
+            </value>
+            <value>
+                <fullName>Payment Method Invalid</fullName>
+                <default>false</default>
+                <label>Payment Method Invalid</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

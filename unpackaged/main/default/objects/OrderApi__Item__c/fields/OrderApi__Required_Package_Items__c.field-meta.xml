@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Required_Package_Items__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field aggregates the total number of required package items needed to fulfill a sales order with this item.</description>
+    <inlineHelpText>This field aggregates the total number of required package items needed to fulfill a sales order with this item.</inlineHelpText>
+    <label>Required Package Items</label>
+    <summaryFilterItems>
+        <field>OrderApi__Package_Item__c.OrderApi__Is_Required__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>OrderApi__Package_Item__c.OrderApi__Minimum_Quantity__c</field>
+        <operation>greaterThan</operation>
+        <value>0</value>
+    </summaryFilterItems>
+    <summaryForeignKey>OrderApi__Package_Item__c.OrderApi__Package__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

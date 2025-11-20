@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__Is_Direct_Debit_Enabled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, created Items will be enabled with Direct Debit controls and features. Defaults unchecked.</description>
+    <inlineHelpText>When checked, created Items will be enabled with Direct Debit controls and features. Defaults unchecked.</inlineHelpText>
+    <label>Is Direct Debit Enabled</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

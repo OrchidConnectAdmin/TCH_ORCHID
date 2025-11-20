@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Preview</fullName>
+    <availability>online</availability>
+    <description>Preview your custom page as it would appear to customers on your site.</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Preview</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>{!URLFOR(&quot;/apex/custom_page&quot;,&quot;&quot;,[page=PagesApi__Page__c.Id,site=PagesApi__Page__c.PagesApi__SiteId__c])}</url>
+</WebLink>

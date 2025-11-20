@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Last_Invitation_Email_Sent__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The most recent date an event invitation was sent to the related attendee. This date is displayed within the related attendee row in the Event Builder&#39;s Invitation Only tab.</description>
+    <inlineHelpText>The most recent date an event invitation was sent to the related attendee. This date is displayed within the related attendee row in the Event Builder&#39;s Invitation Only tab.</inlineHelpText>
+    <label>Last Invitation Email Sent</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

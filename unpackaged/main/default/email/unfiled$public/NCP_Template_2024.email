@@ -1,0 +1,64 @@
+<div class="ncp-body" style="width: 100%; max-width: 1024px; font-family: Calibri, Arial,Helvetica, sans-serif; font-size: 16pt; color: #44546A; margin: 50px auto 10px auto;">
+<div class="ncp-logo" style="text-align: center; margin: 20px 0 -100px 0;">
+<img src="https://us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.force.com/LightningMemberPortal/resource/1615996446000/NCPLogo?"></A>
+</div>
+<div class="ncp-body" style="background: transparent url(https://us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.force.com/LightningMemberPortal/resource/1615996506000/NCPBg?) repeat-y top center; padding: 90px 20px 150px 20px">
+
+<h1 style="text-align: center; font-family: 'Century Gothic', Arial,Helvetica, sans-serif; font-size: 28pt; font-weight: bold;">WELCOME!<br>
+2025 NCP Exam Info</h1>
+
+<table width="100%" style="width: 100%; border: 0;">
+
+<tr>
+<td valign="middle" style="padding-bottom: 15px; padding-top: 15px;">
+<img src="https://us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.force.com/LightningMemberPortal/resource/1615999090000/NCP1?" height="60" width="auto"></A>
+</div>
+</td>
+<td valign="middle" style="font-size: 25px">
+<a href="https://www.ecchoonline.org/s/login/"><B>Login</B></a> to ECCHO Online and complete your info. Registrant first and last name must exactly match your legal driver’s license name (or other id) to access the test center.
+</td>
+</tr>
+
+<tr>
+<td valign="middle" style="padding-bottom: 15px; padding-top: 15px;">
+<img src="https://us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.force.com/LightningMemberPortal/resource/1615999144000/NCP2?" height="60" width="auto">
+</div>
+</td>
+<td valign="middle" style="font-size: 25px"><a href="https://www.ecchoonline.org/s/login/" style="style="font-weight: bold; color: #0563C1;">Click here</a> to access 
+<b style="color: #003F72; font-family: Calibri, sans-serif;">ECCHO’s <i>NCP Study Center</i></b> for the PREP Guide and more.
+</td>
+</tr>
+
+<tr>
+<td valign="middle" style="padding-bottom: 15px; padding-top: 15px;">
+<img src="https://us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.force.com/LightningMemberPortal/resource/1615999257000/NCP3?" height="60" width="auto">
+</div>
+</td>
+<td valign="middle" style="font-size: 25px">
+<b style="color: #003F72; font-family: Calibri, sans-serif;">Know</b>
+that test center registration is a separate step.
+You’ll receive your Registrant ID in early February. Register
+as soon as possible to secure desired time to test at a
+location of choice. See calendar below for general timing.
+</td>
+</tr>
+
+</table>
+</div>
+<div class="ncp-bottom" style="margin-top: -100px; text-align: center;">
+<img src="https://us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.force.com/LightningMemberPortal/resource/1684274323000/cal2024?" style="width: 50%; height: auto;">
+</div>
+
+<p style="margin: 15px; text-align: center;">
+{!EventApi__Attendee__c.Add_To_Outlook_Calendar__c}
+</p>
+
+<div class="ncp-footer" style="margin: 15px 0; text-align: center;">
+*Note: Pearson Vue Registrant ID will not be provided until exam registration is paid in full.<br>
+Contact us <a href="mailto:ncp@theclearinghouse.org" style="color: #0563C1;">ncp@theclearinghouse.org</a> or 214 273 3218
+</div>
+
+
+
+</div>
+<A href="https://unsub.com">Unsubscribe</A>

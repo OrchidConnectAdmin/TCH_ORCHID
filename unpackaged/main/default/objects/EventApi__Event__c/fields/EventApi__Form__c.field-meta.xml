@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Form__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Purchaser Form is only displayed for the purchasing/primary attendee.</description>
+    <inlineHelpText>** Conditionally Required ** Link to the Survey Form built using Fonteva&#39;s Publisher. Required and restricted to Events where &quot;Enable Surveys&quot; is checked.</inlineHelpText>
+    <label>Purchaser Form</label>
+    <referenceTo>PagesApi__Form__c</referenceTo>
+    <relationshipLabel>Events</relationshipLabel>
+    <relationshipName>Events</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

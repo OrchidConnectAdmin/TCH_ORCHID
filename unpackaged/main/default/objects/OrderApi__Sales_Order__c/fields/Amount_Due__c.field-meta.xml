@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Amount_Due__c</fullName>
+    <externalId>false</externalId>
+    <formula>&#39;$&#39;&amp;
+
+/* Text Thousands Separator under 1 B - preserves decimals, negatives */
+/* Under 1 K */
+IF( OrderApi__Overall_Total__c &lt; 1000, TEXT(OrderApi__Overall_Total__c),
+
+/* Under 1 M */
+IF(OrderApi__Overall_Total__c &lt; 1000000, TEXT(FLOOR(OrderApi__Overall_Total__c /1000))
+&amp; &#39;,&#39;
+&amp; RIGHT(TEXT(OrderApi__Overall_Total__c), LEN(TEXT(OrderApi__Overall_Total__c)) - LEN(TEXT(FLOOR(OrderApi__Overall_Total__c /1000)))),
+
+/* Under 1 B */
+IF(OrderApi__Overall_Total__c &lt; 1000000000, TEXT(FLOOR(OrderApi__Overall_Total__c /1000000))
+&amp; &#39;,&#39;
+&amp; MID(TEXT(OrderApi__Overall_Total__c), 1 + LEN(TEXT(FLOOR(OrderApi__Overall_Total__c /1000000))),3)
+&amp; &#39;,&#39;
+&amp; RIGHT(TEXT(OrderApi__Overall_Total__c), LEN(TEXT(OrderApi__Overall_Total__c)) - LEN(TEXT(FLOOR(OrderApi__Overall_Total__c /1000)))),
+
+/* 1 B &amp; up */
+IF(OrderApi__Overall_Total__c &gt;= 1000000000, &quot;#TooHigh!&quot;, NULL))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Amount Due</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

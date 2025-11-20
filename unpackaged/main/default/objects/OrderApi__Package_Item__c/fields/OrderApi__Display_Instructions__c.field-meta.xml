@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Display_Instructions__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The shopping cart instructions displays above the package item view.</description>
+    <inlineHelpText>The shopping cart instructions displays above the package item view.</inlineHelpText>
+    <label>Display Instructions</label>
+    <length>131072</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

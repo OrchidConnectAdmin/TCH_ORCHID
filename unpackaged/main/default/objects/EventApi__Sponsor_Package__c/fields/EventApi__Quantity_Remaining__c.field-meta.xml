@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Quantity_Remaining__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The quantity available minus the number sold.</description>
+    <externalId>false</externalId>
+    <formula>IF(EventApi__Quantity_Available__c == 0,0,EventApi__Quantity_Available__c - EventApi__Quantity_Sold__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The quantity available minus the number sold.</inlineHelpText>
+    <label>Quantity Remaining</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,232 @@
+<apex:page showHeader="false"
+          standardStylesheets="false"
+          docType="html-5.0"
+          applyBodyTag="false"
+          applyHtmlTag="false"
+          action="{!createSalesOrder}"
+          controller="CPBase.ItemController">
+  <apex:composition template="CPBase__template">
+    <apex:define name="pageTitle">
+      {!item.OrderApi__Display_Name__c}
+    </apex:define>
+    <apex:define name="pageStyles">
+      <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.emerald_1_0,'css/pages/store.min.css')}"/>
+    </apex:define>
+    <apex:define name="pageMain">
+    <Framework:messages />
+    <Framework:currencyField />
+    <apex:outputPanel rendered="{!AND(hasAccess, item.OrderApi__Is_Active__c)}">
+      <apex:form id="itemForm"
+        styleClass="form-horizontal login-component-form"
+        html-role="form"
+        html-data-parsley-validate="true"
+        html-autocomplete="off">
+        <div class="container m-t-30 m-b-50 store well">
+          <div class="row">
+            <div class="col-sm-3">
+              <Framework:img clazz="img-responsive" src="{!item.OrderApi__Image_Path__c}" />
+            </div><!-- /.col-sm-3 -->
+            <div class="col-sm-9">
+              <div class="row">
+                <div class="col-sm-12 m-b-15">
+                  <h2><strong><apex:outputField value="{!item.OrderApi__Display_Name__c}"/></strong></h2>
+                  <h3 class="text-primary"><span id="itemprice"/></h3>
+                </div><!-- /.col-sm-12 -->
+              </div><!-- /.row -->
+              <div class="row m-b-25">
+                <form>
+                  <div class="col-sm-12">
+                    <div class="row" id="quantityLabel">
+                      <div class="col-sm-12">
+                        <label for="item-quantity">{!$Label.Quantity}</label>
+                      </div>
+                    </div><!-- /.row -->
+                    <div class="row">
+                      <div class="col-sm-2 m-b-15" id="item-quantity-input">
+                        <input type="number" id="item-quantity" class="form-control" min="1" value="1" />
+                      </div><!-- /.col-sm-2 -->
+                      <div class="col-sm-10">
+                        <div class="row">
+                          <div class="col-xs-3">
+                            <a href="#" class="btn btn-primary ladda-button" id="checkoutbtn" data-style="expand-right">
+                              <span class="ladda-label">{!$Label.Add_to_Cart}</span>
+                            </a>
+                          </div><!-- /.col-xs-3 -->
+                          <div class="col-sm-9 text-right">
+                            <a type="button" href="{!IF(ISBLANK($Site.Prefix),$Site.BaseSecureUrl,SUBSTITUTE($Site.BaseSecureUrl,$Site.Prefix,''))}{!URLFOR($Page.store)}?reloadSearchFilter=true" class="btn btn-primary">{!$Label.Back_To_Results}</a>
+                          </div><!-- /.col-sm-9 -->
+                        </div><!-- /.row -->
+                      </div><!-- /.col-sm-10 -->
+                    </div><!-- /.row -->
+                  </div><!-- /.col-sm-12 -->
+                </form>
+              </div><!-- /.row -->
+              <div class="row m-b-15">
+                <div class="col-sm-12 m-b-15">
+                  <apex:outputField value="{!item.OrderApi__Description__c}"/>
+                </div><!-- /.col-sm-12 -->
+              </div><!-- /.row -->
+
+              <apex:outputPanel rendered="{!hasBadges}">
+                <div class="row">
+                  <div class="col-sm-12 p-l-30 p-r-30">
+                    <apex:repeat value="{!badgeTypes}" var="b">
+                      <div class="row p-t-15 p-b-15 bg-gray-lighter">
+                        <div class="col-sm-3">
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(b.OrderApi__Image_Location__c))}">
+                                <Framework:img src="{!b.OrderApi__Image_Location__c}" clazz="img-responsive center"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!ISBLANK(b.OrderApi__Image_Location__c)}">
+                                <apex:outputText value="{!b.OrderApi__Image__c}" escape="false" styleClass="img-responsive center"/>
+                            </apex:outputPanel>
+                        </div>
+                        <div class="col-sm-9">
+                          <h3>{!b.Name}</h3>
+                          <apex:outputField value="{!b.OrderApi__Description__c}"/>
+                        </div>
+                      </div>
+                    </apex:repeat>
+                  </div>
+                </div>
+              </apex:outputPanel>
+            </div>
+            <apex:outputPanel rendered="{!hasAdditionalItems}">
+              <div class="col-xs-12">
+                <apex:outputPanel rendered="{!nonFreepackageItems.size > 0}">
+                  <hr class="p-0"/>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>{!$Label.CPBase__Item_Required_For_Purchase}</h4>
+                    </div>
+                    <apex:repeat value="{!nonFreepackageItems}" var="ex">
+                      <div class="col-md-6 m-t-5">
+                        <div class="row p-15">
+                          <div class="col-sm-4 product-img" style="background-image: url({!ex.imageUrl})">
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="row">
+                              <div class="col-xs-12">
+                                <h3><strong> <apex:outputField value="{!ex.extraItem.OrderApi__Display_Name__c}"/> </strong></h3>
+                                <h4 class="text-primary">
+                                  <apex:outputField value="{!ex.priceRule.OrderApi__Price__c}" rendered="{!NOT(ISNULL(ex.priceRule.Id))}"/>
+                                  <apex:outputField value="{!ex.extraItem.OrderApi__Price__c}" rendered="{!ISNULL(ex.priceRule.Id)}"/>
+                                </h4>
+                              </div>
+                              <div class="col-xs-4">
+                                <h5><strong>{!$ObjectType.OrderApi__Sales_Order_Line__c.fields.OrderApi__Quantity__c.label}:</strong></h5>
+                              </div>
+                              <div class="col-xs-8">
+                                <h5><apex:outputText value="{!ex.packageItem.OrderApi__Minimum_Quantity__c}"/></h5>
+                              </div>
+                              <div class="col-xs-12">
+                                <h5 class="item-description mCustomScrollbar" data-mcs-theme="minimal-dark"><apex:outputField value="{!ex.extraItem.OrderApi__Description__c}"/></h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </apex:repeat>
+                  </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!freePackageItems.size > 0}">
+                  <hr class="p-0"/>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>{!$Label.CPBase__Included_With_This_Item}</h4>
+                    </div><!-- /.col-md-12 -->
+                    <apex:repeat value="{!freePackageItems}" var="ex">
+                      <div class="col-md-6 m-t-5">
+                        <div class="row p-15">
+                          <div class="col-sm-4 product-img" style="background-image: url({!ex.imageUrl})">
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="row">
+                              <div class="col-xs-12">
+                                <h3><strong> <apex:outputField value="{!ex.extraItem.OrderApi__Display_Name__c}"/> </strong></h3>
+                                <h4 class="text-primary">
+                                  <s class="text-gray-lighter">
+                                    <apex:outputField value="{!ex.extraItem.OrderApi__Price__c}"/>
+                                  </s>
+                                  &nbsp;<apex:outputField value="{!ex.priceRule.OrderApi__Price__c}"/>
+                                </h4>
+                              </div>
+                              <div class="col-xs-4">
+                                <h5><strong>{!$ObjectType.OrderApi__Sales_Order_Line__c.fields.OrderApi__Quantity__c.label}:</strong></h5>
+                              </div>
+                              <div class="col-xs-8">
+                                <h5><apex:outputText value="{!ex.packageItem.OrderApi__Minimum_Quantity__c}"/></h5>
+                              </div>
+                              <div class="col-xs-12">
+                                <h5 class="item-description mCustomScrollbar" data-mcs-theme="minimal-dark"><apex:outputField value="{!ex.extraItem.OrderApi__Description__c}"/></h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </apex:repeat>
+                  </div>
+                </apex:outputPanel>
+              </div>
+            </apex:outputPanel>
+          </div><!-- /.row -->
+        </div><!-- /.container -->
+      </apex:form>
+    </apex:outputPanel>
+    <c:item_checkout />
+
+
+    </apex:define>
+    <apex:define name="pageScripts">
+      <script type="text/javascript">
+        var laddaLoader;
+
+        $(document).ready(function() {
+            if ({!item.OrderApi__Is_Subscription__c} || {!item.OrderApi__Form__c != null} || {!item.OrderApi__Enable_Assignments__c} || {!item.OrderApi__Package_Items__c > 0}) {
+                $('#item-quantity-input').addClass('hidden');
+                $('#quantityLabel').addClass('hidden');
+            }
+
+            if ({!NOT(item.OrderApi__Is_Active__c)}) {
+              $('#checkoutbtn').addClass('disabled');
+            }
+
+            $(document).on('click', '#checkoutbtn', function(e) {
+                em.loader.start(this);
+                var quantityInput = $('#item-quantity').parsley();
+                window.ParsleyUI.removeError(quantityInput, 'quantityValidationError');
+                var qty = $('#item-quantity').val();
+                if (qty % 1 !== 0 || qty <= 0) {
+                  window.ParsleyUI.addError(quantityInput, "quantityValidationError",'{!JSENCODE($Label.CPBase__Quantity_Whole_Number_Item)}');
+                  em.loader.stop(this);
+                  return;
+                } else if(qty > 5000) {
+                  window.ParsleyUI.addError(quantityInput, "quantityValidationError",'{!JSENCODE($Label.CPBase__Max_Quantity_Reached)}');
+                  em.loader.stop(this);
+                  return;
+                }
+                $('#checkoutbtn').addClass('disabled');
+                loadCheckoutModal('{!item.Id}',$('#item-quantity').val());
+            });
+            var price = '{!priceRule.OrderApi__Price__c}';
+            if (price == undefined || (price != undefined && price == 0)) {
+              $("#itemprice").html('{!$Label.CPBase__Free_Cost}');
+            }
+            else {
+              $("#itemprice").html(currencyComponentAPI.formatCurrency('{!priceRule.OrderApi__Price__c}', '{!JSENCODE(currencyIsoCode)}'));
+            }
+            $('#item-quantity').on('keypress',function(e) {
+                var code = e.keyCode || e.which;
+                if (code == 13) {
+                    e.preventDefault();
+                }
+            });
+        });
+        $('input#item-quantity').keypress(function(e) {
+          var code = e.keyCode || e.charCode || e.which;
+          if(code===8){return;}
+          return /\d/.test(String.fromCharCode(code));
+        });
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

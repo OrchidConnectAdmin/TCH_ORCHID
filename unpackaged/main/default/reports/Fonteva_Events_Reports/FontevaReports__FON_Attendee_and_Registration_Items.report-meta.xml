@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>EventApi__Attendee__c$EventApi__Contact__c</field>
+    </columns>
+    <columns>
+        <field>EventApi__Attendee__c.EventApi__Registration_Items__r$EventApi__Item__c</field>
+    </columns>
+    <columns>
+        <field>EventApi__Attendee__c$EventApi__Status__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>EventApi__Attendee__c.EventApi__Registration_Items__r$EventApi__Total__c</field>
+    </columns>
+    <columns>
+        <field>EventApi__Attendee__c$EventApi__Registration_Date__c</field>
+    </columns>
+    <description>To report on all event attendees and their registration items.</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>EventApi__Attendee__c$Id</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FON - Attendee and Registration Items</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Attendees_with_Registration_Items__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>EventApi__Attendee__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

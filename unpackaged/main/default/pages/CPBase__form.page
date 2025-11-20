@@ -1,0 +1,46 @@
+<apex:page showHeader="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" 
+  applyHtmlTag="false" controller="CPBase.FormController">
+  <apex:composition template="{!IF($CurrentPage.parameters.skeleton == 'true','template_skeleton','template')}">
+    <apex:define name="cookiePrompt"/>
+    <apex:define name="pageTitle">
+			{!$Label.HTML_Title_Tag_Forms_Page}
+    </apex:define>
+    <apex:define name="main">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="well">
+              <apex:outputPanel rendered="{!$CurrentPage.parameters.Id != null}" layout="none">
+                <PagesApi:form responderId="{!$User.Id}"
+                  formId="{!$CurrentPage.parameters.Id}" wizard="false" width="100%" 
+                  formResponseId="{!$CurrentPage.parameters.response}" 
+                  subjectId="{!$CurrentPage.parameters.subject}" subjectLookupField="{!SubjectLookupField}"/>
+              </apex:outputPanel>                
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        var returnURL = getReturnUrl();
+        function getReturnUrl(){
+          var regexS = "[\\?&]retURL=([^&#]*)"; 
+          var regex = new RegExp( regexS ); 
+          var results = regex.exec( window.location.href );
+          if( results == null )    
+            return ""; 
+          else    
+            return results[1];
+        }
+        function redirectBack(){
+          if ("{!$CurrentPage.parameters.skeleton}" == 'true') {
+            parent.location.reload();
+          }
+          if (returnURL)
+            window.location.href = '/' + returnURL;
+          else
+            window.location.reload();
+        }
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

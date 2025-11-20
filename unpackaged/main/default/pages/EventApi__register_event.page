@@ -1,0 +1,71 @@
+<apex:page showHeader="false"
+  standardStylesheets="false"
+  docType="html-5.0"
+  applyBodyTag="false"
+  applyHtmlTag="false"
+  controller="EventApi.RegisterEventController">
+
+  <apex:composition template="PagesApi__default_template">
+
+    <apex:define name="title">
+      {!campaignPage.OrderApi__Title_Tag__c}
+    </apex:define>
+
+    <apex:define name="supernavList">
+      <OrderApi:portal_shopping_cart />
+    </apex:define>
+
+    <!-- Def:main -->
+    <apex:define name="main">
+
+      <!-- #content-wrapper -->
+      <div id="content-wrapper m-t-40">
+
+        <!-- ===== CUSTOM HEADER CONTENT DEFINED ON THE CAMPAIGN PAGE ===== -->
+        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(campaignPage.OrderApi__Header_Content__c))}">
+          <section id="header">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <apex:outputText value="{!campaignPage.OrderApi__Header_Content__c}" escape="false"/>
+                </div>
+              </div>
+            </div>
+          </section>
+        </apex:outputPanel>
+        <!-- ===== END: CUSTOM HEADER CONTENT DEFINED ON THE CAMPAIGN PAGE ===== -->
+
+        <section id="page">
+          <div class="container">
+            <apex:outputPanel id="errorMessages">
+              <apex:outputPanel >
+                <Framework:messages />
+              </apex:outputPanel>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!NOT(ISNULL(campaignComponents))}" id="componentPanel">
+              <apex:dynamicComponent componentValue="{!campaignComponents}"/>
+            </apex:outputPanel>
+          </div>
+        </section>
+
+        <!-- ===== CUSTOM FOOTER CONTENT DEFINED ON THE CAMPAIGN PAGE ===== -->
+        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(campaignPage.OrderApi__Footer_Content__c))}">
+          <section id="footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <apex:outputText value="{!campaignPage.OrderApi__Footer_Content__c}" escape="false"/>
+                </div>
+              </div>
+            </div>
+          </section>
+        </apex:outputPanel>
+        <!-- ===== END: CUSTOM FOOTER CONTENT DEFINED ON THE CAMPAIGN PAGE ===== -->
+
+      </div><!-- END #content-wrapper -->
+
+    </apex:define><!-- END Def:main -->
+
+  </apex:composition>
+
+</apex:page>

@@ -1,0 +1,9 @@
+Greetings,
+
+This email is to inform you of a request to access the Member Portal made on {!PagesApi__Form_Response__c.CreatedDate}.
+
+
+
+Go to the form response record to review the submitted request, then enable to the user.
+
+{!PagesApi__Form_Response__c.Link}

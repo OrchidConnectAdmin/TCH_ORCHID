@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Registration_Page_Header__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The header content to insert into the group&#39;s registration page.</description>
+    <inlineHelpText>The header content to insert into the group&#39;s registration page.</inlineHelpText>
+    <label>Registration Page Header</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

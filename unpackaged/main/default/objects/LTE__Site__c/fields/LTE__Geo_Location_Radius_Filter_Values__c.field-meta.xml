@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Geo_Location_Radius_Filter_Values__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Enter comma separated values you wish to display as a radius filter when using the Geo-Location view. Example &quot;5, 10, 25, 50, 100&quot;.</description>
+    <inlineHelpText>Enter comma separated values you wish to display as a radius filter when using the Geo-Location view. Example &quot;5, 10, 25, 50, 100&quot;.</inlineHelpText>
+    <label>DEPRECATED</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

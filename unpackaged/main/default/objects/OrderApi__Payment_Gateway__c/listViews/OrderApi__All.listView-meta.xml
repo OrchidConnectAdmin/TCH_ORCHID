@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__All</fullName>
+    <columns>NAME</columns>
+    <columns>OrderApi__Token__c</columns>
+    <columns>OrderApi__Supports_Authorize__c</columns>
+    <columns>OrderApi__Supports_Capture__c</columns>
+    <columns>OrderApi__Supports_Credit__c</columns>
+    <columns>OrderApi__Supports_Void__c</columns>
+    <columns>OrderApi__Is_Test__c</columns>
+    <columns>OrderApi__Is_Enabled__c</columns>
+    <columns>OrderApi__Require_Email__c</columns>
+    <columns>OrderApi__Require_Phone__c</columns>
+    <columns>OrderApi__AVS_Configuration__c</columns>
+    <columns>OrderApi__Require_CVV__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

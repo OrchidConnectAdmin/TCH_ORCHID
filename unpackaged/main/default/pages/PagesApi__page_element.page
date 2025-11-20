@@ -1,0 +1,138 @@
+<apex:page standardController="PagesApi__Page_Element__c"
+    extensions="PagesApi.PageElementController"
+    showHeader="true"
+    sidebar="false"
+    docType="html-5.0"
+    tabStyle="PagesApi__Page__c"
+>
+    <apex:composition template="Framework__sidebar_template">
+        <apex:define name="styles">
+            <style type="text/css">
+                #aui-layout,
+                #aui-layout #aui-main,
+                .bodyDiv {
+                    background-color: #fff !important;
+                }
+                html body .bodyDiv #aui-layout #aui-main > td:last-child {
+                    padding-top: 0px;
+                    padding-bottom: 0px;
+                    background-color: #fff;
+                }
+                html body .bodyDiv #aui-layout #aui-wrapper {
+                    padding-top: 20px;
+                    padding-bottom: 20px;
+                    background-color: #fff;
+                }
+            </style>
+        </apex:define>
+
+        <apex:define name="sidebarTop">
+            <h1>{!$Label.PagesApi__Configuration_Options}</h1>
+        </apex:define>
+
+        <apex:define name="top">
+            {!$ObjectType.PagesApi__Page_Element__c.Label} {!$Label.PagesApi__Preview}
+        </apex:define>
+
+        <apex:define name="sidebar">
+            <apex:form id="pageForm" styleClass="form">
+                <apex:outputPanel layout="none" rendered="{!NOT(isEditMode)}">
+                    <label class="control-label">{!$ObjectType.PagesApi__Page_Element__c.Fields.PagesApi__Component__c.Label}</label>
+                    <apex:selectList value="{!selComponent}"
+                        styleClass="form-control input-sm"
+                        multiselect="false"
+                        size="1"
+                    >
+                        <apex:selectOptions value="{!ComponentOptions}" />
+                        <apex:actionSupport event="onchange"
+                            action="{!OnComponentChange}"
+                            oncomplete="$.Pages.init();"
+                            rerender="main,configOptions"
+                            status="actionStatus"
+                        />
+                    </apex:selectList>
+                    <br />
+                </apex:outputPanel>
+
+                <apex:outputPanel id="configOptions">
+                    <apex:repeat value="{!configs}" var="c">
+                        <label class="control-label">{!c.cco.Label}</label>
+                        <a
+                            class="tooltip-toggle"
+                            href="#"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="{!c.cco.Description}"
+                            ><i class="fa fa-question-circle"></i
+                        ></a>
+                        <apex:selectList value="{!c.pea.PagesApi__Value__c}"
+                            rendered="{!c.isPicklist}"
+                            styleClass="form-control input-sm"
+                            size="1"
+                            multiselect="false"
+                        >
+                            <apex:selectOptions value="{!c.cco.0}" />
+                            <apex:selectOptions value="{!c.cco.1}" />
+                            <apex:selectOptions value="{!c.cco.2}" />
+                            <apex:selectOptions value="{!c.cco.3}" />
+                            <apex:selectOptions value="{!c.cco.4}" />
+                            <apex:selectOptions value="{!c.cco.5}" />
+                        </apex:selectList>
+                        <apex:inputText html-type="number"
+                            rendered="{!IF(c.isNumber && NOT(c.isPicklist),true,false)}"
+                            value="{!c.pea.PagesApi__Value__c}"
+                            html-placeholder="{!c.cco.Name}"
+                            styleClass="form-control input-sm"
+                        />
+                        <apex:inputText value="{!c.pea.PagesApi__Value__c}"
+                            rendered="{!IF(NOT(c.isNumber) && NOT(c.isPicklist),true,false)}"
+                            styleClass="form-control input-sm"
+                        />
+                        <br />
+                    </apex:repeat>
+                </apex:outputPanel>
+
+                <hr class="soften" />
+
+                <div class="m-b-15 m-t-15 text-center">
+                    <apex:commandButton value="{!$Label.PagesApi__Save}"
+                        action="{!save}"
+                        styleClass="btn btn-primary btn-sm m-r-5"
+                    />
+                    <apex:commandButton value="{!$Label.PagesApi__Refresh}"
+                        action="{!refresh}"
+                        styleClass="btn btn-warning btn-sm m-r-5"
+                        rerender="main"
+                    />
+                    <apex:commandButton value="{!$Label.PagesApi__Cancel}"
+                        action="{!cancel}"
+                        styleClass="btn btn-default btn-sm"
+                    />
+                </div>
+            </apex:form> </apex:define><!-- ===== END SIDEBAR ===== -->
+
+        <apex:define name="main">
+            <Framework:messages />
+            <apex:outputPanel id="main" layout="block">
+                <apex:outputPanel id="page-messages" rendered="{!showMessage}">
+                    <div class="alert alert-{!IF(hasError,'danger','info')} alert-outline">
+                        <a class="close pull-right" data-dismiss="alert" href="#">&times;</a>
+                        <h4 class="title"><apex:outputText value="{!messageTitle}" /></h4>
+                        <p><apex:outputText value="{!message}" /></p>
+                    </div>
+                </apex:outputPanel>
+                <apex:outputPanel id="preview" layout="block" styleClass="push-top push-bottom">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="preview-border">
+                                <apex:iframe scrolling="false"
+                                    height="800px"
+                                    src="{!$Page.PagesApi__page_element_preview}?id={!PagesApi__Page_Element__c.Id}&component={!selComponent}&hideNav=true"
+                                />
+                            </div>
+                        </div>
+                    </div> </apex:outputPanel><!-- end: Preview Panel -->
+            </apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+</apex:page>

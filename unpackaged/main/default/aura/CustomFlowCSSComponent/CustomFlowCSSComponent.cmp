@@ -1,0 +1,16 @@
+<aura:component description="CSS For Screen Flow" implements="lightning:availableForFlowScreens" access="global">
+    <aura:html tag="style">
+        .slds-form-element__control .slds-checkbox .slds-grid.invoice-label{
+        	width: 95% !important;
+        	float: right !important;
+            flex-direction: initial !important;
+        }
+        .slds-grid.invoice-label .slds-col{
+        	width: 10% !important;
+    	}
+        .slds-grid.invoice-label .slds-col:first-child{
+        	width: 50% !important;
+    	}
+
+    </aura:html>
+</aura:component>

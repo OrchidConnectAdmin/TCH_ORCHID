@@ -1,0 +1,66 @@
+<html lang="en">
+    <head>
+        <!--Recaptcha v3.0 site key here-->
+        <script src="https://www.google.com/recaptcha/api.js?render=explicit"></script>
+    </head>
+    <body>
+        <div id="recaptcha"></div>
+
+        <script>
+            const callback = function(response) {
+                parent.window.postMessage({eventType: 'captchaResponse', token: response}, location.origin);
+            };
+
+            const captchaExpired = function() {
+                parent.window.postMessage({eventType: 'captchaResponse', captchaExpired: true}, location.origin);
+            };
+
+            const getBiggestScrollHeight = function(elements) {
+                const scrollHeights = Array.from(elements, element => element.scrollHeight);
+                return Math.max(...scrollHeights);
+            }            
+
+            function receiveMessage(event) {
+                //Setting this interval to check if there is extra verification challenge is displayed to set the height of the iFrame
+                setInterval(()=>{
+                    let captchaWindow = document.querySelectorAll('body > div')[1],
+                      checkboxWindow = document.querySelector('#recaptcha'),
+                      heightVal;
+
+                    if (captchaWindow?.lastChild?.style) {
+                        captchaWindow.lastChild.style.position = 'absolute';
+                        captchaWindow.lastChild.style.height = 'unset';
+                    }
+
+                    heightVal = captchaWindow
+                    && captchaWindow.style
+                    && captchaWindow.style.getPropertyValue('visibility') === 'hidden' ?
+                      checkboxWindow.style.height :
+                      getBiggestScrollHeight(document.querySelectorAll('body, iframe'));
+
+                    parent.window.postMessage({
+                        eventType: 'iframeResize',
+                        height: heightVal ? heightVal : 100
+                    }, location.origin);
+                }, 2500);
+
+                if (event.data.eventType === 'captchaTest') {
+                    const params = new URLSearchParams(window.location.search);
+                    grecaptcha.ready(function() {
+                        //hide the recaptcha v3.0 in the UI
+                        if (document.getElementsByClassName("grecaptcha-badge").length > 0) {
+                            document.getElementsByClassName("grecaptcha-badge")[0].style.visibility = "hidden";
+                        }
+                        grecaptcha.render("recaptcha", {
+                            //Recaptcha v2.0 site key here
+                            'sitekey' : params.get('siteKey'),
+                            'callback' : callback,
+                            'expired-callback' : captchaExpired
+                        });
+                    });
+                }
+            }
+            window.addEventListener("message", receiveMessage, false);
+        </script>
+    </body>
+</html>

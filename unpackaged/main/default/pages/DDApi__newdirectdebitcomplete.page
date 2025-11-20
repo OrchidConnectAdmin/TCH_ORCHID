@@ -1,0 +1,9 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           controller="DDApi.DirectDebitCompleteController"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           cache="false"
+           action="{!newmandateCompleteRF}">
+</apex:page>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Engagement_Score__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The engagement score that is to be assigned to the entity&#39;s badge record.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The engagement score that is to be assigned to the entity&#39;s badge record.</inlineHelpText>
+    <label>Engagement Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

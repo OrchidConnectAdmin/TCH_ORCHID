@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Enhanced_List_Placeholder_Image__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The URL of the image to be used when the result has no value in the image field.</description>
+    <inlineHelpText>The URL of the image to be used when the result has no value in the image field.</inlineHelpText>
+    <label>Placeholder Image</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

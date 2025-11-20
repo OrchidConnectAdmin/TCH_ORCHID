@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Tax_Locale__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Links the Item to the tax locale.</description>
+    <inlineHelpText>Links the Item to the tax locale.</inlineHelpText>
+    <label>Tax Locale</label>
+    <referenceTo>OrderApi__Tax_Locale__c</referenceTo>
+    <relationshipLabel>Items</relationshipLabel>
+    <relationshipName>Items</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

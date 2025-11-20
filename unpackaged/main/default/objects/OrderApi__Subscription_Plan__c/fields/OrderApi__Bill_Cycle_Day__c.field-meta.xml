@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Bill_Cycle_Day__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** If &quot;Bill Cycle&quot; selected as &quot;CUSTOM&quot; need to define specific day for Bill Cycle.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Conditionally Required ** If &quot;Bill Cycle&quot; selected as &quot;CUSTOM&quot; need to define specific day for Bill Cycle.</inlineHelpText>
+    <label>Bill Cycle Day</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

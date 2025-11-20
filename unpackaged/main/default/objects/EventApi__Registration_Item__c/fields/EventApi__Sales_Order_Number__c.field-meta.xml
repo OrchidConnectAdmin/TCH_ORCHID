@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Sales_Order_Number__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** The sales order number.</description>
+    <externalId>false</externalId>
+    <formula>EventApi__Sales_Order__r.Name</formula>
+    <inlineHelpText>** System Calculated ** The sales order number.</inlineHelpText>
+    <label>Sales Order Number</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

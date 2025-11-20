@@ -1,0 +1,8 @@
+<messaging:emailTemplate subject="{!relatedTo.OrderApi__Mass_Proforma_Email_Subject__c}" recipientType="Contact" relatedToType="OrderApi__Sales_Order__c">
+    <messaging:htmlEmailBody >
+        <c:proforma_invoice_template soId="{!relatedTo.Id}"/>
+    </messaging:htmlEmailBody>
+    <messaging:attachment renderAs="PDF">
+        <c:proforma_invoice_email_pdf soId="{!relatedTo.Id}"/>
+    </messaging:attachment>
+</messaging:emailTemplate>

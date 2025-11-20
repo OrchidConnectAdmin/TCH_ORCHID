@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Google_Login_URL__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Login URL from Auth Provider in Setup</description>
+    <inlineHelpText>Login URL from Auth Provider in Setup</inlineHelpText>
+    <label>Google Login URL</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

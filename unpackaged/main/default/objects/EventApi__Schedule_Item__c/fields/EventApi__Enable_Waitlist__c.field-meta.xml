@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Enable_Waitlist__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, attendees will have the option to be added to a waitlist once tickets are sold out (or capacity is reached) for this schedule item.</description>
+    <inlineHelpText>When checked, attendees will have the option to be added to a waitlist once tickets are sold out (or capacity is reached) for this schedule item.</inlineHelpText>
+    <label>Enable Waitlist</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Order_Summary_Builder</fullName>
+    <availability>online</availability>
+    <description>This button will display the Order Summary Builder.</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Order Summary Builder</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)}
+            window.open(&#39;{!$Site.Prefix}/apex/LTE__OrderSummaryBuilder?id={!Account.Id}&#39;,&#39;_self&#39;);</url>
+</WebLink>

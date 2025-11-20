@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Purchase_Date_Formatted__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(MONTH( Purchased_Date__c ) &lt; 10, &#39;0&#39;&amp;TEXT(MONTH( Purchased_Date__c )), TEXT(MONTH( Purchased_Date__c ))) &amp;&#39;-&#39;&amp;IF(DAY( Purchased_Date__c ) &lt; 10, &#39;0&#39;&amp;TEXT(DAY( Purchased_Date__c )), TEXT(DAY( Purchased_Date__c )))&amp;&#39;-&#39;&amp;TEXT(YEAR( Purchased_Date__c ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Purchase Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

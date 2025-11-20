@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Restrict_Number_of_Downloads__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the customer will have access restricted if the downloadable file has been accessed more than the allowed amount defined in the &quot;Maximum Number of Downloads&quot; field. Defaults unchecked.</description>
+    <inlineHelpText>When checked, the customer will have access restricted if the downloadable file has been accessed more than the allowed amount defined in the &quot;Maximum Number of Downloads&quot; field. Defaults unchecked.</inlineHelpText>
+    <label>Restrict Number of Downloads</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

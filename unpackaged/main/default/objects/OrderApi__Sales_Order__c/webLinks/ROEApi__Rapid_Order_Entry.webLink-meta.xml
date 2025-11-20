@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ROEApi__Rapid_Order_Entry</fullName>
+    <availability>online</availability>
+    <description>Rapid Order Entry.</description>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Rapid Order Entry</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)}
+            parent.location.href = &#39;{!$Site.Prefix}/apex/ROEApi__rapidOrderEntry?contact={!Contact.Id}&amp;account={!Account.Id}&#39;</url>
+</WebLink>

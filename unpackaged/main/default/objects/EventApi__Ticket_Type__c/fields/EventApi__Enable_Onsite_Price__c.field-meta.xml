@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Enable_Onsite_Price__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the ticket type can be sold for a different price, defined in the &quot;On-Site Price&quot; field, on the day of the event.</description>
+    <inlineHelpText>When checked, the ticket type can be sold for a different price, defined in the &quot;On-Site Price&quot; field, on the day of the event.</inlineHelpText>
+    <label>Enable On-site Price</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

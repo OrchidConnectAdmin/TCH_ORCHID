@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Menu__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to the related page menu configuration.</description>
+    <inlineHelpText>Link to the related page menu configuration.</inlineHelpText>
+    <label>Menu</label>
+    <referenceTo>PagesApi__Menu__c</referenceTo>
+    <relationshipLabel>Pages</relationshipLabel>
+    <relationshipName>Pages</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

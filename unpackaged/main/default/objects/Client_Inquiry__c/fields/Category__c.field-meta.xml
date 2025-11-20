@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <label>Category</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ECCHO Billing</fullName>
+                <default>false</default>
+                <label>ECCHO Billing</label>
+            </value>
+            <value>
+                <fullName>ECCHO Contacts</fullName>
+                <default>false</default>
+                <label>ECCHO Contacts</label>
+            </value>
+            <value>
+                <fullName>ECCHO Events</fullName>
+                <default>false</default>
+                <label>ECCHO Events</label>
+            </value>
+            <value>
+                <fullName>ECCHO Membership</fullName>
+                <default>false</default>
+                <label>ECCHO Membership</label>
+            </value>
+            <value>
+                <fullName>ECCHO Online User Exp</fullName>
+                <default>false</default>
+                <label>ECCHO Online User Exp</label>
+            </value>
+            <value>
+                <fullName>ECCHO Rules</fullName>
+                <default>false</default>
+                <label>ECCHO Rules</label>
+            </value>
+            <value>
+                <fullName>ECCHO Rules Book Request</fullName>
+                <default>false</default>
+                <label>ECCHO Rules Book Request</label>
+            </value>
+            <value>
+                <fullName>NCP Billing</fullName>
+                <default>false</default>
+                <label>NCP Billing</label>
+            </value>
+            <value>
+                <fullName>NCP Continuing Education</fullName>
+                <default>false</default>
+                <label>NCP Continuing Education</label>
+            </value>
+            <value>
+                <fullName>NCP Events</fullName>
+                <default>false</default>
+                <label>NCP Events</label>
+            </value>
+            <value>
+                <fullName>NCP Exam</fullName>
+                <default>false</default>
+                <label>NCP Exam</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

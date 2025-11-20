@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Show_Outstanding_Credits__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field allows staff users to show the outstanding credits a customer has with the organization.</description>
+    <inlineHelpText>This field allows staff users to show the outstanding credits a customer has with the organization.</inlineHelpText>
+    <label>Show Outstanding Credits</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

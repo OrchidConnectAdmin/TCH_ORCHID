@@ -1,0 +1,647 @@
+<apex:page >
+    <script
+        type="text/javascript"
+        src="{!URLFOR($Resource.FPS__FlowAction_scripts,'jsforce.1.11.0/jsforce.min.js')}"
+    ></script>
+    <script
+        type="text/javascript"
+        src="{!URLFOR($Resource.FPS__FlowAction_scripts,'jszip.3.10.0/jszip.min.js')}"
+    ></script>
+    <script>
+        // debugger;
+        (async function () {
+            const conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}' })
+
+            const parentOrigin = '{!JSENCODE($CurrentPage.parameters.parent)}'
+            const identifier = '{!JSENCODE($CurrentPage.parameters.id)}'
+            const isProduction = '{!JSENCODE($CurrentPage.parameters.isProduction)}'
+
+            function sendResults(messageType, results) {
+                console.log('sendResults(): results = %o', results)
+                parent.postMessage(
+                    {
+                        messageType: messageType + '_done',
+                        identifier,
+                        results
+                    },
+                    parentOrigin)
+            }
+
+            function sendProgress(messageType, message) {
+                console.log(
+                    "sendProgress(): messageType = %s, message = '%s'",
+                    messageType,
+                    message)
+                parent.postMessage(
+                    {
+                        messageType: messageType + '_progress',
+                        identifier,
+                        message
+                    },
+                    parentOrigin)
+            }
+
+            function sendError(messageType, error) {
+                console.log("sendError(): messageType = %s, error = %o", messageType, error)
+                parent.postMessage(
+                    {
+                        messageType: messageType + '_done',
+                        identifier,
+                        error
+                    },
+                    parentOrigin)
+            }
+
+            function toArray(results) {
+                results = results || []
+
+                if (!Array.isArray(results)) {
+                    results = [ results ]
+                }
+
+                return results
+            }
+
+            function replaceBooleanStrings(md) {
+                if (Array.isArray(md)) {
+                    return md.map(replaceBooleanStrings)
+                } else if (md && typeof md === 'object') {
+                    return Object.entries(md).reduce((result, entry) => {
+                        const key = entry[0]
+                        const value = entry[1]
+                        result[key] = replaceBooleanStrings(value)
+                        return result
+                    }, {})
+                } else {
+                    if (typeof md === 'string') {
+                        if (md === 'true') {
+                            return true
+                        } else if (md === 'false') {
+                            return false
+                        }
+                    }
+
+                    return md
+                }
+            }
+
+            async function deployMetadata({
+                messageType,
+                type,
+                records
+            }) {
+                const zipFile = await createDeploymentPackage(type, records)
+                const deployResults = await new Promise((resolve, reject) => {
+                    conn.metadata.deploy(zipFile, { rollbackOnError: Boolean(isProduction) })
+                        .on('error', reject)
+                        .on('complete', resolve)
+                        .on('progress', r => {
+                            sendProgress(messageType, 'Deploying metadata: ' + r.state)
+                        })
+                        .poll(5 * 1000, 5 * 60 * 1000)
+                })
+
+                const deployStatus = await conn.metadata.checkDeployStatus(
+                    deployResults.id,
+                    true /* includeDetails */)
+
+                if (!deployStatus.success) {
+                    const errorMessage = deployStatus.errorMessage
+                        || toArray(deployStatus.details.componentFailures)
+                            .map(f => `${f.problemType}: ${f.problem}`)
+                            .join('; ')
+                    throw new Error(`Deployment failed: ${errorMessage}`)
+                }
+
+                return deployStatus
+
+                async function createDeploymentPackage() {
+                    const zip = new JSZip()
+                    const manifest = createPackageManifest()
+                    // console.log(
+                    //     'update_sharing(): createDeploymentPackage(): manifest = %s',
+                    //     manifest)
+                    zip.file('src/package.xml', manifest)
+                    const folder = zip.folder('src/' + getMetadataFolder())
+                    records.forEach(r => {
+                        const metaXml = createMetadataXml(r)
+                        // console.log(
+                        //     'update_sharing(): createDeploymentPackage(): metaXml = %s',
+                        //     metaXml)
+                        folder.file(r.fullName + '.' + getMetadataFileExtension(), metaXml)
+                    })
+                    return zip.generateAsync({ type: 'base64' })
+
+                    function createPackageManifest() {
+                        return [
+                            '<?xml version="1.0" encoding="UTF-8"?>',
+                            '<Package xmlns="http://soap.sforce.com/2006/04/metadata">',
+                                ...records.map(createManifestEntry),
+                                '<version>44.0</version>',
+                            '</Package>'
+                        ].join('')
+                    }
+
+                    function createManifestEntry(r) {
+                        return [
+                            '<types>',
+                                `<members>${r.fullName}</members>`,
+                                '<name>' + type + '</name>',
+                            '</types>'
+                        ].join('')
+                    }
+
+                    function createMetadataXml(r) {
+                        return [
+                            '<?xml version="1.0" encoding="UTF-8"?>',
+                            '<' + type + '>',
+                            toXML(r),
+                            '</' + type + '>'
+                        ].join('')
+                    }
+
+                    function toXML(name, value) {
+                        if (isObject(name)) {
+                            value = name
+                            name = null
+                        }
+
+                        if (Array.isArray(value)) {
+                            return value.map(v => toXML(name, v)).join('')
+                        } else {
+                            var attrs = [];
+                            var elems = [];
+
+                            if (isObject(value)) {
+                                for (let [k, v] of Object.entries(value)) {
+                                    if (k[0] === '@') {
+                                        k = k.substring(1);
+                                        attrs.push(k + '="' + v + '"');
+                                    } else {
+                                        elems.push(toXML(k, v));
+                                    }
+                                }
+
+                                value = elems.join('');
+                            } else {
+                                value = String(value)
+                                    .replace(/&/g, '&amp;')
+                                    .replace(/</g, '&lt;')
+                                    .replace(/>/g, '&gt;')
+                                    .replace(/"/g, '&quot;')
+                                    .replace(/'/g, '&apos;');
+                            }
+                                const startTag = name
+                                    ?
+                                        '<' +
+                                        name +
+                                        (attrs.length > 0 ? ' ' + attrs.join(' ') : '') +
+                                        '>'
+                                    : '';
+                                const endTag = name ? '</' + name + '>' : '';
+                                return  startTag + value + endTag;
+                        }
+                    }
+
+                    function isObject(v) {
+                        return v !== null && v !== undefined && typeof v === 'object'
+                    }
+
+                    function getMetadataFolder() {
+                        return getMetadataFileExtension() + 's'
+                    }
+
+                    function getMetadataFileExtension() {
+                        switch (type) {
+                            case 'CustomObject':
+                                return 'object'
+                            case 'SharingSet':
+                                return 'sharingSet'
+                            default:
+                                return type
+                        }
+                    }
+                }
+            }
+
+            async function convertMetadataRecords(type, records) {
+                if (type === 'SharingSet') {
+                    // Have to convert profile names to full names:
+                    for (const record of records) {
+                        for (let i = 0; i < record.profiles.length; i++) {
+                            const name = record.profiles[i]
+                            const res = await conn.tooling.query(
+                                `SELECT FullName FROM Profile WHERE Name = '${name}'`)
+                            console.log('res = %o', res)
+
+                            if (!res.records || !res.records.length) {
+                                throw new Error('Unable to load profile metadata')
+                            }
+
+                            record.profiles[i] = res.records[0].FullName
+                        }
+                    }
+
+                    return records
+                } else {
+                    return records
+                }
+            }
+
+            const handlers = {
+                check_sharing: async function (event) {
+                    const recSharingModels = await getDefaultSharing()
+
+                    return (await getCurrentSharing())
+                        .filter(curr => {
+                            const rec = recSharingModels[curr.objName]
+                            return (rec
+                                && (
+                                    curr.intSharing !== rec.intSharing
+                                    || curr.extSharing !== rec.extSharing))
+                        })
+                        .map(curr => {
+                            const rec = recSharingModels[curr.objName]
+                            return {
+                                objName: curr.objName,
+                                currInt: curr.intSharing,
+                                currExt: curr.extSharing,
+                                newInt: rec.intSharing,
+                                newExt: rec.extSharing
+                            }
+                        })
+
+                    async function getDefaultSharing() {
+                        return {
+                            'Account': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'Contact': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'EventApi__Attendee__c': await getAttendeeRecommendation(),
+                            'EventApi__Event_Category__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Event_Chatter_Groups__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Event_Page_Component__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Event_Page__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Event_Status_Page__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Event_Status__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Event__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Registration_Group__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'EventApi__Registration_Item__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'EventApi__Room__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Schedule_Item__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Seat__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'EventApi__Section_Ticket__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Section__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Site_Event_Category__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'EventApi__Speaker_Schedule_Item__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'EventApi__Speaker__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Sponsor_Package__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Sponsor__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Ticket_Block__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Ticket_Schedule_Item__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'EventApi__Ticket_Type__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Track_Schedule_Item__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Track__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Vendor__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Venue__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'EventApi__Waitlist_Entry__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'Framework__Fonteva_Language__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'Framework__NONCE__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'Framework__System_Log__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'Framework__Translation__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'LTE__Menu_Item__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'LTE__Site_Event__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'LTE__Site__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Access_Permission__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__AccountDomain__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Assignment_Role__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Assignment__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Badge_Type__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Badge_Workflow__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Badge__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Batch__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Business_Group__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Campaign_Page__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Catalog_Item__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Catalog__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Credit_Memo_Line__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Credit_Memo__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Credit_Note__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Custom_Payment_Type__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__EPayment_Line__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__EPayment__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__GL_Account__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Invoice_Installment_Line__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Invoice_Installment__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Invoice_Line__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Invoice__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Item_Class__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Item_Subscription_Plan__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Item__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Known_Address__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Log__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Order_Summary__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Package_Item__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Payment_Gateway__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Payment_Method__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Payment_Terms__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Price_Rule_Variable__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Price_Rule__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Receipt_Line_R__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Receipt_Line__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Receipt_R__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Receipt__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Renewal_Path_Variable__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Renewal_Path__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Renewal__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Sales_Order_Line_R__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Sales_Order_Line__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Sales_Order_R__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Sales_Order__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Scheduled_Payment_Line__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Scheduled_Payment__c': await getScheduledPaymentRecommendation(),
+                            'OrderApi__Shipping_Method__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Shipping_Region__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Source_Code__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Store__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Subscription_Line__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Subscription_Plan__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Subscription__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'OrderApi__Tax_Locale__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'OrderApi__Transaction_Line__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'OrderApi__Transaction__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'PagesApi__Community_Group_Member__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'PagesApi__Community_Group__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'PagesApi__Field_Group__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'PagesApi__Field_Response__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'PagesApi__Field__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'PagesApi__Form_Response__c': { intSharing: 'ReadWrite', extSharing: 'Private' },
+                            'PagesApi__Form__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'PagesApi__Media_Asset_Collection__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'PagesApi__Media_Asset__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'PagesApi__Menu_Item__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'PagesApi__Menu__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'PagesApi__Page_Element_Attribute__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'PagesApi__Page_Element__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'PagesApi__Page__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'PagesApi__Site__c': { intSharing: 'ReadWrite', extSharing: 'Read' },
+                            'PagesApi__Skip_Logic_Rule__c': { intSharing: 'ControlledByParent', extSharing: 'ControlledByParent' },
+                            'PagesApi__Theme__c': { intSharing: 'ReadWrite', extSharing: 'Read' }
+                        }
+                    }
+
+                    async function getCurrentSharing() {
+                        const fontevaNamespaces = [
+                            'CPBase',
+                            'CurrencyApi',
+                            'DirectoryApi',
+                            'DRCTS',
+                            'DonorApi',
+                            'EventApi',
+                            'FDService',
+                            'FDSSPR20',
+                            'FDS18R2',
+                            'FDS19R1',
+                            'FDS19R2',
+                            'FDS19R2A',
+                            'FontevaPay',
+                            'Framework',
+                            'LTE',
+                            'OrderApi',
+                            'PagesApi',
+                            'PriceApi',
+                            'ProgramApi',
+                            'ROEApi',
+                            'joinapi'
+                        ]
+
+                        const res = await conn.tooling.query(
+                            'SELECT QualifiedApiName, InternalSharingModel, ExternalSharingModel ' +
+                            'FROM EntityDefinition ' +
+                            "WHERE NamespacePrefix IN ('" +
+                            fontevaNamespaces.join("','") +
+                            "') ORDER BY QualifiedApiName")
+                        // TODO: Handle errors
+                        // console.log('check_sharing(): getCurrentSharing(): res = %j', res)
+
+                        return res.records.map(r => ({
+                            objName: r.QualifiedApiName,
+                            intSharing: r.InternalSharingModel,
+                            extSharing: r.ExternalSharingModel
+                        }))
+                    }
+
+                    async function getAttendeeRecommendation() {
+                        if (await isAttendeeMasterDetail()) {
+                            return {
+                                intSharing: 'ControlledByParent',
+                                extSharing: 'ControlledByParent'
+                            }
+                        } else {
+                            return { intSharing: 'ReadWrite', extSharing: 'Private' }
+                        }
+                    }
+
+                    async function isAttendeeMasterDetail() {
+                        const res = await conn.tooling.query(
+                            'SELECT COUNT() ' +
+                            'FROM FieldDefinition ' +
+                            "WHERE QualifiedApiName = 'EventApi__Event__c' " +
+                            "  AND EntityDefinition.QualifiedApiName = 'EventApi__Attendee__c'")
+                        return res.size === 1
+                    }
+
+                    async function getScheduledPaymentRecommendation() {
+                        if (await isScheduledPaymentMasterDetail()) {
+                            return {
+                                intSharing: 'ControlledByParent',
+                                extSharing: 'ControlledByParent'
+                            }
+                        } else {
+                            return { intSharing: 'ReadWrite', extSharing: 'Private' }
+                        }
+                    }
+
+                    async function isScheduledPaymentMasterDetail() {
+                        const res = await conn.tooling.query(
+                            'SELECT COUNT() ' +
+                            'FROM CustomField ' +
+                            "WHERE EntityDefinition.NamespacePrefix = 'OrderApi' " +
+                            "AND EntityDefinition.DeveloperName = 'Scheduled_Payment' " +
+                            "AND NamespacePrefix = 'OrderApi' " +
+                            "AND DeveloperName = 'Payment_Method'")
+                        return res.size === 1
+                    }
+                },
+
+                update_sharing: async function ({ sharingUpdates }) {
+                    if (!Array.isArray(sharingUpdates) || !sharingUpdates.length) {
+                        throw new Error('Invalid update_sharing message')
+                    }
+
+                    const objects = await getObjects()
+                    const objectsByName = getObjectsByName()
+                    fixSharing()
+                    await saveObjects()
+
+                    async function getObjects() {
+                        const objNames = sharingUpdates.map(s => s.objName)
+                        const results = []
+
+                        while (objNames.length) {
+                            // We can read no more than 10 CustomObjects at a time:
+                            const objNamesToRetrieve = objNames.splice(0, 10)
+                            const res = toArray(
+                                await conn.metadata.read('CustomObject', objNamesToRetrieve));
+                            // TODO: Handle errors
+
+                            // console.log('update_sharing(): getObjects(): res = %j', res)
+
+                            sendProgress('update_sharing', 'Retrieving object metadata')
+
+                            if (res.length !== objNamesToRetrieve.length) {
+                                throw new Error('Did not retrieve all object metadata records')
+                            }
+
+                            results.push(...res)
+                        }
+
+                        return results
+                    }
+
+                    function getObjectsByName() {
+                        return objects.reduce((res, obj) => {
+                            res[obj.fullName] = obj
+                            return res
+                        }, {})
+                    }
+
+                    function fixSharing() {
+                        for (const s of sharingUpdates) {
+                            const obj = objectsByName[s.objName]
+                            obj.sharingModel = s.newInt
+                            obj.externalSharingModel = s.newExt
+                        }
+                    }
+
+                    async function saveObjects() {
+                        return await deployMetadata({
+                            messageType: 'update_sharing',
+                            type: 'CustomObject',
+                            records: objects
+                        })
+                    }
+                },
+
+                query: async function (data) {
+                    return await this._handleQuery(data, q => conn.query(q))
+                },
+
+                tooling_query: async function (data) {
+                    return await this._handleQuery(data, q => conn.tooling.query(q))
+                },
+
+                metadata_list: async function ({ queries }) {
+                    return toArray(await conn.metadata.list(queries))
+                },
+
+                metadata_read: async function ({ type, fullNames }) {
+                    if (fullNames.length === 1 && fullNames[0] === '*') {
+                        const listResults = toArray(await conn.metadata.list({ type }))
+                        fullNames = listResults.map(r => r.fullName)
+
+                        if (!fullNames.length) {
+                            return []
+                        }
+                    }
+
+                    const results = toArray(await conn.metadata.read(type, fullNames))
+                    return replaceBooleanStrings(results)
+                },
+
+                metadata_create: async function ({ type, records }) {
+                    return await conn.metadata.create(type, records)
+                },
+
+                metadata_update: async function ({ type, records }) {
+                    return await conn.metadata.update(type, records)
+                },
+
+                metadata_upsert: async function ({ type, records }) {
+                    return await conn.metadata.upsert(type, records)
+                },
+
+                metadata_deploy: async function ({ type, records }) {
+                    return await deployMetadata({
+                        messageType: 'metadata_deploy',
+                        type,
+                        records: await convertMetadataRecords(type, records)
+                    })
+                },
+
+                batch: async function ({ messages }) {
+                    if (!Array.isArray(messages)) {
+                        throw new Error(`Invalid batch message`)
+                    }
+
+                    const results = []
+
+                    for (const msg of messages) {
+                        results.push(await this.handleMessage(msg))
+                    }
+
+                    return results
+                },
+
+                handleMessage: async function (data) {
+                    const handler = this[data.messageType]
+
+                    if (typeof handler === 'function') {
+                        return await handler.call(this, data)
+                    } else {
+                        throw new Error(`Invalid message messageType: ${data.messageType}`)
+                    }
+                },
+
+                _handleQuery: async function (
+                    {
+                        messageType,
+                        query,
+                        queries
+                    },
+                    runQuery
+                ) {
+                    if (query && typeof query === 'string') {
+                        const results = await runQuery(query)
+                        // console.log('query(): res = %o', res)
+                        return results
+                    } else if (Array.isArray(queries)) {
+                        const results = await Promise.all(queries.map(runQuery))
+                        // console.log('query(): res = %o', res)
+                        return results
+                    } else {
+                        throw new Error(`Invalid ${messageType} message`)
+                    }
+                }
+            }
+
+            window.addEventListener('message', async event => {
+                if (event.origin !== parentOrigin || event.data.identifier !== identifier) {
+                    return
+                }
+
+                const messageType = event.data.messageType
+
+                try {
+                    const results = await handlers.handleMessage(event.data)
+                    sendResults(messageType, results)
+                } catch (err) {
+                    sendError(messageType, (err && err.message) || err)
+                }
+            })
+
+            parent.postMessage({
+                messageType: 'ready',
+                identifier
+            }, parentOrigin)
+        })().catch(console.error)
+    </script>
+</apex:page>

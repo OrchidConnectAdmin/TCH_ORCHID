@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Group_Search_Filters_CSV__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field references the field set that defines the attributes that a user can use to filter search results.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field references the field set that defines the attributes that a user can use to filter search results.</inlineHelpText>
+    <label>Group Search Filters (CSV)</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

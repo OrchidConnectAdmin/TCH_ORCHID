@@ -1,0 +1,179 @@
+#fonteva .ns-content h2 {
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 8px;
+}
+
+#fonteva .page-header {
+    margin-top: 0px;
+    border-bottom: 0px;
+    margin-bottom: 10px;
+}
+
+#fonteva .page-header span.subtitle {
+    position: relative;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    left: 40px;
+    bottom: -8px;
+    color: #bbb;
+    letter-spacing: 1.1px;
+}
+
+#fonteva .page-header h2 img {
+    position: relative;
+    top: -6px;
+}
+
+#fonteva a.nav-header-link { text-decoration: none; }
+
+#fonteva a.nav-header-link, #fonteva a.nav-header-link:hover { color: #999; font-size: 105%; text-transform: uppercase; }
+
+#fonteva div.nav-group-header { margin-bottom: 0; padding-top: 0; }
+
+#fonteva .nav.ns-sidenav {
+    margin-top: 0;
+    margin-bottom: 30px;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    text-shadow: 0 1px 0# fff;
+    background-color: #eeeeee;
+    border-radius: 5px;
+}
+
+#fonteva .nav.ns-sidenav > li {
+    line-height: 1;
+}
+
+#fonteva .nav.ns-sidenav > li > a {
+    display: block;
+    color: #333;
+    padding: 3px 25px;
+}
+
+#fonteva .nav li a:hover {
+    text-decoration: underline;
+}
+
+#fonteva .nav-group-header {
+    padding-left: 10px;
+    padding-top: 15px;
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #999;
+}
+
+#fonteva .ns-content {
+    position: relative;
+    padding: 20px 15px;
+    background-color: # fafafa;
+    border-color: #e5e5e5# eee# eee;
+    border-style: solid;
+    border-width: 1px 0;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: #fff;
+    border-width: 1px;
+    border-color: #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+#fonteva .stat-missioncontrol {
+    background-color: #00a0c4;
+    overflow:hidden;
+}
+#fonteva .stat-systemlogs {
+    background-color: #ce1126;
+}
+#fonteva .stat-themes {
+    background-color: #e28c05;
+}
+#fonteva .stat-invoices {
+    background-color: #5358a2;
+}
+#fonteva .stat-cashentries {
+    background-color: #1bb2aa;
+}
+#fonteva .stat-forms {
+    background-color: #335686;
+}
+#fonteva .stat-businessgroups {
+    background-color: #ad005b;
+    overflow:hidden;
+}
+#fonteva .stat {
+    color: #fff;
+    min-width: 80px;
+    width: 100%;
+    min-height: 120px;
+    height: 100px;
+    border-radius: 4px;
+    padding: 10px 5px;
+    display: block;
+    text-align: center;
+}
+#fonteva .ns-content-title {
+    margin-bottom: 15px;
+}
+.stat-value {
+    font-size: 4em;
+    padding-left: 5px;
+    font-weight: 300;
+    vertical-align: top;
+}
+.stat i {
+    font-size: 4em;
+    line-height: 2em;
+    vertical-align: top;
+}
+.stat-desc {
+    display: block;
+    font-size: 1.2em;
+    margin-top: -5px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: normal;
+    letter-spacing: 1.3px;
+}
+.stat {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
+}
+#fonteva .icon.icon-large {
+    font-size: 150%;
+    vertical-align: top;
+    margin-top: -.6%;
+}
+#fonteva .media-heading {
+    display: block;
+}
+#fonteva .row.extra-margin {
+    margin-bottom: 15px;
+}
+#fonteva .row.clearfix {
+    margin: 12px 0;
+}
+#fonteva .ns-content-title h2 img {
+    margin-right: 10px;
+}
+#fonteva .ns-nav-title {
+    margin-left:17px;
+    color: #999;
+    font-weight:300;
+    text-decoration: none;
+    text-transform:uppercase;
+    font-size:14px;
+    margin-bottom: 10px;
+}
+#fonteva .modal-select {
+    max-width: 310px;
+}
+#fonteva .control-label {
+    padding-top: 10px;
+}
+
+#fonteva h1, #fonteva h2, #fonteva h3, #fonteva h4, #fonteva h5 { display: block; }
+#fonteva h3 { margin-top: 0; color: #4a50a2; font-weight: 600; text-transform: uppercase; line-height: 1.6em; font-size: 14px; }

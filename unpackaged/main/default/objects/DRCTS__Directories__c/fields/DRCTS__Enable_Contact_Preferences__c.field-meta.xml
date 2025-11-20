@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Enable_Contact_Preferences__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When Enabled, this will have the ability for the user to show/hide profile fields when they are Authenticated.</description>
+    <inlineHelpText>When Enabled, this will have the ability for the user to show/hide profile fields when they are Authenticated.</inlineHelpText>
+    <label>Enable Contact Preferences</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

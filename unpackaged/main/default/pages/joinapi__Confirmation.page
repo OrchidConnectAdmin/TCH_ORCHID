@@ -1,0 +1,58 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           controller="joinapi.JoinProcessConfirmationController">
+  <apex:composition template="joinapi__template">
+    <apex:define name="jpTitle">
+      {!step.joinapi__Page_Title__c}
+    </apex:define>
+    <apex:define name="jpMain">
+      <Framework:messages />
+      <c:InvalidPermissionHeader enabledProcess="{!hasPermission}" />
+      <apex:outputPanel rendered="{!hasPermission}">
+        <div class="in">
+          <div class="container m-t-30">
+            <div class="well col-md-12">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h1>{!step.joinapi__Page_Title__c}</h1>
+                  <hr class="m-b-15" />
+                </div>
+              </div>
+              <div class="row" style="margin-bottom:10px;">
+                <div class="col-md-12">
+                  <apex:outputText value="{!step.joinapi__Instructions__c}" escape="false" />
+                </div>
+              </div>
+              <div class="row m-t-20 text-center">
+                <div class="col-xs-12">
+                  <apex:form id="redirectButtons">
+                    <a class="btn btn-mini btn-primary ladda-button nextConfirmation btn-wrap" data-style="expand-right">
+                        <span class="ladda-label">
+                                {!step.joinapi__Next_Step_Button_Label__c}
+                        </span>
+                    </a>
+                    <apex:actionFunction name="nextConfirmation" action="{!next}"/>
+                  </apex:form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:outputPanel>
+    </apex:define>
+
+    <apex:define name="jpScripts">
+      <script type="text/javascript">
+        $(document).on('click', '.nextConfirmation', function(e) {
+            em.loader.start(this);
+            var btnRef = this;
+            nextConfirmation();
+            setTimeout(function(){ em.loader.stop(btnRef); }, 1000);
+        });
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

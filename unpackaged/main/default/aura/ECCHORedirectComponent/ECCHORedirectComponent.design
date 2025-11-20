@@ -1,0 +1,4 @@
+<design:component label="ECCHO: Redirect">
+    <design:attribute name="rURL" label="URL Source"/>
+	
+</design:component>

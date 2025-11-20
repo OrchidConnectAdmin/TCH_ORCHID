@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Closed_Status_Text__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The text entered in this field will appear in bold in place of the register button when the registration is closed.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>The text entered in this field will appear in bold in place of the register button when the registration is closed.</inlineHelpText>
+    <label>DEPRECATED</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

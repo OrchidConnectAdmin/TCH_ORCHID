@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Do_Not_Acknowledge__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Primary indicator for non-cash gifts that should not be acknowledged. Default is unchecked.</description>
+    <inlineHelpText>Primary indicator for non-cash gifts that should not be acknowledged. Default is unchecked.</inlineHelpText>
+    <label>Do Not Acknowledge</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

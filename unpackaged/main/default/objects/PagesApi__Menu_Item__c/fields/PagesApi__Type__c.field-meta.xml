@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** The Type of Menu Item defaults to &quot;Page Link&quot;.</description>
+    <inlineHelpText>** Required ** The Type of Menu Item defaults to &quot;Page Link&quot;.</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Custom Page</fullName>
+                <default>true</default>
+                <label>Custom Page</label>
+            </value>
+            <value>
+                <fullName>Custom URL</fullName>
+                <default>false</default>
+                <label>Custom URL</label>
+            </value>
+            <value>
+                <fullName>Text</fullName>
+                <default>false</default>
+                <label>Text</label>
+            </value>
+            <value>
+                <fullName>On Click Javascript</fullName>
+                <default>false</default>
+                <label>On Click Javascript</label>
+            </value>
+            <value>
+                <fullName>Standard Page</fullName>
+                <default>false</default>
+                <label>Standard Page</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

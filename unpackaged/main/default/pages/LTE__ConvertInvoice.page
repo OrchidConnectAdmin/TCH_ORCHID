@@ -1,0 +1,17 @@
+<apex:page id="ConvertInvoice" standardController="OrderApi__Sales_Order__c" sideBar="false" applyBodyTag="false">
+	<apex:includeLightning />
+	<div id="container" style="min-height: 400px"/>
+	<script>
+      $Lightning.use("LTE:OrdersApp", function()
+      {
+          $Lightning.createComponent(
+              "LTE:convertOrderInvoice",{orderId: "{!$CurrentPage.parameters.id}", theme : "{!$User.UITheme}"},
+              "container",
+              function(cmp,status,error) {
+                  if (error) {
+                      console.log(error);
+									}
+              });
+      });
+	</script>
+</apex:page>

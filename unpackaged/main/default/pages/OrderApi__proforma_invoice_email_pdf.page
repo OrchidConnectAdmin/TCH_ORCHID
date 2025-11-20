@@ -1,0 +1,397 @@
+<apex:page docType="html-5.0" controller="OrderApi.ProformaInvoiceEmailController" showHeader="false" renderAs="pdf"
+           sideBar="false" applyHtmlTag="false" standardStylesheets="false" applyBodyTag="false">
+    <html lang="en">
+    <head>
+        <title>{! IF (isNotProformaInvoice, $Label.Proforma_Invoice_Email_Header_Invoice , $Label.Proforma_Invoice_Email_Header)}</title>
+        <meta charset="utf-8" />
+        <style>
+        @page {
+            size: 8.5in 11in;
+            @top-center {
+                content: element(header);
+            }
+            @bottom-center {
+                content: element(footer);
+            }
+        }
+        div.header {
+            padding: 10px;
+            position: running(header);
+        }
+        div.footer {
+            display: block;
+            padding: 5px;
+            position: running(footer);
+        }
+            html {
+                font-size: 14px;
+            }
+            body {
+                font-family: 'Helvetica+Neue', 'Arial', Sans-serif;
+                font-size: 1rem;
+                margin: 0;
+            }
+            table.items .bottom-border td {
+                border-bottom: 1px solid #ddd;
+                padding-top: 5px;
+                padding-bottom: 10px;
+            }
+            table .bottom-border {
+                border-collapse: collapse;
+            }
+            table td, table th {
+                vertical-align: top;
+                padding: 0 15px;
+            }
+            .gray-text {
+                color: #777
+            }
+            table th {
+                font-weight: 400;
+                text-transform: uppercase;
+                border-right: 2px solid white;
+            }
+            table th:last-child {
+                border-right: none!important;
+            }
+            table, .full {
+                width: 100%;
+            }
+            table {
+                margin-bottom: 10px;
+            }
+            .two-third {
+                width: 66.6666667%;
+            }
+            .three-quarter {
+                width: 75%;
+            }
+            .half {
+                width: 50%;
+            }
+            .third {
+                width: 33.3333333%;
+            }
+            .quarter {
+                width: 25%;
+            }
+            .m-0 {
+                margin-top:0;
+                margin-bottom: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .bordered {
+                border: 1px solid #ddd;
+                padding-top: 15px;
+                padding-bottom: 15px;
+            }
+            .bg-gray {
+               background-color: #eee;
+               padding-top: 15px;
+               padding-bottom: 15px;
+            }
+
+            table.items thead th {
+                padding: 10px 15px;
+                background-color: #eee;
+                text-align: center;
+            }
+            .p-0 {
+                padding: 0;
+                padding-left: 0;
+                padding-right: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            .total tr td {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #ddd
+            }
+            .total .bg-gray td {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                background-color: #eee;
+                border-bottom: none;
+            }
+            .total-wrapper, .total {
+                border-collapse: collapse;
+            }
+            h3.space, p.space {
+                margin-bottom: 10px;
+            }
+            table.info {
+                page-break-before: always;
+            }
+            table.info:first-child {
+                page-break-before: auto;
+            }
+            .header {
+                position: fixed;
+                width: 100%;
+                text-align: center;
+                margin-top : 30px;
+            }
+            .footer {
+                position: relative!important;
+                width: 100%;
+                text-align: center;
+                margin-top : 30px;
+            }
+            .header {
+                top: 0;
+            }
+            .footer {
+                bottom: 0;
+            }
+            table.full-top, table.full-bottom {
+                position: fixed;
+                left:0;
+                right: 0;
+                background: #999;
+            }
+            table.full-top {
+                top: 0;
+            }
+            table.full-bottom {
+                top: 0;
+            }
+            @page {
+              @top { content: element(pageHeader); }
+            }
+
+            #pageHeader { position: running(pageHeader); }
+
+            .centered {
+                text-align: center;
+                position: fixed;
+                top: 30%;
+                font-weight: 900;
+                font-size: 150%;
+                transform: translate(-50%, -50%);
+            }
+
+            .proforma-heading {
+                margin-top : 0px;
+            }
+        </style>
+    </head>
+        <body>
+        <apex:variable var="cnt" value="{!0}" />
+        <apex:repeat value="{!salesOrdersList}" var="salesOrder" id="theRepeat">
+            <apex:variable var="cnt" value="{!cnt+1}"/>
+            <!-- Information -->
+            <table class="info" style="margin-top: 50px;">
+                <tr>
+                    <td class="three-quarter p-0">
+                        <table>
+                            <tr>
+                                <td>
+                                    <strong>{!salesOrder.Business_Group__r.OrderApi__Display_Name__c}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><apex:outputField value="{!salesOrder.Business_Group__r.OrderApi__Mailing_Address__c}"/></td>
+                            </tr>
+                            <tr>
+                                <td>{!salesOrder.Business_Group__r.Phone__c}</td>
+                            </tr>
+                            <tr>
+                                <td>{!salesOrder.Business_Group__r.Homepage_URL__c}</td>
+                            </tr>
+                            <tr>
+                                <td>{!salesOrder.Business_Group__r.Email__c}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="quarter" style="text-align:right!important">
+
+                    </td>
+                </tr>
+            </table>
+            <!-- Invoice -->
+            <table class="invoice">
+                <tr>
+                    <td>
+                        <h1 class="proforma-heading"><strong>{! IF (isNotProformaInvoice, $Label.Proforma_Invoice_Email_Header_Invoice , $Label.Proforma_Invoice_Email_Header)}</strong></h1>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="half">
+                        <table class="bg-gray">
+                            <tr>
+                                <td class="gray-text">Date</td>
+                                <td>
+                                    <apex:outputField value="{!salesOrder.OrderApi__Date__c}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="gray-text">SalesOrder</td>
+                                <td>{!salesOrder.Name}</td>
+                            </tr>
+                            <tr>
+                                <td class="gray-text">Balance Due</td>
+                                <td> <Framework:currencyField record="{!salesOrder}" field="{!$ObjectType.OrderApi__Sales_Order__c.Fields.OrderApi__Total__c.Name}"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="half">
+
+                    </td>
+                </tr>
+            </table>
+            <!-- Address -->
+            <table class="address">
+                <tr>
+                    <td class="half">
+                        <p class="m-0 space">Addressed to:</p>
+                        <table class="bordered">
+                            <tr>
+                                <td><strong>{!salesOrder.Account__r.Name}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>{!salesOrder.Billing_Contact__c}</td>
+                            </tr>
+                            <tr>
+                                <td>{!salesOrder.Billing_Street__c}</td>
+                            </tr>
+                            <tr>
+                                <td>{!salesOrder.Billing_City__c} {!salesOrder.Billing_State__c} {!salesOrder.Billing_Postal_Code__c}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="half">
+                    </td>
+                </tr>
+            </table>
+            <!-- Items -->
+            <table class="items m-0">
+                <tr>
+                    <td class="full">
+                        <h3 class="m-0 space">Items:</h3>
+                        <table class="bottom-border">
+                            <thead>
+                                <tr>
+                                    <th class="gray-text">Qty</th>
+                                    <th class="gray-text">Description</th>
+                                    <th class="gray-text">List Price</th>
+                                    <th class="gray-text">Sale Price</th>
+                                    <th class="gray-text">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <apex:repeat value="{!idToSalesOrderLinesMap[salesOrder.Id]}" var="lineItem">
+                                <apex:outputPanel rendered="{!NOT(lineItem.Is_Tax__c)}" layout="none">
+                                    <tr>
+                                        <td >
+                                            {!lineItem.Quantity__c}
+                                        </td>
+                                        <td>
+                                            {!lineItem.Item__r.Display_Name__c}
+                                        </td>
+                                        <td style="text-align:right">
+                                          <Framework:currencyField record="{!lineItem}" field="{!$ObjectType.OrderApi__Sales_Order_Line__c.Fields.OrderApi__List_Price__c.Name}"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <Framework:currencyField record="{!lineItem}" field="{!$ObjectType.OrderApi__Sales_Order_Line__c.Fields.OrderApi__Sale_Price__c.Name}"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                          <Framework:currencyField record="{!lineItem}" field="{!$ObjectType.OrderApi__Sales_Order_Line__c.Fields.OrderApi__Total__c.Name}"/>
+                                        </td>
+                                    </tr>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <!-- Total -->
+            <table class="total-wrapper">
+                <tr>
+                    <td class="third">
+
+                    </td>
+                    <td class="two-third">
+                        <table class="total">
+
+                            <tr>
+                                <td style="text-align:right">
+                                    <strong>{!$Label.Sub_Total}:</strong>
+                                </td>
+                                <td style="text-align:right">
+                                  <Framework:currencyField record="{!idToSubTotalMap[salesOrder.Id]}" field="{!$ObjectType.OrderApi__Sales_Order_Line__c.Fields.OrderApi__Total__c.Name}"/>
+                                </td>
+                            </tr>
+                            <apex:outputPanel id="taxes" rendered="{!isSOContainsTaxes[salesOrder.Id]}" layout="none">
+                                <apex:repeat value="{!idToTaxLinesMap[salesOrder.Id]}" var="taxLineItem">
+                                    <tr>
+                                        <td style="text-align:right!important">
+                                            <strong>Tax</strong> ({!taxLineItem.Item__r.Display_Name__c}):
+                                        </td>
+                                        <td style="text-align:right">
+                                          <Framework:currencyField record="{!taxLineItem}" field="{!$ObjectType.OrderApi__Sales_Order_Line__c.Fields.OrderApi__Total__c.Name}"/>
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                            </apex:outputPanel>
+                            <apex:outputPanel id="shippingTotal" rendered="{!isSOContainsShipping[salesOrder.Id]}" layout="none">
+                            <tr>
+                                <td style="text-align:right">
+                                    <strong>{!$Label.OrderApi__Shipping}:</strong>
+                                </td>
+                                <td style="text-align:right">
+                                  <Framework:currencyField record="{!idToShippingTotalMap[salesOrder.Id]}" field="{!$ObjectType.OrderApi__Sales_Order_Line__c.Fields.OrderApi__Total__c.Name}"/>
+                                </td>
+                            </tr>
+                            </apex:outputPanel>
+                            <tr class="bg-gray">
+                                <td style="text-align:right">
+                                    <strong>{!$Label.OrderApi__Total}:</strong>
+                                </td>
+                                <td style="text-align:right">
+                                  <Framework:currencyField record="{!salesOrder}" field="{!$ObjectType.OrderApi__Sales_Order__c.Fields.OrderApi__Total__c.Name}"/>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <!-- Memo -->
+            <apex:outputPanel rendered="{!IF(ISBLANK(salesOrder.OrderApi__Memo__c), FALSE , TRUE )}">
+                <table>
+                    <tr>
+                        <td class="full">
+                            <table class="bordered">
+                                <tr>
+                                    <td>
+                                        <apex:outputText value="{!salesOrder.OrderApi__Memo__c}" escape="false"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!NOT(ISBLANK(salesOrder.Business_Group__r.OrderApi__Invoice_Header__c))}">
+                <div class="header">
+                    <apex:outputText value="{!salesOrder.Business_Group__r.OrderApi__Invoice_Header__c}" escape="false"/>
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!NOT(ISBLANK(salesOrder.Business_Group__r.OrderApi__Invoice_Footer__c))}">
+              <div class="footer">
+                    <apex:outputText value="{!salesOrder.Business_Group__r.OrderApi__Invoice_Footer__c}" escape="false"/>
+                </div>
+            </apex:outputPanel>
+        </apex:repeat>
+        </body>
+        <div class="centered">
+            <apex:pageMessage severity="info" rendered="{!printableSalesOrders == 0}" summary="{!$Label.OrderApi__Proforma_SO_PDF_ErrMsg}"/>
+        </div>
+    </html>
+</apex:page>

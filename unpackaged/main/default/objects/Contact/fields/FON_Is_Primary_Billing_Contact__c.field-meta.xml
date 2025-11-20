@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Is_Primary_Billing_Contact__c</fullName>
+    <description>Automatically checks the box when a Contact is populated in the Primary Billing Contact lookup field housed on the Account record</description>
+    <formula>Id ==  Account.FON_Primary_Billing_Contact__r.Id</formula>
+    <inlineHelpText>Automatically checks the box when a Contact is populated in the Primary Billing Contact lookup field housed on the Account record</inlineHelpText>
+    <label>Is Primary Billing Contact</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated/Override** A &quot;Receivable&quot; Transaction occurs when an Invoice is posted, a &quot;Cash&quot; Transaction occurs when payment is received for an Invoice or Sales Order. Paid Invoices will have at least one &quot;Receivable&quot; and one &quot;Cash&quot; Transaction.</description>
+    <inlineHelpText>**System Calculated/Override** A &quot;Receivable&quot; Transaction occurs when an Invoice is posted, a &quot;Cash&quot; Transaction occurs when payment is received for an Invoice or Sales Order. Paid Invoices will have at least one &quot;Receivable&quot; and one &quot;Cash&quot; Transaction.</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Receivable</fullName>
+                <color>#0B6FCE</color>
+                <default>false</default>
+                <label>Receivable</label>
+            </value>
+            <value>
+                <fullName>Cash</fullName>
+                <color>#78C953</color>
+                <default>false</default>
+                <label>Cash</label>
+            </value>
+            <value>
+                <fullName>Adjustment</fullName>
+                <color>#641CCF</color>
+                <default>false</default>
+                <label>Adjustment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

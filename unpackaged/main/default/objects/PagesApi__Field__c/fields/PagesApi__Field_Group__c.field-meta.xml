@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Field_Group__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>**Required** All fields must be associated with a Field Group. Field Groups can be used to update and create new records in the database.</description>
+    <inlineHelpText>**Required** All fields must be associated with a Field Group. Field Groups can be used to update and create new records in the database.</inlineHelpText>
+    <label>Field Group</label>
+    <referenceTo>PagesApi__Field_Group__c</referenceTo>
+    <relationshipLabel>Fields</relationshipLabel>
+    <relationshipName>Fields</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

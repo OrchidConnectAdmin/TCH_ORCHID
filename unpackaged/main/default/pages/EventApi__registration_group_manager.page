@@ -1,0 +1,417 @@
+<apex:page showHeader="false"
+    sidebar="false"
+    applyBodyTag="false"
+    applyHtmlTag="false"
+    standardStylesheets="false"
+    docType="html-5.0"
+    controller="EventApi.RegistrationGroupManagerController">
+
+    <apex:composition template="PagesApi__default_template">
+      <apex:define name="styles">
+        <link rel="stylesheet" href="https://www.fuelcdn.com/fuelux/3.7.2/css/fuelux.min.css"/>
+        <script src="https://www.fuelcdn.com/fuelux/3.7.2/js/fuelux.min.js"/>
+      </apex:define>
+        <apex:define name="main">
+            <script src="{!URLFOR($Resource.emerald_1_0,'js/pages/registration_group_manager.min.js')}"></script>
+            <link rel="stylesheet" href="{!URLFOR($Resource.emerald_1_0,'css/pages/events.min.css')}"/>
+            <div class="container registration-group-manager-container m-b-50">
+            <div class="row">
+              <div class="col-md-12">
+                <Framework:messages />
+              </div>
+            </div>
+            <apex:outputPanel layout="none" rendered="{!hasError}">
+              <div class="row">
+                <div class="col-md-12">
+                 <div class="well text-center">
+                    <h2>{!$Label.Event_Not_Found}</h2>
+                    <h1 style="font-size:44px;font-weight:bold;margin-bottom:35px;">
+                      <i class="btb bt-times-circle bt-2x"></i>
+                    </h1>
+                    <p class="lead">{!$Label.Event_Not_Found_Description}</p>
+                  </div>
+                </div>
+              </div>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!NOT(hasError)}">
+              <apex:form id="regGroupInvite"
+                styleClass="reg-group-form form-horizontal"
+                html-role="form"
+                forceSSL="true"
+                html-data-parsley-validate="true"
+                html-autocomplete="off">
+                <div class="well">
+                  <div class="row m-b-20">
+                    <div class="col-md-12 text-center fuelux">
+                      <div class="placard" data-ellipsis="true" data-initialize="placard" id="myPlacard">
+                        <div class="placard-popup"></div>
+                        <div class="placard-header"><h5>{!$Label.Registration_Group_Name}</h5></div>
+                        <apex:inputText styleClass="form-control placard-field glass" value="{!registrationGroup.Name}"/>
+                      </div>
+                    </div>
+                  </div>
+                <apex:outputPanel rendered="{!NOT(ISBLANK(eventObj.EventApi__Group_Manager_HTML__c))}" layout="none">
+                    <div class="row m-b-20">
+                        <div class="col-md-12 text-center">
+                           <apex:outputField value="{!eventObj.EventApi__Group_Manager_HTML__c}" styleClass="text-center"/>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+                  <div class="row">
+                    <div class="col-md-7">
+                      <form role="form" class="form-horizontal well m-b-0">
+                        <fieldset>
+                          <div class="form-group">
+                            <label class="col-md-12 required-icon">{!$Label.Invite}</label>
+                            <div class="col-md-12">
+                              <div class="input-group registration-input-group">
+                              <div class="fuelux">
+                                <div id="myPillbox" class="pillbox">
+                                  <ul class="clearfix pill-group">
+                                  <li class="pillbox-input-wrap btn-group">
+                                    <input readonly="readonly" type="text" class="form-control dropdown-toggle pillbox-add-item"/>
+                                  </li>
+                                </ul>
+                               </div>
+                               <span class="input-group-btn pillbox-absolute">
+                                  <button class="btn btn-primary reg-group-add-invitee" type="button" aria-label="Add Invitee" data-toggle="modal" data-target="#inviteModal"><i class="fa fa-plus"></i></button>
+                                </span>
+                              </div>
+                              </div><!-- /input-group -->
+                            </div>
+                          </div><!-- /.form-group -->
+
+                          <div class="form-group">
+                            <label class="col-md-12">{!$Label.Message}</label>
+                            <div class="col-md-12">
+                              <apex:inputHidden id="emailBody" value="{!registrationGroup.EventApi__Invitation_Email_Body__c}"/>
+                              <div id="emailBodySummerNote"/>
+                            </div>
+                          </div>
+
+                        </fieldset>
+                      </form>
+                    </div><!-- /.col-md-8 -->
+
+                    <div class="col-md-5">
+                     <apex:actionRegion >
+                     <apex:outputPanel id="inviteeSummary">
+                      <div class="panel">
+                        <div class="panel-heading bg-primary">
+                          <span class="h5">{!$Label.EventApi__Summary}</span><span class="h5 pull-right m-0"><Framework:currencyField value="{!totalCost}" record="{!eventObj}"/></span>
+                        </div>
+                        <div class="panel-body">
+                         <apex:outputPanel rendered="{!parentAssignment != null}">
+                          <div class="row">
+                            <div class="col-md-1">
+                            </div><!-- /. col-md-1 -->
+                            <div class="col-md-5">
+                              <p>{!parentAssignment.OrderApi__First_Name__c} {!parentAssignment.OrderApi__Last_Name__c}</p>
+                            </div><!-- /. col-md-5 -->
+                            <div class="col-md-3">
+                              <p> {!ticketTypes[salesOrderLine.Ticket_Type__c].Name}</p>
+                            </div><!-- /. col-md-5 -->
+                            <div class="col-md-3">
+                              <p class="text-right">
+                              <Framework:currencyField record="{!salesOrderLine}" field="{!$ObjectType.OrderApi__Sales_Order_Line__c.Fields.OrderApi__Sale_Price__c.Name}"/></p>
+                              </div><!-- /. col-md-3 -->
+                          </div><!-- /.row -->
+                          </apex:outputPanel>
+                          <apex:repeat value="{!invitees}" var="identifier">
+                            <apex:outputPanel layout="none" rendered="{!NOT(invitees[identifier].isPrimary)}">
+                              <div class="row">
+                                <div class="col-md-1">
+                                  <apex:commandLink styleClass="removeInvitee" action="{!removeInvitee}" reRender="inviteeList,inviteeSummary,inviteeEmails" html-data-id="{!identifier}">
+                                    <apex:param name="inviteeToDelete" value="{!identifier}"/>
+                                    <i class="fa fa-times" style="color:red"/>
+                                  </apex:commandLink>
+                                </div><!-- /. col-md-1 -->
+                                <div class="col-md-5">
+                                  <p>{!invitees[identifier].firstName} {!invitees[identifier].lastName}</p>
+                                </div><!-- /. col-md-5 -->
+                                <div class="col-md-3">
+                                  <p> {!invitees[identifier].ticketTypeName}</p>
+                                </div><!-- /. col-md-5 -->
+                                <div class="col-md-3">
+                                  <p class="text-right"><Framework:currencyField value="{!invitees[identifier].cost}" record="{!eventObj}"/></p>
+                                </div><!-- /. col-md-3 -->
+                              </div><!-- /.row -->
+                            </apex:outputPanel>
+                          </apex:repeat>
+                        </div><!-- /.well -->
+                      </div>
+                      </apex:outputPanel>
+                    </apex:actionRegion>
+                    </div><!-- /.col-md-5 -->
+                  </div><!-- /.row -->
+                  <div class="row btn-navigation">
+                  <div class="col-sm-3 col-sm-offset-3 text-right btn-previous">
+                    <a type="button" href="#" class="btn btn-primary btn-block btn-cancel-invitees">{!$Label.Cancel}</a>
+                  </div>
+                  <div class="col-sm-3 text-left">
+                    <button class="btn btn-primary btn-block btn-send-invitees">{!$Label.Continue}</button>
+                  </div>
+                </div>
+                </div>
+                <apex:actionFunction name="sendInvites" action="{!sendInvites}"/>
+                </apex:form>
+              <div class="modal fade inviteModal" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="inviteLabel" aria-hidden="true" style="display: none;">
+              <div class="modal-dialog modal-lg invite-modal-content">
+                <div class="modal-content">
+                  <div class="modal-header bg-info">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <h3 class="modal-title" id="myModalLabel">{!$Label.Who_To_Invite}</h3>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12">
+                        <apex:actionRegion >
+                          <apex:outputPanel id="inviteeList">
+                            <apex:form id="invitedAttendees"
+                              styleClass="reg-group-invitees-form"
+                              html-role="form"
+                              forceSSL="true"
+                              html-data-parsley-validate="true"
+                              html-autocomplete="off">
+                              <table class="table table-condensed table-striped">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+                                    <th>{!$ObjectType.OrderApi__Assignment__c.fields.OrderApi__Full_Name__c.Label}</th>
+                                    <th>{!$ObjectType.OrderApi__Assignment__c.fields.OrderApi__Email__c.Label}</th>
+                                    <th>{!$Label.Registration_Type}</th>
+                                    <th>{!$Label.Cost}</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                 <apex:repeat value="{!invitees}" var="identifier">
+                                  <apex:outputPanel layout="none" rendered="{!NOT(invitees[identifier].isPrimary)}">
+                                    <tr>
+                                      <td>
+                                        <apex:commandLink styleClass="removeInvitee" action="{!removeInvitee}" reRender="inviteeList,inviteeSummary,inviteeEmails" html-data-id="{!identifier}">
+                                          <apex:param name="inviteeToDelete" value="{!identifier}"/>
+                                          <i class="fa fa-times" style="color:red"/>
+                                        </apex:commandLink>
+                                      </td>
+                                      <td>
+                                        {!invitees[identifier].firstName} {!invitees[identifier].lastName}
+                                      </td>
+                                      <td>
+                                        {!invitees[identifier].email}
+                                      </td>
+                                      <td>
+                                        {!invitees[identifier].ticketTypeName}
+                                      </td>
+                                      <td>
+                                        <Framework:currencyField value="{!invitees[identifier].cost}" record="{!eventObj}"/>
+                                      </td>
+                                    </tr>
+                                  </apex:outputPanel>
+                                  </apex:repeat>
+                                </tbody>
+                              </table>
+                              <apex:actionFunction name="saveInvitees" action="{!saveInvitees}" reRender="inviteeList,inviteeSummary,inviteeEmails"/>
+                            </apex:form>
+                          </apex:outputPanel>
+                        </apex:actionRegion>
+                        </div>
+                        <apex:form id="frmInvite"
+                          styleClass="reg-group-invitee-form"
+                          html-role="form"
+                          forceSSL="true"
+                          html-data-parsley-validate="true"
+                          html-autocomplete="off">
+                          <apex:inputHidden value="{!currentInvitee.identifier}" id="hiddenIdentifier"/>
+                        <div class="col-sm-12 m-t-20">
+                          <fieldset class="m-b-12">
+                            <div class="form-group col-sm-4">
+                              <apex:inputText styleClass="form-control first-name-input current-invitee-input" value="{!currentInvitee.fullName}"  html-placeholder="Full Name" required="true"/>
+                            </div>
+                            <div class="form-group col-sm-3">
+                              <apex:inputText html-data-parsley-required="true" html-data-parsley-validate-if-empty="true" html-data-parsley-type="email" value="{!currentInvitee.email}" styleClass="form-control form-control email-input current-invitee-input" html-placeholder="E-mail" required="true"/>
+                            </div>
+                            <div class="form-group col-sm-4">
+                              <div class="ui-select">
+                                <apex:selectList value="{!currentInvitee.ticketType}" size="1" styleClass="form-control chosen-select" html-data-parsley-group="add-invitee-block">
+                                  <apex:selectOptions value="{!TicketTypesOptions}"/>
+                                </apex:selectList>
+                              </div>
+                            </div>
+                            <div class="form-group col-sm-1">
+                              <span class="input-group-btn">
+                                <button class="btn btn-primary add-invitee-button" type="button" aria-label="Add Invitee"><i class="fa fa-plus"></i></button>
+                              </span>
+                            </div>
+                          </fieldset>
+                        </div><!-- /.col-md-12 -->
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="col-md-4 col-md-offset-4">
+                              <button type="button" class="btn btn-block btn-primary save-invitees">{!$Label.Save_Invitees}</button>
+                            </div>
+                          </div>
+                        </div>
+                        <apex:actionFunction name="addInvitee" action="{!addInvitee}" reRender="inviteeList,inviteeSummary,inviteeEmails"/>
+                        </apex:form>
+                      </div>
+                    </div>
+                  </div><!-- /.modal-body -->
+                  <div class="modal-footer">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <apex:form >
+              <apex:actionFunction name="cancelGroupReg" action="{!cancelGroupReg}"/>
+            </apex:form>
+            </apex:outputPanel>
+            </div>
+            <script type="text/javascript">
+              var numberOfInvitees = 0;
+
+              function buildExistingInviteesPillbox(existingInvitees) {
+                for (var key in existingInvitees) {
+                  if (existingInvitees.hasOwnProperty(key)) {
+                    existingInvitee = existingInvitees[key];
+                    $('#myPillbox').pillbox('addItems', numberOfInvitees, [{ text: existingInvitee.fullName, value: existingInvitee.identifier, attr: {}, data: {} }]);
+                    numberOfInvitees++;
+                  }
+                }
+              }
+
+              function resetFieldsAndAddInvitee() {
+                var identifier = document.getElementById("{!$Component.frmInvite.hiddenIdentifier}");
+                identifier.value = makeId();
+                addInvitee();
+
+                var fullname = $('.first-name-input').val().replace("%20","");
+                $('#myPillbox').pillbox('addItems', numberOfInvitees, [{ text: fullname, value: identifier.value, attr: {}, data: {} }]);
+                
+                $('.first-name-input').val('Guest Attendee');
+                $('.email-input').val('guest@{!$Site.Domain}');
+                $('.first-name-input').focus();
+                numberOfInvitees++;
+              }
+
+              function showLoadingScreen() {
+                showPageLoader();
+              }
+
+              $(document).ready(function() {
+                var formValidate = $('.reg-group-invitee-form').parsley();
+                var regForm = $('.reg-group-form').parsley();
+                $('#myPlacard').placard();
+                $('#myPillbox').pillbox('readonly');
+
+                buildExistingInviteesPillbox(JSON.parse("{!JSENCODE(inviteesJSON)}"));
+
+                var options = {
+                  height: 200,
+                  toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['insert', ['link','photo','video']],
+                    ['table', ['table']],
+                    ['options', ['fullscreen', 'codeview']],
+                    ['help', ['help']]
+                  ],
+                  onChange: function(e) {
+                    var emailBodyTextArea = document.getElementById('{!$Component.regGroupInvite.emailBody}');
+                    emailBodyTextArea.value = $("#emailBodySummerNote").code();
+                  }
+                };
+                $('#emailBodySummerNote').summernote(options);
+
+                 $(document).on('click','.add-invitee-button',function(event){
+                    event.preventDefault();
+
+                    if (formValidate.validate())
+                      resetFieldsAndAddInvitee();
+                    else
+                      return false;
+                  });
+
+                 $(document).on('click','.save-invitees',function(event){
+                  event.preventDefault();
+                  if (numberOfInvitees == 0) {
+                      swal({
+                        title: "{!$Label.EventApi__At_Least_One_Invitee_Selected}",
+                        text: "",
+                        type: "error",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true },
+                        function(){});
+                      return false;
+                  }
+                  var inviteesForm = $('.reg-group-invitees-form').parsley();
+                  if (inviteesForm.validate()) {
+                    saveInvitees();
+                    $('#inviteModal').modal('hide');
+                  }
+                  else
+                    return false;
+                 });
+
+                 $(document).on('click','.delete-invitee',function(event){
+                  event.preventDefault();
+                  removeInvitee();
+                 });
+
+                 $(document).on('click','.btn-cancel-invitees',function(event){
+                  event.preventDefault();
+                  showLoadingScreen();
+                  cancelGroupReg();
+                  return false;
+                 });
+
+                 $(document).on('click','.btn-send-invitees',function(event){
+                    event.preventDefault();
+
+                    var formValidationResult = regForm.validate();
+
+                    if (numberOfInvitees == 0) {
+                      swal({
+                        title: "{!$Label.EventApi__At_Least_One_Invitee_Selected}",
+                        text: "",
+                        type: "error",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true },
+                        function(){});
+                      return false;
+                    }
+
+                    if (formValidationResult) {
+                      showLoadingScreen();
+                      sendInvites();
+                    }
+
+                    return false;
+                  });
+
+                 $(document).on('click','.removeInvitee',function(event){
+                  $('#myPillbox').pillbox('removeByValue',$(this).data("id"));
+                  numberOfInvitees--;
+                 });
+
+              });
+
+            function makeId()
+            {
+              var text = "";
+              var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+              for( var i=0; i < 5; i++ )
+                  text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+              return text;
+            }
+            </script>
+        </apex:define>
+    </apex:composition>
+</apex:page>

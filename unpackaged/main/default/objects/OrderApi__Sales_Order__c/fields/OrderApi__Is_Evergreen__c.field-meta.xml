@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Evergreen__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>**System Calculated/Override** Checked when a Sales Order is charged to the customer on a recurring, never-ending basis. These &quot;Standing Sales Orders&quot; are never closed until cancelled.</description>
+    <inlineHelpText>**System Calculated/Override** Checked when a Sales Order is charged to the customer on a recurring, never-ending basis. These &quot;Standing Sales Orders&quot; are never closed until cancelled.</inlineHelpText>
+    <label>Is Evergreen</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

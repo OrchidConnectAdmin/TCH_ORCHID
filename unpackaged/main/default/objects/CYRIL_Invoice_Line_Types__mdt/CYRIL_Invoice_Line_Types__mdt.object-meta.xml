@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>CYRIL Order Type Sets</label>
+    <pluralLabel>CYRIL Order Type Sets</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

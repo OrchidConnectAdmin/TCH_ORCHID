@@ -1,0 +1,357 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" 
+                controller = "Fon_CreateNCPSession">
+    
+    <!-- used to save the session list for the contact -->
+    <aura:attribute name="NCPSession" type="List" />
+    
+    <!-- used to save the error message for date -->
+    <aura:attribute name="dateErrorMessage" type="string" />
+    
+    <!-- code to disable save button on modal -->
+    <aura:attribute name="disableSave" type="boolean" default="false"/>
+    
+    <!-- this will be used to save the action clicked by user i.e. edit or clone or new -->
+    <aura:attribute name="actionName" type="string" />
+    
+    <!-- used to save the logged in contact id -->
+    <aura:attribute name="contactId" type="string" />
+    
+    <!-- used to save the logged in Account id -->
+    <aura:attribute name="AccountId" type="string" />
+    
+    <!-- used to save the Applciation -->
+    <aura:attribute name="Applciation" type="Object" />
+    
+    <!-- used to save the selected session for clone / edit -->
+    <aura:attribute name="selectedSessionId" type="string" />
+    
+    <!-- used to save the Sales order -->
+    <aura:attribute name="SO" type="Object" />
+    
+    <!-- used to hide/show the loading flag -->
+    <aura:attribute name="displaySpinner" type="Boolean" default="false"/>
+    
+    <!-- Call doinit method when cmp is load -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    
+    <!-- this will save the flag if new create modal has to be displayed or not -->
+    <aura:attribute name="displayCreateModal" type="boolean" />
+    <aura:attribute name="displayUploadModal" type="boolean" default="false"/>
+    
+    <!-- used to clone the NCP SEssion -->
+    <aura:attribute name="ncpSessionSelectedRecId" type="string" />
+    
+    <!-- used to hide/show clone modal -->
+    <aura:attribute name="displaySessioncloneModal" type="Boolean" default="false"/>
+    
+    <aura:attribute name="filetype" type="List" default="['.pdf', '.doc', '.xdoc']" />
+    
+    <aura:attribute name="charCount" type="Integer" default="0"/>
+    <aura:attribute name="maxLength" type="Integer" default="250"/>
+    <aura:attribute name="initialized" type="Boolean" default="false"/>
+    <aura:attribute name="description" type="String" />
+
+   <aura:handler event="force:refreshView" action="{!c.doInit}" />
+    
+    <!-- loading mark up -->
+    <aura:if isTrue="{!v.displaySpinner}">
+        <div class="">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
+    
+    <!-- component mark up -->
+    <div class="createNCPSessionContainer">
+        
+        <!-- button secion -->
+        <div class="createNCPSessionButtons">
+            <lightning:button variant="brand" label="Add Session" onclick="{!c.openCreateSessionModal}" />
+            <lightning:button variant="brand" label="Pay" onclick="{!c.createsaleodrline}" />
+        </div>
+    </div>
+    
+    <!-- table to display the NCP Session -->
+    <div class="sessionTable">
+        <br/>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Session Id">Session Id</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Status">Status</div>
+                    </th> 
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="App Number">App Number</div>
+                    </th> 
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Action">Action</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.NCPSession}" var="item">
+                    <tr class="slds-hint-parent">
+                        <td data-label="Session Id">
+                            <div class="slds-truncate" title="{!item.Session_ID__c}">{!item.Session_ID__c}</div>
+                        </td>                        
+                        
+                        <td data-label="Account Name">
+                            <div class="slds-truncate" title="{!item.Name}">{!item.Name}</div>
+                        </td> 
+
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="{!item.Status__c}">{!item.Status__c}</div>
+                        </td> 
+
+                        <td data-label="Account Name">
+                            <div class="slds-truncate" title="{!item.Name}">{!item.Application_Number__c}</div>
+                        </td> 
+                        
+                        <td data-label="Action">
+                            <div class="slds-truncate" title="">  
+                                <aura:if isTrue="{!not(item.Is_Paid__c == true)}">
+                                    <a href=""  onclick="{!c.handleClick}" name="{!item.Id}">
+                                        <lightning:icon iconName="utility:preview" 
+                                                        alternativeText="preview" 
+                                                        size="xx-small"
+                                                        title="preview"/>
+                                        
+                                    </a>
+                                    &nbsp;
+                                    
+                                    <a href=""  onclick="{!c.handleUpload}" name="{!item.Id}">
+                                        <aura:if isTrue="{!item.Files_Uploaded__c == true}">
+                                        	<lightning:icon iconName="utility:attach" 
+                                                        alternativeText="upload" 
+                                                        size="xx-small"
+                                                        title="Upload" variant="warning" />
+                                        <aura:set attribute="else">  
+                                        	<lightning:icon iconName="utility:attach" 
+                                                        alternativeText="upload" 
+                                                        size="xx-small"
+                                                        title="Upload"/>
+                                        </aura:set>
+                                        </aura:if>
+
+                                        
+                                    </a> &nbsp;
+                                </aura:if>
+								<a href="" onclick="{!c.handleclone}" name="{!item.Id}">
+                                    <lightning:icon iconName="utility:copy" 
+                                                    alternativeText="copy" 
+                                                    size="xx-small"
+                                                    title="Clone"/>
+                                    
+                                </a>                                
+                            </div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- this is the mark up for the creation of new session -->
+    <aura:if isTrue="{!v.displayCreateModal}" >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            
+            <!-- content mark up -->
+            <lightning:recordEditForm recordId="{!v.actionName != 'new' ? v.selectedSessionId : ''}" 
+                                      objectApiName="NCP_Sessions__c"
+                                      onload="{!c.handleCreateLoad}"
+                                      aura:id = "sessionform"
+                                      onerror = "{!c.handleError}"
+                                      onsubmit = "{!c.handleSubmit}"
+                                      onsuccess = "{!c.handleSuccess}">
+                <div class="slds-modal__container">                
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">                    
+                        
+                        <lightning:messages />
+
+                        
+                        <div class="slds-grid slds-wrap">
+                            
+                            <div class="slds-col slds-size_6-of-12">
+                                <span>
+                                    <lightning:inputField fieldName="Name" required="true" disabled="{!v.actionName != 'new' ? true : false}"/>
+                                </span>
+                            </div>
+							
+                            <div class="slds-col slds-size_6-of-12">
+                                <span>
+                                    <aura:if isTrue="{!v.actionName == 'new'}" >
+                                    	<lightning:textarea label="Description" maxlength="250" aura:id="desc" value="{!v.description}" fieldName="Description__c" onchange="{!c.handleDescChange}" required="true" disabled="{!v.actionName != 'new' ? true : false}"/>
+                                        <div class="slds-text-align_right slds-text-body_small slds-m-top_xx-small">
+                                            <span aura:id="counterText"
+                                                  style="{! v.charCount >= v.maxLength 
+                                                           ? 'color: red;' 
+                                                           : '' }">
+                                                {!v.charCount}
+                                            </span>
+                                            / {!v.maxLength}
+                                        </div>
+                                        <aura:set attribute="else">
+                                            <lightning:inputField fieldName="Description__c" required="true" disabled="{!v.actionName != 'new' ? true : false}"/>
+                                        </aura:set>
+                                    </aura:if>
+                                </span>
+                            </div>
+                            
+                            <div class="slds-col slds-size_6-of-12">
+                                <span>                                   
+                                    <lightning:inputField fieldName="Session_Date__c" aura:id="sessiondate" required="true" onchange="{!c.dateUpdate}" disabled="{!v.actionName != 'new' ? true : false}"/>
+                                    <span style="color:red"><i>{!v.dateErrorMessage}</i></span>                                    
+                                </span>
+                            </div>
+                            
+                            <div class="slds-col slds-size_6-of-12">
+                                <span>
+                                    <lightning:inputField fieldName="Session_Time__c" disabled="{!v.actionName != 'new' ? true : false}"/>
+                                </span>
+                            </div>
+                            
+                            <div class="slds-col slds-size_6-of-12">
+                                <span>
+                                    <lightning:inputField fieldName="Instructor__c" required="true" disabled="{!v.actionName != 'new' ? true : false}"/>
+                                </span>
+                            </div>
+                            
+                            <div class="slds-col slds-size_6-of-12">
+                                <span>
+                                    <lightning:inputField fieldName="Held_in_Conjunction__c" disabled="{!v.actionName != 'new' ? true : false}" />
+                                </span>
+                            </div> 
+                            
+                            <div class="slds-col slds-size_6-of-12">
+                                <span>
+                                    <lightning:inputField fieldName="Provider_Notes__c" disabled="{!v.actionName != 'new' ? true : false}" />
+                                </span>
+                            </div>
+                            
+                             <div class="slds-col slds-size_6-of-12">
+                                <span>
+                                    <lightning:inputField fieldName="Minutes_EDU_Submitting__c" required="true" disabled="{!v.actionName != 'new' ? true : false}"/>
+                                </span>
+                            </div>
+                            
+                            <div class="slds-col slds-size_6-of-12">
+                                <span>
+                                    <lightning:inputField fieldName="Session_Type__c" required="true" disabled="{!v.actionName != 'new' ? true : false}"/>
+                                </span>
+                            </div>
+                            
+                            <div class="slds-col slds-size_6-of-12">
+                                
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+                                        <span>
+                                            <label class="slds-form-element__label slds-no-flex">Concurrent Session</label>
+                                        </span>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+                                        <span>
+                                            <lightning:inputField fieldName="Concurrent_Session__c" variant="label-hidden" disabled="{!v.actionName != 'new' ? true : false}"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div> 
+                            
+                            <div class="slds-col slds-size_6-of-12">
+                                <span>
+                                    <lightning:inputField fieldName="URL__c" required="false" disabled="{!v.actionName != 'new' ? true : false}"/>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <div align="right">                                           
+                            <lightning:button class="slds-m-top_small" variant="brand" type="submit" name="Save" label="Save" disabled="{!v.actionName != 'new' ? true : false}"/>
+                            <lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{!c.closeCreateSessionModal}" />
+                        </div>
+                    </footer>
+                </div>
+            </lightning:recordEditForm>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    
+    <!-- this is the mark up for the creation of new session -->
+    <aura:if isTrue="{!v.displayUploadModal}" >
+        <section aura:id="modal-upload" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            
+
+                <div class="slds-modal__container">                
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1"> 
+                        
+                        <p>Instructions for Partners/Providers to add documentation to sessions being submitted for approval.</p>
+ 
+<ol>
+<li>Once your session has been entered and you have saved it, go back to that line item and click the paper clip icon to the right of the session under Action</li>
+<li>Click Upload Files</li>
+    <li>Select your document from the box that appears.<br></br>
+NOTE: Your file title will not show up in the Attach Files box</li>
+<li>Click Upload</li>
+    <li>You will receive a message at the top of the screen that your file was uploaded successfully – click Ok</li>
+                        </ol>
+
+
+                        
+<p> </p>                      
+                        
+    <lightning:fileUpload label="Attach Files"
+        name="fileUploader"
+        multiple="true"
+        accept="{!v.filetype}"
+        recordId="{!v.selectedSessionId}"
+        onuploadfinished="{!c.handleUploadFinished}" />
+                        <!-- <lightning:flow aura:id="flowData" onstatuschange="{!c.handleFlowChange}" /> -->
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <div align="right">                                           
+                            <lightning:button label="Cancel Upload" title="Upload" onclick="{!c.closeUploadModal}" /> <lightning:button variant="brand" label="Upload" title="Upload" onclick="{!c.closeUploadSessionModal}" />
+                        </div>
+                    </footer>
+                </div>
+
+        </section>
+        <div aura:id="modal-upload-back" class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>     
+
+    <aura:html tag="style">
+        .cFon_CreateNCPSession ol{
+            list-style-type:decimal !important;
+            padding-left: 40px;
+            margin-bottom: 20px;
+        }
+        .cFon_CreateNCPSession ul li{
+            list-style-type:decimal !important;
+        }
+        lightning-textarea label {
+            display: inline-block;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            margin-right: 0.75rem;
+            margin-bottom: 0.125rem;
+            float: left;
+            max-width: calc(33% - var(--lwc-squareIconUtilityMedium, 1.25rem));
+            flex-basis: calc(33% - var(--lwc-squareIconUtilityMedium, 1.25rem));
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+        }
+        lightning-textarea .textarea-container{
+            padding-left: 33%;
+            clear: none;
+        }
+    </aura:html>
+    
+</aura:component>

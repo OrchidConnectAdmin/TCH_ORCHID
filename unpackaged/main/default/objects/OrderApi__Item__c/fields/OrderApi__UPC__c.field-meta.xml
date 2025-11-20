@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__UPC__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A UPC (Universal Product Code) is a 13 digit catalog number uniquely assigned to an Item required to generate UPC barcodes.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>A UPC (Universal Product Code) is a 13 digit catalog number uniquely assigned to an Item required to generate UPC barcodes.</inlineHelpText>
+    <label>UPC</label>
+    <length>12</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

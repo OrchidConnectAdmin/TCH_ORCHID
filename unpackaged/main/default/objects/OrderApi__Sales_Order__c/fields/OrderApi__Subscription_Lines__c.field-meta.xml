@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Subscription_Lines__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Counts the number of Sales Order Lines where a Subscription Item is present.</description>
+    <inlineHelpText>** System Calculated ** Counts the number of Sales Order Lines where a Subscription Item is present.</inlineHelpText>
+    <label>Subscription Lines</label>
+    <summaryFilterItems>
+        <field>OrderApi__Sales_Order_Line__c.OrderApi__Is_Subscription__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryForeignKey>OrderApi__Sales_Order_Line__c.OrderApi__Sales_Order__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

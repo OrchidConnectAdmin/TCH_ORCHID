@@ -1,0 +1,213 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           standardStylesheets="false"
+           applyBodyTag="false"
+           applyHtmlTag="false"
+           cache="false"
+           docType="html-5.0"
+           controller="FDService.EPaymentPostController">
+
+    <apex:composition template="PagesApi__default_template">
+
+        <apex:define name="title">
+            <apex:outputPanel layout="none" rendered="{!$CurrentPage.parameters.transaction_type == 'PayMethodVerify'}">
+              {!$Label.FDService__Save_Payment_Method}
+      </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!$CurrentPage.parameters.transaction_type != 'PayMethodVerify'}">
+              {!$Label.FDService__Payment_Processing}
+      </apex:outputPanel>
+        </apex:define>
+        <apex:define name="supernavOverride">
+        </apex:define>
+        <apex:define name="topnavOverride">
+        </apex:define>
+        <apex:define name="headerOverride">
+        </apex:define>
+
+
+        <apex:define name="main">
+            <script type="text/javascript">
+      var polyfilter_scriptpath = "{!URLFOR($Resource.OrderApi__app,'polyfills/filters/')}";
+    </script>
+
+            <style>
+        #form_output {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        #ds_modal{
+            visibility:hidden;
+        }
+        .spinner_paymentprocessing {
+          margin: 20px auto 0;
+          width: 70px;
+          text-align: center;
+        }
+        .spinner_paymentprocessing > div {
+          width: 18px;
+          height: 18px;
+          background-color: #333;
+
+          border-radius: 100%;
+          display: inline-block;
+          -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+          animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+        }
+        .spinner_paymentprocessing .bounce1 {
+          -webkit-animation-delay: -0.32s;
+          animation-delay: -0.32s;
+        }
+        .spinner_paymentprocessing .bounce2 {a1L1I000001l4X8
+          -webkit-animation-delay: -0.16s;
+          animation-delay: -0.16s;
+        }
+        @-webkit-keyframes sk-bouncedelay {
+          0%, 80%, 100% { -webkit-transform: scale(0) }
+          40% { -webkit-transform: scale(1.0) }
+        }
+        @keyframes sk-bouncedelay {
+          0%, 80%, 100% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+          } 40% {
+            -webkit-transform: scale(1.0);
+            transform: scale(1.0);
+          }
+        }
+    </style>
+            <div class="framework modal-open" style="padding-top:60px;">
+                <div id="ds_modal">
+                    <div class="modal show">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary">
+                                    <h3 class="modal-title">{!$Label.ThreeDS_Form_Title}</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-sm-12" align="center">
+                                                <apex:outputText value="{!$Label.FDService__ThreeDS_Form_Body}" escape="false" />
+                                                <div id="form_output" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <apex:form id="theForm">
+                    <apex:outputPanel rendered="{!NOT(ISNULL(threeds_form))}">
+                        <div class="modal-backdrop fade in"></div>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!ISNULL(threeds_form)}">
+                        <div class="container">
+                            <div class="row padded-top">
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <div class="alert alert-error">
+                          {!error_message}
+                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <apex:outputPanel layout="none" rendered="{!$CurrentPage.parameters.transaction_type == 'PayMethodVerify'}">
+                                <h1 style="text-align: center;">{!$Label.FDService__Save_Payment_Method}</h1>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!$CurrentPage.parameters.transaction_type != 'PayMethodVerify'}">
+                                <h1 style="text-align: center;">{!$Label.FDService__Payment_Processing}</h1>
+                                <div class="spinner_paymentprocessing">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </apex:outputPanel>
+                            <br/>
+                        </div>
+
+                        <!-- Needed by EmVars helper in _emerald.js -->
+                        <div id="emvars"></div>
+                        <!-- Needed by BSE.Mq.screen() helper in utils.js -->
+                        <div id="mq"></div>
+                    </apex:outputPanel>
+                    <apex:actionFunction name="process" action="{!processTransaction}" reRender="theForm" rendered="{!ISNULL(threeds_form)}" onComplete="renderForm({!breakLoop});"/>
+                    <apex:outputPanel rendered="{!NOT(ISNULL(threeds_form))}" styleClass="3ds_form" layout="block" >
+                        <apex:outputText value="{!threeds_form}" styleClass="unescaped_form" style="visibility:hidden"/>
+                    </apex:outputPanel>
+                </apex:form>
+
+
+            </div>
+            <script type="text/javascript">
+        var offsiteParameter = '{!$CurrentPage.parameters.offSite}';
+        var currentlyRunning = false;
+        var offsite;
+        if(offsiteParameter != ''){
+            offsite = Boolean(offsiteParameter);
+        }
+        else {
+            offsite = false;
+        }
+        var interval;
+        $( document ).ready(function() {
+            if (offsite) {
+               interval = setInterval(function() {
+                    if (!currentlyRunning) {
+                        currentlyRunning = true;
+                        process();
+
+                    }
+                },1000)
+            }
+            else {
+              process();
+              renderForm(false);
+            }
+        });
+
+        function renderForm(breakLoop){
+        currentlyRunning = false;
+            if (breakLoop) {
+               clearInterval(interval);
+            }
+            var formDiv = $('.unescaped_form');
+            if(formDiv.length){
+                $('#form_output').html(htmlDecode(formDiv.html()));
+                $('input[type="submit"]').addClass("btn btn-primary");
+                $('#ds_modal').css('visibility', 'visible');
+            }
+        }
+
+        function htmlDecode(input){
+          var e = document.createElement('div');
+          e.innerHTML = input;
+          return e.childNodes[0].nodeValue;
+        }
+
+        window.location.hash = '#no-back';
+        var history_api = typeof history.pushState !== 'undefined';
+        if ( location.hash == '#no-back' ) {
+            if ( history_api ) {
+                history.pushState(null, '', '#stay');
+            }
+            else {
+                location.hash = '#stay';
+            }
+            window.onhashchange = function() {
+                if ( location.hash == '#no-back' ) {
+                    if ( history_api )  {
+                        history.pushState(null, '', '#stay');
+                    }
+                    else {
+                        location.hash = '#stay';
+                    }
+                }
+            }
+        }
+      </script>
+        </apex:define>
+        <apex:define name="footerOverride"></apex:define>
+    </apex:composition>
+
+</apex:page>

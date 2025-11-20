@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Nickname_Alias__c</fullName>
+    <description>Used for event badging if someone prefers to be known by a different name than their legal name. i.e. William prefers Bill.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used for event badging if someone prefers to be known by a different name than their legal name. i.e. William prefers Bill.</inlineHelpText>
+    <label>Nickname/Alias</label>
+    <length>60</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

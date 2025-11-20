@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Allow_Users_to_Delete_Mapped_Records__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>** WARNING ** when checked, users will be able to delete records mapped to the field group even if they were not created by the form submitter.</description>
+    <inlineHelpText>** WARNING ** when checked, users will be able to delete records mapped to the field group even if they were not created by the form submitter.</inlineHelpText>
+    <label>Allow Users to Delete Mapped Records</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

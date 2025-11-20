@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoice_Number__c</fullName>
+    <externalId>false</externalId>
+    <formula>&#39;E&#39;&amp;FON_Billing_Quarter__c&amp;FON_Invoice_Year__c&amp;
+IF(FON_Invoice_Timing__c == &#39;Annual&#39;, &#39;A&#39;, &#39;Q&#39;)&amp;
+IF(FON_Billing_Type__c == &#39;Deposit Based&#39;, &#39;D&#39;, &#39;i&#39;)&amp;
+Auto_Number__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Invoice #</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

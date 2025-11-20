@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__In_Grace_Period__c</fullName>
+    <deprecated>false</deprecated>
+    <formula>OrderApi__Paid_Through_Date__c &lt; TODAY()&amp;&amp; OrderApi__Grace_Period_End_Date__c &gt;= TODAY()</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>In Grace Period</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

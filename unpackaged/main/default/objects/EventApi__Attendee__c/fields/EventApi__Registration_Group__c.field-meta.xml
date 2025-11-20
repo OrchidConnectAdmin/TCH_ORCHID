@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Registration_Group__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to related Registration Group.</description>
+    <inlineHelpText>Link to related Registration Group.</inlineHelpText>
+    <label>Registration Group</label>
+    <referenceTo>EventApi__Registration_Group__c</referenceTo>
+    <relationshipLabel>Attendees</relationshipLabel>
+    <relationshipName>Attendees</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

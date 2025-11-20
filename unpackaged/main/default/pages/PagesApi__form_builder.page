@@ -1,0 +1,1763 @@
+<apex:page standardController="PagesApi__Form__c"
+    tabStyle="PagesApi__Form__c"
+    extensions="PagesApi.FormBuilderController"
+    sidebar="false"
+    docType="html-5.0"
+    standardStylesheets="false"
+    applyHtmlTag="false"
+    applyBodyTag="false"
+    showHeader="false"
+>
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <script type="text/javascript" src="{!URLFOR($Resource.jquery, 'v3.5.1/jquery.min.js')}"/>
+        <script type="text/javascript" src="{!URLFOR($Resource.bootstrap, 'v4.5.3/bootstrap.min.js')}" />
+        <script type="text/javascript" src="{!URLFOR($Resource.selectize, 'v0.13.0/selectize.min.js')}" />
+        <script type="text/javascript" src="{!URLFOR($Resource.SLDS_Base, 'js/scripts.js')}" />
+        <script type="text/javascript" src="{!URLFOR($Resource.AUI_BASE, 'js/vendor.min.js')}" />
+
+        <apex:variable var="EMPTY_FIELD_LABEL" value="{!EMPTY_FIELD_LABEL}"></apex:variable>
+
+        <apex:composition template="PagesApi__app_template">
+            <apex:define name="styles">
+                <link rel="{!URLFOR($Resource.aui,'css/pages/form-builder.min.css')}" />
+                <style>
+                    body .bodyDiv #bodyTable,
+                    td.noSidebarCell {
+                        padding: 0;
+                    }
+                    .slds-text-weight--light {
+                        font-weight: 200;
+                    }
+                    .slds-text-weight--regular {
+                        font-weight: 400;
+                    }
+                    .slds-text-weight--bold {
+                        font-weight: 600;
+                    }
+                    .slds-text-color--error {
+                        color: #c23934;
+                    }
+                    .slds-text-color--label {
+                        color: #54688c;
+                    }
+                    .slds-text-color--dark {
+                        color: #d8dce5;
+                    }
+                    .slds-text-case--uppercase {
+                        text-transform: uppercase;
+                    }
+                    .slds-text-case--lowercase {
+                        text-transform: lowercase;
+                    }
+                    .slds-text-case--capital {
+                        text-transform: capitalize;
+                    }
+                    a.slds-button.slds-button--inverse {
+                        text-decoration: none !important;
+                    }
+                    a.slds-button.slds-button--inverse:hover,
+                    a.slds-button.slds-button--inverse:focus,
+                    a.slds-button.slds-button--inverse:active {
+                        color: #0070d2 !important;
+                    }
+                    .slds-box--bare {
+                        border-radius: 0.25rem;
+                        background-clip: padding-box;
+                        border: 1px solid #d8dde6;
+                    }
+                    .slds-button__icon {
+                        pointer-events: none;
+                    }
+                    .item--ghost {
+                        opacity: 0.5;
+                    }
+                    .slds-button:hover,
+                    .slds .slds-button:focus {
+                        cursor: pointer;
+                    }
+                    .slds-media__figure {
+                        display: none;
+                    }
+                    hr {
+                        margin-left: -24px !important;
+                        margin-right: -24px !important;
+                    }
+                    .selectize-control.single .selectize-input:after,
+                    .selectize-control.single .selectize-input.dropdown-active:after {
+                        margin-top: -4px;
+                        right: 7px;
+                        border-width: 6px 3px 0px 3px;
+                        border-color: #000 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+                    }
+                    .selectize-control.single .selectize-input {
+                        box-shadow: none;
+                        background-image: none;
+
+                        background-color: #fff;
+                        color: #16325c;
+                        border: 1px solid #d8dde6;
+                        border-radius: 0.25rem;
+                        width: 100%;
+                        transition: border 0.1s linear, background-color 0.1s linear;
+                        height: 2.125rem;
+                    }
+                    .selectize-control.single .selectize-input:focus,
+                    .selectize-control.single .selectize-input:active,
+                    .selectize-dropdown single:focus,
+                    .selectize-dropdown single:active {
+                        outline: 0;
+                        border-color: #1589ee;
+                        background-color: #fff;
+                        box-shadow: 0 0 3px #0070d2;
+                    }
+                    .fonteva-button--disable {
+                        pointer-events: none;
+                        cursor: none;
+                    }
+                </style>
+            </apex:define>
+
+            <apex:define name="title">
+                <apex:form >
+                    {!$Label.PagesApi__Form_Builder_Heading}
+                    <apex:commandButton styleClass="slds-button slds-button--neutral slds-text-body--regular slds-m-left--medium slds-text-weight--regular"
+                        action="{!back}"
+                        value="{!$Label.PagesApi__Exit}"
+                    />
+                </apex:form>
+            </apex:define>
+
+            <apex:define name="new_button">
+                <button class="slds-button slds-button--neutral" onclick="location.href='{!$Page.PagesApi__form}?id={!JSENCODE(form.Id)}'">
+                    <span class="slds-text-weight--regular">{!$Label.PagesApi__Preview}</span>
+                </button>
+            </apex:define>
+
+            <apex:define name="main">
+                <apex:form id="form" styleClass="slds-size--1-of-1 slds-theme--shade">
+                    <div class="slds-col slds-size--1-of-1 slds-p-vertical--medium slds-p-horizontal--large">
+                        <apex:actionFunction name="initNewFieldGroup"
+                            action="{!setupFGOptions}"
+                            reRender="fieldgroupmodalwrapper"
+                            oncomplete="showObjModal(false,'Field Group','#field-group-header','#modalFieldGroup');"
+                        />
+                        <a id="new_fgroup" class="slds-button slds-button--brand" onclick="initNewFieldGroup();">
+                            <object
+                                class="slds-button__icon slds-m-right--x-small"
+                                style="vertical-align: middle;"
+                                data="{!URLFOR($Resource.SLDS_Icons, 'icons/utility/add.svg')}"
+                                type="image/svg+xml"
+                            >
+                            </object
+                            >{!$Label.New_Field_Group}
+                        </a>
+                    </div>
+                    <!-- /.slds-col -->
+
+                    <div id="field-group-container">
+                        <apex:repeat value="{!fieldGroups}" var="g">
+                            <div
+                                class="slds-col slds-size--1-of-1 slds-p-horizontal--large slds-p-bottom--medium group-item"
+                                data-id="{!g.Id}"
+                            >
+                                <!-- Form Group -->
+                                <div
+                                    class="slds-box--bare slds-p-vertical--x-small slds-p-horizontal--medium slds-theme--alt-inverse slds-grid slds-grid--align-spread group-container"
+                                >
+                                    <span class="slds-align-middle slds-text-heading--small">
+                                        <apex:outputText escape="false" value="{!HTMLENCODE(g.name)}" />
+                                        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(g.PagesApi__Mapped_Object__c))}">
+                                            <apex:repeat value="{!objectNames}" var="key">
+                                                <apex:outputPanel rendered="{!g.PagesApi__Mapped_Object__c == key}">
+                                                    <span class="slds-text-color--dark">
+                                                        <span class="slds-p-horizontal--small">|</span>
+                                                        <span class="slds-text-case--capital">{!objectNames[key]}</span>
+                                                    </span>
+                                                </apex:outputPanel>
+                                            </apex:repeat>
+                                        </apex:outputPanel>
+                                    </span>
+                                    <span>
+                                        <div class="slds-button-group slds-align-middle" role="group">
+                                            <apex:commandLink html-data-id="{!g.ID}"
+                                                onComplete="showObjModal(true,'Field Group','#field-group-header','#modalFieldGroup');"
+                                                action="{!editFieldGroup}"
+                                                styleClass="slds-button slds-button--inverse slds-edit-field-group-button"
+                                                title="Edit Field Group"
+                                                reRender="fieldgroupmodalwrapper,objNameHidden"
+                                            >
+                                                <apex:param name="groupID" value="{!g.ID}" />
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="16"
+                                                    height="16"
+                                                    viewBox="0 0 52 52"
+                                                >
+                                                    <path
+                                                        id="edit-{!g.ID}"
+                                                        class="svg-demo-class"
+                                                        d="m9.5 33.4l8.9 8.9c0.4 0.4 1 0.4 1.4 0l22.2-22.3c0.4-0.4 0.4-1 0-1.4l-8.8-8.8c-0.4-0.4-1-0.4-1.4 0l-22.3 22.3c-0.4 0.4-0.4 1 0 1.3z m26.6-27.7c-0.4 0.4-0.4 1 0 1.4l8.8 8.8c0.4 0.4 1 0.4 1.4 0l2.5-2.5c1.6-1.5 1.6-3.9 0-5.5l-4.7-4.7c-1.6-1.6-4.1-1.6-5.7 0l-2.3 2.5z m-34 42.5c-0.2 1 0.7 1.9 1.7 1.7l10.9-2.6c0.4-0.1 0.7-0.3 0.9-0.5l0.2-0.2c0.2-0.2 0.3-0.9-0.1-1.3l-9-9c-0.4-0.4-1.1-0.3-1.3-0.1l-0.2 0.2c-0.3 0.3-0.4 0.6-0.5 0.9l-2.6 10.9z"
+                                                        fill="#fff"
+                                                    />
+                                                </svg>
+                                            </apex:commandLink>
+                                            <a
+                                                class="slds-button slds-button--inverse delete-field-group slds-delete-field-group-button"
+                                                data-id="{!g.Id}"
+                                                title="Delete Field Group"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="16"
+                                                    height="16"
+                                                    viewBox="0 0 52 52"
+                                                >
+                                                    <path
+                                                        id="delete-{!g.ID}"
+                                                        d="m45.5 10h-12.5v-4c0-2.2-1.8-4-4-4h-6c-2.2 0-4 1.8-4 4v4h-12.5c-0.8 0-1.5 0.7-1.5 1.5v3c0 0.8 0.7 1.5 1.5 1.5h39c0.8 0 1.5-0.7 1.5-1.5v-3c0-0.8-0.7-1.5-1.5-1.5z m-22.5-3c0-0.6 0.4-1 1-1h4c0.6 0 1 0.4 1 1v3h-6v-3z m18.5 13h-31c-0.8 0-1.5 0.7-1.5 1.5v23.5c0 2.8 2.2 5 5 5h24c2.8 0 5-2.2 5-5v-23.5c0-0.8-0.7-1.5-1.5-1.5z m-18.5 22c0 0.6-0.4 1-1 1h-2c-0.6 0-1-0.4-1-1v-14c0-0.6 0.4-1 1-1h2c0.6 0 1 0.4 1 1v14z m10 0c0 0.6-0.4 1-1 1h-2c-0.6 0-1-0.4-1-1v-14c0-0.6 0.4-1 1-1h2c0.6 0 1 0.4 1 1v14z"
+                                                        fill="#fff"
+                                                    />
+                                                </svg>
+                                            </a>
+                                            <apex:commandLink html-data-id="{!g.ID}"
+                                                onComplete="showObjModal(false,'Field','#edit-field-header','#modalField');"
+                                                title="New Field"
+                                                styleClass="slds-button slds-button--inverse  new-field-group slds-new-field-group-button"
+                                                action="{!setNewFieldsFieldGroup}"
+                                                rerender="fieldButtonPanel, fieldmodalwrapper"
+                                            >
+                                                <apex:param name="groupID" value="{!g.Id}" />
+                                                <svg
+                                                    class="slds-button__icon slds-m-right--x-small"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="16"
+                                                    height="16"
+                                                    viewBox="0 0 52 52"
+                                                >
+                                                    <path
+                                                        id="new-{!g.ID}"
+                                                        fill="#fff"
+                                                        d="m30 29h16.5c0.8 0 1.5-0.7 1.5-1.5v-3c0-0.8-0.7-1.5-1.5-1.5h-16.5c-0.6 0-1-0.4-1-1v-16.5c0-0.8-0.7-1.5-1.5-1.5h-3c-0.8 0-1.5 0.7-1.5 1.5v16.5c0 0.6-0.4 1-1 1h-16.5c-0.8 0-1.5 0.7-1.5 1.5v3c0 0.8 0.7 1.5 1.5 1.5h16.5c0.6 0 1 0.4 1 1v16.5c0 0.8 0.7 1.5 1.5 1.5h3c0.8 0 1.5-0.7 1.5-1.5v-16.5c0-0.6 0.4-1 1-1z"
+                                                    />
+                                                </svg>
+                                                {!$Label.New_Field}
+                                            </apex:commandLink>
+                                        </div>
+                                        <!-- /.slds-button-group -->
+                                    </span>
+                                </div>
+                                <!-- /.slds-box -->
+                                <div class="field-container" id="{!g.Id}">
+                                    <apex:repeat value="{!g.Fields__r}" var="f">
+                                        <div
+                                            class="slds-box--bare slds-m-vertical--xx-small slds-p-vertical--x-small slds-p-horizontal--medium slds-theme--default slds-grid slds-grid--align-spread field-item"
+                                            data-group="{!g.Id}"
+                                            data-id="{!f.Id}"
+                                            id="{!f.Id}"
+                                            data-type="{!f.Type__c}"
+                                            data-name="{!f.Name}"
+                                        >
+                                            <span class="slds-align-middle">
+                                                <strong><apex:outputText rendered="{!f.Name != EMPTY_FIELD_LABEL}" escape="false" value="{!HTMLENCODE(f.Name)}" /></strong>
+                                                <apex:outputPanel styleClass="slds-text-color--error"
+                                                    rendered="{!f.PagesApi__Is_Required__c}"
+                                                    >*
+                                                </apex:outputPanel>
+                                                <span class="slds-p-horizontal--small">|</span>
+                                                <span class="slds-text-color--label">{!f.Type__c}</span>
+                                                <span
+                                                    class="{!IF(f.Type__c == 'Dependent Picklist', 'pfm-badge_type', 'hidden')}"
+                                                >
+                                                    <span class="slds-p-horizontal--small">|</span>
+                                                    <span class="slds-badge">
+                                                        {!IF(f.Field__c != null, $Label.Dependent, $Label.Controlling)}
+                                                    </span>
+                                                </span>
+                                                <span
+                                                    class="{!IF(hasSkipLogic[f.Id], 'slds-icon_container', 'hidden')}"
+                                                >
+                                                    <span class="slds-p-horizontal--small">|</span>
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="16"
+                                                        height="16"
+                                                        viewBox="0 0 52 52"
+                                                    >
+                                                        <path
+                                                            d="m27.2 41.7l-2.1-0.3s-1.4-0.3-2.1-0.6c-0.4-0.1-0.9 0-1.2 0.3l-0.5 0.5c-2.9 2.9-7.6 3.2-10.6 0.6-3.4-2.9-3.5-8.1-0.4-11.2l7.6-7.6c1-1 2.2-1.6 3.4-2 1.6-0.4 3.3-0.3 4.8 0.3 0.9 0.4 1.8 0.9 2.6 1.7 0.4 0.4 0.7 0.8 1 1.3 0.4 0.7 1.3 0.8 1.8 0.2l2.8-2.8c0.4-0.4 0.4-1 0.1-1.5-0.4-0.6-0.9-1.1-1.4-1.6-0.7-0.7-1.5-1.4-2.4-1.9-1.4-0.9-3-1.5-4.7-1.8-3.1-0.6-6.5-0.1-9.3 1.4-1.1 0.6-2.2 1.4-3.1 2.3l-7.3 7.3c-5.3 5.3-5.7 13.9-0.6 19.3 5.3 5.8 14.3 5.9 19.8 0.4l2.5-2.5c0.7-0.5 0.2-1.7-0.7-1.8z m18.4-35.9c-5.5-5.1-14.1-4.7-19.3 0.6l-2.3 2.2c-0.7 0.7-0.2 1.9 0.7 2 1.4 0.1 2.8 0.4 4.2 0.8 0.4 0.1 0.9 0 1.2-0.3l0.5-0.5c2.9-2.9 7.6-3.2 10.6-0.6 3.4 2.9 3.5 8.1 0.4 11.2l-7.6 7.6c-1 1-2.2 1.6-3.4 2-1.6 0.4-3.3 0.3-4.8-0.3-0.9-0.4-1.8-0.9-2.6-1.7-0.4-0.4-0.7-0.8-1-1.3-0.4-0.7-1.3-0.8-1.8-0.2l-2.8 2.8c-0.4 0.4-0.4 1-0.1 1.5 0.4 0.6 0.9 1.1 1.4 1.6 0.7 0.7 1.6 1.4 2.4 1.9 1.4 0.9 3 1.5 4.6 1.8 3.1 0.6 6.5 0.1 9.3-1.4 1.1-0.6 2.2-1.4 3.1-2.3l7.6-7.6c5.6-5.5 5.4-14.5-0.3-19.8z"
+                                                            fill="#16325c"
+                                                        />
+                                                    </svg>
+                                                </span>
+                                                <span
+                                                    class="{!IF(isPartOfSkipLogic[f.Id], 'slds-icon_container', 'hidden')}"
+                                                >
+                                                    <span class="slds-p-horizontal--small">|</span>
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="16"
+                                                        height="16"
+                                                        viewBox="0 0 52 52"
+                                                    >
+                                                        <path
+                                                            fill="#16325c"
+                                                            d="m35 9c-1.7 0-3.3 0.2-4.8 0.7 1.8 1.5 3.4 3.3 4.7 5.3h0.1c6.1 0 11 4.9 11 11s-4.9 11-11 11c-1.5 0-3-0.3-4.3-0.9 0.8-1.1 1.5-2.3 2-3.5 0.2-0.5 0.4-0.9 0.5-1.4 0.5-1.6 0.8-3.4 0.8-5.2 0-9.4-7.6-17-17-17s-17 7.6-17 17 7.6 17 17 17c1.7 0 3.3-0.2 4.8-0.7-1.8-1.5-3.4-3.3-4.7-5.3h-0.1c-6.1 0-11-4.9-11-11s4.9-11 11-11c1.5 0 3 0.3 4.4 0.9-2.1 2.8-3.4 6.3-3.4 10.1 0 9.4 7.6 17 17 17s17-7.6 17-17-7.6-17-17-17z"
+                                                        />
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                            <span>
+                                                <div class="slds-button-group demo-space" role="group">
+                                                    <apex:commandLink styleclass="slds-button slds-button--neutral edit-button"
+                                                        action="{!editField}"
+                                                        onComplete="showObjModal(true,'Field','#edit-field-header','#modalField');"
+                                                        reRender="fieldButtonPanel, fieldmodalwrapper"
+                                                    >
+                                                        <apex:param name="fieldObj" value="{!f.ID}" />
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="16"
+                                                            height="16"
+                                                            viewBox="0 0 52 52"
+                                                        >
+                                                            <path
+                                                                d="m9.5 33.4l8.9 8.9c0.4 0.4 1 0.4 1.4 0l22.2-22.3c0.4-0.4 0.4-1 0-1.4l-8.8-8.8c-0.4-0.4-1-0.4-1.4 0l-22.3 22.3c-0.4 0.4-0.4 1 0 1.3z m26.6-27.7c-0.4 0.4-0.4 1 0 1.4l8.8 8.8c0.4 0.4 1 0.4 1.4 0l2.5-2.5c1.6-1.5 1.6-3.9 0-5.5l-4.7-4.7c-1.6-1.6-4.1-1.6-5.7 0l-2.3 2.5z m-34 42.5c-0.2 1 0.7 1.9 1.7 1.7l10.9-2.6c0.4-0.1 0.7-0.3 0.9-0.5l0.2-0.2c0.2-0.2 0.3-0.9-0.1-1.3l-9-9c-0.4-0.4-1.1-0.3-1.3-0.1l-0.2 0.2c-0.3 0.3-0.4 0.6-0.5 0.9l-2.6 10.9z"
+                                                                fill="#0070d2"
+                                                            />
+                                                        </svg>
+                                                    </apex:commandLink>
+                                                    <a
+                                                        class="slds-button slds-button--neutral delete-field"
+                                                        data-id="{!f.ID}"
+                                                        data-name="{!f.Type__c}"
+                                                        data-parent="{!f.Field__c}"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="16"
+                                                            height="16"
+                                                            viewBox="0 0 52 52"
+                                                        >
+                                                            <path
+                                                                d="m45.5 10h-12.5v-4c0-2.2-1.8-4-4-4h-6c-2.2 0-4 1.8-4 4v4h-12.5c-0.8 0-1.5 0.7-1.5 1.5v3c0 0.8 0.7 1.5 1.5 1.5h39c0.8 0 1.5-0.7 1.5-1.5v-3c0-0.8-0.7-1.5-1.5-1.5z m-22.5-3c0-0.6 0.4-1 1-1h4c0.6 0 1 0.4 1 1v3h-6v-3z m18.5 13h-31c-0.8 0-1.5 0.7-1.5 1.5v23.5c0 2.8 2.2 5 5 5h24c2.8 0 5-2.2 5-5v-23.5c0-0.8-0.7-1.5-1.5-1.5z m-18.5 22c0 0.6-0.4 1-1 1h-2c-0.6 0-1-0.4-1-1v-14c0-0.6 0.4-1 1-1h2c0.6 0 1 0.4 1 1v14z m10 0c0 0.6-0.4 1-1 1h-2c-0.6 0-1-0.4-1-1v-14c0-0.6 0.4-1 1-1h2c0.6 0 1 0.4 1 1v14z"
+                                                                fill="#0070d2"
+                                                            />
+                                                        </svg>
+                                                    </a>
+                                                    <a
+                                                        class="{!IF(OR(f.Type__c = 'Checkbox',f.Type__c = 'Picklist', f.Type__c = 'Dependent Picklist'),'slds-button slds-button--neutral skip-logic-button', 'hidden')}"
+                                                        data-id="{!f.ID}"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="16"
+                                                            height="16"
+                                                            viewBox="0 0 52 52"
+                                                        >
+                                                            <path
+                                                                d="m30 29h16.5c0.8 0 1.5-0.7 1.5-1.5v-3c0-0.8-0.7-1.5-1.5-1.5h-16.5c-0.6 0-1-0.4-1-1v-16.5c0-0.8-0.7-1.5-1.5-1.5h-3c-0.8 0-1.5 0.7-1.5 1.5v16.5c0 0.6-0.4 1-1 1h-16.5c-0.8 0-1.5 0.7-1.5 1.5v3c0 0.8 0.7 1.5 1.5 1.5h16.5c0.6 0 1 0.4 1 1v16.5c0 0.8 0.7 1.5 1.5 1.5h3c0.8 0 1.5-0.7 1.5-1.5v-16.5c0-0.6 0.4-1 1-1z"
+                                                                fill="#0070d2"
+                                                            />
+                                                        </svg>
+                                                        &nbsp;{!$Label.Skip_Logic_Button}
+                                                    </a>
+                                                </div>
+                                                <!-- /.slds-slds-button-group -->
+                                            </span>
+                                        </div>
+                                        <!-- /.slds-box -->
+                                    </apex:repeat>
+                                </div>
+                                <!-- /Form Group -->
+                            </div>
+                        </apex:repeat>
+                    </div>
+
+                    <!-- Modal Field Group -->
+
+                    <div class="modal fade slds-modal slds-fade-in-open" id="modalFieldGroup">
+                        <div class="modal-dialog slds-modal__container">
+                            <div class="modal-content">
+                                <div class="slds-modal__header">
+                                    <h2 class="slds-text-heading--medium" id="field-group-header">Edit Field Group</h2>
+                                    <button
+                                        class="slds-button slds-button--icon-inverse slds-modal__close"
+                                        data-dismiss="modal"
+                                    >
+                                        <object
+                                            class="slds-button__icon slds-button__icon--large"
+                                            style="vertical-align: middle;"
+                                            data="{!URLFOR($Resource.SLDS_Icons, 'icons/action/close.svg')}"
+                                            type="image/svg+xml"
+                                        >
+                                        </object>
+                                        <span class="slds-assistive-text">Close</span></button
+                                    ><!-- /.slds-button -->
+                                </div>
+                                <!-- /.slds-modal__header -->
+
+                                <div class="slds-modal__content slds-object-height--half slds-scrollable--y">
+                                    <apex:outputPanel id="fieldgroupmodalwrapper" layout="none">
+                                        <div class="slds-col slds-size--1-of-1">
+                                            <div id="fieldGroupName" class="slds-form-element slds-is-required">
+                                                <label for="fieldGroupNameInput" class="slds-form-element__label"
+                                                    >{!$ObjectType.Field_Group__c.Fields.Name.Label}</label
+                                                >
+                                                <div
+                                                    layout="block"
+                                                    class="slds-form-element__control slds-m-bottom--medium"
+                                                >
+                                                    <apex:inputField value="{!newFieldGroup.name}"
+                                                        styleClass="slds-input required"
+                                                    />
+                                                </div>
+                                                <!-- /.slds-form-element__control -->
+                                            </div>
+                                            <!-- /.slds-form-element -->
+
+                                            <div id="instructions" class="slds-form-element slds-is-required">
+                                                <label for="instructionsTextarea" class="slds-form-element__label"
+                                                    >{!$ObjectType.Field_Group__c.Fields.Instructions__c.Label}</label
+                                                >
+                                                <div
+                                                    layout="block"
+                                                    class="slds-form-element__control slds-m-bottom--medium"
+                                                >
+                                                    <apex:inputField value="{!newFieldGroup.PagesApi__Instructions__c}"
+                                                        styleClass="slds-textarea"
+                                                    />
+                                                </div>
+                                                <!-- /.slds-form-element__control -->
+                                            </div>
+                                            <!-- /.slds-form-element -->
+
+                                            <div id="soql_filter" class="slds-form-element">
+                                                <label for="soql_filterText" class="slds-form-element__label"
+                                                    >{!$ObjectType.Field_Group__c.Fields.SOQL_Filter__c.Label}</label
+                                                >
+                                                <div
+                                                    layout="block"
+                                                    class="slds-form-element__control slds-m-bottom--medium"
+                                                >
+                                                    <apex:inputField value="{!newFieldGroup.PagesApi__SOQL_Filter__c}"
+                                                        styleClass="slds-textarea"
+                                                    />
+                                                </div>
+                                                <!-- /.slds-form-element__control -->
+                                            </div>
+                                            <!-- /.slds-form-element -->
+
+                                            <div class="slds-text-heading--medium">{!$Label.Database_Options}</div>
+                                            <div id="mappedObject" class="slds-form-element">
+                                                <label for="mappedObject" class="slds-form-element__label"
+                                                    >Mapped Object</label
+                                                >
+                                                <div class="slds-form-element__control slds-m-bottom--medium">
+                                                    <select id="selectizedElem" onchange="setObjectValue(this);" />
+                                                </div>
+                                            </div>
+                                            <apex:outputPanel id="objNameHidden">
+                                                <input
+                                                    id="objectName"
+                                                    type="hidden"
+                                                    value="{!newFieldGroup.Mapped_Object__c}"
+                                                />
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel id="parentFieldGroup"
+                                                styleClass="slds-form-element"
+                                                layout="block"
+                                            >
+                                                <label for="parentFieldGroup" class="slds-form-element__label"
+                                                    >{!$ObjectType.Field_Group__c.Fields.Parent_Field_Group__c.Label}</label
+                                                >
+                                                <apex:outputPanel layout="block"
+                                                    styleClass="slds-form-element__control slds-m-bottom--medium"
+                                                >
+                                                    <apex:selectList value="{!newFieldGroup.PagesApi__Parent_Field_Group__c}"
+                                                        styleClass="slds-select"
+                                                        multiselect="false"
+                                                        size="1"
+                                                    >
+                                                        <apex:selectOptions value="{!parentGroupOptions}" />
+                                                        <apex:actionSupport event="onchange"
+                                                            action="{!findRelationshipFieldOptions}"
+                                                            rerender="mappedRelationshipField"
+                                                        />
+                                                    </apex:selectList>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel id="mappedRelationshipField"
+                                                styleClass="slds-form-element"
+                                                layout="block"
+                                            >
+                                                <label for="mappedRelationshipField" class="slds-form-element__label"
+                                                    >{!$ObjectType.Field_Group__c.Fields.Mapped_Relationship_Field__c.Label}</label
+                                                >
+                                                <apex:outputPanel layout="block"
+                                                    styleClass="slds-form-element__control slds-m-bottom--medium"
+                                                >
+                                                    <apex:selectList styleClass="slds-select"
+                                                        value="{!newFieldGroup.PagesApi__Mapped_Relationship_Field__c}"
+                                                        multiselect="false"
+                                                        size="1"
+                                                    >
+                                                        <apex:selectOptions value="{!MappedRelationshipFieldOptions}" />
+                                                    </apex:selectList>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel id="enabled"
+                                                styleClass="slds-form-element slds-m-bottom--medium"
+                                                layout="block"
+                                            >
+                                                <label
+                                                    for="{!$Component.allowMultipleEntriesCheckbox}"
+                                                    class="slds-checkbox"
+                                                >
+                                                    <apex:inputCheckbox id="allowMultipleEntriesCheckbox"
+                                                        value="{!newFieldGroup.PagesApi__Is_Multiple__c}"
+                                                    />
+                                                    <span class="slds-checkbox--faux"></span>
+                                                    <span class="slds-form-element__label"
+                                                        >{!$Label.Allow_Multiple_Entries}</span
+                                                    >
+                                                </label>
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel id="allowDelete"
+                                                styleClass="slds-form-element slds-m-bottom--medium"
+                                                layout="block"
+                                            >
+                                                <label
+                                                    for="{!$Component.allowUsersToDeleteMappedRecords}"
+                                                    class="slds-checkbox"
+                                                >
+                                                    <apex:inputCheckbox id="allowUsersToDeleteMappedRecords"
+                                                        value="{!newFieldGroup.PagesApi__Allow_Users_to_Delete_Mapped_Records__c}"
+                                                    />
+                                                    <span class="slds-checkbox--faux"></span>
+                                                    <span class="slds-form-element__label"
+                                                        >{!$Label.Allow_Delete_Mapped_Records}</span
+                                                    >
+                                                </label>
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel id="databaseOperation"
+                                                styleClass="slds-form-element"
+                                                layout="block"
+                                            >
+                                                <label for="databaseOperation" class="slds-form-element__label"
+                                                    >Database Operation</label
+                                                >
+                                                <apex:outputPanel layout="block"
+                                                    styleClass="slds-form-element__control slds-m-bottom--medium"
+                                                >
+                                                    <apex:inputField value="{!newFieldGroup.PagesApi__DML_Operation__c}"
+                                                        styleClass="slds-select"
+                                                    />
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                        </div>
+                                        <!-- /.slds-col -->
+                                    </apex:outputPanel>
+                                </div>
+                                <!-- /.slds-modal__content -->
+
+                                <div class="slds-modal__footer">
+                                    <button class="slds-button slds-button--neutral" data-dismiss="modal">
+                                        {!$Label.Cancel}
+                                    </button>
+                                    <apex:commandButton value="{!$Label.PagesApi__Save}"
+                                        action="{!saveNewFieldGroup}"
+                                        styleClass="slds-button slds-button--neutral slds-button--brand save-field-group-btn"
+                                        onclick="return validateGroupName();"
+                                    />
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog .slds-modal__container -->
+                    </div>
+                    <!-- /.modal .slds-modal -->
+
+                    <apex:actionFunction name="setObject" action="{!setObjectValue}" rerender="mappedRelationshipField">
+                        <apex:param name="objectName" value="" assignTo="{!objectName}" />
+                    </apex:actionFunction>
+
+                    <!-- /Modal Field Group -->
+
+                    <!-- Modal Field -->
+
+                    <div class="modal fade slds-modal slds-fade-in-open" id="modalField">
+                        <div class="modal-dialog slds-modal__container">
+                            <div class="modal-content">
+                                <div class="slds-modal__header">
+                                    <h2 class="slds-text-heading--medium" id="edit-field-header">Edit Field</h2>
+                                    <button
+                                        class="slds-button slds-button--icon-inverse slds-modal__close"
+                                        data-dismiss="modal"
+                                    >
+                                        <object
+                                            class="slds-button__icon slds-button__icon--large"
+                                            style="vertical-align: middle;"
+                                            data="{!URLFOR($Resource.SLDS_Icons, 'icons/action/close.svg')}"
+                                            type="image/svg+xml"
+                                        >
+                                        </object>
+                                        <span class="slds-assistive-text">Close</span></button
+                                    ><!-- /.slds-button -->
+                                </div>
+                                <!-- /.slds-modal__header -->
+
+                                <div class="slds-modal__content slds-object-height--half slds-scrollable--y">
+                                    <span id="mainFieldArea">
+                                        <apex:outputPanel id="fieldmodalwrapper" layout="none">
+                                            <div class="slds-col slds-size--1-of-1">
+                                                <apex:outputPanel id="dependentInfo"
+                                                    styleClass="slds-m-bottom_medium"
+                                                    layout="block"
+                                                >
+                                                    <apex:outputPanel rendered="{!newField.PagesApi__Type__c == 'Dependent Picklist'}"
+                                                        layout="none"
+                                                    >
+                                                        <div class="slds-m-bottom--medium">
+                                                            {!$Label.PagesApi__Dependent_Information}
+                                                        </div>
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel id="optionsType"
+                                                    styleClass="slds-form-element slds-is-required"
+                                                    layout="block"
+                                                >
+                                                    <label for="optionsType" class="slds-form-element__label"
+                                                        ><abbr class="slds-required" title="required">*</abbr
+                                                        >{!$ObjectType.Field__c.Fields.Type__c.Label}</label
+                                                    >
+                                                    <apex:outputPanel layout="block"
+                                                        styleClass="slds-form-element__control slds-m-bottom--medium"
+                                                    >
+                                                        <apex:selectList value="{!newField.PagesApi__Type__c}"
+                                                            styleClass="slds-select field-type-select"
+                                                            multiselect="false"
+                                                            size="1"
+                                                            id="fieldType"
+                                                        >
+                                                            <apex:selectOptions value="{!fieldTypes}" />
+                                                            <apex:actionSupport event="onchange"
+                                                                action="{!setDatabaseOptions}"
+                                                                reRender="
+                                                                                                        databaseoptionspanel,
+                                                                                                        valuespanel,
+                                                                                                        helpTextPanel,
+                                                                                                        isRequired,
+                                                                                                        dependentpicklistoptionspanel,
+                                                                                                        fieldGroupContainer,
+                                                                                                        dependentInfo,
+                                                                                                        isHidden"
+                                                            />
+                                                        </apex:selectList>
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel id="isRequired"
+                                                    styleClass="slds-form-element slds-m-bottom--medium"
+                                                    layout="block"
+                                                >
+                                                    <apex:outputPanel rendered="{!AND(
+                                                        newField.Type__c != 'Section Header',
+                                                        newField.Type__c != 'Instructional Text',
+                                                        newField.Type__c != 'Dependent Picklist'
+                                                        )}"
+                                                        layout="none"
+                                                    >
+                                                        <label
+                                                            for="{!$Component.form.isRequiredNewField}"
+                                                            class="slds-checkbox"
+                                                        >
+                                                            <apex:inputCheckbox value="{!newField.PagesApi__Is_Required__c}"
+                                                                id="isRequiredNewField"
+                                                            />
+                                                            <span class="slds-checkbox--faux"></span>
+                                                            <span class="slds-form-element__label"
+                                                                >{!$ObjectType.Field__c.Fields.Is_Required__c.Label}</span
+                                                            >
+                                                        </label>
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel id="fieldGroupContainer">
+                                                    <apex:outputPanel rendered="{!newField.PagesApi__Type__c != 'Dependent Picklist'}"
+                                                    >
+                                                        <div
+                                                            id="fieldGroupName"
+                                                            class="slds-form-element slds-is-required"
+                                                        >
+                                                            <label
+                                                                for="fieldGroupNameInput"
+                                                                class="slds-form-element__label"
+                                                                >{!$ObjectType.Field__c.Fields.Name.Label}</label
+                                                            >
+                                                            <div
+                                                                layout="block"
+                                                                class="slds-form-element__control slds-m-bottom--medium"
+                                                            >
+                                                                <apex:inputField value="{!newField.Name}"
+                                                                    styleClass="slds-input"
+                                                                />
+                                                                <p
+                                                                    class="slds-form-element"
+                                                                    style="
+                                                                        height: 28px;
+                                                                        width: 493px;
+                                                                        top: 6px;
+                                                                        color: #54698d;
+                                                                        font-size: 0.75rem;
+                                                                        display: inline-block;
+                                                                    "
+                                                                >
+                                                                    {!$Label.SkipLogic_Field_Label_Validation_Message}
+                                                                </p>
+                                                            </div>
+                                                            <!-- /.slds-form-element__control -->
+                                                        </div>
+                                                        <!-- /.slds-form-element -->
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel id="helpTextPanel">
+                                                    <apex:outputPanel rendered="{!AND(
+                                                        newField.Type__c != 'Section Header',
+                                                        newField.Type__c != 'Instructional Text',
+                                                        newField.Type__c != 'Dependent Picklist'
+                                                        )}"
+                                                        layout="none"
+                                                    >
+                                                        <div id="fieldHelp" class="slds-form-element">
+                                                            <label for="helpTextarea" class="slds-form-element__label"
+                                                                >{!$Label.Tooltip_Help_Text}</label
+                                                            >
+                                                            <div
+                                                                layout="block"
+                                                                class="slds-form-element__control slds-m-bottom--medium"
+                                                            >
+                                                                <apex:inputField value="{!newField.PagesApi__Help_Text__c}"
+                                                                    styleClass="slds-textarea help-text-tooltip"
+                                                                    html-maxlength="255"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel id="valuespanel">
+                                                    <apex:outputPanel rendered="{!OR(
+                                                        newField.Type__c == 'Picklist',
+                                                        newField.Type__c == 'Multipicklist',
+                                                        newField.Type__c == 'Instructional Text'
+                                                        )}"
+                                                        layout="none"
+                                                    >
+                                                        <div id="fieldOptions" class="slds-form-element">
+                                                            <label
+                                                                for="optionsTextarea"
+                                                                class="slds-form-element__label"
+                                                            >
+                                                                <apex:outputPanel rendered="{!OR(newField.PagesApi__Type__c == 'Picklist',newField.PagesApi__Type__c == 'Multipicklist')}"
+                                                                    layout="none"
+                                                                >
+                                                                    Picklist Values (Values have a 255 character limit
+                                                                    and are separated by a hard return)
+                                                                </apex:outputPanel>
+                                                                <apex:outputPanel rendered="{!newField.PagesApi__Type__c == 'Instructional Text'}"
+                                                                    layout="none"
+                                                                >
+                                                                    Instructions
+                                                                </apex:outputPanel>
+                                                            </label>
+                                                            <div
+                                                                layout="block"
+                                                                class="slds-form-element__control slds-m-bottom--medium"
+                                                            >
+                                                                <apex:inputField value="{!newField.PagesApi__Options__c}"
+                                                                    styleClass="slds-textarea"
+                                                                />
+                                                            </div>
+                                                            <!-- /.slds-form-element__control -->
+                                                        </div>
+                                                        <!-- /.slds-form-element -->
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                            </div>
+                                            <!-- /.slds-col -->
+
+                                            <apex:outputPanel id="databaseoptionspanel">
+                                                <apex:outputPanel id="databaseoptionscontainer"
+                                                    rendered="{!AND(
+                                                                                    NOT(disableDatabaseOptions),
+                                                                                    newField.Type__c != 'Dependent Picklist',
+                                                                                    newField.Type__c != 'Instructional Text',
+                                                                                    newField.Type__c != 'Section Header',
+                                                                                    newField.Type__c != 'Attachment')}"
+                                                >
+                                                    <legend>{!$Label.PagesApi__Database_Options}</legend>
+                                                    <apex:outputPanel id="fieldPanel">
+                                                        <div id="fieldGroup" class="slds-form-element slds-is-required">
+                                                            <label for="fieldGroup" class="slds-form-element__label"
+                                                                >Mapped Object Field</label
+                                                            >
+                                                            <div
+                                                                layout="block"
+                                                                class="slds-form-element__control slds-m-bottom--medium"
+                                                            >
+                                                                <apex:selectList value="{!currentField}"
+                                                                    disabled="{!fieldDisabled}"
+                                                                    styleClass="slds-select"
+                                                                    multiselect="false"
+                                                                    size="1"
+                                                                >
+                                                                    <apex:selectOptions value="{!objectFields}" />
+                                                                    <apex:actionSupport event="onchange"
+                                                                        action="{!populatePicklistValues}"
+                                                                        rerender="valuespanel"
+                                                                    />
+                                                                </apex:selectList>
+                                                            </div>
+                                                            <!-- /.slds-form-element__control -->
+                                                        </div>
+                                                        <!-- /.slds-form-element -->
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel id="isHidden">
+                                                <apex:outputPanel rendered="{!newField.PagesApi__Type__c != 'Dependent Picklist'}"
+                                                >
+                                                    <label
+                                                        for="{!$Component.form.isHiddenField}"
+                                                        class="slds-checkbox slds-m-bottom--medium"
+                                                    >
+                                                        <apex:inputCheckbox value="{!newField.PagesApi__Is_Hidden__c}"
+                                                            id="isHiddenField"
+                                                        />
+                                                        <span class="slds-checkbox--faux"></span>
+                                                        <span class="slds-form-element__label"
+                                                            >{!$ObjectType.Field__c.Fields.Is_Hidden__c.Label}</span
+                                                        >
+                                                    </label>
+                                                    <div id="fieldGroupName" class="slds-form-element slds-is-required">
+                                                        <label
+                                                            for="fieldGroupNameInput"
+                                                            class="slds-form-element__label"
+                                                            >{!$ObjectType.Field__c.fields.Hidden_Field_Value__c.label}</label
+                                                        >
+                                                        <div
+                                                            layout="block"
+                                                            class="slds-form-element__control slds-m-bottom--medium"
+                                                        >
+                                                            <apex:inputField value="{!newField.PagesApi__Hidden_Field_Value__c}"
+                                                                styleClass="slds-input"
+                                                            />
+                                                        </div>
+                                                        <!-- /.slds-form-element__control -->
+                                                    </div>
+                                                    <!-- /.slds-form-element -->
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                            <div></div>
+                                            <apex:outputPanel id="dependentpicklistoptionspanel">
+                                                <apex:outputPanel rendered="{!newField.PagesApi__Type__c == 'Dependent Picklist'}"
+                                                >
+                                                    <div class="slds-col">
+                                                        <div class="slds-form-element" id="dependentPicklistObj">
+                                                            <label
+                                                                for="dependentPicklistObj"
+                                                                class="slds-form-element__label"
+                                                                >{!$Label.Dependent_Picklist_Object}</label
+                                                            >
+                                                            <div
+                                                                layout="block"
+                                                                class="slds-form-element__control slds-m-bottom--medium"
+                                                            >
+                                                                <!--                              <select id="dpSelectizedElem" onchange="setDependentPicklistObjValue(this);"/>-->
+                                                                <div class="slds-select_container">
+                                                                    <apex:selectList value="{!newField.PagesApi__Dependent_Picklist_Object__c}"
+                                                                        styleClass="slds-select"
+                                                                        multiselect="false"
+                                                                        size="1"
+                                                                    >
+                                                                        <apex:selectOptions value="{!DependentPicklistMappedObjectOptions}"
+                                                                        />
+                                                                        <apex:actionSupport event="onchange"
+                                                                            action="{!setDependentPicklistObjValue}"
+                                                                            rerender="controllingFieldPanel"
+                                                                        />
+                                                                    </apex:selectList>
+                                                                </div>
+                                                                <p
+                                                                    class="slds-form-element"
+                                                                    style="
+                                                                        height: 28px;
+                                                                        width: 493px;
+                                                                        top: 6px;
+                                                                        color: #54698d;
+                                                                        font-size: 0.75rem;
+                                                                        display: inline-block;
+                                                                    "
+                                                                >
+                                                                    {!$Label.Dependent_Picklist_Object_Help}
+                                                                </p>
+                                                            </div>
+                                                            <!-- /.slds-form-element__control -->
+                                                        </div>
+                                                        <!-- /.slds-form-element -->
+                                                    </div>
+
+                                                    <div class="slds-col">
+                                                        <div class="slds-p-top--xx-small">
+                                                            <div class="slds-text-heading--small slds-m-bottom--large">
+                                                                <strong>
+                                                                    {!$Label.Controlling_Field_Def_Map}
+                                                                </strong>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <label
+                                                                for="{!$Component.form.isRequiredNewFieldControlling}"
+                                                                class="slds-checkbox slds-m-bottom--medium"
+                                                            >
+                                                                <apex:inputCheckbox value="{!newField.PagesApi__Is_Required__c}"
+                                                                    id="isRequiredNewFieldControlling"
+                                                                />
+                                                                <span
+                                                                    class="slds-checkbox--faux slds-m-right--x-small"
+                                                                ></span>
+                                                                <span class="slds-form-element__label"
+                                                                    >{!$ObjectType.Field__c.Fields.Is_Required__c.Label}</span
+                                                                >
+                                                            </label>
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <apex:outputPanel id="controllingFieldPanel"
+                                                                styleClass="slds-form-element"
+                                                                layout="block"
+                                                            >
+                                                                <label
+                                                                    for="controllingField"
+                                                                    class="slds-form-element__label"
+                                                                    >{!$Label.Controlling_Picklist}</label
+                                                                >
+                                                                <div
+                                                                    layout="block"
+                                                                    class="slds-form-element__control slds-m-bottom--medium"
+                                                                >
+                                                                    <div class="slds-select_container">
+                                                                        <apex:selectList styleClass="slds-select"
+                                                                            value="{!newField.PagesApi__Dependent_Picklist_Field__c}"
+                                                                            multiselect="false"
+                                                                            size="1"
+                                                                        >
+                                                                            <apex:selectOptions value="{!ControllingFieldOptions}"
+                                                                            />
+                                                                            <apex:actionSupport event="onchange"
+                                                                                action="{!setDependentFieldValues}"
+                                                                                rerender="dependentFieldPanel"
+                                                                            />
+                                                                        </apex:selectList>
+                                                                    </div>
+                                                                    <p
+                                                                        class="slds-form-element"
+                                                                        style="
+                                                                            height: 28px;
+                                                                            width: 493px;
+                                                                            top: 6px;
+                                                                            color: #54698d;
+                                                                            font-size: 0.75rem;
+                                                                            display: inline-block;
+                                                                        "
+                                                                    >
+                                                                        {!$Label.Dependent_Picklist_Field_Help}
+                                                                    </p>
+                                                                </div>
+                                                                <!-- /.slds-form-element__control --> </apex:outputPanel><!-- /.slds-form-element -->
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <div class="slds-form-element">
+                                                                <label
+                                                                    for="mappedFieldControlling"
+                                                                    class="slds-form-element__label"
+                                                                    >{!$Label.Mapped_Field}</label
+                                                                >
+                                                                <div
+                                                                    layout="block"
+                                                                    class="slds-form-element__control slds-m-bottom--medium"
+                                                                >
+                                                                    <div class="slds-select_container">
+                                                                        <apex:selectList value="{!currentField}"
+                                                                            disabled="{!fieldDisabled}"
+                                                                            styleClass="slds-select"
+                                                                            multiselect="false"
+                                                                            size="1"
+                                                                            id="mappedFieldControlling"
+                                                                        >
+                                                                            <apex:selectOptions value="{!objectFields}"
+                                                                            />
+                                                                            <apex:actionSupport event="onchange"
+                                                                                action="{!populatePicklistValues}"
+                                                                                rerender="valuespanel"
+                                                                            />
+                                                                        </apex:selectList>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /.slds-form-element__control -->
+                                                            </div>
+                                                            <!-- /.slds-form-element -->
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <div class="slds-form-element slds-m-bottom--medium">
+                                                                <div
+                                                                    id="fieldGroupNameControlling"
+                                                                    class="slds-form-element slds-is-required"
+                                                                >
+                                                                    <label
+                                                                        for="fieldGroupNameInput"
+                                                                        class="slds-form-element__label"
+                                                                        >{!$ObjectType.Field__c.Fields.Name.Label}</label
+                                                                    >
+                                                                    <div
+                                                                        layout="block"
+                                                                        class="slds-form-element__control"
+                                                                    >
+                                                                        <apex:inputField value="{!newField.Name}"
+                                                                            styleClass="slds-input"
+                                                                        />
+                                                                        <p
+                                                                            class="slds-form-element"
+                                                                            style="
+                                                                                height: 28px;
+                                                                                width: 493px;
+                                                                                top: 6px;
+                                                                                color: #54698d;
+                                                                                font-size: 0.75rem;
+                                                                                display: inline-block;
+                                                                            "
+                                                                        >
+                                                                            {!$Label.SkipLogic_Field_Label_Validation_Message}
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.slds-form-element__control -->
+                                                                </div>
+                                                                <!-- /.slds-form-element -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <div class="slds-form-element slds-m-bottom--medium">
+                                                                <label
+                                                                    for="helpTextarea"
+                                                                    class="slds-form-element__label"
+                                                                    >{!$Label.Tooltip_Help_Text}</label
+                                                                >
+                                                                <div layout="block" class="slds-form-element__control">
+                                                                    <apex:inputField value="{!newField.PagesApi__Help_Text__c}"
+                                                                        styleClass="slds-textarea help-text-tooltip"
+                                                                        html-maxlength="255"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="slds-col">
+                                                        <div class="slds-p-top--xx-small">
+                                                            <div class="slds-text-heading--small slds-m-bottom--large">
+                                                                <strong>
+                                                                    {!$Label.Dependent_Field_Def_Map}
+                                                                </strong>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <label
+                                                                for="{!$Component.form.isRequiredNewFieldDependent}"
+                                                                class="slds-checkbox slds-m-bottom--small"
+                                                            >
+                                                                <apex:inputCheckbox value="{!newDependentField.PagesApi__Is_Required__c}"
+                                                                    id="isRequiredNewFieldDependent"
+                                                                />
+                                                                <span
+                                                                    class="slds-checkbox--faux slds-m-right--x-small"
+                                                                ></span>
+                                                                <span class="slds-form-element__label"
+                                                                    >{!$ObjectType.Field__c.Fields.Is_Required__c.Label}</span
+                                                                >
+                                                            </label>
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <apex:outputPanel id="dependentFieldPanel"
+                                                                styleClass="slds-form-element"
+                                                                layout="block"
+                                                            >
+                                                                <div class="slds-form-element">
+                                                                    <label
+                                                                        for="fieldGroup"
+                                                                        class="slds-form-element__label"
+                                                                        >{!$Label.Dependent_Picklist}</label
+                                                                    >
+                                                                    <div
+                                                                        layout="block"
+                                                                        class="slds-form-element__control slds-m-bottom--medium"
+                                                                    >
+                                                                        <div class="slds-select_container">
+                                                                            <apex:selectList styleClass="slds-select"
+                                                                                value="{!newDependentField.PagesApi__Dependent_Picklist_Field__c}"
+                                                                                multiselect="false"
+                                                                                size="1"
+                                                                            >
+                                                                                <apex:selectOptions value="{!DependentFieldOptions}"
+                                                                                />
+                                                                            </apex:selectList>
+                                                                        </div>
+                                                                        <p
+                                                                            class="slds-form-element"
+                                                                            style="
+                                                                                height: 28px;
+                                                                                width: 493px;
+                                                                                top: 6px;
+                                                                                color: #54698d;
+                                                                                font-size: 0.75rem;
+                                                                                display: inline-block;
+                                                                            "
+                                                                        >
+                                                                            {!$Label.Dependent_Picklist_Field_Help}
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.slds-form-element__control -->
+                                                                </div>
+                                                                <!-- /.slds-form-element -->
+                                                            </apex:outputPanel>
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <div class="slds-form-element">
+                                                                <label
+                                                                    for="mappedFieldDependent"
+                                                                    class="slds-form-element__label"
+                                                                    >{!$Label.Mapped_Field}</label
+                                                                >
+                                                                <div
+                                                                    layout="block"
+                                                                    class="slds-form-element__control slds-m-bottom--medium"
+                                                                >
+                                                                    <div class="slds-select_container">
+                                                                        <apex:selectList value="{!currentDependentField}"
+                                                                            disabled="{!fieldDisabled}"
+                                                                            styleClass="slds-select"
+                                                                            multiselect="false"
+                                                                            size="1"
+                                                                            id="mappedFieldDependent"
+                                                                        >
+                                                                            <apex:selectOptions value="{!objectFields}"
+                                                                            />
+                                                                            <apex:actionSupport event="onchange"
+                                                                                action="{!populatePicklistValues}"
+                                                                                rerender="valuespanel"
+                                                                            />
+                                                                        </apex:selectList>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /.slds-form-element__control -->
+                                                            </div>
+                                                            <!-- /.slds-form-element -->
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <div class="slds-form-element slds-m-bottom--medium">
+                                                                <div
+                                                                    id="fieldGroupNameDependent"
+                                                                    class="slds-form-element slds-is-required"
+                                                                >
+                                                                    <label
+                                                                        for="fieldGroupNameInput"
+                                                                        class="slds-form-element__label"
+                                                                        >{!$ObjectType.Field__c.Fields.Name.Label}</label
+                                                                    >
+                                                                    <div
+                                                                        layout="block"
+                                                                        class="slds-form-element__control"
+                                                                    >
+                                                                        <apex:inputField value="{!newDependentField.Name}"
+                                                                            styleClass="slds-input"
+                                                                        />
+                                                                        <p
+                                                                            class="slds-form-element"
+                                                                            style="
+                                                                                height: 28px;
+                                                                                width: 493px;
+                                                                                top: 6px;
+                                                                                color: #54698d;
+                                                                                font-size: 0.75rem;
+                                                                                display: inline-block;
+                                                                            "
+                                                                        >
+                                                                            {!$Label.SkipLogic_Field_Label_Validation_Message}
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- /.slds-form-element__control -->
+                                                                </div>
+                                                                <!-- /.slds-form-element -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <div class="slds-form-element slds-m-bottom--medium">
+                                                                <label
+                                                                    for="helpTextarea"
+                                                                    class="slds-form-element__label"
+                                                                    >{!$Label.Tooltip_Help_Text}</label
+                                                                >
+                                                                <div layout="block" class="slds-form-element__control">
+                                                                    <apex:inputField value="{!newDependentField.PagesApi__Help_Text__c}"
+                                                                        styleClass="slds-textarea help-text-tooltip"
+                                                                        html-maxlength="255"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </span>
+                                    <div id="warningFieldArea" class="hidden slds-text-align--center">
+                                        <div class="p-b-20">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="52"
+                                                height="52"
+                                                viewBox="0 0 52 52"
+                                            >
+                                                <path
+                                                    fill="#ffb75d"
+                                                    d="m51.4 42.5l-22.9-37c-1.2-2-3.8-2-5 0l-22.9 37c-1.4 2.3 0 5.5 2.5 5.5h45.8c2.5 0 4-3.2 2.5-5.5z m-25.4-2.5c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z m3-9c0 0.6-0.4 1-1 1h-4c-0.6 0-1-0.4-1-1v-13c0-0.6 0.4-1 1-1h4c0.6 0 1 0.4 1 1v13z"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <p class="slds-text-heading--medium">{!$Label.Skip_Logic_Warning}</p>
+                                    </div>
+                                </div>
+                                <!-- /.slds-modal__content -->
+                                <div class="slds-modal__footer">
+                                    <apex:outputPanel id="fieldButtonPanel">
+                                        <button class="slds-button slds-button--neutral" data-dismiss="modal">
+                                            {!$Label.Cancel}
+                                        </button>
+                                        <span class="finalSaveFields hidden">
+                                            <button class="slds-button slds-button--neutral" id="cancelSaveFieldModal">
+                                                {!$Label.Back_Label}
+                                            </button>
+                                        </span>
+                                        <span
+                                            class="{!IF(newField.Id != null && hasSkipLogic[newField.Id], 'firstSaveFields', 'hidden')}"
+                                        >
+                                            <button class="slds-button slds-button--neutral" id="saveFieldModal">
+                                                {!$Label.PagesApi__Save}
+                                            </button>
+                                        </span>
+                                        <span
+                                            class="{!IF(newField.Id != null && hasSkipLogic[newField.Id], 'hidden finalSaveFields', '')}"
+                                        >
+                                            <apex:commandButton id="saveFieldButton"
+                                                value="{!$Label.PagesApi__Save}"
+                                                action="{!saveNewField}"
+                                                styleClass="slds-button slds-button--neutral slds-button--brand saveFieldButton"
+                                                oncomplete="showMessage();"
+                                                reRender="errorInField"
+                                            />
+                                            <apex:outputPanel id="errorInField">
+                                                <apex:inputText id="errorInFieldId"
+                                                    value="{!errorInFieldId}"
+                                                    style="display: none;"
+                                                />
+                                            </apex:outputPanel>
+                                        </span>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog .slds-modal__container -->
+                    </div>
+                    <!-- /.modal .slds-modal -->
+
+                    <!--        <apex:actionFunction name="setDPObject" action="{!setDependentPicklistObjValue}" rerender="mappedRelationshipField">-->
+                    <!--          <apex:param name="dpObjectName" value="" assignTo="{!dpObjectName}"/>-->
+                    <!--        </apex:actionFunction>-->
+
+                    <!-- /Modal Field -->
+                </apex:form>
+                <apex:form >
+                    <apex:actionFunction name="updateOrder"
+                        action="{!updateOrder}"
+                        reRender="none"
+                        oncomplete="location.reload();"
+                    >
+                        <apex:param name="isGroup" value="" />
+                        <apex:param name="orderObj" value="" />
+                        <apex:param name="fieldId" value="" />
+                    </apex:actionFunction>
+                    <apex:actionFunction name="deleteField"
+                        oncomplete="location.reload();"
+                        reRender="none"
+                        action="{!deleteField}"
+                    >
+                        <apex:param name="fieldObj" value="" />
+                    </apex:actionFunction>
+                    <apex:actionFunction name="deleteFieldGroup"
+                        action="{!deleteFieldGroup}"
+                        oncomplete="location.reload();"
+                        reRender="none"
+                    >
+                        <apex:param name="groupID" value="" />
+                    </apex:actionFunction>
+                </apex:form>
+                <div
+                    aria-hidden="false"
+                    role="dialog"
+                    class="modal fade slds-modal slds-fade-in-open"
+                    id="delete-modal"
+                >
+                    <div class="slds-modal__container" id="delete-modal-container"></div>
+                </div>
+                <div
+                    aria-hidden="false"
+                    role="dialog"
+                    class="modal fade slds-modal slds-fade-in-open"
+                    id="skip-logic-modal"
+                >
+                    <div class="modal-dialog slds-modal__container">
+                        <div class="modal-content">
+                            <div class="slds-modal__header">
+                                <h2 class="slds-text-heading--medium" id="edit-field-header">
+                                    {!$Label.Skip_Logic_Modal_Header}
+                                </h2>
+                                <button
+                                    class="slds-button slds-button--icon-inverse slds-modal__close"
+                                    data-dismiss="modal"
+                                >
+                                    <object
+                                        class="slds-button__icon slds-button__icon--large"
+                                        style="vertical-align: middle;"
+                                        data="{!URLFOR($Resource.SLDS_Icons, 'icons/action/close.svg')}"
+                                        type="image/svg+xml"
+                                    >
+                                    </object>
+                                    <span class="slds-assistive-text">Close</span></button
+                                ><!-- /.slds-button -->
+                            </div>
+                            <div
+                                class="slds-modal__content slds-object-height--half slds-scrollable--y"
+                                id="skip-logic-modal-container"
+                            ></div>
+                            <div class="slds-modal__footer">
+                                <button class="slds-button slds-button--neutral" data-dismiss="modal">
+                                    {!$Label.Cancel}
+                                </button>
+                                <button
+                                    class="slds-button slds-button--neutral slds-button--brand save-skip-logic-button"
+                                    data-id="{{{id}}}"
+                                >
+                                    {!$Label.PagesApi__Save}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </apex:define>
+
+            <apex:define name="scripts">
+                <script type="text/x-handlebars-template" id="delete-modal-template">
+                    <div class='slds-modal__header'>
+                        <h2 class='slds-text-heading--medium'>
+                            {{{delete_header_label}}}
+                        </h2>
+                        <p class='slds-m-top--x-small'>
+                            {{{delete_description}}}
+                        </p>
+                    </div>
+                    <div
+                        class='slds-modal__menu slds-max-small-buttons--stretch slds-max-small-buttons--stacked slds-text-align--right'
+                    >
+                        <a class='slds-button slds-button--neutral close-delete-modal'>
+                            {{{cancel_button}}}
+                        </a>
+                        <a
+                            class='slds-button slds-button--destructive delete-button-modal'
+                            data-id="{{{id}}}"
+                            data-type="{{{delete_type}}}"
+                        >
+                            {{{delete_button}}}
+                        </a>
+                    </div>
+                </script>
+                <script type="text/x-handlebars-template" id="skip-logic-modal-template">
+                    <div>
+                      <b>
+                              {!$Label.Skip_Logic_Question}
+                      </b>
+                      <a class="slds-button slds-button--neutral slds-button--brand slds-float--right m-t-5" id="clear-destination-button">
+                              {!$Label.Clear_Destinations_Button}
+                      </a>
+                      <br/>
+                      {{{field.Name}}}
+                    </div>
+                    <hr class="m-b-0 m-t-20"/>
+                    {{#each answers}}
+                    <div class="m-t-10 m-b-5 slds-font-weight--regular">{{getIndex @index}}. &nbsp;&nbsp;<b>{{{label}}}</b></div>
+                    <div class="slds-form-element p-l-20">
+                      <label class="slds-form-element__label">
+                              {!$Label.Skip_Logic_Destination}
+                      </label>
+                      <div class="slds-form-element__control">
+                        <input type="text" value="{{{value}}}" class="selectList" data-id="{{../field.Id}}" data-answer="{{label}}"/>
+                      </div>
+                    </div>
+                    {{/each}}
+                </script>
+                <script
+                    type="text/javascript"
+                    src="{!URLFOR($Resource.sortable, 'v1.4.2/Sortable.min.js')}"
+                />
+                <script type="text/javascript">
+                    //Collection size limit error resolution
+                    var optionsHTML = '';
+                    var data = '{!JSENCODE(MappedObjectOptions)}';
+                    //          var dpData = "{!DependentPicklistMappedObjectOptions}";
+                    var dataArray = data.split(',');
+                    dataArray.forEach(function (d) {
+                        var optionArray = d.split(':');
+                        optionsHTML += '<option value="' + optionArray[1] + '">' + optionArray[0] + '</option>';
+                    });
+                    $('#selectizedElem').html(optionsHTML);
+
+                    var selectizeObj = $('#selectizedElem').selectize();
+
+                    //          setTimeout(function(){
+                    //              var dpDataArray = dpData.split(',');
+                    //              var dpOptionsHTML = '';
+                    //              dpDataArray.forEach(function(d){
+                    //                  var optionArray = d.split(':');
+                    //                  dpOptionsHTML += '<option value="' + optionArray[1] + '">' + optionArray[0] + '</option>';
+                    //              });
+                    //              $('#dpSelectizedElem').html(dpOptionsHTML);
+                    //              var selectizeDPObj = $('#dpSelectizedElem').selectize({
+                    //                  create : false
+                    //              });
+                    //          }, 5000);
+
+                    //          function setDependentPicklistObjValue(elem) {
+                    //              setDPObject($(elem).find('option[selected=selected]').val());
+                    //          }
+
+                    function setObjectValue(elem) {
+                        setObject($(elem).find('option[selected=selected]').val());
+                    }
+
+                    var skipLogicModalTemplate = Handlebars.compile($('#skip-logic-modal-template').html());
+
+                    Handlebars.registerHelper('getIndex', function (value) {
+                        return parseInt(value) + 1;
+                    });
+
+                    window.onload = function () {
+                        $('.svgObject').contents().find('path').attr({ fill: '#0070d2' });
+                    };
+
+                    $(document).ready(function () {
+                        svg4everybody();
+                        Sortable.create(document.getElementById('field-group-container'), {
+                            ghostClass: 'item--ghost',
+                            animation: 200,
+                            onEnd: function (/**Event*/ evt) {
+                                var existingItems = [];
+                                var groupOrder = [];
+                                $('.group-item').each(function (index) {
+                                    if ($(this).data('id') != null) {
+                                        if ($.inArray($(this).data('id'), existingItems) == -1) {
+                                            groupOrder.push({ id: $(this).data('id'), index: index });
+                                            existingItems.push($(this).data('id'));
+                                        }
+                                    }
+                                });
+                                updateOrder(true, JSON.stringify(groupOrder), '');
+                            }
+                        });
+
+                        $('.field-container').each(function (index) {
+                            buildSortable($(this).attr('id'));
+                        });
+
+                        $(document).on('click', '.delete-field', function (e) {
+                            e.preventDefault();
+                            var message = 'Are you sure you want to delete the field?';
+                            if ($(this).data('name') == 'Dependent Picklist' && !$(this).data('parent')) {
+                                message =
+                                    'By deleting the Controlling Picklist Field you will also delete the Dependent picklist field.  Do you wish to continue?';
+                            }
+                            var deleteObj = {};
+                            deleteObj.delete_type = 'field';
+                            deleteObj.id = $(this).data('id');
+                            deleteObj.delete_header_label = 'Delete Field';
+                            deleteObj.delete_description = message;
+                            deleteObj.delete_button = 'Delete';
+                            deleteObj.cancel_button = 'Cancel';
+
+                            buildAndShowModal(deleteObj);
+                        });
+
+                        $(document).on('click', '.delete-field-group', function (e) {
+                            e.preventDefault();
+                            var deleteObj = {};
+                            deleteObj.delete_type = 'field-group';
+                            deleteObj.id = $(this).data('id');
+                            deleteObj.delete_header_label = 'Delete Field Group';
+                            deleteObj.delete_description = 'Are you sure you want to delete the field group?';
+                            deleteObj.delete_button = 'Delete';
+                            deleteObj.cancel_button = 'Cancel';
+
+                            buildAndShowModal(deleteObj);
+                        });
+
+                        $(document).on('click', '.delete-button-modal', function (e) {
+                            e.preventDefault();
+                            if ($(this).data('type') == 'field') {
+                                deleteField($(this).data('id'));
+                            } else {
+                                deleteFieldGroup($(this).data('id'));
+                            }
+                        });
+
+                        $(document).on('click', '.saveFieldButton', function (e) {
+                            e.preventDefault();
+                            var saveBtn = $(this);
+                            saveBtn.addClass('fonteva-button--disable');
+                            setTimeout(function () {
+                                saveBtn.removeClass('fonteva-button--disable');
+                            }, 2000);
+                        });
+
+                        $(document).on('click', '.close-delete-modal', function (e) {
+                            e.preventDefault();
+                            $('#delete-modal').modal('hide');
+                        });
+                        $(document).on('click', '.skip-logic-button', function (e) {
+                            e.preventDefault();
+                            var fieldId = $(this).data('id');
+                            Visualforce.remoting.Manager.invokeAction(
+                                '{!$RemoteAction.FormBuilderController.getSkipLogicData}',
+                                fieldId,
+                                function (result, event) {
+                                    if (event.status) {
+                                        $('#skip-logic-modal-container').html(skipLogicModalTemplate(result));
+                                        $('#skip-logic-modal').modal('show');
+                                        var unescapeOptions = new Array();
+                                        var index;
+                                        for (index = 0; index < result.options.length; index++) {
+                                            var parser = new DOMParser();
+                                            var dom = parser.parseFromString(
+                                                '<!doctype html><body>' + result.options[index].label,
+                                                'text/html'
+                                            );
+                                            var decodedString = dom.body.textContent;
+                                            unescapeOptions.push({
+                                                label: unescapeHTML(decodedString),
+                                                value: result.options[index].value
+                                            });
+                                        }
+                                        var options = {
+                                            valueField: 'value',
+                                            labelField: 'label',
+                                            searchField: 'label',
+                                            loadingClass: 'slds-none',
+                                            create: false,
+                                            options: unescapeOptions,
+                                            openOnFocus: true,
+                                            hideSelected: true,
+                                            render: {
+                                                option: function (item, escape) {
+                                                    return '<div>' + escape(item.label) + '</div>';
+                                                },
+                                                item: function (item, escape) {
+                                                    return '<div>' + escape(item.label) + '</div>';
+                                                }
+                                            }
+                                        };
+                                        $('.selectList').selectize(options);
+                                        $('.has-options').addClass('slds-grid slds-wrap');
+                                    }
+                                },
+                                {
+                                    escape: true
+                                }
+                            );
+                        });
+                        $(document).on('click', '.save-skip-logic-button', function (e) {
+                            e.preventDefault();
+                            var data = new Array();
+                            var questionId;
+                            $('input.selectList').each(function () {
+                                questionId = $(this).attr('data-id');
+                                data.push({
+                                    label: $(this).attr('data-answer'),
+                                    value: $(this).val()
+                                });
+                            });
+                            var skipData = {
+                                fieldId: questionId,
+                                values: data
+                            };
+                            Visualforce.remoting.Manager.invokeAction(
+                                '{!$RemoteAction.FormBuilderController.saveSkipLogic}',
+                                JSON.stringify(skipData),
+                                function (result, event) {
+                                    if (event.status) {
+                                        location.reload();
+                                    }
+                                },
+                                {
+                                    escape: true
+                                }
+                            );
+                        });
+                        $(document).on('click', '#clear-destination-button', function (e) {
+                            e.preventDefault();
+                            $('input.selectList').each(function () {
+                                $(this).val('');
+                                $(this)[0].selectize.clear();
+                            });
+                        });
+                        $(document).on('change', '.help-text-tooltip', function (e) {
+                            if ($(this).val() && $(this).val().length > 255) {
+                                $(this.val($(this).val().slice(0, 255)));
+                            }
+                        });
+                        $(document).on('click', '#saveFieldModal', function (e) {
+                            e.preventDefault();
+                            $('.finalSaveFields').removeClass('hidden');
+                            $('.firstSaveFields').addClass('hidden');
+                            $('#warningFieldArea').removeClass('hidden');
+                            $('#mainFieldArea').addClass('hidden');
+                        });
+                        $(document).on('click', '#cancelSaveFieldModal', function (e) {
+                            e.preventDefault();
+                            $('.finalSaveFields').addClass('hidden');
+                            $('.firstSaveFields').removeClass('hidden');
+                            $('#warningFieldArea').addClass('hidden');
+                            $('#mainFieldArea').removeClass('hidden');
+                        });
+                        $('.slds-edit-field-group-button').hover(
+                            function () {
+                                $('#edit-' + $(this).data('id')).attr('fill', '#0070d2');
+                            },
+                            function () {
+                                $('#edit-' + $(this).data('id')).attr('fill', '#fff');
+                            }
+                        );
+                        $('.slds-delete-field-group-button').hover(
+                            function () {
+                                $('#delete-' + $(this).data('id')).attr('fill', '#0070d2');
+                            },
+                            function () {
+                                $('#delete-' + $(this).data('id')).attr('fill', '#fff');
+                            }
+                        );
+                        $('.slds-new-field-group-button').hover(
+                            function () {
+                                $('#new-' + $(this).data('id')).attr('fill', '#0070d2');
+                            },
+                            function () {
+                                $('#new-' + $(this).data('id')).attr('fill', '#fff');
+                            }
+                        );
+                    });
+
+                    function buildAndShowModal(obj) {
+                        var templateHTML = $('#delete-modal-template').html();
+                        var template = Handlebars.compile(templateHTML);
+                        $('#delete-modal-container').html(template(obj));
+                        $('#delete-modal').modal('show');
+                    }
+
+                    function buildSortable(id) {
+                        Sortable.create(document.getElementById(id), {
+                            ghostClass: 'item--ghost',
+                            animation: 200,
+                            onEnd: function (/**Event*/ evt) {
+                                var existingItems = [];
+                                var groupOrder = [];
+                                for (var i = 0; i < evt.from.children.length; i++) {
+                                    var element = evt.from.children[i];
+                                    if (element.id != null) {
+                                        if ($.inArray(element.id, existingItems) == -1) {
+                                            groupOrder.push({ id: element.id, index: i });
+                                            existingItems.push(element.id);
+                                        }
+                                    }
+                                }
+                                updateOrder(false, JSON.stringify(groupOrder), evt.item.id);
+                            }
+                        });
+                    }
+
+                    var savingFieldInProgress = false;
+                    function savingField() {
+                        if (savingFieldInProgress) {
+                            return false;
+                        }
+                        savingFieldInProgress = true;
+                        return true;
+                    }
+
+                    function showMessage() {
+                        var errorInFieldId = $('[id$="errorInFieldId"]').val();
+                        if (errorInFieldId != '') {
+                            $('#' + errorInFieldId)
+                                .find('label')
+                                .attr('style', 'color:red;');
+                            savingFieldInProgress = false;
+                        } else {
+                            window.location.reload();
+                        }
+                        $('[id$="errorInFieldId"]').val('');
+                    }
+
+                    var savingFieldGroup = false;
+                    function validateGroupName() {
+                        $('.error').remove();
+                        var valid = true;
+                        $('.required').each(function (index) {
+                            if (!$(this).val()) {
+                                $(this)
+                                    .parent()
+                                    .append("<div class='error' style='color:red;'>{!$Label.Field_Required}</div>");
+                                valid = false;
+                            }
+                        });
+                        if (valid && savingFieldGroup) {
+                            return false;
+                        }
+                        if (valid) {
+                            savingFieldGroup = true;
+                        }
+                        return valid;
+                    }
+                    function showObjModal(showEdit, label, modalHeadingId, modalToShow) {
+                        if (showEdit) {
+                            $(modalHeadingId).text('Edit ' + label);
+                        } else {
+                            $(modalHeadingId).text('New ' + label);
+                        }
+                        if (modalToShow === '#modalFieldGroup') {
+                            selectizeObj[0].selectize.setValue($('#objectName').val());
+                        }
+                        if (modalToShow === '#modalField' && !showEdit) {
+                            $('.field-type-select').val('Attachment Unlimited Size').change();
+                        }
+                        $(modalToShow).modal('show');
+                    }
+                </script>
+            </apex:define>
+        </apex:composition>
+    </html>
+</apex:page>

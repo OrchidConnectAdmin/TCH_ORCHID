@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Payment_Method__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required** Master-detail Payment Method. Link to the E-Payment Method that will be used/has been used for the Schedule Payment.</description>
+    <inlineHelpText>**Required** Master-detail Payment Method. Link to the E-Payment Method that will be used/has been used for the Schedule Payment.</inlineHelpText>
+    <label>Payment Method</label>
+    <referenceTo>OrderApi__Payment_Method__c</referenceTo>
+    <relationshipLabel>Scheduled Payments</relationshipLabel>
+    <relationshipName>Scheduled_Payments</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>true</writeRequiresMasterRead>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Reason_Other__c</fullName>
+    <inlineHelpText>When ECCHO has been notified a Parent Org will no longer be sponsoring a Child Org, please write comments in this field</inlineHelpText>
+    <label>End Reason (Other)</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

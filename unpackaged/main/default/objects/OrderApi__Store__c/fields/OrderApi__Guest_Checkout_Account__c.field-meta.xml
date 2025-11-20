@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Guest_Checkout_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Lookup to the Account Record for Guest Checkout Contacts to be linked to</description>
+    <inlineHelpText>The default Account to use as a parent to any new Contact records created from guest (unauthenticated) users.</inlineHelpText>
+    <label>Guest Checkout Account</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Stores</relationshipLabel>
+    <relationshipName>Stores</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

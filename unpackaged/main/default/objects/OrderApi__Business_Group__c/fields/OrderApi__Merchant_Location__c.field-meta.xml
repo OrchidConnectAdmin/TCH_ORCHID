@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Merchant_Location__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Some gateways allow you to customize the location of the merchant that appears on customer&#39;s credit card statements. (Optional) provide a merchant location descriptor.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Some gateways allow you to customize the location of the merchant that appears on customer&#39;s credit card statements. (Optional) provide a merchant location descriptor.</inlineHelpText>
+    <label>Merchant Location</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

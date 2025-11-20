@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Sub_Quarter__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(
+     Membership_Month__c,
+    9, &quot;1Q&quot;,
+    10, &quot;1Q&quot;,
+    11, &quot;1Q&quot;,
+    12, &quot;2Q&quot;,
+    1, &quot;2Q&quot;,
+    2, &quot;2Q&quot;,
+    3, &quot;3Q&quot;,
+    4, &quot;3Q&quot;,
+    5, &quot;3Q&quot;,
+    6, &quot;4Q&quot;,
+    7, &quot;4Q&quot;,
+    8, &quot;4Q&quot;,
+    &quot;Unknown&quot;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Sub Quarter</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

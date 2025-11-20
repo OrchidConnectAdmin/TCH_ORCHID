@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Is_Current_Status_for_Event__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>** SYSTEM CALCULATED/OVERRIDE ** When checked, the status will be set as the current event status. The status field on the event will also be updated.</description>
+    <inlineHelpText>** SYSTEM CALCULATED/OVERRIDE ** When checked, the status will be set as the current event status. The status field on the event will also be updated.</inlineHelpText>
+    <label>Is Current Status for Event</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

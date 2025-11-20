@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__End_Date_Time__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required** The event end date and time (mm/dd/yyyy hh:mm:ss).</description>
+    <inlineHelpText>**Required** The event end date and time (mm/dd/yyyy hh:mm:ss).</inlineHelpText>
+    <label>End Date/Time</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

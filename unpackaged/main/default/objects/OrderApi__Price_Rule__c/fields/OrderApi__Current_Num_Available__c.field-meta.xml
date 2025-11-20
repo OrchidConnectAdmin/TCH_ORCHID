@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Current_Num_Available__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A running total of the number of times this rule can be used prior to the rule expiring (if applicable).</description>
+    <externalId>false</externalId>
+    <formula>IF(OrderApi__Max_Num_Available__c &gt; 0 &amp;&amp; (OrderApi__Max_Num_Available__c - OrderApi__Num_Times_Used__c &gt;= 0), OrderApi__Max_Num_Available__c - OrderApi__Num_Times_Used__c, null)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>A running total of the number of times this rule can be used prior to the rule expiring (if applicable).</inlineHelpText>
+    <label>Current Num Available</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__Create_Payment_in_GoCardless__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, this will create a payment record in GoCardless based on the scheduled payment data ** DEFAULTS unchecked **</description>
+    <inlineHelpText>When checked, this will create a payment record in GoCardless based on the scheduled payment data ** DEFAULTS unchecked **</inlineHelpText>
+    <label>Create Payment in GoCardless</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

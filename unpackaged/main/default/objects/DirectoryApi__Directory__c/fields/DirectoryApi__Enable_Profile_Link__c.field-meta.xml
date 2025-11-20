@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DirectoryApi__Enable_Profile_Link__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>By checking this field, authenticated users will be able to navigate back to their profile to update their contact record.</description>
+    <inlineHelpText>By checking this field, authenticated users will be able to navigate back to their profile to update their contact record.</inlineHelpText>
+    <label>Enable Profile Link</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

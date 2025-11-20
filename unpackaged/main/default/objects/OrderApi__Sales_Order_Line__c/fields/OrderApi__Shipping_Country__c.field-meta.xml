@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Shipping_Country__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Optional shipping country for the item&#39;s ordered on the order line. If left blank, the value of this field will be updated with the value of the parent order&#39;s &quot;Shipping Country&quot; field.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Optional shipping country for the item&#39;s ordered on the order line. If left blank, the value of this field will be updated with the value of the parent order&#39;s &quot;Shipping Country&quot; field.</inlineHelpText>
+    <label>Shipping Country</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>View_PDF__c</fullName>
+    <description>Full URL. Ex: https://fonteva.com</description>
+    <inlineHelpText>Full URL. Ex: https://fonteva.com</inlineHelpText>
+    <label>View PDF</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

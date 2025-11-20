@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Adjustment_Reason__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Select the reason for the adjustment.</description>
+    <inlineHelpText>Select the reason for the adjustment.</inlineHelpText>
+    <label>Adjustment Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Incorrect Pricing Applied</fullName>
+                <default>false</default>
+                <label>Incorrect Pricing Applied</label>
+            </value>
+            <value>
+                <fullName>Manager Override</fullName>
+                <default>false</default>
+                <label>Manager Override</label>
+            </value>
+            <value>
+                <fullName>Customer Loyalty Discount</fullName>
+                <default>false</default>
+                <label>Customer Loyalty Discount</label>
+            </value>
+            <value>
+                <fullName>Misc. Adjustments</fullName>
+                <default>false</default>
+                <label>Misc. Adjustments</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

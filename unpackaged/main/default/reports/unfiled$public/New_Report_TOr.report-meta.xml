@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Sponsoring_Relationships__c.Account_Sponsoring_the_Membership__c</field>
+    </columns>
+    <columns>
+        <field>Sponsoring_Relationships__c.Sponsored_Organization_Name__c</field>
+    </columns>
+    <columns>
+        <field>Sponsoring_Relationships__c.Contact__c</field>
+    </columns>
+    <columns>
+        <field>Sponsoring_Relationships__c.Primary_Contact_Email__c</field>
+    </columns>
+    <columns>
+        <field>Sponsoring_Relationships__c.Mailing_Address_Street__c</field>
+    </columns>
+    <columns>
+        <field>Sponsoring_Relationships__c.Mailing_Address_City__c</field>
+    </columns>
+    <columns>
+        <field>Sponsoring_Relationships__c.Mailing_State__c</field>
+    </columns>
+    <columns>
+        <field>Sponsoring_Relationships__c.Mailing_Address_Zip_Code_Postal_Code__c</field>
+    </columns>
+    <columns>
+        <field>Sponsoring_Relationships__c.Primary_R_T_Number__c</field>
+    </columns>
+    <description>Members by SO with dues &amp; Primary Contact email address</description>
+    <filter>
+        <criteriaItems>
+            <column>Sponsoring_Relationships__c.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Active</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Members by SO w/Primary Contact</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountCustomEntity$Sponsoring_Relationships__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

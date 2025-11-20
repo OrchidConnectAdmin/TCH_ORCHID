@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ECCHO_Badge_Types</fullName>
+    <columns>NAME</columns>
+    <columns>OrderApi__Icon__c</columns>
+    <columns>OrderApi__Is_Published__c</columns>
+    <columns>OrderApi__Is_Active__c</columns>
+    <columns>OrderApi__Enable_Badge_Flow_down__c</columns>
+    <columns>OrderApi__Short_Description__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>notContain</operation>
+        <value>FON</value>
+    </filters>
+    <label>ECCHO Badge Types</label>
+</ListView>

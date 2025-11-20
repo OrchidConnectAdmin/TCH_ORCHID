@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Convert_Invoice</fullName>
+    <availability>online</availability>
+    <description>This button will change the posting entity for the Sales Order to Invoice</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Convert To Invoice</masterLabel>
+    <openType>replace</openType>
+    <page>LTE__ConvertInvoice</page>
+    <protected>false</protected>
+</WebLink>

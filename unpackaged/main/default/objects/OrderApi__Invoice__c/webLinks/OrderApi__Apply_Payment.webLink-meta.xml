@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Apply_Payment</fullName>
+    <availability>online</availability>
+    <description>Apply Payment to multiple invoices in a single transaction.</description>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Apply Payment</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/connection.js&quot;)}
+var records = {!GETRECORDIDS($ObjectType.OrderApi__Invoice__c)};
+if (records[0] == null)
+ alert(&quot;{!$Label.orderapi__Validation_No_Records_Selected}&quot;)
+var url = &quot;{!$Site.Prefix}/apex/{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}invoice_payment?contact={!Contact.Id}&amp;account={!Account.Id}&amp;invoices=&quot;;
+  for (var n = 0; n &lt; records.length; n++)
+  {
+    url += records[n];
+    url += &quot;,&quot;;
+  }
+window.location = url;</url>
+</WebLink>

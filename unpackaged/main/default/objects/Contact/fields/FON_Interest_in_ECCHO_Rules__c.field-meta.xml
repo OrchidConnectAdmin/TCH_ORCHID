@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Interest_in_ECCHO_Rules__c</fullName>
+    <inlineHelpText>Asked in form prior to Contact becoming an Active user within the Member Portal</inlineHelpText>
+    <label>Interest in ECCHO Rules?</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Interested in possibly becoming an ECCHO Member</fullName>
+                <default>false</default>
+                <label>Interested in possibly becoming an ECCHO Member</label>
+            </value>
+            <value>
+                <fullName>Interested in possibly becoming an ECCHO Sponsoring Organization</fullName>
+                <default>false</default>
+                <label>Interested in possibly becoming an ECCHO Sponsoring Organization</label>
+            </value>
+            <value>
+                <fullName>NCP Exam Registration</fullName>
+                <default>false</default>
+                <label>NCP Exam Registration</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

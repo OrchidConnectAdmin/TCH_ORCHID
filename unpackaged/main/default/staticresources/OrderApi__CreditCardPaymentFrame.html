@@ -1,0 +1,356 @@
+<html>
+<head></head>
+<body>
+
+<script id="iFrameJS" src="https://core.spreedly.com/iframe/iframe-v1.min.js" type="text/javascript"></script>
+<script id="spreedly-iframe" data-number-id="spreedly-number" data-cvv-id="spreedly-cvv"></script>
+<style>
+    html, body.clear {
+        background-color: transparent !important;
+    }
+
+    html, body {
+        height: fit-content;
+    }
+
+    .uiInputDefaultError .form-element__help {
+        font-size: .75rem;
+        margin-top: .5rem;
+        color: rgb(234, 0, 30);
+        font-family: "Lato", sans-serif;
+    }
+
+    #spreedly-number-frame-1001 {
+        height: 40px !important;
+    }
+
+    #spreedly-cvv-frame-1001 {
+        height: 40px !important;
+    }
+
+    #spreedly-number, #spreedly-cvv {
+        height: 40px !important;
+    }
+
+    .slds-size--1-of-11 {
+        width: 100px !important;
+    }
+
+    .slds-required {
+        text-decoration: none;
+    }
+
+    .slds .slds-size--1-of-1 {
+        width: 100%;
+    }
+
+    .slds-grid--pull-padded-x-small {
+        margin-right: -.25rem;
+        margin-left: -.25rem;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    .pfm-custom_cc-frame {
+        margin: 0 -.25rem;
+        display: flex;
+    }
+
+    .pfm-custom_cc-frame > * {
+        margin: 0 .25rem;
+    }
+    .pfm-custom_cc-frame > *:first-of-type {
+        width: 100%;
+    }
+
+</style>
+<style id="fontevaCustomStyles" type="text/css"></style>
+<!--
+  Use component's iFrameStyles to override SLDS styles.
+  For example, use .fonteva .slds-form-element__label {...} to override label style
+-->
+<div class="slds fonteva">
+    <div class="slds-col slds-grid slds-wrap slds-grid--vertical-align-end pfm-custom_cc-frame" style="column-gap:4px;" >
+        <div class="slds-col slds-m-bottom--small" style="min-width: 120px; flex: 1; flex-grow: 1.8;">
+          <span>
+            <abbr class="slds-required" title="required" style="color: #c23934!important;margin-right: -2px;"
+                  aria-label="required">*</abbr>
+            <label class="slds-form-element__label helper-margin-right" for="inputSObjectName" id="ccDiv">
+              <span id="cardNumber"></span>
+            </label>
+          </span>
+            <div id="spreedly-number"></div>
+            <ul class="has-error uiInputDefaultError uiInput uiInputText uiInput--default uiInput--input hidden"
+                id="cardErrorMessage">
+                <li class="form-element__help"><span id="invalidNumber"></span></li>
+            </ul>
+        </div>
+        <div class="slds-col slds-m-bottom--small" id="cvv-div" style="min-width: 120px; flex: 0.9; flex-grow: 0.999;">
+            <div class="slds-input--cvv slds-m-bottom-x--small">
+                <abbr id="cvv-required-asterisk" class="slds-required" title="required" style="color: #c23934!important;margin-right: -2px;"
+                      aria-label="required">*</abbr>
+                <label class="slds-form-element__label helper-margin-right" for="inputSObjectName" id="cvvDiv">
+                    <span id="CVV"></span>
+                </label>
+                <div id="spreedly-cvv"></div>
+                <ul class="has-error uiInputDefaultError uiInput uiInputText uiInput--default uiInput--input hidden"
+                    id="cvvErrorMessage">
+                    <li class="form-element__help"><span id="invalidCVV"></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.querySelector('body').classList.add('clear');
+    let initialized = false;
+
+    const queryParams = decodeURIComponent(window.location.search.substring(1).replace(new RegExp(/\+/g), '%20'))
+        .split('#')[0].split('&')
+        .reduce(function(retVal, keyVal, index) {
+            const parts = keyVal.split('=');
+            retVal[parts[0]] = decodeQueryParam(parts[1]);
+            return retVal;
+        }, {});
+
+    if (queryParams.spreedlyExpress) {
+        const spreedlyExpressUrl = 'https://core.spreedly.com/iframe/express-3.min.js';
+        const spreedlyExpressScript = document.createElement('script');
+        spreedlyExpressScript.src = spreedlyExpressUrl;
+        spreedlyExpressScript.addEventListener('load', function() {
+            function receiveMessage(event) {
+                if (parent.location.origin === location.origin && event.data.eventType === 'ThreeDS.serialize') {
+                    const browserInfo = Spreedly.ThreeDS.serialize(event.data.browserSize, event.data.acceptHeader);
+                    parent.postMessage({
+                        eventType: 'ThreeDS.serialized',
+                        browserInfo
+                    }, location.origin);
+                }
+            }
+            window.addEventListener('message', receiveMessage, false);
+        });
+        document.head.appendChild(spreedlyExpressScript);
+    } else {
+        document.querySelector('#spreedly-iframe').setAttribute('data-environment-key', queryParams.environmentKey);
+        const fullStyles = document.createElement('link');
+        fullStyles.setAttribute("rel", "stylesheet");
+        fullStyles.setAttribute("media", "screen");
+        fullStyles.setAttribute("href", queryParams.sldsBase2+'/css/fullStyles.css');
+        document.body.insertBefore(fullStyles, document.getElementById("spreedly-iframe"));
+
+        window.addEventListener('load', (event) => {
+            parent.window.postMessage({
+                identifier: queryParams.identifier,
+                eventType: 'ready'
+            }, '*');
+            ['cardNumber', 'CVV', 'invalidNumber', 'invalidCVV'].forEach(function(label) {
+                document.getElementById(label).innerText = decodeQueryParam(queryParams[label]);
+            })
+        });
+
+        window.addEventListener("message", receiveMessage, false);
+    }
+
+    function initializeSpreedly(requireCvv, fieldStyles, labelStyles) {
+        document.getElementById('ccDiv').setAttribute('style', labelStyles);
+        document.getElementById('cvvDiv').setAttribute('style', labelStyles);
+        toggleCVV(requireCvv);
+        Spreedly.on('ready', function() {
+            document.querySelectorAll('iframe').forEach(function(ele) {
+                if (ele.id.startsWith('spreedly-number')) {
+                    var cardNumberLabel = queryParams.cardNumber;
+                    ele.title = cardNumberLabel.replace('+', ' ');
+                }
+                else if (ele.id.startsWith('spreedly-cvv')) {
+                    ele.title = queryParams.CVV;
+                }
+            });
+            Spreedly.setFieldType('tel');
+            Spreedly.setNumberFormat('prettyFormat');
+            Spreedly.setStyle('cvv', fieldStyles);
+            Spreedly.setStyle('number', fieldStyles);
+            Spreedly.setLabel('cvv', queryParams.CVV);
+            Spreedly.setLabel('number', queryParams.cardNumber);
+
+        });
+        Spreedly.on('paymentMethod', function(token, pmData) {
+            var browser_size = '05';
+            var acceptHeader = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+            var browser_info = Spreedly.ThreeDS.serialize(browser_size, acceptHeader);
+            var dataObj = {
+                identifier: queryParams.identifier,
+                eventType: 'paymentMethod',
+                token: token,
+                pmData: pmData,
+                browserInfo: browser_info
+            };
+            parent.window.postMessage(dataObj, '*');
+        });
+        Spreedly.on('validation', function(inputProperties) {
+            var validCC = true;
+            var validCVV = true;
+            var errorEvent = 'errors';
+            var validateEvent = 'validate';
+            if (Spreedly.eventType === 'validate') {
+                errorEvent = 'errors';
+                validateEvent = 'validate';
+            }
+            else if (Spreedly.eventType === 'onlyValidate') {
+                errorEvent = 'onlyValidateErrors';
+                validateEvent = 'onlyValidateSuccess';
+            }
+
+            if (!inputProperties["validNumber"]) {
+                validCC = false;
+            }
+            if (Spreedly.requireCVV && !inputProperties["validCvv"]) {
+                validCVV = false;
+            }
+            if (!validCC) {
+                document.querySelector('#cardErrorMessage').classList.remove('hidden');
+            }
+            else {
+                document.querySelector('#cardErrorMessage').classList.add('hidden');
+            }
+            if (!validCVV) {
+                document.querySelector('#cvvErrorMessage').classList.remove('hidden');
+            }
+            else {
+                document.querySelector('#cvvErrorMessage').classList.add('hidden');
+            }
+            if (!validCC) {
+                var dataObj = {
+                    identifier: queryParams.identifier,
+                    eventType: errorEvent,
+                    errors: {key: 'Error', message: queryParams.invalidNumber}
+                };
+                parent.window.postMessage(dataObj, '*');
+            }
+            if (!validCVV) {
+                var dataObj = {
+                    identifier: queryParams.identifier,
+                    eventType: errorEvent,
+                    errors: {key: 'Error', message: queryParams.invalidCVV}
+                };
+                parent.window.postMessage(dataObj, '*');
+            }
+            if (validCC && validCVV) {
+                var dataObj = {
+                    identifier: queryParams.identifier,
+                    eventType: validateEvent
+                };
+                parent.window.postMessage(dataObj, '*');
+            }
+            parent.window.postMessage({
+                identifier: queryParams.identifier,
+                iframeHeight: document.body.offsetHeight,
+                eventType: 'adjustHeight'
+            }, '*');
+        });
+
+        Spreedly.on('errors', function(errors) {
+            var dataObj = {
+                identifier: queryParams.identifier,
+                eventType: 'errors',
+                errors: errors
+            };
+            parent.window.postMessage(dataObj, '*');
+        });
+        initialized = true;
+        Spreedly.init();
+    }
+
+    function validateSpreedly(requireCVV, eventType) {
+        Spreedly.requireCVV = requireCVV;
+        Spreedly.eventType = eventType;
+        Spreedly.validate();
+    }
+
+    function tokenizeCreditCard(tokenizeOptions) {
+        Spreedly.tokenizeCreditCard(tokenizeOptions);
+    }
+
+    function toggleCVV(requireCVV) {
+        if (requireCVV) {
+            document.querySelector('#cvv-required-asterisk').classList.remove('hidden');
+            document.querySelector('#cvv-div').classList.remove('hidden');
+        }
+        else {
+            document.querySelector('#cvv-required-asterisk').classList.add('hidden');
+            document.querySelector('#cvv-div').classList.add('hidden');
+        }
+        // for changing iframe's height dynamically from parent component
+        parent.window.postMessage({
+            identifier: queryParams.identifier,
+            iframeHeight: document.body.offsetHeight,
+            eventType: 'adjustHeight'
+        }, '*');
+    }
+
+    function resetValue() {
+        Spreedly.resetFields();
+    }
+
+    function receiveMessage(event) {
+        let eventData = event.data;
+        
+        if (typeof eventData === 'string') {
+            try {
+                eventData = JSON.parse(eventData);
+            } catch (err) {
+                // if event.data is not JSON, ignore it
+                return;
+            }
+        }
+
+        if (eventData.identifier === queryParams.identifier) {
+            if (eventData.eventType === 'initialize') {
+
+                var requireCVV = false;
+                if (queryParams.requireCVV === 'true') {
+                    requireCVV = true;
+                }
+                var asPayment = false;
+                if (queryParams.asPayment === 'true') {
+                    asPayment = true;
+                }
+                if (asPayment) {
+                    document.querySelector('html').style.backgroundColor = '#F4F6F9';
+                    document.querySelector('body').style.backgroundColor = '#F4F6F9';
+                }
+                initializeSpreedly(requireCVV, eventData.fieldStyles, eventData.labelStyles);
+            }
+            else if (eventData.eventType === 'validate') {
+                validateSpreedly(eventData.requireCVV, eventData.eventType);
+            }
+            else if (eventData.eventType === 'tokenize') {
+                tokenizeCreditCard(eventData.tokenizeOptions);
+            }
+            else if (eventData.eventType === 'toggleCVV') {
+                toggleCVV(eventData.requireCVV);
+            }
+            else if (eventData.eventType === 'resetValue') {
+                resetValue();
+            }
+            else if (eventData.eventType === 'onlyValidate') {
+                validateSpreedly(eventData.requireCVV, eventData.eventType);
+            }
+            else if (eventData.eventType === 'customStyles') {
+                document.getElementById('fontevaCustomStyles').innerHTML = eventData.customStyles;
+            }
+        }
+    }
+
+    function decodeQueryParam(p) {
+        return decodeURIComponent(p.replace(/\+/g, ' '));
+    }
+</script>
+
+</body>
+</html>

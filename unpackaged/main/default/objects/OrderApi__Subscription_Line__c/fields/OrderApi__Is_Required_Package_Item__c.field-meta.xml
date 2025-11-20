@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Required_Package_Item__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Checked when the subscription line is linked to a package item where &quot;Is Required&quot; is also checked.</description>
+    <inlineHelpText>Checked when the subscription line is linked to a package item where &quot;Is Required&quot; is also checked.</inlineHelpText>
+    <label>SYSTEM</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

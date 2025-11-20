@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>joinapi__Item_Criteria__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** SYSTEM ** This field is used to define the criteria used to direct the end user to an item.</description>
+    <inlineHelpText>** SYSTEM ** This field is used to define the criteria used to direct the end user to an item.</inlineHelpText>
+    <label>Item Criteria</label>
+    <length>131072</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

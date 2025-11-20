@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_9345637</developerName>
+        <masterLabel>Days to Lapse - Monthly</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>OrderApi__Subscription__c$OrderApi__Days_To_Lapse__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>30</to>
+            </sourceValues>
+            <value>Due within 30 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>30</from>
+                <to>60</to>
+            </sourceValues>
+            <value>Due 30 - 60 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>60</from>
+                <to>90</to>
+            </sourceValues>
+            <value>Due in 60 - 90 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>90</from>
+                <to>120</to>
+            </sourceValues>
+            <value>Due in 90 - 120 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>120</from>
+            </sourceValues>
+            <value>Due over 120 Days</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_80807580</developerName>
+        <masterLabel>Days to Lapse - Weekly</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>OrderApi__Subscription__c$OrderApi__Days_To_Lapse__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>7</to>
+            </sourceValues>
+            <value>Due in 7 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>7</from>
+                <to>15</to>
+            </sourceValues>
+            <value>7 - 14 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>15</from>
+                <to>22</to>
+            </sourceValues>
+            <value>15 - 22 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>22</from>
+                <to>30</to>
+            </sourceValues>
+            <value>23 - 30 Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>30</from>
+            </sourceValues>
+            <value>30+ Days</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>OrderApi__Subscription__c$OrderApi__Subscription_Dues_Total__c</column>
+        </chartSummaries>
+        <chartType>VerticalColumnGrouped</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>OrderApi__Subscription__c$OrderApi__Item__c</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <secondaryGroupingColumn>OrderApi__Subscription__c$OrderApi__Last_Renewed_Date__c</secondaryGroupingColumn>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <title>Monthly Renewals</title>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>OrderApi__Subscription__c$OrderApi__Customer_Link__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Subscription__c$OrderApi__Contact__c.OrderApi__Preferred_Phone__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Subscription__c$OrderApi__Contact__c.OrderApi__Preferred_Email__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OrderApi__Subscription__c$OrderApi__Subscription_Dues_Total__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Subscription__c$OrderApi__Current_Term_End_Date__c</field>
+    </columns>
+    <description>To report on the number of renewals by month categorized by item.</description>
+    <filter>
+        <criteriaItems>
+            <column>OrderApi__Subscription__c$OrderApi__Last_Renewed_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Month</dateGranularity>
+        <field>OrderApi__Subscription__c$OrderApi__Last_Renewed_Date__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OrderApi__Subscription__c$OrderApi__Item__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FON - Monthly Renewal Comparison</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Subscriptions_with_Subscription_Lines__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Subscription__c$OrderApi__Current_Term_End_Date__c</dateColumn>
+        <interval>INTERVAL_PREVCURY</interval>
+    </timeFrameFilter>
+</Report>

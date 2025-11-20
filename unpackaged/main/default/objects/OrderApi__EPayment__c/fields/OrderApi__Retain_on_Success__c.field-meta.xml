@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Retain_on_Success__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** When checked, the system will store the credit card in a secure vault allowing you to charge the customer automatically using the same payment method at a later date.</description>
+    <inlineHelpText>**System Calculated** When checked, the system will store the credit card in a secure vault allowing you to charge the customer automatically using the same payment method at a later date.</inlineHelpText>
+    <label>Retain on Success</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Package_Items__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field aggregates the total number of package items.</description>
+    <inlineHelpText>This field aggregates the total number of package items.</inlineHelpText>
+    <label>Package Items</label>
+    <summaryForeignKey>OrderApi__Package_Item__c.OrderApi__Package__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

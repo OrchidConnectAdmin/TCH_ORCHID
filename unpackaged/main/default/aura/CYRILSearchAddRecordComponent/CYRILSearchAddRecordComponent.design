@@ -1,0 +1,58 @@
+<design:component label="CYRIL: Search/Add Record Component">
+    
+    <design:attribute name="cTitle" label="Modal Title"/>
+    <design:attribute name="cNote" label="Modal Notes"/>
+    <design:attribute name="cObj" label="Object API Name" placeholder="ex. Contact"/>
+    <design:attribute name="cVField" label="Validating Field" placeholder="ex. Name or SSN__c"/>
+    <design:attribute name="cLField" label="Label Field for selected record" placeholder="ex. Name or LastName or SSN__c"/>
+    <design:attribute name="cPfield" label="Field to be passed" placeholder="ex. Id or SSN__c"/>
+    <design:attribute name="cSOQL" label="Additional SOQL Filter" placeholder="ex. SSN__!=null"/>
+    <design:attribute name="cResultLimit" label="Number Of Result TO Show"/>
+    
+    <design:attribute name="cDefaultId" label="Default Value Id"/>
+    
+    <design:attribute name="cNoMatchMsg" label="No Match Message"/>
+    
+    <design:attribute name="xObj" label="Filter: Related Record Object" placeholder="ex. Contact, Badge__c"/>
+    <design:attribute name="xObjMField" label="Filter: Main Object Field referenced on related record" placeholder="ex. Id" description="Main object field referenced to cross object."/>
+    <design:attribute name="xObjField" label="Filter: Reference Object field referencing Main Object" placeholder="ex. Name or SSN__c"/>
+    <design:attribute name="xObjIDS" label="Filter: Additional SOQL Filter" placeholder="ex. Id=aXXXXXXXXXXXX"/>
+    <design:attribute name="xOperation" label="Filter operation" datasource="Include,Exclude" />
+
+    <design:attribute name="cEnablePreview" label="Enable Selected Record Preview"/>
+    <design:attribute name="cPreviewFields" label="Preview Fields" placeholder="My_Fields__c"/>
+    
+    <design:attribute name="cEnableResultValidator" label="Enable Result Validation"/>
+    
+    <design:attribute name="cValidationFields" label="Validation Field"/>
+    <design:attribute name="cValidationSOQL" label="Validation Value"/>
+    <design:attribute name="cValidationMsg" label="Validation Fail Message"/>
+    
+    <design:attribute name="cFlowAction" label="Enable Flow Action"/>
+    <design:attribute name="cFlowName" label="Flow API Name" placeholder="My_Flow_Name"/>
+    <design:attribute name="cFlowActionLabel" label="Flow Action Title" placeholder="Add Record"/>
+    <design:attribute name="cCID" label="Pass Current Record ID to Flow" placeholder="Ex. {!recordId},{!id} etc."/>
+    
+    <design:attribute name="cBtnLabel" label="Button Label" placeholder="Proceed"/>
+    <design:attribute name="cPath" label="Redirect Path" placeholder="/s/form?id=XXXX"/>
+    <design:attribute name="cAppendID" label="Append ID to View path" />
+    <design:attribute name="cEncloseID" label="Enclose ID with quotes" />
+    <design:attribute name="cParam" label="Additional URL Parameters" description="Additional parameters to pass the url"/>
+    <design:attribute name="cParamAppendID" label="Append ID to Additional URL Parameters"/>
+    <design:attribute name="cValid" label="URL Param Valid indicator" placeholder="ex. {!valid} if url param is https://...?valid=1"/>
+    
+    <design:attribute name="cEnableAdd" label="Enable Add New Record" />
+    <design:attribute name="cAddObj" label="New Record Object API Name" placeholder="ex. Contact"/>
+    <design:attribute name="cFields" label="Add Record Fieldset" placeholder="ex. Add_Meeting_Event,Fieldset_1"/>
+    
+    <design:attribute name="cEnableAddForm" label="Enable External Add Form" />
+    <design:attribute name="cFormLabel" label="External Form Label" />
+    <design:attribute name="cFormParams" label="External Form URL Parameters" />
+    <design:attribute name="cFormAppendID" label="Append Selected Record to External Form (Disabled)" description="Selected record from the search box will be appended to the Form URL Params as 'selectedId'."/>
+    
+    <design:attribute name="cDisableAutoSearch" label="Disable Auto Search" />
+    <design:attribute name="cEnableSkip" label="Allow User to skip this process" />
+    <design:attribute name="cUID" label="Unique ID" description="ID for this component. Alphanumeric, - or _"/>
+
+	
+</design:component>

@@ -1,0 +1,46 @@
+<!--
+  @description       : 
+  @author            : Malik Gray
+  @group             : 
+  @last modified on  : 12-22-2020
+  @last modified by  : Malik Gray
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   12-14-2020   Malik Gray   Initial Version
+-->
+<template>
+    <lightning-layout class="slds-m-top_medium">
+        <lightning-layout-item size="3">
+            <lightning-formatted-text
+                value={sponsoringRelationship.Sponsored_Organization__r.Name}
+            >
+            </lightning-formatted-text>
+        </lightning-layout-item>
+        <lightning-layout-item padding="horizontal-medium" size="2">
+            <lightning-formatted-text
+                value={sponsoringRelationship.Primary_R_T_Number__c}
+            >
+            </lightning-formatted-text>
+        </lightning-layout-item>
+        <lightning-layout-item padding="horizontal-medium" size="3">
+            <lightning-formatted-text
+                value={sponsoringRelationship.Status__c}
+            >
+            </lightning-formatted-text>
+        </lightning-layout-item>
+        <lightning-layout-item padding="horizontal-medium" size="2">
+            <lightning-formatted-date-time
+                value={sponsoringRelationship.Date_Accepted_by_ECCHO__c}
+            >
+            </lightning-formatted-date-time>
+        </lightning-layout-item>
+        <lightning-layout-item size="2">
+            <button
+                class="slds-button slds-button_brand slds-button_stretch"
+                onclick={handleClick}
+            >
+                {buttonLabel}
+            </button>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

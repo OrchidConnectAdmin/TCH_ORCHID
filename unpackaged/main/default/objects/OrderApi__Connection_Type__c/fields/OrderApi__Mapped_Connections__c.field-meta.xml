@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Mapped_Connections__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** Count of Mapped Connection Types.</description>
+    <inlineHelpText>**System Calculated** Count of Mapped Connection Types.</inlineHelpText>
+    <label>Mapped Connections</label>
+    <summaryForeignKey>OrderApi__Connection_Type_Mapping__c.OrderApi__Connection_Type__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

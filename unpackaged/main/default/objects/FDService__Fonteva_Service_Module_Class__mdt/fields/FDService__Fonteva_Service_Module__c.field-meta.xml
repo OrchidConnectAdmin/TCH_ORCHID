@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FDService__Fonteva_Service_Module__c</fullName>
+    <deprecated>false</deprecated>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Fonteva Service Module</label>
+    <referenceTo>FDService__Fonteva_Service_Module__mdt</referenceTo>
+    <relationshipLabel>Fonteva Service Module Classes</relationshipLabel>
+    <relationshipName>Fonteva_Service_Module_Classes</relationshipName>
+    <required>false</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Expired__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** Checked if the Payment Method Type is Credit Card and Today&#39;s Date is past the Card Expiration Date. Default unchecked.</description>
+    <inlineHelpText>**System Calculated** Checked if the Payment Method Type is Credit Card and Today&#39;s Date is past the Card Expiration Date. Default unchecked.</inlineHelpText>
+    <label>Is Expired</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

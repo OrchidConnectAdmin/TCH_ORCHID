@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Enable_Registration_Groups__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, allows one person to register multiple attendees at the same time and pay for them together.</description>
+    <inlineHelpText>When checked, allows one person to register multiple attendees at the same time and pay for them together.</inlineHelpText>
+    <label>Enable Registration Groups</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

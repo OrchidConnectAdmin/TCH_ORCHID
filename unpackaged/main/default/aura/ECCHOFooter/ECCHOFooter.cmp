@@ -1,0 +1,52 @@
+<aura:component description="ECCHO Footer" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction,lightning:isUrlAddressable,flexipage:availableForAllPageTypes" access="global">
+    
+    
+    <div class="td_layout layout_footer" valign="top" align="center">
+        <div class="footer1">
+            <!-- copyright -->
+            © 2025 The Clearing House Payments Company L.L.C. All rights reserved.              <!-- actions -->
+            &nbsp;|&nbsp; <a class="a_footer" href="https://www.theclearinghouse.org/privacy-policy">Privacy Statement</a>
+            &nbsp;|&nbsp; <a class="a_footer" href="https://www.theclearinghouse.org/terms-and-conditions">Terms and Conditions</a>
+            &nbsp;|&nbsp; <a class="a_footer" href="https://www.theclearinghouse.org/eccho/about-eccho">Contact Us</a>
+            <!-- message -->
+            &nbsp;|&nbsp; 214-273-3200 or <a href="mailto:ecchoinfo@theclearinghouse.org">ecchoinfo@theclearinghouse.org</a>
+        </div>
+    </div>
+    <aura:html tag="style">
+        .footer1 {
+        color: #333333;
+        font-family: Arial;
+        font-size: 12px;
+        font-weight: normal;
+        border-top: 5px solid #969696;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding-bottom: 10px;
+        padding-top: 5px;
+        margin-top: 20px;
+        }
+        
+        .footer2 {
+        color: #59705e;
+        font-family: Arial;
+        font-size: 11px;
+        font-weight: bold;
+        }
+        a.a_footer {
+        color: #333333;
+        font-family: Arial;
+        font-size: 12px;
+        font-weight: normal;
+        text-decoration: none;
+        }
+        
+        a.a_footer:hover {
+        color: #747762;
+        font-family: Arial;
+        font-size: 12px;
+        font-weight: normal;
+        text-decoration: none;
+        } 
+    </aura:html>
+    
+</aura:component>

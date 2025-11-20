@@ -1,0 +1,2 @@
+<apex:page id="OAuthRedirect" controller="DDApi.OAuthRedirectController" action="{!redirect}">
+</apex:page>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Bio__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Biographical information is displayed on the event with the speaker&#39;s name.</description>
+    <inlineHelpText>Biographical information is displayed on the event with the speaker&#39;s name..</inlineHelpText>
+    <label>Bio</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>8</visibleLines>
+</CustomField>

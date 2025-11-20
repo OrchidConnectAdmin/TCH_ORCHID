@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Ticket_Type__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>**Required** Linked to the related ticket type.</description>
+    <inlineHelpText>**Required** Linked to the related ticket type.</inlineHelpText>
+    <label>Ticket Type</label>
+    <referenceTo>EventApi__Ticket_Type__c</referenceTo>
+    <relationshipLabel>Section Tickets</relationshipLabel>
+    <relationshipName>Section_Tickets</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

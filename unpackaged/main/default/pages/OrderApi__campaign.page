@@ -1,0 +1,300 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyBodyTag="false"
+           applyHtmlTag="false"
+           controller="OrderApi.CampaignController" action="{!loadSalesOrder}">
+
+  <apex:composition template="PagesApi__default_template">
+
+    <apex:define name="title">
+            {!campaignPage.OrderApi__Title_Tag__c}
+    </apex:define>
+
+    <apex:define name="styles">
+      <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.emerald_1_0,'css/pages/campaign-page-builder.min.css')}"/>
+      <style>
+        .trunc{
+            width:100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+      </style>
+    </apex:define>
+
+    <apex:define name="navbarOverride">
+      <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(siteNav.Name))}">
+        <c:navlist name="{!siteNav.Name}"
+                   ulStyleClass="nav navbar-nav navbar-right open" contactId="{!con.Id}"/>
+      </apex:outputPanel>
+    </apex:define>
+
+    <apex:define name="supernavList">
+
+        <!-- ====== SHOPPING CART + CHECKOUT BUTTONS ====== -->
+        <apex:outputPanel rendered="{!campaignPage.OrderApi__Shopping_Cart_Enabled__c}" layout="none">
+            <li>
+                <a data-toggle="modal" href="#shoppingcart" id="cartBtn" class="">
+                    <i class="btr bt-shopping-cart m-r-10"/><span>0 items</span>
+                </a>
+            </li>
+        </apex:outputPanel>
+        <!-- ====== SHOPPING CART + CHECKOUT BUTTONS ====== -->
+
+    </apex:define>
+
+
+
+    <apex:define name="navbarProfileDropdownMenuItems">
+      <c:accessible_sites customerId="{!con.Id}"/>
+    </apex:define>
+
+    <apex:define name="main">
+
+      <!-- ====== PREVIEW ALERT FIXED POSITION ====== -->
+      <apex:outputPanel rendered="{!isPreview}">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+              <div class="alert alert-warning fade in preview-alert">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <p>
+                  <strong>You're currently in preview mode.</strong>
+                  Some functionality will not work as expected until you publish the page to a community site.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:outputPanel>
+      <!-- ====== END: PREVIEW ALERT FIXED POSITION ====== -->
+
+      <!-- #content-wrapper -->
+      <div id="content-wrapper">
+
+        <!-- ===== CUSTOM HEADER CONTENT DEFINED ON THE CAMPAIGN PAGE ===== -->
+        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(campaignPage.OrderApi__Header_Content__c))}">
+          <section id="header">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <apex:outputText value="{!campaignPage.OrderApi__Header_Content__c}" escape="false"/>
+                </div>
+              </div>
+            </div>
+          </section>
+        </apex:outputPanel>
+        <!-- ===== END: CUSTOM HEADER CONTENT DEFINED ON THE CAMPAIGN PAGE ===== -->
+
+        <section id="page">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <apex:outputPanel id="messagesPanel">
+                  <Framework:messages />
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!NOT(ISNULL(campaignComponents))}" id="componentPanel">
+                  <apex:dynamicComponent componentValue="{!campaignComponents}"/>
+                </apex:outputPanel>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== CUSTOM FOOTER CONTENT DEFINED ON THE CAMPAIGN PAGE ===== -->
+        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(campaignPage.OrderApi__Footer_Content__c))}">
+          <section id="footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <apex:outputText value="{!campaignPage.OrderApi__Footer_Content__c}" escape="false"/>
+                </div>
+              </div>
+            </div>
+          </section>
+        </apex:outputPanel>
+        <!-- ===== END: CUSTOM FOOTER CONTENT DEFINED ON THE CAMPAIGN PAGE ===== -->
+
+      </div><!-- END #content-wrapper -->
+
+      <!-- ===== SHOPPING CART MODAL ===== -->
+      <div class="modal fade" id="shoppingcart" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"></span>
+              </button>
+              <h3 class="modal-title">{!$Label.Shopping_Cart}</h3>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <p id="noItems"><i>{!$Label.Shopping_Cart_Empty_Message}</i></p>
+
+                  <table class="table" id="cartTable" style="display:none;">
+                    <thead>
+                    <tr>
+                      <th>{!$Label.Name}</th>
+                      <th>{!$Label.Quantity}</th>
+                      <th>{!$Label.Price}</th>
+                    </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-continue-shopping btn-wide" data-dismiss="modal">{!$Label.Continue_Shopping}</button>
+              <button type="button" id="checkoutBtn" class="btn btn-warning btn-checkout disabled btn-wide btn-primary">{!$Label.Checkout}</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      <!-- END: ===== SHOPPING CART MODAL ===== -->
+    </apex:define><!-- END Def:main -->
+
+    <!-- Def: bodyClose -->
+    <apex:define name="bodyClose">
+      <Framework:currencyField />
+      <apex:form id="submitForm">
+        <apex:actionFunction name="sfdc_action_createSalesOrderLines" action="{!buildSalesOrderLines}" onComplete="campaingPage.callBackSol('{!salesorderid}', '{!hasError}');" rerender="submitForm, messagesPanel">
+          <apex:param name="items" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="sfdc_action_updateVisitCount" action="{!updateVisitCount}" reRender="none">
+        </apex:actionFunction>
+      </apex:form>
+      <script type="text/javascript">
+      var salesorderid;
+      $(document).ready(function(){
+        regHandlers();
+        sfdc_action_updateVisitCount();
+      });
+      // Register all handlers on document load.
+      function regHandlers() {
+        salesorderid = "{!encryptedSalesOrderId}";
+        // Register a custom Event which is basically triggered by the Components
+        if (salesorderid) {
+          buildCartSummary(salesorderid,false);
+        }
+        // Custom Event fired if the SalesOrder is updated.
+        $(document).on("SalesOrderUpdate", function(e){
+          salesorderid = e.salesorderid;
+          buildCartSummary(e.salesorderid,true);
+        });
+        $('.add-to-cart-button').on('click',function(e){
+          e.preventDefault();
+          // This will check to see we need to even display please wait..
+          // If the validation fails at component level
+          var isValid = $(this).data('valid');
+            $(this).data('valid',true);
+
+        });
+        $('#checkoutBtn').click(function(e){
+          e.preventDefault();
+          if (salesorderid) {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CampaignController.closeSalesOrder}',
+                salesorderid
+                ,function(result,event) {
+                if (event.status) {
+                  var siteParameter = '';
+                  if ("{!JSENCODE($CurrentPage.Parameters.site)}" != '') {
+                    siteParameter = '?site={!JSENCODE($CurrentPage.Parameters.site)}';
+                  }
+                  window.location.href = "{!$Page.OrderApi__checkout}"+siteParameter;
+                } else {
+                   alert('Sales order not closed');
+                }
+            });
+          }
+        });
+      }
+
+      function buildCartSummary(salesorderid,showmodal) {
+        Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.CampaignController.getSalesOrderLines}',
+          salesorderid
+          ,function(result,event) {
+              if (event.status) {
+                if (result.length > 0) {
+                  $("#cartBtn").empty();
+                  $("#cartBtn").append('<span><i class="btr bt-shopping-cart m-r-10"/> '+ result.length + ' items</span>');
+                  $('#noItems').hide();
+                  $('#cartTable').show();
+                  $('#cartBody').remove();
+                  $('#cartFoot').remove();
+                  var $tbody = $('<tbody id="cartBody">');
+                  var cartTotal = 0;
+                  $.each(result,function(idx){
+                    var rec = result[idx];
+                    var $tr = $("<tr>");
+                    $tr.append('<td>'+rec.{!namespace}Item__r.{!namespace}Display_Name__c+'</td><td>'+rec.{!namespace}Quantity__c+'</td><td>'+currencyComponentAPI.formatCurrency(rec.{!namespace}Subtotal__c,'{!currencyIsoCode}')+'</td>');
+                    $tbody.append($tr);
+                    cartTotal = cartTotal + parseFloat(rec.{!namespace}Subtotal__c);
+                  });
+                  $('#cartTable').append($tbody);
+                  $('#cartTable').append('<tfoot id="cartFoot"><tr><td><b>Cart Total</b><td></td><td>'+currencyComponentAPI.formatCurrency(cartTotal,'{!currencyIsoCode}')+'</td></tr></tfoot>'); // Append the tfoot with cart total
+                  $('#checkoutBtn, #checkoutBtn2').removeClass('disabled');
+                  if (showmodal) {
+                    campaignApp.hidePleaseWait();
+                  }
+                }
+              }
+          });
+        }
+        function setSalesOrder(salesorderid) {
+            salesorderid = salesorderid;
+            $.event.trigger({
+            type: "SalesOrderUpdate",
+            salesorderid: salesorderid,
+            time: new Date()
+          });
+        }
+
+      var campaingPage = campaingPage || {};
+
+      campaingPage.createSalesOrderLines = function(items) {
+          sfdc_action_createSalesOrderLines(items);
+      }
+
+      campaingPage.callBackSol = function (salesOrderId, hasError) {
+          if (hasError === 'true') {
+              swal.close();
+          } else {
+              setSalesOrder(salesOrderId);
+              jsCallbackinContext;
+          }
+      }
+        /* Add any JS methods to the page now.*/
+        // trying to add the loading dialog
+        var campaignApp;
+        campaignApp = campaignApp || (function () {
+          return {
+            showPleaseWait: function() {
+              swal({
+                type: "success",
+                title: "{!$Label.OrderApi__Please_Wait_Msg}",
+                text: "{!$Label.OrderApi__Updating_Cart}",
+                closeOnConfirm: false,
+              });
+            },
+            hidePleaseWait: function () {
+                swal({
+                  type: "success",
+                  title: "{!$Label.OrderApi__Success_Msg}",
+                  text: "{!$Label.OrderApi__Cart_Updated_Successfully}",
+                  timer: 2000
+                });
+            },
+          };
+        })();
+
+      </script>
+    </apex:define><!-- END Def:bodyClose -->
+
+  </apex:composition>
+
+</apex:page>

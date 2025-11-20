@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Assigns users to a permission set group (called by FPS__Assign_Community_Users, FPS__Assign_Guest_Users, and FPS__Assign_Staff_Users)</description>
+    <environments>Default</environments>
+    <label>Fonteva: Assign Users to Permission Set Group</label>
+    <processType>Flow</processType>
+</Flow>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Is_Event_Session__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, Items linked to this Item Class may only be purchased if they are the direct child of a &quot;Registration&quot; record related to an &quot;Active&quot; Event. Defaults unchecked.</description>
+    <inlineHelpText>When checked, Items linked to this Item Class may only be purchased if they are the direct child of a &quot;Registration&quot; record related to an &quot;Active&quot; Event. Defaults unchecked.</inlineHelpText>
+    <label>Is Event Session</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

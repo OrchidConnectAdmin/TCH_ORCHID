@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DirectoryApi__Enable_Email_Me__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, directory visitors will be able to contact members of the directory by clicking the Email Me button that appears on the member profile.</description>
+    <inlineHelpText>When checked, directory visitors will be able to contact members of the directory by clicking the Email Me button that appears on the member profile.</inlineHelpText>
+    <label>Enable Email Me</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

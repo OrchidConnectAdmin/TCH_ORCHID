@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Custom_Scheduled_Payment__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked these scheduled payments wont run as part of the OrderApi ScheduledPaymentBatchable.cls ** Defaults unchecked **</description>
+    <inlineHelpText>When checked these scheduled payments wont run as part of the OrderApi ScheduledPaymentBatchable.cls ** Defaults unchecked **</inlineHelpText>
+    <label>Custom Scheduled Payment</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

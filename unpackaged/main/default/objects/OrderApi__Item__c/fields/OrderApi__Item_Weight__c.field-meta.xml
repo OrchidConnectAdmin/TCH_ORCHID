@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Item_Weight__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** The weight of one Item unit. Required if &quot;Requires Shipping&quot; is checked.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Conditionally Required ** The weight of one Item unit. Required if &quot;Requires Shipping&quot; is checked.</inlineHelpText>
+    <label>Item Weight</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>6</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+  <!--Recaptcha v3.0 site key here-->
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf9jusUAAAAAOrJm0jIisc-uhQB1lXI4pnjES5q"></script>
+</head>
+<body>
+<div id="recaptcha"></div>
+
+<script>
+    var callback = function(response) {
+       parent.window.postMessage({eventType: 'captchaResponseLogin', token: response}, location.origin);
+    };
+
+    var getBiggestScrollHeight = function(elements) {
+        const scrollHeights = Array.from(elements, element => element.scrollHeight);
+        return Math.max(...scrollHeights);
+    }
+
+    function receiveMessage(event) {
+        //Setting this interval to check if there is extra verification challenge is displayed to set the height of the iFrame
+        setInterval(()=>{
+            let captchaWindow = document.querySelectorAll('body > div')[2],
+                checkboxWindow = document.querySelector('#recaptcha'),
+                heightVal;
+
+            if (captchaWindow?.lastChild?.style) {
+                captchaWindow.lastChild.style.position = 'absolute';
+                captchaWindow.lastChild.style.height = 'unset';
+            }
+
+            heightVal = captchaWindow?.style.getPropertyValue('visibility') === 'hidden' ?
+                checkboxWindow.style.height :
+                getBiggestScrollHeight(document.querySelectorAll('body, iframe'));
+
+            parent.window.postMessage({
+                eventType: 'iframeResizeLogin',
+                height: heightVal ? heightVal : 100
+             },'*');
+        }, 2500);
+
+        let eventData;
+        try {
+            eventData = JSON.parse(event.data);
+        } catch (e) {
+            // in case event.data is not in JSON format
+            eventData = event.data;
+        }
+
+        if (eventData.eventType === 'captchaTest') {
+            const params = new URLSearchParams(window.location.search);
+            grecaptcha.ready(function() {
+                //hide the recaptcha v3.0 in the UI
+                if (document.getElementsByClassName("grecaptcha-badge").length > 0) {
+                   document.getElementsByClassName("grecaptcha-badge")[0].style.visibility = "hidden";
+                }
+                try {
+                    grecaptcha.render("recaptcha", {
+                        //Recaptcha v2.0 site key here
+                        'sitekey' : params.get('siteKey'),
+                        'callback' : callback
+                    });
+                } catch(e) {
+                    // added try/catch in order to catch rendering recaptcha twice at the same element
+                }
+            });
+        }
+    }
+    window.addEventListener("message", receiveMessage, false);
+</script>
+</body>
+</html>

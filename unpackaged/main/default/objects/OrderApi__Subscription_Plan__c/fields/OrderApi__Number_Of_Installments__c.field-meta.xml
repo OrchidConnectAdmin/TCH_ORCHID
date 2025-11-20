@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Number_Of_Installments__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required Conditionally ** The number of invoices to create for the payment schedule.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Required Conditionally ** The number of invoices to create for the payment schedule.</inlineHelpText>
+    <label>Number Of Installments</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

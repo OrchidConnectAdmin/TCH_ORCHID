@@ -1,0 +1,16 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" cache="true"
+           standardController="OrderApi__Receipt__c">
+    <apex:includeLightning />
+    <div id="lightning" />
+    <script>
+        $Lightning.use("LTE:RefundApp", function() {
+            $Lightning.createComponent("LTE:refund", {
+                type: "process",
+                recordId : "{!JSENCODE($CurrentPage.parameters.id)}",
+                theme : "{!$User.UITheme}"
+            }, "lightning", function(cmp, status, error) {
+                console.log(error);
+            });
+        });
+    </script>
+</apex:page>

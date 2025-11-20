@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Display_Item__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>By checking this field you are choosing the item to be displayed on the shopping cart, checkout, and receipt pages.</description>
+    <inlineHelpText>By checking this field you are choosing the item to be displayed on the shopping cart, checkout, and receipt pages.</inlineHelpText>
+    <label>Display Item</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

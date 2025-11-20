@@ -1,0 +1,185 @@
+<aura:component description="Entry Search Component" controller="GetCYRILEntrySearchController" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction,lightning:isUrlAddressable,flexipage:availableForAllPageTypes" access="global">
+    <ltng:require scripts="{!$Resource.jQuery3}" afterScriptsLoaded="{!c.initValidator}"/>
+    
+    <aura:attribute name="bURL" type="String" />
+    <!-- CONFIGS -->
+    <aura:attribute name="cTitle" type="String" default="My Contact Details"/>
+    <aura:attribute name="cNote" type="String" />
+    <aura:attribute name="cObj" type="String" default="Contact"/>
+    <aura:attribute name="cVField" type="String" default="Name"/>
+    <aura:attribute name="cLField" type="String" default="Name"/>
+    <aura:attribute name="cPfield" type="String" default="Id"/>
+    <aura:attribute name="cSOQL" type="String"/>
+    
+    <aura:attribute name="xObj" type="String"/>
+    <aura:attribute name="xObjMField" type="String"/>
+    <aura:attribute name="xObjField" type="String"/>
+    <aura:attribute name="xObjIDS" type="String"/>
+    <aura:attribute name="xOperation" type="String" default="Exclude"/>
+    
+    
+    <aura:attribute name="cPath" type="String" />
+    <aura:attribute name="cBtnLabel" type="String" default="Proceed"/>
+    <aura:attribute name="cAppendID" type="Boolean" default="false"/>
+    <aura:attribute name="cEncloseID" type="Boolean" default="false"/>
+    <aura:attribute name="cParam" type="String"/>
+    <aura:attribute name="cParamAppendID" type="Boolean" default="false"/>
+    <aura:attribute name="cValid" type="String"/>
+    
+    <aura:attribute name="maxRecords" type="Integer" default="20"/>
+    
+    <aura:attribute name="cEnableAdd" type="Boolean" default="false"/>
+    <aura:attribute name="cFields" type="String"/>
+    
+    <!-- search -->
+    <aura:attribute name="account" type="Object" />
+    <aura:attribute name="results" type="List" />
+    <aura:attribute name="openDropDown" type="Boolean" default="false" />
+    <!-- passable field holder -->
+    <aura:attribute name="eContactId" type="String"/>
+    <!-- field usedd as selected record label -->
+    <aura:attribute name="eContactName" type="String" />
+    
+    <aura:attribute name="inputSearchFunction" type="Object" />
+    <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="passID" type="String"/>
+    
+    <aura:attribute name="selected" type="Boolean" default="false"/>
+    <aura:attribute name="addMode" type="Boolean" default="false"/>
+    
+    <aura:attribute name="cEnableSkip" type="Boolean" default="false"/>
+    <aura:attribute name="cEnableClose" type="Boolean" default="false"/>
+    <aura:attribute name="cEnableTButton" type="Boolean" default="false"/>
+    <aura:attribute name="cTButtonLabel" type="String" default="Add/Search"/>
+    
+    <aura:attribute name="popit" type="Boolean" default="false"/>
+    
+    <aura:attribute name="fields" type="List" />
+    
+    
+    <aura:if isTrue="{!v.cEnableTButton}">
+        <button class="slds-button slds-button_neutral slds-float_right" onclick="{! c.popMe }">{!v.cTButtonLabel}</button>   
+    </aura:if>
+    
+    <aura:if isTrue="{!empty(v.cValid)}">
+        <div id="cmp-validator" class="slds-m-around_xx-large">
+            <!--Use aura:if tag to display/hide popup based on isModalOpen value-->  
+            <!-- Modal/Popup Box starts here-->
+            <section aura:id="modal-validate" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal">
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box Header Starts here-->
+                    <header class="slds-modal__header">
+                        <!--<lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModal }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>-->
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.cTitle}</h2>
+                        <aura:if isTrue="{!not(empty(v.cNote))}">
+                        <p class="slds-m-top_x-small">
+                            {!v.cNote}
+                        </p>
+                        </aura:if>
+                    </header>
+                    <!--Modal/Popup Box Body Starts here-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="slds-form-element m-b-15">
+                            <div class="slds-form-element__control">
+                                <div class="slds-combobox_container">
+                                    <div class="{! v.openDropDown ? 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open' : 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click'}"
+                                         aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                            <input type="text"
+                                                   class="slds-input slds-combobox__input slds-has-focus slds-combobox__input-value"
+                                                   id="combobox-id-21" aria-autocomplete="list" aria-controls="listbox-id-11"
+                                                   autoComplete="off" onkeyup="{!c.searchHandler}" role="textbox" placeholder="Search..."
+                                                   value="{!v.eContactName}" />
+                                            <aura:if isTrue="{! empty(v.eContactId)}">
+                                                <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                                    <lightning:icon iconName="utility:search" size="x-small" />
+                                                </span>
+                                                <aura:set attribute="else">
+                                                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                                                            title="Clear the text input" onclick="{!c.clearOption}">
+                                                        <lightning:icon iconName="utility:clear" size="x-small" />
+                                                    </button>
+                                                </aura:set>
+                                            </aura:if>
+                                        </div>
+                                        <div id="listbox-id-11" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                             role="listbox" style="position: relative; z-index: 999;">
+                                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                <aura:iteration items="{!v.results}" var="result">
+                                                    <li role="presentation" class="slds-listbox__item" data-id="{!result.id}"
+                                                        data-value="{!result.value}" onclick="{!c.optionClickHandler}">
+                                                        <div id="{!result.id}"
+                                                             class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                             role="option">
+                                                            <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                                            <span class="slds-media__body">
+                                                                <span class="slds-truncate" title="All Opportunities">
+                                                                    <span>{!result.value}</span>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </aura:iteration>
+                                                <aura:if isTrue="{!v.cEnableAdd}">
+                                                    <li role="presentation" class="slds-listbox__item li-add-new" onclick="{!c.addNewItem}">
+                                                        <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                             role="option">
+                                                            <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                                            <span class="slds-media__body">
+                                                                <span class="slds-truncate" title="All Opportunities">
+                                                                    <b><span>No Match Found? Click to Add New Record.</span></b>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </aura:if>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <aura:if isTrue="{!v.addMode}"><hr></hr>
+                                                <lightning:recordEditForm 
+                                                  aura:id="recordEditForm"
+                                                  objectApiName="{!v.cObj}"
+                                                  onsuccess="{!c.addSuccess}"
+                                                  onerror="{!c.formError}"
+                                                  >
+                            <lightning:messages />
+                            <aura:if isTrue="{!not(empty(v.fields))}">
+                                <aura:iteration items="{!v.fields}" var="column" indexVar="index">
+                                    <h3>{!column.label}</h3>
+                                    
+                                    <aura:iteration items="{!column.data}" var="col" indexVar="c">
+                                        <lightning:inputField fieldName="{!col.api}" required="{!col.req}"/>
+                                    </aura:iteration>
+                                </aura:iteration>
+                            </aura:if>
+                            <lightning:button variant="brand" class="slds-m-top_small" type="submit" label="{!v.cBtnLabel}" />
+                        </lightning:recordEditForm>
+                        </aura:if>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <!-- <button class="slds-button slds-button_neutral slds-float_left" onclick="{! c.goBack }" title="Cancel">Cancel</button> -->
+                        <aura:if isTrue="{!v.selected}">
+                        	<button class="slds-button slds-button_brand slds-float_right" onclick="{! c.goProceed }">{!v.cBtnLabel}</button>   
+                        </aura:if>
+                        <aura:if isTrue="{!v.cEnableClose}">
+                        	<button class="slds-button slds-button_neutral slds-float_right" onclick="{! c.closeMe }">Close</button>   
+                        </aura:if>
+                        <aura:if isTrue="{!v.cEnableSkip}">
+                        	<button class="slds-button slds-button_neutral slds-float_right" onclick="{! c.skipMe }">Skip</button>   
+                        </aura:if>
+                    </footer>
+                </div>
+            </section>
+            <div aura:id="modal-validate-back" class="slds-backdrop"></div>
+        </div>
+    </aura:if>
+    
+</aura:component>

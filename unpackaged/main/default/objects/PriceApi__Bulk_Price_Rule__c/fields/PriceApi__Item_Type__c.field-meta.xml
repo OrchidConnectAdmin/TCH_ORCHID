@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PriceApi__Item_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Specify the grouping of items to apply the discount.</description>
+    <inlineHelpText>Specify the grouping of items to apply the discount.</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Business Groups</fullName>
+                <default>false</default>
+                <label>Business Groups</label>
+            </value>
+            <value>
+                <fullName>Catalogs</fullName>
+                <default>false</default>
+                <label>Catalogs</label>
+            </value>
+            <value>
+                <fullName>Event Items</fullName>
+                <default>false</default>
+                <label>Event Items</label>
+            </value>
+            <value>
+                <fullName>Item Classes</fullName>
+                <default>false</default>
+                <label>Item Classes</label>
+            </value>
+            <value>
+                <fullName>Items</fullName>
+                <default>false</default>
+                <label>Items</label>
+            </value>
+            <value>
+                <fullName>Stores</fullName>
+                <default>false</default>
+                <label>Stores</label>
+            </value>
+            <value>
+                <fullName>Subscription Items</fullName>
+                <default>false</default>
+                <label>Subscription Items</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

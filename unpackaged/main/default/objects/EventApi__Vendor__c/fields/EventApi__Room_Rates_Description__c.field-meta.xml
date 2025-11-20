@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Room_Rates_Description__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Describe the rates and room options for the hotel.</description>
+    <inlineHelpText>Describe the rates and room options for the hotel.</inlineHelpText>
+    <label>Room Rate(s) Description</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

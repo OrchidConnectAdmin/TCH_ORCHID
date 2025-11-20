@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProgramApi__Goal_Display_Field_Set__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Define the API name of the Program Goal&#39;s field set you wish to display in the goals table for program profiles related to this program.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Define the API name of the Program Goal&#39;s field set you wish to display in the goals table for program profiles related to this program.</inlineHelpText>
+    <label>Goal Display Field Set</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

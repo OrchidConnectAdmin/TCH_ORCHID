@@ -1,0 +1,41 @@
+<apex:page title="{!$Label.OrderApi__Preview}"
+  showHeader="false"
+  sidebar="false"
+  standardStylesheets="false"
+  cache="false"
+  docType="html-5.0"
+  controller="OrderApi.CampaignPageElementController">
+
+<html>
+
+  <head>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,800,700,600,300' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="//orderapi.s3.amazonaws.com/styles/css/bootstrap.min.css"/>
+    <style> #preview { background: #fff; !important; min-width: 970px!important; max-width: none!important; } #preview .container { width: 970px!important; max-width: none !important; }</style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//fonteva-cdn.s3.amazonaws.com/cdt/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="//orderapi.s3.amazonaws.com/styles/js/plugins/sweet-alert/lib/sweet-alert.min.js"></script>
+  </head>
+
+  <body id="preview">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <apex:outputPanel rendered="{!NOT(ISNULL(ComponentPreview))}">
+            <apex:dynamicComponent componentValue="{!ComponentPreview}"/>
+          </apex:outputPanel>
+          <apex:outputPanel rendered="{!ISNULL(ComponentPreview)}">
+            <div class="alert alert-info">
+              <h3 class="no-margin">Preview Unvailable</h3>
+              <p>No component is selected.</p>
+            </div>
+          </apex:outputPanel>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
+
+</apex:page>

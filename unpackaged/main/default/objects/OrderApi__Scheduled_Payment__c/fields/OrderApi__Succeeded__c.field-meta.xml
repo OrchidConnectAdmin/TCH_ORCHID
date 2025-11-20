@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Succeeded__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>**System Field** Do not manually update/override. Checked when the scheduled payment is scheduled for automatic electronic payment and has been successfully charged.</description>
+    <inlineHelpText>**System Field** Do not manually update/override. Checked when the schedule payment has been successfully charged.</inlineHelpText>
+    <label>Succeeded</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

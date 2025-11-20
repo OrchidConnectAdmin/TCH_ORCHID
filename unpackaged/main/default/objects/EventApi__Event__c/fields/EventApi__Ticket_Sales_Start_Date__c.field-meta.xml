@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Ticket_Sales_Start_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The date ticket sales or registration begins for the event. Defaults to the &quot;Active&quot; date if left blank.</description>
+    <inlineHelpText>The date ticket sales or registration begins for the event. Defaults to the &quot;Active&quot; date if left blank.</inlineHelpText>
+    <label>Ticket Sales Start Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

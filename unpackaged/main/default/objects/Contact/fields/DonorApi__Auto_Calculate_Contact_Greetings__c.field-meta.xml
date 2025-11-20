@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Auto_Calculate_Contact_Greetings__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Default value for new contacts is true. When set to true the system will auto update the contact&#39;s personal greeting, personal recognition name, and formal greeting with the system default format. Personal = FirstName, Personal Recognition Name = Salutation FirstName LastName, Formal Greeting = Personal Recognition Name</description>
+    <inlineHelpText>Default value for new contacts is true. When set to true the system will auto update the contact&#39;s personal greeting, personal recognition name, and formal greeting with the system default formats.</inlineHelpText>
+    <label>Auto Calculate Contact Greetings</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

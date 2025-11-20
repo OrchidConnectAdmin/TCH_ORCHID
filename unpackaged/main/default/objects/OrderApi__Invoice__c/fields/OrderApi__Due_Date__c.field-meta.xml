@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Due_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated/Override** The date that payment is due for the invoice. By default the system derives the date from the invoice date and payment terms.</description>
+    <inlineHelpText>**System Calculated/Override** The date that payment is due for the invoice. By default the system derives the date from the invoice date and payment terms.</inlineHelpText>
+    <label>Due Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

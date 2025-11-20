@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Supports_Offsite_Authorize__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** - When an offsite payment gateway supports Authorize</description>
+    <inlineHelpText>**System Calculated** - When an offsite payment gateway supports Authorize</inlineHelpText>
+    <label>Supports Offsite Authorize</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

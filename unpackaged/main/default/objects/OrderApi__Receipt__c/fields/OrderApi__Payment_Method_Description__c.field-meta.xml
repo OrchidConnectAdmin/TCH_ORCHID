@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Payment_Method_Description__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Derived from the source ePayment.</description>
+    <externalId>false</externalId>
+    <formula>IF (OrderApi__EPayment__c != null,
+
+IF (OrderApi__EPayment__r.OrderApi__Payment_Method_Type__c == &#39;credit_card&#39;,
+
+UPPER(OrderApi__EPayment__r.OrderApi__Card_Type__c) &amp; &quot; **&quot; &amp; OrderApi__EPayment__r.OrderApi__Last_Four_Digits__c &amp; &quot; (&quot; &amp; TEXT(OrderApi__EPayment__r.OrderApi__Month__c) &amp; &quot;/&quot; &amp; TEXT(OrderApi__EPayment__r.OrderApi__Year__c) &amp; &quot;)&quot;,
+
+OrderApi__EPayment__r.OrderApi__Bank_Name__c  &amp; &quot; &quot; &amp; OrderApi__EPayment__r.OrderApi__Bank_Account_Type__c &amp; &quot; &quot; &amp; OrderApi__EPayment__r.OrderApi__Bank_Account_Number__c
+
+
+),&#39;N/A&#39;)</formula>
+    <inlineHelpText>** System Calculated ** Derived from the source ePayment.</inlineHelpText>
+    <label>Payment Method Description</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,206 @@
+<apex:page showHeader="false"
+    standardStylesheets="false"
+    docType="html-5.0"
+    controller="CPBase.ProfileController"
+    applyHtmlTag="false"
+    applyBodyTag="false"
+    action="{!checkUser}">
+    <apex:composition template="CPBase__template">
+      <apex:define name="pageStyles">
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.emerald_1_0,'css/pages/profile.min.css')}"/>
+        <script src="//s3.amazonaws.com/fonteva-cdn/vendor/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+        <link rel="stylesheet" href="//s3.amazonaws.com/fonteva-cdn/vendor/bootstrap-fileinput-master/css/fileinput.min.css"/>
+          <style type="text/css">
+            .em-cover {
+              background-image: url({!IF(usr.PagesApi__Profile_Cover_Image__c != null, pathPrefix+usr.PagesApi__Profile_Cover_Image__c, CDN+'/img/cover-bgs/cover-1.jpg')});
+            }
+            #paid-invoice-modal-detail iframe,
+            #invoice-modal-detail iframe { height: calc(100vh - 265px); }
+            @media print {
+              .noprint { display: none!important; }
+              .print { display: block!important; }
+            }
+
+            #auraErrorMessage {
+              display: none!important;
+            }
+            .container #em-addresses-span .slds-modal .fonteva-input_spacing {
+                flex-direction: column;
+                display: flex;
+            }
+
+            .container #em-addresses-span .slds-modal .fonteva-input_spacing textarea {
+                margin-bottom: 15px;
+            }
+            .slds-button.slds-button--icon-border.slds-action svg { height: 16px; width: 16px;}
+          </style>
+      </apex:define>
+      <apex:define name="pageTitle">
+        {!$Label.CPBase__HTML_Title_Tag_Profile_Page}
+      </apex:define>
+      <apex:define name="pageMain">
+        <div class="container-fluid p-l-0 p-r-0 noprint">
+          <c:profile_cover />
+        </div>
+        <apex:define name="pageLightningProfileOverride">
+          <apex:includeLightning />
+          <script type="text/javascript" src="{!URLFOR($Resource.eventSearch,'js/events/profileoverride.js')}" />
+          <script type="text/javascript">
+              $(document).ready(function() {
+                  createLightningComponents("{!usr.ContactId}", "{!site.Id}", 'OrderApi', 'PagesApi','{!gatewayId}', '{!gatewayType}');
+              });
+          </script>
+        </apex:define>
+        <div class="container noprint">
+          <div class="row section">
+            <div class="col-md-3">
+              <div class="well p-20">
+                <ul class="nav nav-pills nav-stacked profile-page-nav" id="profile-page-left-nav">
+                  <li id="em-profile-tab" class="active">
+                    <a aria-expanded="false" data-toggle="tab" href="#em-profile">{!$Label.Profile_Page_Profile_Tab_Label}</a>
+                  </li>
+                  <li id="em-payment-methods-tab">
+                    <a data-toggle="tab" href="#em-payment-methods">{!$Label.Profile_Page_Payment_Methods_Tab_Label}</a>
+                  </li>
+                  <li id="em-addresses-tab">
+                    <a data-toggle="tab" href="#em-addresses">Address Book</a>
+                  </li>
+                  <apex:outputPanel layout="none" rendered="{!HasPayments}">
+                    <li id="em-payments-tab">
+                      <a data-toggle="tab" id="payments" href="#em-payments">
+                        {!$Label.Profile_Page_Payments_Tab_Label} <span class="badge">{!PaymentCount}</span>
+                      </a>
+                    </li>
+                  </apex:outputPanel>
+                  <li id="em-transactions-tab">
+                    <a data-toggle="tab" href="#em-transactions">
+                      {!$Label.CPBase__Profile_Page_Transactions_Tab_Label}
+                    </a>
+                  </li>
+                  <li id="em-subscriptions-tab">
+                    <a data-toggle="tab" href="#em-subscriptions">
+                      {!$Label.CPBase__Profile_Page_Subscriptions_Tab_Label}
+                    </a>
+                  </li>
+                  <li id="em-donation-tab">
+                    <a data-toggle="tab" href="#em-donations">
+                      Recurring Donations
+                    </a>
+                  </li>
+                  <apex:outputPanel layout="none" rendered="{!showCommunityGroups}">
+                    <li id="em-groups-tab">
+                      <a data-toggle="tab" href="#em-groups">
+                        {!$Label.CPBase__Profile_Page_My_Groups_Tab_Label}
+                      </a>
+                    </li>
+                  </apex:outputPanel>
+                  <apex:outputPanel layout="none" rendered="{!showMyBadges}">
+                    <li id="em-badges-tab">
+                      <a data-toggle="tab" id="badges" href="#em-badges">
+                        {!$Label.Profile_Page_My_Badges_Tab_Label}
+                      </a>
+                    </li>
+                  </apex:outputPanel>
+                  <li id="em-settings-tab">
+                    <a data-toggle="tab" href="#em-settings">
+                      {!$Label.CPBase__Profile_Page_Reset_Password_Tab_Label}
+                    </a>
+                  </li>
+                  <apex:insert name="customProfilePageLinks"/>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div id="messages">
+                <Framework:messages />
+              </div>
+              <div class="well">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="tab-content">
+                      <div role="tabpanel" class="tab-pane" id="em-profile">
+                        <c:about_me aboutMeFieldSetCSV="{!site.CPBase__Profile_Contact_Fieldset_CSV__c}" cdn="{!cdn}"/>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="em-payment-methods">
+                        <h3 class="section-heading">
+                          {!$Label.Profile_Page_Payment_Methods_Tab_Label}
+                        </h3>
+                        <div id="em-payment-methods-span"/>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="em-addresses">
+                        <h3 class="section-heading">
+													{!$Label.Profile_Address_Book}
+                        </h3>
+                        <div id="em-addresses-span"/>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="em-payments">
+                        <c:my_payments customerId="{!usr.ContactId}"/>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="em-transactions">
+                        <c:my_transactions customerId="{!usr.ContactId}"/>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="em-groups">
+                        <c:my_groups contactId="{!usr.ContactId}" userId="{!usr.Id}"/>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="em-subscriptions">
+                        <c:my_memberships customerId="{!usr.ContactId}" />
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="em-donations">
+                        <c:my_memberships isDonation="true" customerId="{!usr.ContactId}" />
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="em-badges">
+                        <apex:outputPanel layout="none" rendered="{!showMyBadges}">
+                          <c:my_badges contactId="{!usr.ContactId}" />
+                        </apex:outputPanel>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="em-settings">
+                        <h3 class="section-heading">
+                          {!$Label.Profile_Page_Reset_Password_Tab_Label}
+                        </h3>
+                        <c:portal_change_password />
+                      </div>
+                      <apex:insert name="customProfilePage">
+                        <span id="standard-profile-page"> </span>
+                        <!-- RUNS WHEN NOT LOADING A CUSTOM PROFILE PAGE -->
+                        <script>
+                          var hash = window.location.hash;
+                          if (window.location.href.indexOf('error=') > -1 || window.location.href.indexOf('success=') > -1) {
+                              $("#em-profile").removeClass("active in");
+                              $("#em-profile-tab").removeClass("active");
+                              $('#em-payment-methods').addClass("active in");
+                              $("#em-payment-methods-tab").addClass("active");
+
+                          }
+                          else if (hash.length > 0) {
+                              $("#em-profile").removeClass("active in");
+                              $("#em-profile-tab").removeClass("active");
+                              $(hash).addClass("active in");
+                              $(hash+"-tab").addClass("active");
+                          }
+                          else {
+                              $("#em-profile").addClass("active in");
+                              $("#em-profile-tab").addClass("active");
+                          }
+                        </script>
+                      </apex:insert>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:define>
+      <apex:define name="cookiePrompt">
+        <div id="cookiePrompt" class="cookiePrompt"/>
+        <style>
+          .cookiePrompt .fonteva-portal .slds-modal__container {
+            min-width: auto!important;
+          }
+        </style>
+      </apex:define>
+      <apex:define name="pageScripts">
+        <script type="text/javascript" src="{!URLFOR($Resource.emerald_1_0,'js/pages/profile.min.js')}"></script>
+      </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__AVS_Configuration__c</fullName>
+    <deprecated>false</deprecated>
+    <description>AVS fields that are required when a payment is made.</description>
+    <inlineHelpText>AVS fields that are required when a payment is made.</inlineHelpText>
+    <label>AVS Configuration</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Validate Billing Address</fullName>
+                <default>false</default>
+                <label>Validate Billing Address</label>
+            </value>
+            <value>
+                <fullName>Validate Postal Code</fullName>
+                <default>false</default>
+                <label>Validate Postal Code</label>
+            </value>
+            <value>
+                <fullName>Disable AVS</fullName>
+                <default>true</default>
+                <label>Disable AVS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

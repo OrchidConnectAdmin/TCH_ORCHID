@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Local_Attractions__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Describe any local or historic attractions that are close to the hotel.</description>
+    <inlineHelpText>Describe any local or historic attractions that are close to the hotel.</inlineHelpText>
+    <label>Local/Historic Attractions</label>
+    <length>3000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>

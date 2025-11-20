@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ECCHO_Declined_Explanation__c</fullName>
+    <description>Why did ECCHO decline this session for Pre-Approval?</description>
+    <inlineHelpText>Why did ECCHO decline this session for Pre-Approval?</inlineHelpText>
+    <label>ECCHO Declined Explanation</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

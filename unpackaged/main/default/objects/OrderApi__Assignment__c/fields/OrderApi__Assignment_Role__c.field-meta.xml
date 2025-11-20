@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Assignment_Role__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Required Override ** Link to the Role for the assigned Contact on record.</description>
+    <inlineHelpText>** System Calculated Required Override ** Link to the Role for the assigned Contact on record.</inlineHelpText>
+    <label>Assignment Role</label>
+    <referenceTo>OrderApi__Assignment_Role__c</referenceTo>
+    <relationshipLabel>Assignments</relationshipLabel>
+    <relationshipName>Assignments</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OrderApi__Transaction__c$OrderApi__Total_Debits__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OrderApi__Transaction__c$OrderApi__Total_Credits__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Transaction__c.OrderApi__Transaction_Lines__r$OrderApi__Debit__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Transaction__c.OrderApi__Transaction_Lines__r$OrderApi__Credit__c</field>
+    </columns>
+    <description>To show the balances for each GL Account in the system</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OrderApi__Transaction__c.OrderApi__Transaction_Lines__r$OrderApi__GL_Account__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FON - Trial Balance</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Transactions_with_Transaction_Lines__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Transaction__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_THISMONTH</interval>
+    </timeFrameFilter>
+</Report>

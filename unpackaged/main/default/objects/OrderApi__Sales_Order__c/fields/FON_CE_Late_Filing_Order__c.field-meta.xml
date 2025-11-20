@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_CE_Late_Filing_Order__c</fullName>
+    <label>Is CE Late Filing Order</label>
+    <summaryFilterItems>
+        <field>OrderApi__Sales_Order_Line__c.OrderApi__Item_Name__c</field>
+        <operation>contains</operation>
+        <value>Late Filing Fee</value>
+    </summaryFilterItems>
+    <summaryForeignKey>OrderApi__Sales_Order_Line__c.OrderApi__Sales_Order__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

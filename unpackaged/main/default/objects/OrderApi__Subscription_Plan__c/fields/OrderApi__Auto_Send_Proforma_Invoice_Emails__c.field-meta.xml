@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Auto_Send_Proforma_Invoice_Emails__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked an email will be sent using the configurations defined on the Subscription Plan record related to Proforma Invoice Emails</description>
+    <inlineHelpText>When checked an email will be sent using the configurations defined on the Subscription Plan record related to Proforma Invoice Emails</inlineHelpText>
+    <label>Auto Send Proforma Invoice Emails</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

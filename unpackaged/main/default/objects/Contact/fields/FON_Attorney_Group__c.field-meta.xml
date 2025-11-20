@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Attorney_Group__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>If checked, the is a current member of the Legal workign group</inlineHelpText>
+    <label>Legal WG</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

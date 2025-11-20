@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Full_Name__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Override ** The full name of the attendee as it should display on Event badges. Derives automatically from the First and Last Name fields on the linked Contact record.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** System Calculated Override ** The full name of the attendee as it should display on Event badges. Derives automatically from the First and Last Name fields on the linked Contact record.</inlineHelpText>
+    <label>Full Name</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Required_Ticket_Types__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Comma separated list of Ticket Types required to be considered see Event Page.</description>
+    <inlineHelpText>Comma separated list of Tickets Types required to be considered see Event Page.</inlineHelpText>
+    <label>Required Ticket Types</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

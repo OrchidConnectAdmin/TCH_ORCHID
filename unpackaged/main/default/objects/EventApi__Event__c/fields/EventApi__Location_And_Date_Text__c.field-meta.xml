@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Location_And_Date_Text__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The value defined in this field will display in the upper right hand side of the navbar overriding the city, state, and date/time.</description>
+    <inlineHelpText>The value defined in this field will display in the upper right hand side of the navbar overriding the city, state, and date/time.</inlineHelpText>
+    <label>Location and Date Text</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

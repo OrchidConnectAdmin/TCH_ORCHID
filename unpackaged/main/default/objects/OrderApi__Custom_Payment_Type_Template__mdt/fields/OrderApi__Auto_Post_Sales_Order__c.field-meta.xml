@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Auto_Post_Sales_Order__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, Sales Orders will be posted prior to receiving payment. Usually occurs when payments take several days to process. When unchecked Sales Orders will post once payments are received.</description>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>When checked, Sales Orders will be posted prior to receiving payment. Usually occurs when payments take several days to process. When unchecked Sales Orders will post once payments are received.</inlineHelpText>
+    <label>Auto Post Sales Order</label>
+    <type>Checkbox</type>
+</CustomField>

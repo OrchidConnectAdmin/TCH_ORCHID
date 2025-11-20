@@ -1,0 +1,33 @@
+<!--
+  @description       : 
+  @author            : Malik Gray
+  @group             : 
+  @last modified on  : 12-22-2020
+  @last modified by  : Malik Gray
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   12-22-2020   Malik Gray   Initial Version
+-->
+<template>
+    <lightning-radio-group
+        name="agreement-options"
+        label={radioGroupLabel}
+        options={options}
+        value={value}
+        type="radio"
+        onchange={handleChange}
+        required
+        disabled={disabled}
+    >
+    </lightning-radio-group>
+    <template if:true={isFileUpload}>
+        <lightning-file-upload
+            label={fileUploaderLabel}
+            name="fileUploader"
+            record-id={recordId}
+            accept={acceptedFormats}
+            onuploadfinished={handleUploadFinished}
+        >
+        </lightning-file-upload>
+    </template>
+</template>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Ticket_Block__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to related Ticket Block used for inventory tracking purposes.</description>
+    <inlineHelpText>Link to related Ticket Block used for inventory tracking purposes.</inlineHelpText>
+    <label>Ticket Block</label>
+    <referenceTo>EventApi__Ticket_Block__c</referenceTo>
+    <relationshipLabel>Ticket Types</relationshipLabel>
+    <relationshipName>Ticket_Types</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

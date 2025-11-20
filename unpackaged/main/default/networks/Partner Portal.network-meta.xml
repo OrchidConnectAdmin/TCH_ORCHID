@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Network xmlns="http://soap.sforce.com/2006/04/metadata">
+    <allowInternalUserLogin>true</allowInternalUserLogin>
+    <allowMembersToFlag>true</allowMembersToFlag>
+    <caseCommentEmailTemplate>unfiled$public/SUPPORTSelfServiceNewCommentNotificationSAMPLE</caseCommentEmailTemplate>
+    <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
+    <communityRoles>
+        <customerUserRole>Member</customerUserRole>
+        <employeeUserRole>Staff</employeeUserRole>
+        <partnerUserRole>Partner</partnerUserRole>
+    </communityRoles>
+    <description>Demonstrate the power of Fonteva using Salesforce Partner Community!</description>
+    <disableReputationRecordConversations>true</disableReputationRecordConversations>
+    <emailFooterLogo>Fonteva1__Fonteva1/Fonteva1__Fonteva_LOGO.png</emailFooterLogo>
+    <emailFooterText>Fonteva, 4420 N Fairfax Drive Suite 500 Arlington, VA 22203</emailFooterText>
+    <emailSenderAddress>implementations@fonteva.com</emailSenderAddress>
+    <emailSenderName>Fonteva Demo Partner Portal</emailSenderName>
+    <embeddedLoginEnabled>true</embeddedLoginEnabled>
+    <enableApexCDNCaching>true</enableApexCDNCaching>
+    <enableCustomVFErrorPageOverrides>true</enableCustomVFErrorPageOverrides>
+    <enableDirectMessages>true</enableDirectMessages>
+    <enableExpFriendlyUrlsAsDefault>false</enableExpFriendlyUrlsAsDefault>
+    <enableExperienceBundleBasedSnaOverrideEnabled>false</enableExperienceBundleBasedSnaOverrideEnabled>
+    <enableGuestChatter>true</enableGuestChatter>
+    <enableGuestFileAccess>true</enableGuestFileAccess>
+    <enableGuestMemberVisibility>true</enableGuestMemberVisibility>
+    <enableImageOptimizationCDN>true</enableImageOptimizationCDN>
+    <enableInvitation>false</enableInvitation>
+    <enableKnowledgeable>true</enableKnowledgeable>
+    <enableLWRExperienceConnectedApp>false</enableLWRExperienceConnectedApp>
+    <enableMemberVisibility>true</enableMemberVisibility>
+    <enableNicknameDisplay>false</enableNicknameDisplay>
+    <enablePrivateMessages>true</enablePrivateMessages>
+    <enableReputation>true</enableReputation>
+    <enableShowAllNetworkSettings>true</enableShowAllNetworkSettings>
+    <enableSiteAsContainer>false</enableSiteAsContainer>
+    <enableTalkingAboutStats>true</enableTalkingAboutStats>
+    <enableTopicAssignmentRules>true</enableTopicAssignmentRules>
+    <enableTopicSuggestions>true</enableTopicSuggestions>
+    <enableUpDownVote>false</enableUpDownVote>
+    <forgotPasswordTemplate>unfiled$public/CommunityForgotPasswordEmailTemplate</forgotPasswordTemplate>
+    <gatherCustomerSentimentData>false</gatherCustomerSentimentData>
+    <headlessForgotPasswordTemplate>unfiled$public/CommunityHeadlessForgotPasswordTemplate</headlessForgotPasswordTemplate>
+    <headlessRegistrationTemplate>unfiled$public/CommunityHeadlessRegistrationTemplate</headlessRegistrationTemplate>
+    <logoutUrl>http://fonteva.com</logoutUrl>
+    <networkMemberGroups>
+        <permissionSet>PagesApi__Fonteva_Communities_Customer_Community_Login_User</permissionSet>
+        <permissionSet>PagesApi__Fonteva_Communities_Partner_Community_Login_User</permissionSet>
+        <permissionSet>PagesApi__Fonteva_Communities_Salesforce_Platform_User</permissionSet>
+        <permissionSet>PagesApi__Fonteva_Communities_Salesforce_User</permissionSet>
+        <permissionSet>OrderApi__Fonteva_eBusiness_Customer_Community_Login_User</permissionSet>
+        <permissionSet>OrderApi__Fonteva_eBusiness_Partner_Community_Login_User</permissionSet>
+        <permissionSet>OrderApi__Fonteva_eBusiness_Salesforce_Platform_User</permissionSet>
+        <permissionSet>OrderApi__Fonteva_eBusiness_Salesforce_User</permissionSet>
+        <permissionSet>EventApi__Fonteva_Events_Customer_Community_Login_User</permissionSet>
+        <permissionSet>EventApi__Fonteva_Events_Partner_Community_Login_User</permissionSet>
+        <permissionSet>EventApi__Fonteva_Events_Salesforce_Platform_User</permissionSet>
+        <permissionSet>EventApi__Fonteva_Events_Salesforce_User</permissionSet>
+        <permissionSet>CPBase__Fonteva_Communities_Portal_Customer_Community_Login_User</permissionSet>
+        <permissionSet>CPBase__Fonteva_Communities_Portal_Partner_Community_Login_User</permissionSet>
+        <permissionSet>CPBase__Fonteva_Communities_Portal_Salesforce_Platform_User</permissionSet>
+        <permissionSet>CPBase__Fonteva_Communities_Portal_Salesforce_User</permissionSet>
+        <permissionSet>DonorApi__Fonteva_DonorApi_Customer_Community_Login_User</permissionSet>
+        <permissionSet>DonorApi__Fonteva_DonorApi_Partner_Community_Login_User</permissionSet>
+        <permissionSet>DonorApi__Fonteva_DonorApi_Salesforce_Platform_User</permissionSet>
+        <permissionSet>DonorApi__Fonteva_DonorApi_Salesforce_User</permissionSet>
+        <permissionSet>Accounting_Developer</permissionSet>
+        <profile>Fonteva Standard Platform User</profile>
+        <profile>Admin</profile>
+        <profile>Fonteva Customer Community Login User</profile>
+        <profile>Customer Community User</profile>
+        <profile>Partner Community Login User</profile>
+        <profile>Analytics Cloud Integration User</profile>
+        <profile>Analytics Cloud Security User</profile>
+        <profile>Chatter Free User</profile>
+        <profile>High Volume Customer Portal User</profile>
+        <profile>Partner Community User</profile>
+        <profile>HighVolumePortal</profile>
+        <profile>Chatter Only User</profile>
+        <profile>Customer Community Login User</profile>
+        <profile>Company Communities User</profile>
+        <profile>Chatter Moderator User</profile>
+        <profile>StandardAul</profile>
+        <profile>Standard</profile>
+        <profile>Read Only</profile>
+        <profile>SolutionManager</profile>
+        <profile>MarketingProfile</profile>
+        <profile>ContractManager</profile>
+    </networkMemberGroups>
+    <networkPageOverrides>
+        <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
+        <forgotPasswordPageOverrideSetting>Standard</forgotPasswordPageOverrideSetting>
+        <homePageOverrideSetting>Designer</homePageOverrideSetting>
+        <loginPageOverrideSetting>Standard</loginPageOverrideSetting>
+        <selfRegProfilePageOverrideSetting>Standard</selfRegProfilePageOverrideSetting>
+    </networkPageOverrides>
+    <picassoSite>Partner_Portal_C</picassoSite>
+    <reputationLevels>
+        <level>
+            <label>New Contributor</label>
+            <lowerThreshold>0.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Level 2 Contributor</label>
+            <lowerThreshold>51.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Level 3 Contributor</label>
+            <lowerThreshold>151.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Level 4 Contributor</label>
+            <lowerThreshold>401.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Level 5 Contributor</label>
+            <lowerThreshold>801.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Level 6 Contributor</label>
+            <lowerThreshold>1501.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Level 7 Contributor</label>
+            <lowerThreshold>2501.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Level 8 Contributor</label>
+            <lowerThreshold>4001.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Level 9 Contributor</label>
+            <lowerThreshold>6001.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Expert Contributor</label>
+            <lowerThreshold>10001.0</lowerThreshold>
+        </level>
+    </reputationLevels>
+    <reputationPointsRules>
+        <pointsRule>
+            <eventType>FeedItemReceiveAnAnswer</eventType>
+            <points>10</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemReceiveAComment</eventType>
+            <points>15</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>EndorsedForKnowledgeOnATopic</eventType>
+            <points>35</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemReceiveALike</eventType>
+            <points>10</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemSomeoneSharesYourPost</eventType>
+            <points>30</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemYourAnswerMarkedBest</eventType>
+            <points>75</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemPostQuestion</eventType>
+            <points>10</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemWriteAPost</eventType>
+            <points>25</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>EndorseSomeoneForKnowledgeOnATopic</eventType>
+            <points>10</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemLikeSomething</eventType>
+            <points>10</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemAnswerAQuestion</eventType>
+            <points>25</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemMarkAnswerAsBest</eventType>
+            <points>20</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemReceiveAMention</eventType>
+            <points>30</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemMentionSomeone</eventType>
+            <points>5</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemWriteAComment</eventType>
+            <points>20</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemShareAPost</eventType>
+            <points>20</points>
+        </pointsRule>
+    </reputationPointsRules>
+    <selfRegProfile>Partner Community Login User</selfRegProfile>
+    <selfRegistration>true</selfRegistration>
+    <sendWelcomeEmail>true</sendWelcomeEmail>
+    <site>Partner_Portal</site>
+    <siteArchiveStatus>NotArchived</siteArchiveStatus>
+    <status>DownForMaintenance</status>
+    <tabs>
+        <customTab>EventApi__Event__c</customTab>
+        <customTab>OrderApi__Sales_Order__c</customTab>
+        <customTab>OrderApi__Invoice__c</customTab>
+        <defaultTab>home</defaultTab>
+        <standardTab>home</standardTab>
+        <standardTab>Account</standardTab>
+        <standardTab>Contact</standardTab>
+        <standardTab>report</standardTab>
+        <standardTab>Dashboard</standardTab>
+    </tabs>
+    <urlPathPrefix>partners</urlPathPrefix>
+    <welcomeTemplate>unfiled$public/CommunityWelcomeEmailTemplate</welcomeTemplate>
+</Network>

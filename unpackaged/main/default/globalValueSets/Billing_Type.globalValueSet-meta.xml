@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Deposit Based</fullName>
+        <default>true</default>
+        <label>Deposit Based</label>
+    </customValue>
+    <customValue>
+        <fullName>Item Based</fullName>
+        <default>false</default>
+        <label>Item Based</label>
+    </customValue>
+    <customValue>
+        <fullName>Exception</fullName>
+        <default>false</default>
+        <label>Exception</label>
+    </customValue>
+    <masterLabel>Billing Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

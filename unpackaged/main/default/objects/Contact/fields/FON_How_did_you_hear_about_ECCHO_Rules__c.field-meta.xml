@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_How_did_you_hear_about_ECCHO_Rules__c</fullName>
+    <inlineHelpText>Used in form prior to Contact becoming an Active User within the Member Portal</inlineHelpText>
+    <label>How did you hear about ECCHO Rules?</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ECCHO Member</fullName>
+                <default>false</default>
+                <label>ECCHO Member</label>
+            </value>
+            <value>
+                <fullName>ECCHO Sponsoring Member</fullName>
+                <default>false</default>
+                <label>ECCHO Sponsoring Member</label>
+            </value>
+            <value>
+                <fullName>ECCHO Employee</fullName>
+                <default>false</default>
+                <label>ECCHO Employee</label>
+            </value>
+            <value>
+                <fullName>Conference/Seminar/Session</fullName>
+                <default>false</default>
+                <label>Conference/Seminar/Session</label>
+            </value>
+            <value>
+                <fullName>Individual</fullName>
+                <default>false</default>
+                <label>Individual</label>
+            </value>
+            <value>
+                <fullName>Publication</fullName>
+                <default>false</default>
+                <label>Publication</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

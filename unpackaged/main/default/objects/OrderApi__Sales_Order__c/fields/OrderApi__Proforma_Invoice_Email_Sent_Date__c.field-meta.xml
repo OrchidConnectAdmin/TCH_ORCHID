@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Proforma_Invoice_Email_Sent_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** SYSTEM FIELD ** Automatically updated to the date time the last proforma invoice email was sent related to this sales order. If no proforma invoice email was sent the value of this field will remain empty.</description>
+    <inlineHelpText>** SYSTEM FIELD ** Automatically updated to the date time the last proforma invoice email was sent related to this sales order. If no proforma invoice email was sent the value of this field will remain empty.</inlineHelpText>
+    <label>Proforma Invoice Email Sent Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

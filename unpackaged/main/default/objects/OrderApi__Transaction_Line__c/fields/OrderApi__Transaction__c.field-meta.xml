@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Transaction__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required** All Transaction Lines must be associated with a parent Transaction.</description>
+    <inlineHelpText>**Required** All Transaction Lines must be associated with a parent Transaction.</inlineHelpText>
+    <label>Transaction</label>
+    <referenceTo>OrderApi__Transaction__c</referenceTo>
+    <relationshipName>Transaction_Lines</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>true</writeRequiresMasterRead>
+</CustomField>

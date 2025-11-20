@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Mapped_Relationship_Field__c</fullName>
+    <deprecated>false</deprecated>
+    <description>When linked to a parent field group, this field stores the api name of the lookup or master-detail field that links the two objects together.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When linked to a parent field group, this field stores the api name of the lookup or master-detail field that links the two objects together.</inlineHelpText>
+    <label>Mapped Relationship Field</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

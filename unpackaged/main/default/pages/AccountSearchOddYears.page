@@ -1,0 +1,299 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           id="pageId"
+           Controller="FON_AccountSearchCntrl">
+    
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+            <style>     
+                .subheading{
+                padding: 1%;
+                font-size: large;
+                background-color: #efefe7;
+                border-radius: 9px;
+                }
+                .bordernone{
+                border: none !important;
+                }
+                
+                /* The Modal (background) */
+                .modal {
+                display: ; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                }
+                
+                /* Modal Content */
+                .modal-content {
+                background-color: #fefefe;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                }
+                .footer-content {
+                background-color: #fefefe;
+                margin: auto;
+                padding: 20px;          
+                width: 80%;
+                }
+                /* The Close Button */
+                .close {
+                color: #aaaaaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                }
+                .close:hover,
+                .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+                }
+            </style>
+            <script type="text/javascript">
+            function loadScript(url)
+            {   
+                var head = document.getElementsByTagName('head')[0];
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = url;
+                head.appendChild(script);
+            }
+            loadScript("/soap/ajax/39.0/connection.js");
+            </script>
+        </head>
+        <apex:composition template="joinapi__template" >
+            <apex:define name="jpTitle">
+                Join Process
+            </apex:define>
+            <apex:define name="jpStyles">
+                <style>  
+                    
+                    .message {
+                    text-align: center;
+                    margin-left: 20%;
+                    }
+                    .ui-autocomplete-loading {  
+                    background: white url(/img/loading32.gif) right center no-repeat;
+                    background-size:15px 15px;  
+                    }
+                    .leftDiv {
+                    max-width: 557PX;
+                    width: 50%;
+                    text-align: left;
+                    margin-left: 25%;
+                    line-height: 22pt;
+                    font-weight: bold;
+                    }     
+                    .error{
+                    color:red;
+                    font-size: x-small;
+                    font-weight: bold;
+                    }
+                    .addLink{
+                    font-size: small;
+                    font-weight: bold;
+                    }
+                    .pList{
+                    font-weight: normal;
+                    }
+                    
+                    @media only screen and (max-width : 414px) {
+                    input[type=text]{
+                    max-width:140px;
+                    margin-left:10px;
+                    }
+                    input[type=checkbox]{
+                    margin-left:10px;
+                    }
+                    input[type=date]{
+                    margin-left:10px;
+                    }
+                    select {
+                    margin-left:10px;
+                    }
+                    }
+                </style>
+                <apex:slds />
+            </apex:define>
+            <apex:define name="jpMain" >
+                <apex:form id="formId">
+                    
+                    <!-- apex:actionFunction with apex:param -->
+                    <apex:actionFunction action="{!nextStepv1}"  name="callMethod1" rerender="formId" immediate="false" >
+                        <apex:param assignTo="{!selectedAcc}" name="prmNm" value=""/>
+                    </apex:actionFunction>
+                    
+                    
+                    <apex:actionStatus id="status">
+                        <apex:facet name="start">
+                            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.75; z-index: 1000; background-color: black;">
+                                &nbsp;
+                            </div>
+                            <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 30% 50%">
+                                <img src="http://upload.wikimedia.org/wikipedia/commons/e/ed/Cursor_Windows_Vista.gif" />
+                            </div>
+                        </apex:facet>
+                    </apex:actionStatus>
+                    <div class="container m-t-30">
+                        <div class="panel-heading bg-info">
+                            <h5 class="panel-title">Search for Your Account</h5>
+                        </div>
+                        <div class="well col-sm-12">
+                            <div class="row">                            
+                                <div class="col-sm-12">
+                                    <div class="form-horizontal text-center" role="form" >
+                                        
+                                        <apex:outputPanel id="form1">
+                                            
+                                            <apex:pageMessages ></apex:pageMessages>
+                                            <div class="leftDiv">
+                                                <table>
+                                                    <tr>
+                                                        <td style="width:50%">
+                                                            <p>
+                                                                Search By RT Number<br/>
+                                                                <apex:inputText HTML-cid="searchtxt"  styleclass="slds-input" value="{!strSearchTxt}" />
+                                                            </p>
+                                                            <div style="padding-top:1%"></div>
+                                                            <apex:commandButton value="Search By Number"  HTML-cId="searchbtn" styleClass="btn"  action="{!fetchAccount}"/>
+                                                        </td>
+                                                        <td style="width:50%">
+                                                            <p>
+                                                                Search By Account Name<br/>
+                                                                <apex:inputText HTML-cid="searchtxt"  styleclass="slds-input" value="{!strAccountSearchTxt}" />
+                                                                <div style="padding-top:1%"></div>
+                                                            <apex:commandButton value="Search By Name"  HTML-cId="searchbtn" styleClass="btn"  action="{!fetchAccountByName}"/>
+                                                        </p>
+                                                </td>
+                                            </tr>
+                                        </table>                                        
+                                        
+                                    </div>
+                                    <br/>
+                                    <!-- this will display the list of account ralted to search txt -->
+                                    <div class="leftDiv">                                            
+                                        
+                                        <!-- this will be displayed then there is no record found -->                                        
+                                        <apex:outputPanel rendered="{!IF(lstSearchedAccounts.size == 0 && (strSearchTxt != '' || strAccountSearchTxt != ''),true,false)}">
+                                            <p>No Record Found</p>
+                                            
+                                            <apex:pageBlock >
+                                                <apex:outputPanel >
+                                                    <div >
+                                                        <apex:commandButton onclick="updateContactRec()" value="Next" id="nextButton"  styleClass="btn" />
+                                                        <apex:commandButton value="Cancel" id="cancelButton" HTML-cId="Cancelbtn" styleClass="btn" action="{!backButton}"/>
+                                                    </div> 
+                                                </apex:outputPanel></apex:pageBlock>
+                                            
+                                        </apex:outputPanel>
+                                        
+                                        
+                                        <table>
+                                            <apex:repeat value="{!lstSearchedAccounts}" var="acc" id="theRepeat">
+                                                <tr>
+                                                    <th style="width:30%">
+                                                        Account name                                                    
+                                                    </th>                                                    
+                                                    <th style="width:50%">
+                                                        address
+                                                    </th>
+                                                    <th style="width:20%">
+                                                        RT number
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="acc" value="{!acc.Id}" onchange="handleRadioChange('{!acc.Id}')" />
+                                                        &nbsp;&nbsp;
+                                                        <apex:outputText value="{!acc.Name}" id="theValue"/>
+                                                        <apex:inputHidden id="hdnField" value="{!selectedAcc}" />                                                        
+                                                    </td>                                                    
+                                                    <td>
+                                                   <apex:outputText value="{!acc.BillingStreet}"/><br/>
+                                                        &nbsp;<apex:outputText value="{!acc.BillingCity + ','}"/>
+                                                        &nbsp;<apex:outputText value="{!acc.BillingState+ ','}"/>
+                                                        &nbsp;<apex:outputText value="{!acc.BillingPostalCode}"/>
+                                                    </td>
+                                                    <td>
+                                                    	<apex:outputText value="{!acc.Primary_R_T_Number__c}"/>
+                                                    </td>
+                                                </tr>
+                                            </apex:repeat>
+                                            
+                                        </table>
+                                        <apex:pageBlock >
+                                            <apex:outputPanel rendered="{!IF(lstSearchedAccounts.size > 0 ,true,false)}" >
+                                                <div >
+                                                    <apex:commandButton onclick="updateContactRec()" value="Next" id="nextButton"  styleClass="btn" />
+                                                    <apex:commandButton value="Cancel" id="cancelButton" HTML-cId="Cancelbtn" styleClass="btn" action="{!backButton}"/>
+                                                </div> 
+                                            </apex:outputPanel></apex:pageBlock>
+                                        
+                                    </div>
+                                    <div class="leftDiv">
+                                        
+                                    </div>
+                                    
+                                </apex:outputPanel>
+                                <br/>
+                                <apex:outputPanel id="searchPanel">
+                                    
+                                </apex:outputPanel>
+                                <br/>                                                             
+                                <div class="leftDiv">
+                                    
+                                </div>
+                                <br/>
+                                <br/>                                   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </apex:form>
+        <!-- END: ===== Message MODAL ===== -->
+    </apex:define>
+    <apex:define name="jpScripts">
+        <script type="text/javascript">
+        loadScript("/soap/ajax/39.0/apex.js");
+        
+        // this will save the account id selected
+        var selectedAcc = '';
+        
+        
+        
+        // this method will be called when radion button is selected by user
+        function handleRadioChange(accid){
+            debugger;
+            //alert(accid);
+            selectedAcc = accid;
+            
+        }
+        
+        //method will be used to update current user contact record
+        function updateContactRec(){
+            //alert(selectedAcc);
+            callMethod1(selectedAcc);
+        }
+        
+        
+        </script> 
+    </apex:define>
+</apex:composition>
+</html>
+</apex:page>

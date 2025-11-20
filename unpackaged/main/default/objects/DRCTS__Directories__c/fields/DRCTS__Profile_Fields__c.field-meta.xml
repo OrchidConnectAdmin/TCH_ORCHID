@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Profile_Fields__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field contains the api names of the fields used for the detail view.</description>
+    <inlineHelpText>This field contains the api names of the fields used for the detail view.</inlineHelpText>
+    <label>Profile Fields</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

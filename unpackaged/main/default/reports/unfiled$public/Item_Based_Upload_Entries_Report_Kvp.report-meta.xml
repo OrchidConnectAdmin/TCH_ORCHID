@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Item_Based_Upload_Information__c$Name</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Item_Based_Upload_Information__c$Rate__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Item_Based_Upload_Information__c$FON_Total_Volume__c</field>
+    </columns>
+    <columns>
+        <field>Item_Based_Upload_Information__c$Account_Name__c</field>
+    </columns>
+    <columns>
+        <field>Item_Based_Upload_Information__c$Parent__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Item Based Upload Entries Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Item_Based_Upload_Entries__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Item_Based_Upload_Information__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

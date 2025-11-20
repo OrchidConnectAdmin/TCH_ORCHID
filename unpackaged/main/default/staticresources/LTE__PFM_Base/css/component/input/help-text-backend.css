@@ -1,0 +1,24 @@
+.slds-popover {
+	font-family: 'Salesforce Sans';
+}
+
+.slds-popover__body,
+.slds-popover__header,
+.slds-popover__footer {
+	font-size: .8125rem;
+}
+
+.slds-popover.slds-popover_tooltip.slds-fall-into-ground{
+    transition: none;
+}
+
+.slds-form-element .slds-input[name="link-input-title"] {
+    color: black; 
+    margin-left: 10px;
+}
+
+.slds-form-element .slds-input[name="link-input"] {
+    color: black; 
+    margin-left: 10px; 
+}
+

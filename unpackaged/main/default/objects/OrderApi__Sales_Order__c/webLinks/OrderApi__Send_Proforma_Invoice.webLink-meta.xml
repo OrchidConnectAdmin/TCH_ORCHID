@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Send_Proforma_Invoice</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Send Proforma Invoice</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)}
+if({!!OrderApi__Sales_Order__c.OrderApi__Is_Closed__c}) {
+ alert(&quot;{!$Label.orderapi__Sales_Order_Not_Closed}&quot;);
+} else if ({!OrderApi__Sales_Order__c.OrderApi__Is_Posted__c}) {
+ alert(&quot;{!$Label.orderapi__Sales_Order_Already_Posted}&quot;);
+} else {
+location.href = &#39;{!$Site.Prefix}/apex/{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}sales_order_proforma_invoice?sales_order={!OrderApi__Sales_Order__c.Id}&#39;;
+}</url>
+</WebLink>

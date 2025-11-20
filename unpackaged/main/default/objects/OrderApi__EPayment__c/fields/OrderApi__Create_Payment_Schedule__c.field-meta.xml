@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Create_Payment_Schedule__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the payment activity (if charged successfully) will create a new Payment Schedule, copying all Payment Activity Lines over to the detail of the new Payment Schedule. Default unchecked.</description>
+    <inlineHelpText>When checked, the payment activity (if charged successfully) will create a new Payment Schedule, copying all Payment Activity Lines over to the detail of the new Payment Schedule. Default unchecked.</inlineHelpText>
+    <label>Create Payment Schedule</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

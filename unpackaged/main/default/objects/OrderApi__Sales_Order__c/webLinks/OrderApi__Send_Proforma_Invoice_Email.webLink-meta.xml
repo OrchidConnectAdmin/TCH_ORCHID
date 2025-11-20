@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Send_Proforma_Invoice_Email</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Send Proforma Invoice Email</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)}
+var records = {!GETRECORDIDS( $ObjectType.OrderApi__Sales_Order__c )};
+if(records.length&lt;1) {
+ alert(&quot;{!$Label.orderapi__Validation_No_Records_Selected}&quot;);
+} else {
+ location.href = &#39;{!$Site.Prefix}/apex/{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}proforma_bulk_invoice_composer?soIds=&#39; + records.join(&#39;,&#39;);
+}</url>
+</WebLink>

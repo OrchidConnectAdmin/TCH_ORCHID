@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>New_Sponsored_Member_Welcome_email_alert</fullName>
+        <ccEmails>ecchoinfo@theclearinghouse.org</ccEmails>
+        <description>New Sponsored Member Welcome email alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Primary_Contact_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>ecchoinfo@theclearinghouse.org</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/New_Welcome_Sponsored_Relationship_Aug2022</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_ECCHO_Staff_Sponsorship_Agreement_is_Ready_for_Approval_and_Download</fullName>
+        <ccEmails>ecchoinfo@theclearinghouse.org</ccEmails>
+        <description>Notify ECCHO Staff Sponsorship Agreement is Ready for Approval and Download</description>
+        <protected>false</protected>
+        <senderType>CurrentUser</senderType>
+        <template>Fonteva_Email_Templates/Sponsor_Agreement_Awaiting_Final_Approval_by_ECCHO</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Member_after_Sponsored_Membership_Approved_Active</fullName>
+        <description>Notify Member after Sponsored Membership Approved/Active</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Executed_By_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Sponsor_Agreement_Approved_by_ECCHO_for_MEMBER</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_SM_after_Sponsored_Membership_Approved_Active</fullName>
+        <description>Notify SM after Sponsored Membership Approved/Active</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SM_Coordinator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Sponsor_Agreement_Approved_by_ECCHO</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Invitation_to_Sponsored_Account</fullName>
+        <ccEmails>ecchoinfo@theclearinghouse.org</ccEmails>
+        <description>Send Invitation to Sponsored Account</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Executed_By_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Fonteva_Email_Templates/Sponsoring_Relationship_Invite</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Notification_to_Sponsoring_Organization_They_Need_to_Do_a_Final_Review_of_A</fullName>
+        <ccEmails>ecchoinfo@theclearinghouse.org</ccEmails>
+        <description>Send Notification to Sponsoring Organization They Need to Do a Final Review of Application</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SM_Coordinator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Fonteva_Email_Templates/Sponsoring_Relationship_Notification_of_Application_Acceptance</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Update_Application_Status_to_Final_Revie</fullName>
+        <description>When the Child submits they accept the terms of the Agreement, the status of the application will change to Submitted to Parent Account for Final Review</description>
+        <field>Status__c</field>
+        <literalValue>Submitted to Sponsoring Account for Final Review</literalValue>
+        <name>Update Application Status to Final Revie</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Date_with_Today_s_Date</fullName>
+        <field>FON_Date_Agreement_was_Approved_by_Child__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Date with Today&#39;s Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Name_of_Sponsoring_Account</fullName>
+        <field>Legal_Organization_Name__c</field>
+        <formula>Sponsoring_Organization__r.Name</formula>
+        <name>Update Name of Sponsoring Account</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Parent_Account_Name</fullName>
+        <description>Populates the Name of the Account which will be sponsoring Membership within ECCHO</description>
+        <field>Account_Sponsoring_the_Membership__c</field>
+        <formula>Sponsoring_Organization__r.Name</formula>
+        <name>Update Parent Account Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>FON_Populates date Agreement is Approved</fullName>
+        <actions>
+            <name>Update_Application_Status_to_Final_Revie</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Date_with_Today_s_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Sponsoring_Relationships__c.FON_I_Agree_to_the_Terms__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>When a child Account approves the terms of the agreement they will mark the checkbox as true, as a result, the date field will be populated and the pathway will change</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify ECCHO Staff Sponsorship Agreement is Ready for Approval and Download</fullName>
+        <actions>
+            <name>Notify_ECCHO_Staff_Sponsorship_Agreement_is_Ready_for_Approval_and_Download</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Sponsoring_Relationships__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Final Review by ECCHO Staff</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify SM after Agreement Approved</fullName>
+        <actions>
+            <name>Notify_Member_after_Sponsored_Membership_Approved_Active</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Notify_SM_after_Sponsored_Membership_Approved_Active</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Sponsoring_Relationships__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Sponsoring Records with Name of Sponsoring Account</fullName>
+        <actions>
+            <name>Update_Parent_Account_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Sponsoring_Relationships__c.Account_Sponsoring_the_Membership__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

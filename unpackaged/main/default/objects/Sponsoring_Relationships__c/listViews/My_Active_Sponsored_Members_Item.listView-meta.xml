@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Active_Sponsored_Members_Item</fullName>
+    <columns>Date_Accepted_by_ECCHO__c</columns>
+    <columns>Legal_Organization_Name__c</columns>
+    <columns>Primary_R_T_Number__c</columns>
+    <columns>Billing_Type_Item_or_Deposit__c</columns>
+    <columns>Billing_Quarter__c</columns>
+    <columns>PO_ID__c</columns>
+    <columns>In_Production__c</columns>
+    <columns>Contact__c</columns>
+    <columns>Primary_Contact_Title__c</columns>
+    <columns>Mailing_Address_Street__c</columns>
+    <columns>Mailing_Address_City__c</columns>
+    <columns>Mailing_State__c</columns>
+    <columns>Primary_Contact_Office_Number__c</columns>
+    <columns>Primary_Contact_Email__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <filters>
+        <field>Billing_Type_Item_or_Deposit__c</field>
+        <operation>equals</operation>
+        <value>Item Based</value>
+    </filters>
+    <label>My Active Sponsored Members (Item)</label>
+</ListView>

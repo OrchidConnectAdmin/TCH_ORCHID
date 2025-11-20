@@ -1,0 +1,18 @@
+<apex:page standardController="EventApi__Event__c" extensions="EventApi.EventController">
+    <apex:outputPanel rendered="{!NOT(!showURLS)}">
+    <Framework:messages />
+  </apex:outputPanel>
+
+  <apex:pageBlock mode="maindetail" rendered="{!showUrls}" tabStyle="PagesApi__Site__c">
+    <apex:pageBlockSection collapsible="false" columns="1" showHeader="false">
+      <apex:repeat value="{!allLinks}" var="campaignLinks">
+         <h3>{!campaignPageNames[campaignLinks]}</h3>
+          <apex:pageBlockTable value="{!allLinks[campaignLinks]}" var="i">
+            <apex:column headerValue="Community">{!i.community}</apex:column>
+            <apex:column headerValue="Site">{!i.siteName}</apex:column>
+            <apex:column headerValue="URL"><a href="{!i.url}" target="_blank">{!i.url}</a></apex:column>
+          </apex:pageBlockTable>
+      </apex:repeat>
+    </apex:pageBlockSection>
+  </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Enable_Access_Permissions__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Restrict access to the group on registration pages. Unchecked by default.</description>
+    <inlineHelpText>Restrict access to the group on registration pages. Unchecked by default.</inlineHelpText>
+    <label>Enable Access Permissions</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

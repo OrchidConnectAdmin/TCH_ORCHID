@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Program_Term_Is_Maintenance__c</fullName>
+    <description>Prints the value of the linked program term &quot;Is Maintenance&quot; field. Used by the Customer360 lightning component as well as for revenue reporting and dashboards.</description>
+    <formula>ProgramApi__Program_Term__r.ProgramApi__Is_Maintenance__c</formula>
+    <inlineHelpText>Prints the value of the linked program term &quot;Is Maintenance&quot; field. Used by the Customer360 lightning component as well as for revenue reporting and dashboards.</inlineHelpText>
+    <label>Program Term Is Maintenance</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

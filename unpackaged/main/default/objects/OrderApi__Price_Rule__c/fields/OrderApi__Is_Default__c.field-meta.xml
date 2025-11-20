@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Default__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>All products must have one and only one default price assigned. This is used as the catch all when calculating the appropriate price to charge customers when purchasing the product.</description>
+    <inlineHelpText>All products must have one and only one default price assigned. This is used as the catch all when calculating the appropriate price to charge customers when purchasing the product.</inlineHelpText>
+    <label>Is Default</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

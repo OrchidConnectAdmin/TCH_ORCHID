@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Tax_Deductible_Amount__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** The sum of the tax deductible amount field for related transaction lines.</description>
+    <inlineHelpText>**System Calculated** The sum of the tax deductible amount field for related transaction lines.</inlineHelpText>
+    <label>Tax Deductible Amount</label>
+    <summarizedField>OrderApi__Sales_Order_Line__c.DonorApi__Tax_Deductible_Amount__c</summarizedField>
+    <summaryForeignKey>OrderApi__Sales_Order_Line__c.OrderApi__Sales_Order__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

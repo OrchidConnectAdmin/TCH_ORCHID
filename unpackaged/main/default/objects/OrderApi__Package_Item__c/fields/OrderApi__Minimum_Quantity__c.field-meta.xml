@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Minimum_Quantity__c</fullName>
+    <defaultValue>0</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Identifies the minimum quantity of Packaged Items that must be selected when selecting this Item or Items from this Item Class. Defaults 0. The value of 0 has no minimum.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Identifies the minimum quantity of Packaged Items that must be selected when selecting this Item or Items from this Item Class. Defaults 0. The value of 0 has no minimum.</inlineHelpText>
+    <label>Minimum Quantity</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

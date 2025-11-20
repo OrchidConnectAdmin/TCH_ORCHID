@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Ameneties__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Select the amenities that the hotel offers.</description>
+    <inlineHelpText>Select the amenities that the hotel offers.</inlineHelpText>
+    <label>Amenities</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>24-hour Gym</fullName>
+                <default>false</default>
+                <label>24-hour Gym</label>
+            </value>
+            <value>
+                <fullName>Barber Shop</fullName>
+                <default>false</default>
+                <label>Barber Shop</label>
+            </value>
+            <value>
+                <fullName>Cigar Lounge</fullName>
+                <default>false</default>
+                <label>Cigar Lounge</label>
+            </value>
+            <value>
+                <fullName>Concierge Services</fullName>
+                <default>false</default>
+                <label>Concierge Services</label>
+            </value>
+            <value>
+                <fullName>Dry Cleaning Services</fullName>
+                <default>false</default>
+                <label>Dry Cleaning Services</label>
+            </value>
+            <value>
+                <fullName>Full Service Spa</fullName>
+                <default>false</default>
+                <label>Full Service Spa</label>
+            </value>
+            <value>
+                <fullName>Gift Shop</fullName>
+                <default>false</default>
+                <label>Gift Shop</label>
+            </value>
+            <value>
+                <fullName>Hair Salon</fullName>
+                <default>false</default>
+                <label>Hair Salon</label>
+            </value>
+            <value>
+                <fullName>HDTV</fullName>
+                <default>false</default>
+                <label>HDTV</label>
+            </value>
+            <value>
+                <fullName>Indoor Pool(s)</fullName>
+                <default>false</default>
+                <label>Indoor Pool(s)</label>
+            </value>
+            <value>
+                <fullName>Laundry Services</fullName>
+                <default>false</default>
+                <label>Laundry Services</label>
+            </value>
+            <value>
+                <fullName>Outdoor Pool(s)</fullName>
+                <default>false</default>
+                <label>Outdoor Pool(s)</label>
+            </value>
+            <value>
+                <fullName>Restaurant(s)</fullName>
+                <default>false</default>
+                <label>Restaurant(s)</label>
+            </value>
+            <value>
+                <fullName>Shoe Shine</fullName>
+                <default>false</default>
+                <label>Shoe Shine</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

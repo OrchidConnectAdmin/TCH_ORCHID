@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__Retry_Payment_in_GoCardless__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, system will retry this payment in GoCardless that has been failed because of specific reasons (insufficient funds). You can retry a failed payment for 3 times. Default Unchecked.</description>
+    <inlineHelpText>When checked, system will retry this payment in GoCardless that has been failed because of specific reasons (insufficient funds). You can retry a failed payment for 3 times. Default Unchecked.</inlineHelpText>
+    <label>Retry Payment in GoCardless</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,50 @@
+<design:component label="CYRIL: Record Details Component">
+    <design:attribute name="cTitle" label="Section Title" placeholder="ex. My title or Field__c"/>
+    <design:attribute name="cRID" label="Record Id" placeholder="ex. {!recordId},{!id},{!my_id}"/>
+    
+    <design:attribute name="cEnableHeader" label="Enable Page Header"/>
+    <design:attribute name="cHeaderMain" label="Main Header Field" placeholder="ex. Name, Title__c or Field__c"/>
+    <design:attribute name="cHeaderSub" label="Sub Header Field" placeholder="ex. Description__c, CreateDate or Field__c"/>
+    <design:attribute name="cHeaderIcon" label="Header Icon" description="Refer to https://www.lightningdesignsystem.com/icons/" placeholder="standard:contact_list"/>
+    <design:attribute name="cEnableEdit" label="Enable Edit Record"/>
+    <design:attribute name="cEditLabel" label="Edit Button Label"/>
+    <design:attribute name="cEditPath" label="Edit Path (if external/other page)" placeholder="ex. form?id="/>
+    <design:attribute name="cAppendID" label="Append ID to Edit path" />
+    <design:attribute name="cEncloseID" label="Enclose ID with quotes" />
+    
+    <design:attribute name="c1Title" label="Column 1 Title" placeholder="Leave empty if none."/>
+    <design:attribute name="c1Fields" label="Column 1 Fieldsets" placeholder="My_Fieldset,My_General_Form_Data" description="Object's fieldset api names. Separate by comma."/>
+    <design:attribute name="c1Span" datasource="1,2,3,4" label="Column 1 Span" />
+    <design:attribute name="cDisplayType" label="Column 1 Fieldsets Display Type" datasource="Accordion,Card"/>
+    <design:attribute name="c1Exclude" label="Exclude this column from general edit" description="Exclude this column on Edit Popup."/>
+    <design:attribute name="c1Edit" label="Enable Edit Column" />
+    <design:attribute name="c1Hide" label="Hide Fieldset with Empty Fields" />
+    
+    <design:attribute name="c2Title" label="Column 2 Title" placeholder="Leave empty if none."/>
+    <design:attribute name="c2Fields" label="Column 2 Fieldset" />
+    <design:attribute name="c2Span" datasource="1,2,3,4" label="Column 2 Span" />
+    <design:attribute name="c2DisplayType" label="Column 2 Fieldsets Display Type" datasource="Accordion,Card"/>
+    <design:attribute name="c2Exclude" label="Exclude this column from general edit" description="Exclude this column on Edit Popup."/>
+    <design:attribute name="c2Edit" label="Enable Edit Column" />
+    <design:attribute name="c2Hide" label="Hide Fieldset with Empty Fields" />
+    
+    <design:attribute name="c3Title" label="Column 3 Title" placeholder="Leave empty if none."/>
+    <design:attribute name="c3Fields" label="Column 3 Fieldset" />
+    <design:attribute name="c3Span" datasource="1,2,3,4" label="Column 3 Span" />
+    <design:attribute name="c3DisplayType" label="Column 3 Fieldsets Display Type" datasource="Accordion,Card"/>
+    <design:attribute name="c3Exclude" label="Exclude this column from general edit" description="Exclude this column on Edit Popup."/>
+    <design:attribute name="c3Edit" label="Enable Edit Column" />
+    <design:attribute name="c3Hide" label="Hide Fieldset with Empty Fields" />
+    
+    <design:attribute name="c4Title" label="Column 4 Title" placeholder="Leave empty if none."/>
+    <design:attribute name="c4Fields" label="Column 4 Fieldset" />
+    <design:attribute name="c4Span" datasource="1,2,3,4" label="Column 4 Span" />
+    <design:attribute name="c4DisplayType" label="Column 4 Fieldsets Display Type" datasource="Accordion,Card"/>
+    <design:attribute name="c4Exclude" label="Exclude this column from general edit" description="Exclude this column on Edit Popup."/>
+    <design:attribute name="c4Edit" label="Enable Edit Column" />
+    <design:attribute name="c4Hide" label="Hide Fieldset with Empty Fields" />
+    
+    <design:attribute name="hideNull" label="Hide Empty/Null fields"/>
+    
+    
+</design:component>

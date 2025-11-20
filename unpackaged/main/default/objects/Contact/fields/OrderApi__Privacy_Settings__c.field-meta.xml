@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Privacy_Settings__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Defaults to private** This field sets the visibility settings when contact search is enabled.
+            Public: Any user in the system can search. Private: Searchable by authenticated users only. Unlisted: Can not be searched at all.</description>
+    <inlineHelpText>**Defaults to private** This field sets the visibility settings when contact search is enabled.
+            Public: Any user in the system can search. Private: Searchable by authenticated users only. Unlisted: Can not be searched at all.</inlineHelpText>
+    <label>Privacy Settings</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>public</fullName>
+                <default>false</default>
+                <label>public</label>
+            </value>
+            <value>
+                <fullName>private</fullName>
+                <default>true</default>
+                <label>private</label>
+            </value>
+            <value>
+                <fullName>unlisted</fullName>
+                <default>false</default>
+                <label>unlisted</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

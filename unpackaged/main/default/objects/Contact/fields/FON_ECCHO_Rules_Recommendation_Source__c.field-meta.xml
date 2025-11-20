@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_ECCHO_Rules_Recommendation_Source__c</fullName>
+    <inlineHelpText>Free text. Spot for how the Contact heard about ECCHO Rules, either by Member, Sponsoring org, Employee, Conference, Individual, Publication, Other</inlineHelpText>
+    <label>ECCHO Rules Recommendation Source</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>TextArea</type>
+</CustomField>

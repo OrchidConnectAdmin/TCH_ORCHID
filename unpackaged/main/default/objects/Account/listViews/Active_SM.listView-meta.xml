@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_SM</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Primary_R_T_Number__c</columns>
+    <columns>TCH_Membership_Type__c</columns>
+    <columns>ACCOUNT.ADDRESS1_STATE</columns>
+    <columns>FON_Original_Member_Join_Date__c</columns>
+    <columns>Total_Deposits__c</columns>
+    <columns>FON_Annual_Dues__c</columns>
+    <columns>Override_Annual_Dues__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>TCH_Membership_Type__c</field>
+        <operation>equals</operation>
+        <value>Sponsored Member</value>
+    </filters>
+    <label>Active SM</label>
+</ListView>

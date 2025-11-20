@@ -1,0 +1,174 @@
+<aura:component controller="DisplayAuditProgramHelper">
+    
+    <!-- calling method onload -->    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- this will be used to display Profile and NCP Credits -->    
+    <aura:attribute name="tableDetails" type="object" />
+    
+    <!-- spinner -->
+    <aura:attribute name="displaySpinner" type="Boolean" default="false"/>
+    <aura:attribute name="showUploadModal" type="Boolean" default="false"/>
+    
+    <aura:attribute name="sessionRecordId" type="String"/>
+    <aura:attribute name="file" type="Object"/>
+    <aura:attribute name="uploadedFiles" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="ppfId" type="String"/>
+
+    <!-- spinner -->
+    <aura:if isTrue="{!v.displaySpinner}">
+        <div class="">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.tableDetails.progProList}">
+        <!-- Program Profiles -->
+        <div class="slds-section slds-is-open">
+            <h3 class="slds-section__title clrClass" style="background-color:#1797C0;">
+                <button style="background-color:#1797C0;" aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">                
+                    <span class="slds-truncate" title="Section Title" style="color:White;">&nbsp;Audit Transactions</span>
+                </button>
+            </h3>
+            <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+                <table>
+                    <tr class="tableRowHeader">                        
+                        <td class="tableColHeader">Audited by</td>
+                        <td class="tableColHeader">Audited Year</td>
+                        <td class="tableColHeader">Audit Status</td>
+                        <td class="tableColHeader">Total Submitted Credits</td>
+                        <td class="tableColHeader">Adjusted Credit Values</td>
+                        <td class="tableColHeader">Audit Date</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>                        
+                        <td class="tableColBody">{!v.tableDetails.progProList[0].FON_Audited_By__r.FirstName}&nbsp;{!v.tableDetails.progProList[0].FON_Audited_By__r.LastName} </td>
+                        <td class="tableColBody">{!v.tableDetails.progProList[0].FON_Audited_Year__c}</td>
+                        <td class="tableColBody">{!v.tableDetails.progProList[0].FON_Audit_Status__c}</td>
+                        <td class="tableColBody">{!v.tableDetails.totalSubmittedCredits}</td>
+                        <td class="tableColBody">{!v.tableDetails.totalAdjustedCredits}</td>
+                        <td class="tableColBody">{!v.tableDetails.progProList[0].FON_Audit_Date__c}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+        
+        <aura:if isTrue="{!v.tableDetails.ncpCreditList}">
+            <!-- NCP Credit Details -->
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title clrClass" style="background-color:#1797C0;">
+                    <button style="background-color:#1797C0;" aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">                
+                        <span class="slds-truncate" title="Section Title" style="color:White;">&nbsp; Audited CE Sessions</span>
+                    </button>
+                </h3>
+                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+                    
+                    <table >
+                        <tr class="nCPtableRowHeader">                            
+                            <td class="tableColHeader">Session ID</td>
+                            <td class="tableColHeader">Session Date</td>
+                            <td class="tableColHeader">Session Title</td>
+                            <td class="tableColHeader">Submitted Credit Value</td>
+                            <td class="tableColHeader">Adjusted Credit Value</td>
+                            <td class="tableColHeader">CE Provider</td>
+                            <td class="tableColHeader">Notes</td>
+                            <td class="tableColHeader">Upload</td>
+                        </tr>
+                        <tr></tr>
+                        <aura:iteration items="{!v.tableDetails.ncpCreditList}" var="item">
+                            <tr>                                
+                                <td class="tableColBody">{!item.NCP_Session__r.Session_ID__c}</td>
+                                <td class="tableColBody">{!item.FON_Session_Date__c}</td>
+                                <td class="tableColBody">{!item.Session_Title__c}</td>
+                                <td class="tableColBody">{!item.Credit_Value__c}</td>
+                                <td class="tableColBody">{!item.FON_Audit_Adjusted_Value__c}</td>
+                                <td class="tableColBody">{!item.FON_Provider_Name__c}</td>
+                                <td class="tableColBody">{!item.Auditor_Notes__c}</td>
+                                <td class="tableColBody" style="padding-left:10px">
+                                    <div class="slds-truncate" title="">
+                                        <aura:if isTrue="{!empty(item.FON_Audit_Documentation_Upload_Date__c)}">
+                                            <a href="" onclick="{!c.sessionUpload}" name="{!item.Id}" class="slds-button slds-button_brand" style="color: #fff !important;">
+                                                <lightning:icon iconName="utility:upload" 
+                                                                alternativeText="upload" 
+                                                                size="xx-small"
+                                                                title="xx-small size"/>
+                                            </a>  
+                                            <aura:set attribute="else">
+                                                <span class="slds-badge slds-badge_inverse" style="color: #fff;">Files Uploaded</span>
+                                            </aura:set>
+                                        </aura:if>
+                                    </div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </table>
+                    
+                </div>
+                <div style="margin-top: 15px; text-align: center;">
+                <aura:if isTrue="{!empty(v.tableDetails.progProList[0].FON_Audit_Submitted_Date_By_EU__c)}">
+                    
+                        <a href="" onclick="{!c.submitAudit}" class="slds-button slds-button_brand" style="color: #fff; padding: 10px; font-size: 16px;">Submit Audit</a>
+                        <aura:set attribute="else">
+                            <div class="slds-badge slds-theme_success" style="color: #fff; padding: 10px; font-size: 16px; display: inline-block;">Audit Submitted</div>
+                        </aura:set>
+                    
+                </aura:if>
+                    </div>
+            </div>
+        </aura:if>    
+    </aura:if>
+    
+    
+    <!-- Edit modal -->
+    <aura:if isTrue="{!v.showUploadModal}" >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">                        
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"><strong>Upload Supporting Documents</strong></h2>
+                    
+                </header> 
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <table>
+                        <tr>
+                            <td>File Upload</td>
+                            <td>
+                                <lightning:input aura:id="fileId" 
+                                                 onchange="{!c.saveFile}" 
+                                                 type="file" name="file" 
+                                                 label="Upload Attachment" 
+                                                 multiple="true"
+                                                 accept=".pdf,.jpg,.jpeg"/>
+                                <div class="slds-text-body_small slds-text-color_error">{!v.fileName} </div>
+                                    <aura:iteration items="{!v.uploadedFiles}" var="file">
+                                        <div>{!file.name}</div>
+                                    </aura:iteration>
+                                <br/>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <div align="right">
+                        <aura:if isTrue="{!v.uploadedFiles.length > 0}">
+
+                        	<lightning:button variant="brand" label="Submit Files" title="Upload Files" onclick="{!c.submitFile}" />
+                        </aura:if>
+                        <lightning:button variant="brand" label="Close" title="Close" onclick="{!c.closenonappModal}" />
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    
+</aura:component>

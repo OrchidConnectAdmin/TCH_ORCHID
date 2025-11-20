@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Sponsor_Hyperlink__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The value in this field will allow front end users to click on the sponsor image to navigate to the URL.</description>
+    <inlineHelpText>The value in this field will allow front end users to click on the sponsor image to navigate to the URL.</inlineHelpText>
+    <label>Sponsor Hyperlink</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

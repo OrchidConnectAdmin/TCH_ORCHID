@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Transfer_Fee__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Registration items may be enabled for transfer depending on your event configurations. If the registration item is transfered the appropriate fees will be defined in this field.</description>
+    <inlineHelpText>Registration items may be enabled for transfer depending on your event configurations. If the registration item is transfered the appropriate fees will be defined in this field.</inlineHelpText>
+    <label>Transfer Fee</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

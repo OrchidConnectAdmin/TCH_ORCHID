@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Invoice_Write_off_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to the GL Account used to write-off remaining balances for Invoices linked to this Business Group.</description>
+    <inlineHelpText>Link to the GL Account used to write-off remaining balances for Invoices linked to this Business Group.</inlineHelpText>
+    <label>Invoice Write-off Account</label>
+    <referenceTo>OrderApi__GL_Account__c</referenceTo>
+    <relationshipLabel>Business Groups (Invoice Write-off Account)</relationshipLabel>
+    <relationshipName>Invoice_Write_off_Groups</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

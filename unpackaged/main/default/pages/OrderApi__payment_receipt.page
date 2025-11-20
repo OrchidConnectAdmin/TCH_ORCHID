@@ -1,0 +1,578 @@
+<!--
+    =================================
+    COPYRIGHT (C) 2016, FONTEVA, INC.
+    ALL RIGHTS RESERVED.
+    =================================
+    ALL INFORMATION CONTAINED HEREIN IS, AND REMAINS THE PROPERTY OF FONTEVA
+    INCORPORATED AND ITS SUPPLIERS, IF ANY. THE INTELLECTUAL AND TECHNICAL
+    CONCEPTS CONTAINED HEREIN ARE PROPRIETARY TO FONTEVA INCORPORATED AND
+    ITS SUPPLIERS AND MAY BE COVERED BY U.S. AND FOREIGN PATENTS, PATENTS IN
+    PROCESS, AND ARE PROTECTED BY TRADE SECRET OR COPYRIGHT LAW. DISSEMINATION
+    OF THIS INFORMATION OR REPRODUCTION OF THIS MATERIAL IS STRICTLY FORBIDDEN
+    UNLESS PRIOR WRITTEN PERMISSION IS OBTAINED FROM FONTEVA, INC.
+-->
+
+<apex:page title="{!$Label.OrderApi__Process_Payment}" showHeader="true" sidebar="false" controller="OrderApi.PaymentReceiptController" docType="html-5.0" tabStyle="OrderApi__Receipt__c" action="{!insertEpayment}" cache="false">
+    <script type="text/javascript">
+      var polyfilter_scriptpath = "{!URLFOR($Resource.OrderApi__app,'polyfills/filters/')}";
+    </script>
+    <apex:variable var="cdn" value="{!CDNPath}"/>
+    <link rel="stylesheet" href="{!URLFOR($Resource.Framework__AUI_BASE,'css/styles.min.css')}"/>
+    <link rel="stylesheet" href="{!URLFOR($Resource.app,'stylesheets/application.css')}"/>
+    <script type="text/javascript" src="{!URLFOR($Resource.app,'javascripts/application.js')}"/>
+    <script src="//package-assets.s3.amazonaws.com/master/aui/lib/handlebars/handlebars.min.js"></script>
+	<script src="{!URLFOR($Resource.PagesApi__emerald_base_1_0,'js/lib/spin.min.js')}"/>
+	<script src="{!URLFOR($Resource.PagesApi__emerald_base_1_0,'js/lib/ladda.min.js')}"/>
+    <script type="text/javascript" src="{!URLFOR($Resource.Framework__AUI_BASE,'js/vendor.min.js')}"/>
+    <script type="text/javascript" src="{!URLFOR($Resource.Framework__AUI_BASE,'js/app.min.js')}"/>
+    <script type="text/javascript">
+      var IsZeroDollarSalesOrder = {!IsZeroDollarSalesOrder};
+      $(document).ready(function() {
+          if ({!hasShippingItem}) {
+            IsZeroDollarSalesOrder = {!IsZeroPricePriceFinal};
+          }
+      });
+    </script>
+    <style>
+      td.noSidebarCell { padding: 0; }
+      .bodyDiv { background-color: #f2f4f8; }
+      .Framework { background-color: #f2f4f8; }
+    </style>
+	<Framework:currencyField />
+    <span id="aui-layout" class="aui">
+    <apex:outputPanel layout="block" id="Framework" styleClass="Framework">
+      <apex:outputPanel layout="block" id="main" styleClass="container">
+        <style type="text/css" media="screen">
+            .Framework span.total { font-size: 16px; font-weight: 700; line-height: 0; }
+            .Framework span.total label.control-label { font-size: 16px; margin-right: 20px; line-height: 0; }
+            .Framework .item-name, .Framework .item-name a, .Framework .item-name span { font-weight: 700; color: rgb(67, 73, 77); }
+            .Framework .item-name small a, .Framework .item-name small { font-weight: 100; color: rgb(67, 73, 77); }
+            .Framework #header { display: block; }
+            .Framework a.form-control { display: block; position: relative; top: -25px; float: right; width: 16px; height: 16px; padding: 0 25px 0 0; line-height: 16px; color: #a0a0a0; background-color: transparent; background-image: none; border-width: 0; border-radius: 0; -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0); box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);             }
+            .Framework a.form-control > img { display: none; }
+            .Framework a.form-control:before { font-family: 'FontAwesome';font-size: 16px; color: #a0a0a0; content:"\f002";}
+            .Framework { text-rendering: initial; -webkit-font-smoothing: initial; }
+            .Framework .bill-to-select .selectize-control.form-control { top: 16px; width: 60%; float: right; clear: none; position: relative; }
+            .Framework .control-label { font-weight: 700; }
+            .Framework .has-header .form-control-header { width: 26px; height: 26px; line-height: 34px; }
+            .Framework .has-header .form-control { padding-left: 26px; }
+            .Framework span.dateFormat { display: none!important; }
+            .Framework .form-horizontal.form-compact .form-group { margin-bottom: 0; }
+            .Framework .nav-justified-all > li.active > a, .Framework .nav-justified-all > li > a { padding: 0 0 5px 0; }
+            .Framework .panel .panel-colorize .nav-tabs > li.active:after, .Framework .panel .panel-colorize .nav-justified-all > li.active:after { bottom: -10px; }
+            .Framework ul li { margin-left: 0; }
+            .Framework .container { width: 1200px; max-width: none!important; }
+            .Framework .table>thead>tr>th, .Framework .table>thead>tr>td, .Framework .table>tbody>tr>th, .Framework .table>tbody>tr>td, .Framework .table>tfoot>tr>th, .Framework .table>tfoot>tr>td { vertical-align: baseline; }
+            .Framework select[multiple], .Framework select[size] { height: 34px; min-height: 34px; }
+            .Framework .modal {z-index : 100;}
+            .aui#aui-layout .nav-justified>li>a, .aui#aui-layout .nav-tabs.nav-justified>li>a { color: white!important; }
+            .aui#aui-layout .nav-justified>li>a:hover, .aui#aui-layout .nav-tabs.nav-justified>li>a:hover { color: black!important; }
+            .aui#aui-layout .nav-justified>li.active>a, .aui#aui-layout .nav-tabs.nav-justified>li.active>a{ background: #eaeaea!important; color: black!important; }
+            .padded-top { padding-top: 20px;}
+            .Framework { overflow-y: scroll; height: 80vh; }
+            .aui#aui-layout .order-summary h1, .aui#aui-layout .order-summary h2, .aui#aui-layout .order-summary h3, .aui#aui-layout .order-summary h4, .aui#aui-layout .order-summary h5, .aui#aui-layout .order-summary h6 {
+              display: block;
+            }
+
+        </style>
+        <div class="row padded-top">
+          <div class="col-sm-10 col-sm-offset-1">
+            <c:epayment_result />
+          </div>
+        </div>
+        <apex:outputPanel rendered="{!showMessages}">
+          <div class="row padded-top">
+            <div class="col-sm-10 col-sm-offset-1">
+              <div class="alert alert-danger">
+                <apex:repeat value="{!messages}" var="m">
+                  {!m}
+                </apex:repeat>
+              </div>
+            </div>
+          </div>
+        </apex:outputPanel>
+
+        <apex:outputpanel id="mainPanel" rendered="{!!disablePayment}">
+          <div class="row">
+            <div class="col-sm-{!IF(ISNULL(salesOrder.Id),'10 col-sm-offset-1','8')} padded clearfix">
+
+              <!-- RECEIPT FORM -->
+              <apex:form id="receipt_form" styleClass="form-horizontal form-compact">
+                <apex:actionFunction name="upsertEpayment" action="{!upsertEpayment}" rerender="modal,payment_form" oncomplete="paymentReceipt.openModal()"/>
+                <apex:inputHidden value="{!epayment.OrderApi__Sales_Order__c}"/>
+                <!-- #header -->
+                <section id="header" class="p-t-0">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="panel panel-OrderApi-receipt panel-colorize">
+                        <div class="panel-heading panel-colorize">
+                          <h2 class="panel-title">
+                            {!$ObjectType.Receipt__c.Label}
+                          </h2>
+                        </div>
+                        <div class="panel-body">
+
+                          <div class="row">
+
+                            <!-- receipt[account__c] -->
+                            <div class="col-sm-3">
+                              <div class="jvFloat">
+                                    <label class="placeHolder active">{!$ObjectType.Epayment__c.Fields.Account__c.Label}</label>
+                                    <apex:inputField id="account" styleClass="string form-control"
+                                                 html-placeholder="{!$ObjectType.OrderApi__Receipt__c.fields.OrderApi__Account__c.Label}"
+                                                 value="{!epayment.OrderApi__Account__c}"/>
+                              </div>
+                            </div>
+
+                            <!-- receipt[contact__c] -->
+                            <div class="col-sm-3">
+                              <div class="jvFloat">
+                                <label class="placeHolder active">{!$ObjectType.Epayment__c.Fields.Contact__c.Label}</label>
+                                <apex:inputField id="contact" styleClass="string form-control"
+                                           html-placeholder="{!$ObjectType.OrderApi__Receipt__c.fields.OrderApi__Contact__c.Label}"
+                                           value="{!epayment.OrderApi__Contact__c}"/>
+                              </div>
+                            </div>
+
+                            <!-- receipt[entity__c] -->
+                            <div class="col-sm-3">
+                              <div class="jvFloat">
+                                <label class="placeHolder active">
+                                  {!$ObjectType.Receipt__c.fields.Entity__c.Label}
+                                </label>
+                                <apex:inputField id="entity" styleClass="form-control" value="{!epayment.OrderApi__Entity__c}"/>
+                              </div>
+                            </div>
+
+                            <!-- / receipt[date__c] -->
+                            <div class="col-sm-3">
+                               <apex:outputPanel id="receipt_date" styleClass="jvFloat" layout="block">
+                                 <label class="placeHolder active">
+                                   {!$ObjectType.OrderApi__Receipt__c.fields.OrderApi__Date__c.Label}
+                                 </label>
+                                 <apex:inputField styleClass="form-control" value="{!epayment.OrderApi__Date__c}"/>
+                               </apex:outputPanel>
+                             </div>
+
+                          </div><!-- /.row[1] -->
+
+                          <div class="row">
+
+                            <!-- receipt[business_group__c] -->
+                             <div class="col-sm-4">
+                               <div class="jvFloat">
+                                   <label class="placeHolder active">{!$ObjectType.Business_Group__c.Label}</label>
+                                   <apex:selectList multiselect="false" size="1" styleClass="form-control"
+                                      value="{!epayment.OrderApi__Business_Group__c}">
+                                      <apex:selectOptions value="{!businessGroupOptions}"/>
+                                      <apex:actionSupport event="onchange" rerender="modal,payment_form,payment_gateway,deposit_account"/>
+                                    </apex:selectList>
+                               </div>
+                             </div>
+
+                            <!-- / receipt[payment_gateway__c] -->
+                            <div class="col-sm-4">
+                               <apex:outputPanel id="payment_gateway" styleClass="jvFloat" layout="block">
+                                  <label class="placeHolder active">{!$ObjectType.OrderApi__Payment_Gateway__c.Label}</label>
+                                      <apex:selectList multiselect="false" size="1" styleClass="form-control" value="{!sel_GatewayToken}">
+                                          <apex:selectOptions value="{!paymentGatewayOptions}"/>
+                                          <apex:actionSupport event="onchange" rerender="modal,payment_form,deposit_account,batch"/>
+                                      </apex:selectList>
+                               </apex:outputPanel>
+                             </div>
+
+                            <!-- / receipt[deposit_account] -->
+                            <div class="col-sm-4">
+                               <apex:outputPanel id="deposit_account" styleClass="jvFloat" layout="block">
+                                  <label class="placeHolder active">{!$ObjectType.OrderApi__EPayment__c.Fields.OrderApi__Deposit_Account__c.Label}</label>
+                                  <!--<apex:selectList multiselect="false" size="1" styleClass="form-control" value="{!epayment.OrderApi__Deposit_Account__c}">
+                                      <apex:selectOptions value="{!depositAccountOptions}"/>
+                                  </apex:selectList>-->
+                                 <apex:inputhidden value="{!epayment.OrderApi__Deposit_Account__c}" id="depAcc"/>
+                                 <select id="DepositAccountSelect" class="form-control">
+                                 </select>
+                                 <script type="text/javascript">
+                                   var depositList = JSON.parse('{!JSENCODE(depositAccountOptions)}');
+                                   for (var i = 0; i < depositList.length; i++) {
+                                       $("#DepositAccountSelect").append('<option value="' + depositList[i].value + '">'
+                                        + depositList[i].label + '</option>');
+                                   }
+                                 </script>
+                               </apex:outputPanel>
+                             </div>
+
+                           </div><!-- /.row[2] -->
+
+                           <div class="row">
+
+                             <!-- / receipt[batch] -->
+                              <div class="col-sm-4">
+                                 <apex:outputPanel id="batch" styleClass="jvFloat" layout="block">
+                                    <label class="placeHolder active">{!$ObjectType.OrderApi__EPayment__c.Fields.OrderApi__Batch__c.Label}</label>
+                                        <apex:selectList multiselect="false" size="1" styleClass="form-control" value="{!sel_Batch}">
+                                            <apex:selectOptions value="{!batchOptions}"/>
+                                            <apex:actionSupport event="onchange" rerender="modal,payment_form" status="actionStatus"/>
+                                        </apex:selectList>
+                                 </apex:outputPanel>
+                               </div>
+                             </div>
+
+                             <!-- epayment[description] / receipt[memo] -->
+                             <div class="row">
+                              <div class="col-sm-6">
+                                <div class="jvFloat">
+                                  <label class="placeHolder active">{!$ObjectType.Receipt__c.Fields.Memo__c.Label}</label>
+                                  <apex:inputField id="description" styleClass="string form-control" html-placeholder="{!$ObjectType.OrderApi__Receipt__c.fields.OrderApi__Memo__c.Label}" value="{!epayment.OrderApi__Description__c}">
+                                  </apex:inputField>
+                                 </div>
+                               </div>
+                             </div>
+
+                             <apex:outputPanel layout="block" styleClass="row padded-top" id="invoice_button" rendered="{!ISNULL(salesOrder.Id)}">
+                               <div class="col-sm-6 col-sm-offset-3 text-center">
+                                  <button class="btn btn-success processPaymentButton ladda-button"
+                                          data-style="zoom-in">
+                                    <span class="ladda-label">
+                                            {!$Label.OrderApi__Process_Payment}
+                                    </span>
+                                  </button>
+                               </div>
+                             </apex:outputPanel>
+
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </apex:form>
+              <!-- /RECEIPT FORM -->
+
+              <!-- SHIPPING PANEL -->
+              <apex:outputPanel rendered="{!OR(hasShippingItem,hasTaxableItem)}" id="shippingPanel" layout="none">
+                  <c:checkout_shipping salesOrder="{!salesOrder}"/>
+               </apex:outputPanel>
+              <!-- /SHIPPING PANEL -->
+
+              <br/>
+
+              <!-- RECEIPT DETAIL FORM -->
+              <apex:form id="receipt_detail_form" styleClass="form-horizontal form-compact">
+                <!-- #panel-detail -->
+                <div class="panel panel-OrderApi-receipt panel-colorize" id="panel-detail">
+                  <div class="panel-heading panel-colorize">
+                    <span class="panel-title">{!$ObjectType.OrderApi__Item__c.LabelPlural}</span>
+                  </div>
+                  <table class="table">
+                    <thead>
+                      <tr style="border-bottom:2px solid #eee;">
+                        <th>{!$ObjectType.OrderApi__Receipt_Line__c.Fields.OrderApi__Line_Description__c.Label}</th>
+                        <th>{!$ObjectType.OrderApi__Receipt_Line__c.Fields.OrderApi__Sale_Price__c.Label}</th>
+                        <th>{!$ObjectType.OrderApi__Receipt_Line__c.Fields.OrderApi__Quantity__c.Label}</th>
+                        <th>{!$ObjectType.OrderApi__Receipt_Line__c.Fields.OrderApi__Total__c.Label}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <apex:repeat value="{!epaymentItems}" var="epl" id="payment-invoices">
+                          <tr>
+                            <td>
+                              <span class="item-name">
+                              <apex:outputPanel rendered="{!IF(epl.OrderApi__Invoice__c != null,true,false)}">
+                                {!$ObjectType.OrderApi__Invoice__c.Fields.Name.Label}
+                                <apex:outputField value="{!epl.OrderApi__Invoice__c}"/>
+                              </apex:outputPanel>
+                              <apex:outputField value="{!epl.OrderApi__Item__c}"/>
+                              </span><br/>
+                              <span class="item-description">
+                                  <small>
+                                  <apex:outputField value="{!epl.OrderApi__Business_Group__c}"
+                                    rendered="{!IF(epl.OrderApi__Invoice__c != null,true, false)}" style="margin-right:6px;"/>
+                                    <apex:outputField value="{!epl.OrderApi__Item_Class__c}"/>
+                                  </small>
+                              </span>
+                            </td>
+                            <td><apex:outputField value="{!epl.OrderApi__Sale_Price__c}"/></td>
+                            <td><apex:outputField value="{!epl.OrderApi__Quantity__c}"/></td>
+                            <td>
+                              <apex:outputPanel rendered="{!epl.OrderApi__Invoice__c != null}">
+                                <apex:inputField html-placeholder="0.00" styleClass="form-control total-invoice-payment" value="{!epl.OrderApi__Total__c}">
+                                  <apex:actionSupport event="onchange" rerender="modal,payment_form" status="actionStatus"/>
+                                </apex:inputField>
+                              </apex:outputPanel>
+                              <apex:outputPanel rendered="{!epl.OrderApi__Invoice__c == null}">
+                                <apex:outputField value="{!epl.OrderApi__Total__c}"/>
+                              </apex:outputPanel>
+                            </td>
+                          </tr>
+                      </apex:repeat>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /panel-detail -->
+              </apex:form>
+              <!-- /RECEIPT DETAIL FORM -->
+
+            </div>
+
+            <apex:outputPanel id="col_right">
+              <apex:outputPanel id="right_col_inner" layout="block" styleClass="col-sm-4 padded clearfix"  rendered="{!NOT(ISNULL(salesOrder.Id))}">
+
+              <!-- ORDER SUMMARY -->
+              <apex:outputPanel layout="none" id="checkoutSummaryPanel">
+                <div id="checkout-summary-component-wrapper" style="width: 386px; max-width:none;">
+                  <c:checkout_summary salesOrderId="{!encryptedSalesOrderId}"/>
+                </div>
+              </apex:outputPanel>
+              <!-- /ORDER SUMMARY -->
+
+              <!-- PAYMENT PANEL -->
+              <apex:outputPanel id="payment_form" rendered="{!NOT(isInvoice)}">
+                <apex:outputPanel rendered="{!NOT(missingAddress)}">
+                 <div style="width: 386px; max-width:none;">
+                    <div class="panel panel-OrderApi-receipt panel-colorize">
+                      <div class="panel-heading panel-colorize">
+                          <div class="panel-header panel-colorize">
+
+                            <ul class="nav nav-justified">
+                              <li class="active">
+                                <a data-toggle="tab" href="#cc_form">{!$Label.Credit_Card}</a>
+                              </li>
+                              <li class="{!IF(paymentGateway.Supports_eCheck__c,'','hidden')}">
+                                <a data-toggle="tab" href="#echeck_form">{!$Label.eCheck}</a>
+                              </li>
+                              <li class="">
+                                <a data-toggle="tab" href="#offline_form">{!$Label.Offline_Payment}</a>
+                              </li>
+                            </ul>
+                          </div>
+                      </div>
+                      <div class="panel-body tab-content">
+                        <div class="tab-pane fade in active" id="cc_form">
+                          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default" role="presentation">
+                              <div class="panel-heading panel-colorize" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <span class="form-control-colorize">
+                                      {!$Label.Saved_Methods} <br/>
+                                    </span>
+                                  </a>
+                                </h4>
+                              </div>
+                              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                  <c:epayment_payment_methods epayment="{!epayment}" gatewayToken="{!sel_GatewayToken}"
+                                      salesOrder="{!salesOrder}"
+                                      customerId="{!customerId}"
+                                      batch="{!sel_Batch}"
+                                      saved_methods_namespace="savedmethod1"/>
+                                </div>
+                              </div>
+                            </div> <br/>
+                            <div class="panel panel-default">
+                              <div class="panel-heading panel-colorize" role="tab" id="headingTwo">
+                                <h4 class="panel-title">
+                                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    New Payment Method
+                                  </a>
+                                </h4>
+                              </div>
+                              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <c:epayment_credit_card epayment="{!epayment}"
+                                        gatewayToken="{!sel_GatewayToken}"
+                                        batch="{!sel_Batch}"
+                                        salesOrder="{!salesOrder}"
+                                        disable="{!disablePayment}"
+                                        has_payment_error="{!hasPaymentError}"
+                                        payment_method_retain="{!salesOrder.OrderApi__Require_Payment_Method__c}"
+                                        credit_card_namespace="credit1"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="echeck_form">
+                          <c:epayment_echeck epayment="{!epayment}"
+                            gatewayToken="{!sel_GatewayToken}"
+                            batch="{!sel_Batch}"
+                            salesOrder="{!salesOrder}"
+                            payment_method_retain="{!salesOrder.OrderApi__Require_Payment_Method__c}"
+                            namespace="check1"/>
+                        </div>
+                        <div class="tab-pane fade" id="offline_form">
+                          <c:epayment_offline batch="{!sel_Batch}" salesOrder="{!salesOrder}" epayment="{!epayment}"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </apex:outputPanel>
+              </apex:outputPanel>
+              <!-- /PAYMENT PANEL -->
+
+              <!-- REQUIRE SHIPPING PANEL -->
+              <apex:outputPanel layout="none" id="requireShippingPanel">
+                <apex:outputPanel layout="none" rendered="{!AND(hasShippingItem, NOT(shippingCompleted))}">
+                  <div id="checkout-shipping-component-wrapper" style="width: 386px; max-width:none;">
+                    <div class="panel panel-OrderApi-receipt panel-colorize">
+                      <div class="panel-heading panel-colorize">
+                        <h2 class="panel-title">
+                          {!$Label.Require_Shipping}
+                        </h2>
+                      </div>
+                      <div class="panel-body text-center">
+                        <img alt="" width="75px" height="75px" src="{!URLFOR($Resource.aui,'img/icons/svg/shipping/shipping-method.svg')}"/>
+                        <br/>
+                        <h4>{!$Label.Items_Need_To_Be_Shipped}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </apex:outputPanel>
+              </apex:outputPanel>
+              <!-- /REQUIRE SHIPPING PANEL -->
+
+            </apex:outputPanel> <!--/ #right_col_inner -->
+          </apex:outputPanel> <!--/ #col_right -->
+
+          <!-- MODAL PANEL -->
+          <apex:outputPanel id="modal">
+            <div class="modal fade blur modal-default" id="epayment_form" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header ">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true"></span>
+                    </button>
+                    <h3 class="modal-title">{!$Label.OrderApi__Process_Payment}</h3>
+                  </div>
+                  <div class="modal-body p-t-0">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="panel panel-OrderApi-receipt panel-colorize">
+                          <div class="panel-heading panel-colorize">
+                            <div class="panel-header panel-colorize">
+                              <ul class="nav nav-justified">
+                                <li class="active">
+                                  <a data-toggle="tab" href="#cc_form_panel">{!$Label.Credit_Card}</a>
+                                </li>
+                                <li class="{!IF(paymentGateway.Supports_eCheck__c,'','hidden')}">
+                                  <a data-toggle="tab" href="#echeck_form_panel">{!$Label.eCheck}</a>
+                                </li>
+                                <li class="">
+                                  <a data-toggle="tab" href="#offline_form_panel">{!$Label.Offline_Payment}</a>
+                                </li>
+                              </ul>
+                            </div>
+                        </div>
+
+                        <!-- .tab-content -->
+                        <div class="panel-body tab-content">
+                          <div class="tab-pane fade in active" id="cc_form_panel">
+                            <c:epayment_credit_card epayment="{!epayment}"
+                              gatewayToken="{!sel_GatewayToken}"
+                              salesOrder="{!salesOrder}"
+                              disable="{!disablePayment}"
+                              batch="{!sel_Batch}"
+                              has_payment_error="{!hasPaymentError}"
+                              payment_method_retain="{!salesOrder.OrderApi__Require_Payment_Method__c}"
+                              credit_card_namespace="credit2"/>
+                          </div>
+                          <div class="tab-pane fade" id="echeck_form_panel">
+                            <c:epayment_echeck epayment="{!epayment}"
+                              gatewayToken="{!sel_GatewayToken}"
+                              salesOrder="{!salesOrder}"
+                              batch="{!sel_Batch}"
+                              payment_method_retain="{!salesOrder.OrderApi__Require_Payment_Method__c}"
+                              namespace="check2"/>
+                          </div>
+                            <apex:outputPanel layout="none" rendered="{!isInvoice}">
+                                <div class="tab-pane fade" id="offline_form_panel">
+                                  <c:epayment_offline salesOrder="{!salesOrder}" epayment="{!epayment}" batch="{!sel_Batch}"/>
+                                </div>
+                            </apex:outputPanel>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </apex:outputPanel>
+          <!-- /MODAL PANEL -->
+
+        </div>
+
+      </apex:outputPanel>
+
+      <div class="text-center">
+        <apex:outputLink value="/{!SalesOrderId}" rendered="{!disablePayment}" styleclass="btn btn-primary">
+          {!$Label.OrderApi__Go_Back}
+        </apex:outputLink>
+      </div>
+
+    </apex:outputPanel>
+    <!-- Needed by EmVars helper in _emerald.js -->
+    <div id="emvars"></div>
+    <!-- Needed by BSE.Mq.screen() helper in utils.js -->
+    <div id="mq"></div>
+  </apex:outputPanel>
+  </span>
+
+  <apex:form >
+    <apex:actionFunction name="sfdc_action_setupSalesOrder" action="{!setupSalesOrder}" reRender="requireShippingPanel,payment_form"/>
+  </apex:form>
+
+
+  <script type="text/javascript">
+
+      var paymentReceipt = paymentReceipt || {};
+
+      paymentReceipt.setupSalesOrder = function() {
+        sfdc_action_setupSalesOrder();
+      };
+
+      paymentReceipt.openModal = function() {
+        var total = 0;
+        $('.total-invoice-payment').each(function(index,element){
+           total += parseFloat(element.value.replace(/,/g, ""));
+        });
+        paymentReceipt.paymentTotal = currencyComponentAPI.formatCurrency(total,'{!JSENCODE(currencyISOCode)}');
+        $('#epayment_form').modal('show');
+
+        aui.loader.stopAll();
+      };
+
+      $(document).ready(function() {
+          $(document).on('submit','#credit_card_form,.saved-methods-form,.offline-payment-form', function (e) {
+              if (document.querySelector('.credit-card-payment') !== null) {
+                aui.loader.start(document.querySelector('.credit-card-payment'));
+              }
+                if (document.querySelector('.saved-payment-methods') !== null) {
+                    aui.loader.start(document.querySelector('.saved-payment-methods'));
+                }
+                if (document.querySelector('.offline-payment') !== null) {
+                    aui.loader.start(document.querySelector('.offline-payment'));
+                }
+              return true;
+          });
+
+          $(document).on('click', '.pmbtnLoader', function (e) {
+            aui.loader.start(document.querySelector('.pmbtnLoader'));
+              return true;
+          });
+
+          $(document).on('change', '#DepositAccountSelect', function(e) {
+              $('[id$=depAcc]').val($(this).val());
+          });
+
+          $(document).on('click', '.processPaymentButton', function(e) {
+              e.preventDefault();
+              aui.loader.start(document.querySelector('.processPaymentButton'));
+              upsertEpayment();
+              return false;
+          });
+      });
+	</script>
+
+</apex:page>

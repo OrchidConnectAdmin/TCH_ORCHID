@@ -1,0 +1,338 @@
+<!--
+  @description       : 
+  @author            : Malik Gray
+  @group             : 
+  @last modified on  : 01-20-2021
+  @last modified by  : Malik Gray
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   10-30-2020   Malik Gray   Initial Version
+-->
+<template>
+    <lightning-layout multiple-rows="true">
+        <!-- <lightning-layout-item size="12">
+            <h1 class="slds-text-heading_large">Sponsoring Organization</h1>
+        </lightning-layout-item> -->
+        <template if:true={userAccountId.data}>
+            <!-- <lightning-layout-item size="12">
+                <lightning-record-view-form
+                    record-id={userAccountId.data}
+                    object-api-name="Account"
+                >
+                    <lightning-output-field
+                        field-class="slds-text-heading_medium"
+                        field-name="Name"
+                        variant="label-hidden"
+                    >
+                    </lightning-output-field>
+                </lightning-record-view-form>
+            </lightning-layout-item> -->
+            <template if:true={dataLoadedComplete}>
+                <template if:false={displaySendInvitation}>
+                    <lightning-layout-item size="12">
+                        <lightning-record-edit-form 
+                            record-id={recordId}
+                            object-api-name={objectApiName}
+                            onsubmit={handleSubmit}
+                            onsuccess={handleSuccess}
+                        >
+                            <lightning-layout multiple-rows="true">
+                                <lightning-layout-item size="12">
+                                    <lightning-messages></lightning-messages>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12">
+                                    <div>Please complete the Sponsored Member Information below</div>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6">
+                                    <lightning-input-field
+                                        field-name="Legal_Organization_Name__c"
+                                        value={sponsoredOrganization.Name}
+                                        required=""
+                                        readonly={readOnly}
+                                    >
+                                    </lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6">
+                                    <lightning-input-field field-name="Billing_Type_Item_or_Deposit__c"
+                                    disabled=true></lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6">
+                                    <lightning-input-field field-name="PO_ID__c"
+                                    readonly={readOnly}></lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6">
+                                    <lightning-input-field field-name="In_Production__c" required=""
+                                    disabled=true></lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6">
+                                    <lightning-input-field field-name="Rules_Access__c" required=""
+                                    disabled={readOnly}></lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6">
+                                    <lightning-input-field
+                                        field-name="Primary_R_T_Number__c"
+                                        value={sponsoredOrganization.Primary_R_T_Number__c}
+                                        required=""
+                                        readonly
+                                    >
+                                    </lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6">
+                                    <lightning-input-field
+                                        field-name="Affiliation_Type__c"
+                                        value={affiliateType}
+                                        required=""
+                                        disabled
+                                    >
+                                    </lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6">
+                                    <lightning-input-field
+                                        field-name="Charter_Number__c"
+                                        value={sponsoredOrganization.FON_Charter_Number__c}
+                                        readonly={readOnly}
+                                    >
+                                    </lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6">
+                                    <lightning-input-field
+                                        field-name="Organization_URL__c"
+                                        value={sponsoredOrganization.Organization_URL__c}
+                                        readonly={readOnly}
+                                    >
+                                    </lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item class="slds-m-vertical_medium" size="12">
+                                    <lightning-layout multiple-rows="true">
+                                        <lightning-layout-item size="6">
+                                            <lightning-layout multiple-rows="true">
+                                                <lightning-layout-item size="12">
+                                                    <h5 style="padding: 10px; background: #DFEAF7; text-align: center; margin-top: 15px; margin-right: 15px;"><b>STEP 1</b></h5>
+                                                </lightning-layout-item>
+                                                <lightning-layout-item size="12">
+                                                    <h3><b>Agreement Signator</b></h3>
+                                                </lightning-layout-item>
+                                                <template if:false={executedByContactId}>
+                                                    <lightning-layout-item size="12">
+                                                        <lightning-input
+                                                            type="checkbox"
+                                                            label="filler"
+                                                            disabled="disabled"
+                                                            style="opacity:0;"
+                                                        >
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12">
+                                                        <lightning-accordion>
+                                                            <lightning-accordion-section 
+                                                                name="Search Contact" 
+                                                                label="Search for a Contact By Email"
+                                                            >
+                                                                <c-fon-email-search-by-organization
+                                                                    account-id={sponsoredOrganizationId}
+                                                                    onrecordselected={handleExecutedByContactSelected}
+                                                                >
+                                                                </c-fon-email-search-by-organization>
+                                                                </lightning-accordion-section>
+                                                                <lightning-accordion-section
+                                                                    name="Create Contact"
+                                                                    label="Create a new Contact"
+                                                                >
+                                                                <c-fon-onboarding-create-contact
+                                                                    account-id={sponsoredOrganizationId}
+                                                                    onrecordselected={handleExecutedByContactSelected}
+                                                                >
+                                                                </c-fon-onboarding-create-contact>
+                                                            </lightning-accordion-section>
+                                                        </lightning-accordion>
+                                                    </lightning-layout-item>
+                                                </template>
+                                                <template if:true={executedByContactId}>
+                                                    <lightning-layout-item size="12">
+                                                        <c-fon-contact-record-view
+                                                            record-id={executedByContactId}
+                                                        >
+                                                        </c-fon-contact-record-view>
+                                                    </lightning-layout-item>
+                                                </template>
+                                            </lightning-layout>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="6">
+                                            <lightning-layout multiple-rows="true">
+                                                <lightning-layout-item size="12">
+                                                    <h5 style="padding: 10px; background: #DFEAF7; text-align: center; margin-top: 15px; margin-right: 15px;"><b>STEP 2</b></h5>
+                                                </lightning-layout-item>
+                                                <lightning-layout-item size="12">
+                                                    <h3><b>Primary Contact Information</b></h3>
+                                                </lightning-layout-item>
+                                                <template if:false={primaryContactId}>
+                                                    <lightning-layout-item size="12">
+                                                        <lightning-input
+                                                            type="checkbox"
+                                                            label="Same as Agreement Signator"
+                                                            name="same-as-executed-by-contact"
+                                                            data-element="same-as-executed-by-contact-checkbox"
+                                                            onchange={handleCheckboxChange}
+                                                            disabled={readOnly}
+                                                        >
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <template if:false={sameAsExecutedByContact}>
+                                                    <lightning-layout-item size="12">
+                                                        <lightning-accordion>
+                                                            <lightning-accordion-section 
+                                                                name="Search Contact" 
+                                                                label="Search for a Contact By Email"
+                                                            >
+                                                                <c-fon-email-search-by-organization
+                                                                    account-id={sponsoredOrganizationId}
+                                                                    onrecordselected={handlePrimaryContactSelected}
+                                                                >
+                                                                </c-fon-email-search-by-organization>
+                                                                </lightning-accordion-section>
+                                                                <lightning-accordion-section
+                                                                    name="Create Contact"
+                                                                    label="Create a new Contact"
+                                                                >
+                                                                <c-fon-onboarding-create-contact
+                                                                    account-id={sponsoredOrganizationId}
+                                                                    onrecordselected={handlePrimaryContactSelected}
+                                                                >
+                                                                </c-fon-onboarding-create-contact>
+                                                            </lightning-accordion-section>
+                                                        </lightning-accordion>
+                                                    </lightning-layout-item>
+                                                    </template>
+                                                </template>
+                                                <template if:true={primaryContactId}>
+                                                    <lightning-layout-item size="12">
+                                                        <c-fon-contact-record-view
+                                                            record-id={primaryContactId}
+                                                        >
+                                                        </c-fon-contact-record-view>
+                                                    </lightning-layout-item>
+                                                </template>
+                                            </lightning-layout>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12" if:true={srstatus}>
+                                    <lightning-layout multiple-rows="true">
+                                        <lightning-layout-item size="12">
+                                            <h3><b>Address Information</b></h3>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item padding="horizontal-small" size="6">
+
+                                            <lightning-input-address
+                                                address-label="Mailing Address"
+                                                street-label="Street"
+                                                city-label="City"
+                                                country-label="Country"
+                                                province-label="Province/State"
+                                                postal-code-label="PostalCode"
+                                                street={mailingAddress.street}
+                                                city={mailingAddress.city}
+                                                country={mailingAddress.country}
+                                                province={mailingAddress.province}
+                                                postal-code={mailingAddress.postalCode}
+                                                country-options={getCountryOptions}
+                                                province-options={getMailingProvinceOptions}
+                                                onchange={handleMailingAddressChange}
+                                                readonly={readOnly}
+                                                disabled={readOnly}>
+                                            </lightning-input-address>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item padding="horizontal-small" size="6">
+                                            <div>Future Notification Address</div>
+                                            <lightning-input
+                                                type="checkbox"
+                                                label="Same as Mailing Address"
+                                                name="same-as-mailing-address"
+                                                data-element="same-as-mailing-address-checkbox"
+                                                onchange={handleCheckboxChange}
+                                                checked={sameAsMailingAddress}
+                                                disabled={readOnly}
+                                            >
+                                            </lightning-input>
+                                            <template if:false={sameAsMailingAddress}>
+                                                <lightning-input-address
+                                                    address-label="Future Notification Address"
+                                                    street-label="Street"
+                                                    city-label="City"
+                                                    country-label="Country"
+                                                    province-label="Province/State"
+                                                    postal-code-label="PostalCode"
+                                                    street={futureNotificationAddress.street}
+                                                    city={futureNotificationAddress.city}
+                                                    country={futureNotificationAddress.country}
+                                                    province={futureNotificationAddress.province}
+                                                    postal-code={futureNotificationAddress.postalCode}
+                                                    country-options={getCountryOptions}
+                                                    province-options={getFutureNotificationProvinceOptions}
+                                                    required
+                                                    onchange={handleFutureNotificationAddressChange}
+                                                    readonly={readOnly}
+                                                    disabled={readOnly}>
+                                                </lightning-input-address>
+                                            </template>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12" if:true={srstatus}>
+                                    <c-fon-onboarding-agreement-options
+                                        record-id={recordId}
+                                        initial-value={selectedAgreementOption}
+                                        onagreementoptionselected={handleAgreementOptionSelected}
+                                        onagreementuploaded={handleAgreementUploaded}
+                                        disabled={readOnly}
+                                    >
+                                    </c-fon-onboarding-agreement-options>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12" if:true={srstatus}>
+                                    <lightning-layout>
+                                        <lightning-layout-item size="6" padding="around-large">
+                                            <button type="submit"
+                                                class="slds-button slds-button_brand slds-button_stretch slds-m-top_small main-submit"
+                                            >
+                                                Save
+                                            </button>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="6" padding="around-large">
+                                            <button
+                                                class="slds-button slds-button_brand slds-button_stretch slds-m-top_small"
+                                                onclick={handleSaveAndSendInvitation}
+                                                disabled={disableSendInvitation}
+                                            >
+                                                Save and Send Invitation
+                                            </button>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </lightning-record-edit-form>
+                    </lightning-layout-item>
+                </template>
+                <template if:true={displaySendInvitation}>
+                    <template if:true={user.data}>
+                        <div class="div-cover"></div>
+
+                        <c-fon-onboarding-send-invitation
+                            join-as={affiliationType}
+                            name-of-logged-in-user={user.data}
+                            primary-r-t-number={primaryRTNumber}
+                            sponsoring-relationship-id={recordId}
+                            executed-by-id={executedByContactId}
+                            account-name={sponsoredOrganization.Name}
+                        >
+                        </c-fon-onboarding-send-invitation>
+                    </template>
+                </template>
+            </template>
+        </template>
+        <template if:false={userAccountId.data}>
+            <lightning-layout-item size="12">
+                <div class="slds-text-heading_medium">No Organization Associated with this User.</div>
+            </lightning-layout-item>
+        </template>
+    </lightning-layout>
+</template>

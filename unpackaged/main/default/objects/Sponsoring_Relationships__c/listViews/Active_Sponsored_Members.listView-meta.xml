@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Sponsored_Members</fullName>
+    <columns>NAME</columns>
+    <columns>Sponsoring_Organization__c</columns>
+    <columns>Sponsored_Organization__c</columns>
+    <columns>Primary_R_T_Number_Formula__c</columns>
+    <columns>Membership_Start_Date_Formatted__c</columns>
+    <columns>Billing_Type_Item_or_Deposit__c</columns>
+    <columns>Billing_Quarter__c</columns>
+    <columns>In_Production__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Primary_Contact_Lookup__c</columns>
+    <columns>SM_Coordinator_Full_Name__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Application in Process,Submitted to Sponsored Org Account for Review,Submitted to Sponsoring Account for Final Review,Final Approval by Sponsor,Final Review by ECCHO Staff</value>
+    </filters>
+    <filters>
+        <field>Sponsoring_Organization_Name__c</field>
+        <operation>equals</operation>
+        <value>First National Bankers Bank</value>
+    </filters>
+    <label>Active Sponsored Members</label>
+</ListView>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Onsite_Price__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Requires &quot;Enable On-Site Price&quot; to be checked. Specifies the ticket price on the day of the event.</description>
+    <inlineHelpText>Requires &quot;Enable On-Site Price&quot; to be checked. Specifies the ticket price on the day of the event.</inlineHelpText>
+    <label>On-site Price</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

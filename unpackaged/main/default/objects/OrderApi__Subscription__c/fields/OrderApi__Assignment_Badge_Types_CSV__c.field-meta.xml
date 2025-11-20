@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Assignment_Badge_Types_CSV__c</fullName>
+    <deprecated>false</deprecated>
+    <description>SYSTEM</description>
+    <externalId>false</externalId>
+    <formula>OrderApi__Item__r.OrderApi__Assignment_Badge_Types_CSV__c</formula>
+    <inlineHelpText>SYSTEM</inlineHelpText>
+    <label>SYSTEM</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

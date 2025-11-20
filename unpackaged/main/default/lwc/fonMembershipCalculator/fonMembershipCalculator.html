@@ -1,0 +1,26 @@
+<template>
+    <lightning-layout-item size="12">
+        <lightning-accordion>
+            <lightning-accordion-section 
+                name="Search By R/T Number" 
+                label="Search By R/T Number"
+            >
+                <c-fon-r-t-n-search
+                    exact-match="false"
+                    onrecordselected={handleRecordSelected}
+                    onvaluechanged={handleValueChanged}
+                ></c-fon-r-t-n-search>
+                <template if:true={selectedAccount}>
+                    <c-fon-membership-calculator-list-item record-id={selectedAccount.recordId}>
+                    </c-fon-membership-calculator-list-item>
+                </template>
+            </lightning-accordion-section>
+            <lightning-accordion-section
+                name="Search By Name"
+                label="Search By Name"
+            >
+                <c-fon-membership-calculator-list></c-fon-membership-calculator-list>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </lightning-layout-item>
+</template>

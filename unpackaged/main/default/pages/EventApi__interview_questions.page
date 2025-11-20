@@ -1,0 +1,47 @@
+<apex:page showHeader="false"
+  docType="html-5.0"
+  standardStylesheets="false"
+  applyHtmlTag="false"
+  applyBodyTag="false"
+  controller="EventApi.InterviewQuestionsController"
+  cache="false">
+	<apex:composition template="PagesApi__default_template">
+		<apex:define name="supernavOverride">&nbsp;</apex:define>
+		<apex:define name="topnavOverride">&nbsp;</apex:define>
+		<apex:define name="footerOverride">&nbsp;</apex:define>
+		<apex:define name="headerOverride">&nbsp;</apex:define>
+		<apex:define name="styles">
+			<style type="text/css">
+				#main { background: #FFF!important; }
+				#main .form-container {overflow-x: hidden!important;}
+			</style>
+		</apex:define>
+		<apex:define name="main">
+			<div id="registration-questions-form">
+				<PagesApi:form formId="{!$CurrentPage.Parameters.formId}"
+								width="100%"
+								subjectId="{!$CurrentPage.Parameters.subjectId}"
+								subjectLookupField="{!SubjectLookupField}"
+								formResponseId="{!$CurrentPage.Parameters.formResponseId}"
+								componentNamespace="{!$CurrentPage.Parameters.namespace}"
+								onSubmit="{!JSENCODE($CurrentPage.Parameters.onSubmit)}"/>
+			</div>
+		</apex:define>
+		<apex:define name="scripts">
+			<script type="text/javascript">
+				$(function(){
+					$("#main").css("padding-top","0px");
+					$("#main").css("background-color","#fff");
+					$("#main").css("color","#222");
+					$("#registration-questions-form").css("overflow-x","hidden");
+					if ($(".em-topbar").length) {
+						$(".em-topbar").remove();
+					}
+					if ($(".fonteva-topnav").length) {
+						$(".fonteva-topnav").remove();
+					}
+				});
+			</script>
+		</apex:define>
+	</apex:composition>
+</apex:page>

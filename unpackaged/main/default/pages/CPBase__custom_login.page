@@ -1,0 +1,111 @@
+<apex:page title="{!$Label.CPBase__HTML_Title_Tag_Login_Page}"
+	showHeader="false"
+	standardStylesheets="false"
+	docType="html-5.0"
+	controller="CPBase.CustomLoginController"
+  applyHtmlTag="false"
+  applyBodyTag="false"
+  action="{!checkSession}">
+
+    <apex:composition template="CPBase__template_skeleton">
+
+      <apex:define name="pageTitle">{!$Label.CPBase__Login}</apex:define>
+
+      <apex:define name="pageStyles">
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.emerald_1_0,'css/pages/login.min.css')}"/>
+      </apex:define>
+
+      <apex:define name="pageMain">
+
+        <div class="container">
+
+          <div class="row">
+
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
+
+              <div class="well login-form">
+
+                <div class="login-brand">
+                  <Framework:img src="{!theme.PagesApi__Logo_Image__c}" width="auto"/>
+                </div>
+
+                <Framework:messages />
+
+                <apex:form id="form" forceSSL="true" styleClass="form-signin" acceptcharset="utf-8">
+
+                  <apex:outputPanel id="usr-pwd-auth" layout="block" styleClass="m-t-20">
+
+                    <div class="form-group">
+                      <label>{!$Label.CPBase__Username}</label>
+                      <apex:inputText html-type="email" styleClass="form-control" value="{!username}" html-autofocus="true"/>
+                    </div>
+                    <div class="form-group">
+                      <label>{!$Label.CPBase__Password}</label>
+                      <apex:inputSecret html-type="password" styleClass="form-control password-field" value="{!password}" />
+                    </div>
+                    <div class="button-group">
+                      <apex:commandButton value="{!$Label.CPBase__Login}" action="{!login}" styleClass="btn btn-lg btn-primary btn-block"/>
+                    </div>
+
+                  </apex:outputPanel><!-- [#usr-pwd-auth] -->
+
+                  <apex:outputPanel id="social-auth-providers" layout="block" rendered="{!enableSocial}" styleClass="m-b-20 text-center">
+
+                    <div class="hr">
+                      <span>{!$Label.CPBase__Or}</span>
+                    </div>
+
+                    <apex:commandLink styleClass="btn btn-social btn-twitter btn-block m-b-10" action="{!loginTwitter}" rendered="{!siteConfig.PagesApi__Twitter_Login_URL__c != null}">
+                      <i class="fab fab-twitter"></i> {!$Label.Login_With_Twitter}
+                    </apex:commandLink>
+
+                    <apex:commandLink styleClass="btn btn-social btn-linkedin btn-block m-b-10" action="{!loginLinkedIn}" rendered="{!siteConfig.PagesApi__LinkedIn_Login_URL__c != null}">
+                      <i class="fab fab-linkedin"></i> {!$Label.Login_With_LinkedIn}
+                    </apex:commandLink>
+
+                    <apex:commandLink styleClass="btn btn-social btn-google-plus btn-block" action="{!loginGoogle}" rendered="{!siteConfig.PagesApi__Google_Login_URL__c != null}">
+                      <i class="fab fab-googleplus"></i> {!$Label.Login_With_Google_Plus}
+                    </apex:commandLink>
+
+                  </apex:outputPanel><!-- [#social-auth-providers] -->
+
+                  <div class="reset-password-link f-s-10">
+                    <a href="{!$Page.CPBase__forgot_password}" title="{!$Label.CPBase__Forgot_Password_Link_Anchor}">{!$Label.CPBase__Forgot_Password_Link_Anchor}</a>
+                  </div>
+
+                  <apex:insert name="login-additional-links"/>
+
+                </apex:form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:define>
+
+      <apex:define name="pageScripts">
+        <script type="text/javascript">
+          $(function() {
+            $('#main').addClass('login-format');
+            $('#{!$Component.loginForm}').on('keypress',function(e) {
+              var code = e.keyCode || e.which;
+              if (code == 13) {
+                e.preventDefault();
+                return false;
+              }
+            });
+          });
+          $(document).ready(function() {
+              $(document).on('keydown', '.password-field', function (event) {
+                  if (event.which === 32) {
+                      return false;
+                  }
+                  return true;
+              });
+          });
+        </script>
+      </apex:define>
+
+</apex:composition>
+
+</apex:page>

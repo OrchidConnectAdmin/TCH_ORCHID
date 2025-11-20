@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Preferred_Email__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** The Preferred Email for the Contact is calculated by mapping the Preferred Email Type to it&#39;s corresponding field&#39;s value.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(OrderApi__Preferred_Email_Type__c,&quot;Personal&quot;) &amp;&amp; NOT(OrderApi__Personal_Email_Opt_Out__c), OrderApi__Personal_Email__c,
+IF(ISPICKVAL(OrderApi__Preferred_Email_Type__c,&quot;Work&quot;) &amp;&amp; NOT(OrderApi__Work_Email_Opt_Out__c), OrderApi__Work_Email__c,
+IF(ISPICKVAL(OrderApi__Preferred_Email_Type__c,&quot;Other&quot;) &amp;&amp; NOT(OrderApi__Other_Email_Opt_Out__c),OrderApi__Other_Email__c,
+IF(ISPICKVAL(OrderApi__Preferred_Email_Type__c,&quot;Assistant&quot;) &amp;&amp; NOT(OrderApi__Assistant_Email_Opt_Out__c),OrderApi__Assistant_Email__c, &#39;&#39;))))</formula>
+    <inlineHelpText>**System Calculated** The Preferred Email for the Contact is calculated by mapping the Preferred Email Type to it&#39;s corresponding field&#39;s value.</inlineHelpText>
+    <label>Preferred Email</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

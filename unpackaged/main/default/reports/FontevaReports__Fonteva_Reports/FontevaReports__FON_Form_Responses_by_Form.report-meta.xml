@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>PagesApi__Form_Response__c.PagesApi__Field_Responses__r$Name</field>
+    </columns>
+    <columns>
+        <field>PagesApi__Form_Response__c$PagesApi__Contact__c</field>
+    </columns>
+    <columns>
+        <field>PagesApi__Form_Response__c.PagesApi__Field_Responses__r$PagesApi__Field_Group__c</field>
+    </columns>
+    <columns>
+        <field>PagesApi__Form_Response__c.PagesApi__Field_Responses__r$PagesApi__Field__c</field>
+    </columns>
+    <columns>
+        <field>PagesApi__Form_Response__c.PagesApi__Field_Responses__r$PagesApi__Response__c</field>
+    </columns>
+    <description>DO NOT ALTER.  This report is attached to a custom link on the form record detail.  This report shows all form responses for a particular form.</description>
+    <filter>
+        <criteriaItems>
+            <column>PagesApi__Form_Response__c$PagesApi__Form__c.Id</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value></value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>PagesApi__Form_Response__c$PagesApi__Form__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>PagesApi__Form_Response__c$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FON - Form Responses by Form</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Form_Responses__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>PagesApi__Form_Response__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

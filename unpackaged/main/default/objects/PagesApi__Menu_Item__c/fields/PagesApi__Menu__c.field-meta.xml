@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Menu__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** Master-detail link to the parent Menu.</description>
+    <inlineHelpText>** Required ** Master-detail link to the parent Menu.</inlineHelpText>
+    <label>Menu</label>
+    <referenceTo>PagesApi__Menu__c</referenceTo>
+    <relationshipLabel>Menu Items</relationshipLabel>
+    <relationshipName>Menu_Items</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>true</writeRequiresMasterRead>
+</CustomField>

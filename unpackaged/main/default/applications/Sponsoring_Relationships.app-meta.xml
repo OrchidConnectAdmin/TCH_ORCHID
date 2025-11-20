@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Sponsoring Relationships</label>
+    <navType>Standard</navType>
+    <tabs>standard-Account</tabs>
+    <tabs>Additional_RT_Number__c</tabs>
+    <tabs>Billing_Contact__c</tabs>
+    <tabs>Sponsoring_Relationships__c</tabs>
+    <tabs>Item_Based_Upload_Information__c</tabs>
+    <tabs>Deposit_Based_Upload_Information__c</tabs>
+    <tabs>standard-Contact</tabs>
+    <tabs>Case__c</tabs>
+    <tabs>Opposing_Party__c</tabs>
+    <tabs>Client_Inquiry__c</tabs>
+    <tabs>SO_Bundle__c</tabs>
+    <tabs>OrderApi__Scheduled_Payment__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Sponsoring_Relationships_UtilityBar</utilityBar>
+</CustomApplication>

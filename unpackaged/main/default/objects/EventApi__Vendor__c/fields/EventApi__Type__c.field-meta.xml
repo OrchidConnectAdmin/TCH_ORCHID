@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** The Type of Vendor is used to categorize and plan for an Event&#39;s Budget.</description>
+    <inlineHelpText>** Required ** The Type of Vendor is used to categorize and plan for an Event&#39;s Budget.</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Airline</fullName>
+                <default>false</default>
+                <label>Airline</label>
+            </value>
+            <value>
+                <fullName>Car Rental Company</fullName>
+                <default>false</default>
+                <label>Car Rental Company</label>
+            </value>
+            <value>
+                <fullName>Catering Service Provider</fullName>
+                <default>false</default>
+                <label>Catering Service Provider</label>
+            </value>
+            <value>
+                <fullName>Equipment Rental Company</fullName>
+                <default>false</default>
+                <label>Equipment Rental Company</label>
+            </value>
+            <value>
+                <fullName>Event Planner</fullName>
+                <default>false</default>
+                <label>Event Planner</label>
+            </value>
+            <value>
+                <fullName>Hotel</fullName>
+                <default>false</default>
+                <label>Hotel</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Venue</fullName>
+                <default>false</default>
+                <label>Venue</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

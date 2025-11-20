@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Event_Category__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to the related event category. When linked, this venue will be included automatically in new events created within the same category.</description>
+    <inlineHelpText>Link to the related event category. When linked, this venue will be included automatically in new events created within the same category.</inlineHelpText>
+    <label>Event Category</label>
+    <referenceTo>EventApi__Event_Category__c</referenceTo>
+    <relationshipLabel>Venues (Template)</relationshipLabel>
+    <relationshipName>Venues</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

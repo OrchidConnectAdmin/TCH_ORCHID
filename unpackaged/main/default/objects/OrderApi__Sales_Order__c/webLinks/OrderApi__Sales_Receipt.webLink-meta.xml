@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Sales_Receipt</fullName>
+    <availability>online</availability>
+    <description>Valid for Sales Orders that post to Receipt only - log a check payment or process an epayment.</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Process Payment</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>alert(&#39;{!$Label.orderapi__Sales_Order_Process_Payment_Button_Error}&#39;);</url>
+</WebLink>

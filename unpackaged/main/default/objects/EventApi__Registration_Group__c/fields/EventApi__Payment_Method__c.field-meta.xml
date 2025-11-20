@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Payment_Method__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>A valid Payment Method may be linked to the Registration Group so that the Registration Group is automatically charged for all registration fees for group members the day after the &quot;Sales Closed Date&quot; on the Event.</description>
+    <inlineHelpText>A valid Payment Method may be linked to the Registration Group so that the Registration Group is automatically charged for all registration fees for group members the day after the &quot;Sales Closed Date&quot; on the Event.</inlineHelpText>
+    <label>Payment Method</label>
+    <referenceTo>OrderApi__Payment_Method__c</referenceTo>
+    <relationshipLabel>Registration Groups</relationshipLabel>
+    <relationshipName>Registration_Groups</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

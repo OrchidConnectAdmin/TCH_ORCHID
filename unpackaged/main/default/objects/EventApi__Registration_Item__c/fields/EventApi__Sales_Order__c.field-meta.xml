@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Sales_Order__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Links to the source sales order that created the registration item.</description>
+    <inlineHelpText>Links to the source sales order that created the registration item.</inlineHelpText>
+    <label>Sales Order (Source)</label>
+    <referenceTo>OrderApi__Sales_Order__c</referenceTo>
+    <relationshipLabel>Registration Items</relationshipLabel>
+    <relationshipName>Registration_Items</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Enable_Cookie_Prompt__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the Site will display a prompt asking the user to accept the use of cookies. If not accepted, the user will be redirected to an external site.</description>
+    <inlineHelpText>When checked, the Site will display a prompt asking the user to accept the use of cookies. If not accepted, the user will be redirected to an external site.</inlineHelpText>
+    <label>Enable Cookie Prompt</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

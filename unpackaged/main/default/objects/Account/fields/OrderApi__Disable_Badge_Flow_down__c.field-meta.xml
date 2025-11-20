@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Disable_Badge_Flow_down__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, this field disables any inheritance of flow-down badges from the parent account.</description>
+    <inlineHelpText>When checked, this field disables any inheritance of flow-down badges from the parent account.</inlineHelpText>
+    <label>Disable Badge Flow-down</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

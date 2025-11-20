@@ -1,0 +1,121 @@
+/* line 6, ../community_builder.scss */
+.aui#aui-layout {
+  /* FIX THIS */
+}
+/* line 8, ../community_builder.scss */
+.aui#aui-layout .action-links {
+  position: relative;
+  top: 3px;
+  float: right;
+  clear: none;
+  font-size: 12px;
+  color: #333;
+  font-weight: bold;
+}
+/* line 15, ../community_builder.scss */
+.aui#aui-layout .action-links a {
+  transition: opacity .45s ease-in-out;
+  color: #333;
+  opacity: 1;
+  text-decoration: none;
+}
+/* line 20, ../community_builder.scss */
+.aui#aui-layout .action-links a:hover, .aui#aui-layout .action-links a:focus {
+  opacity: .5;
+}
+/* line 26, ../community_builder.scss */
+.aui#aui-layout .panel-title-icon {
+  position: relative;
+  top: -3px;
+  margin-right: 10px;
+  height: 32px;
+  width: 32px;
+}
+/* line 34, ../community_builder.scss */
+.aui#aui-layout .panel.panel-dashboard > .panel-heading {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #EEEEEE;
+}
+/* line 37, ../community_builder.scss */
+.aui#aui-layout .panel.panel-dashboard > .panel-heading > .panel-title {
+  font-weight: bold;
+  text-transform: capitalize;
+  color: #333;
+}
+/* line 44, ../community_builder.scss */
+.aui#aui-layout .btn-group-xs > .btn, .aui#aui-layout .btn-xs {
+  line-height: 28px;
+}
+/* line 46, ../community_builder.scss */
+.aui#aui-layout .dashboard-table {
+  color: #555;
+  background-color: #fff;
+  height: 100%;
+}
+/* line 52, ../community_builder.scss */
+.aui#aui-layout .dashboard-table a {
+  color: #404040;
+}
+/* line 56, ../community_builder.scss */
+.aui#aui-layout .dashboard-table tbody > tr > td {
+  border: none;
+  padding: 15px 20px;
+}
+/* line 58, ../community_builder.scss */
+.aui#aui-layout .dashboard-table .dashboard-nav {
+  background-color: #FFFFFF;
+  color: #555;
+  width: 30%;
+  margin: 0;
+  vertical-align: top;
+  height: 100%;
+}
+/* line 61, ../community_builder.scss */
+.aui#aui-layout .dashboard-table .dashboard-nav .list-group {
+  border-radius: 0px;
+}
+/* line 63, ../community_builder.scss */
+.aui#aui-layout .dashboard-table .dashboard-nav .list-group .list-group-item {
+  border-radius: 0px;
+  border-width: 0px;
+}
+/* line 66, ../community_builder.scss */
+.aui#aui-layout .dashboard-table .dashboard-nav .list-group .list-group-item.active {
+  background-color: #EF9B27;
+}
+/* line 68, ../community_builder.scss */
+.aui#aui-layout .dashboard-table .dashboard-nav .list-group .list-group-item.active * {
+  color: #FFFFFF;
+}
+/* line 71, ../community_builder.scss */
+.aui#aui-layout .dashboard-table .dashboard-nav .list-group .list-group-item.active:after {
+  content: " \f138";
+  position: relative;
+  font-family: 'FontAwesome';
+  font-size: 24px;
+  top: -35px;
+  color: #FFFFFF;
+  float: right;
+}
+/* line 85, ../community_builder.scss */
+.aui#aui-layout .dashboard-table .dashboard-nav .list-group .list-group-item.active {
+  background-color: #EF9B27;
+}
+/* line 87, ../community_builder.scss */
+.aui#aui-layout .dashboard-table .dashboard-nav .list-group .list-group-item.active * {
+  color: #FFFFFF;
+}
+/* line 90, ../community_builder.scss */
+.aui#aui-layout .dashboard-table .dashboard-nav .list-group .list-group-item.active:after {
+  content: " \f138";
+  position: relative;
+  font-family: 'FontAwesome';
+  font-size: 24px;
+  top: -35px;
+  color: #FFFFFF;
+  float: right;
+}
+/* line 100, ../community_builder.scss */
+.aui#aui-layout .dashboard-table .dashboard-nav .dashboard-display {
+  width: 70%;
+}

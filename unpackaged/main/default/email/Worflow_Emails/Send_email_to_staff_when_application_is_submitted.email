@@ -1,0 +1,12 @@
+Hi ECCHO, 
+
+{!Application__c.Contact__c} from {!Application__c.Account__c} has submitted an application for NCP Session pre-approval. Please click on the link below to get to the record: 
+
+https://cha.lightning.force.com/lightning/r/Application__c/{!Application__c.Id}/view
+
+Thank you,
+ECCHO, a business line of The Clearing House Payments Company L.L.C.
+3710 Rawlins Street, Suite 1075
+Dallas, TX 75219
+214.273.3200
+ecchoinfo@thecleainghouse.org

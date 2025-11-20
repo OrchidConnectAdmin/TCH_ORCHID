@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OrderApi__Invoice__c$OrderApi__Invoice_Date__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Invoice__c$OrderApi__Payment_Terms__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Invoice__c$OrderApi__Due_Date__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__Invoice__c$OrderApi__Days_Overdue__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>OrderApi__Invoice__c$OrderApi__Total__c</field>
+    </columns>
+    <description>To report on all overdue invoices grouped by customer.</description>
+    <filter>
+        <criteriaItems>
+            <column>OrderApi__Invoice__c$OrderApi__Days_Overdue__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>0</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OrderApi__Invoice__c$OrderApi__Customer_Link__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FON - Overdue Invoice Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_Invoice_with_Invoice_Lines__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__Invoice__c$OrderApi__Invoice_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

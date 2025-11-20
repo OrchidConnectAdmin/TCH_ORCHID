@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PriceApi__Generate_Update_Price_Rules</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Generate/Update Price Rules</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/24.0/apex.js&quot;)} 
+
+alert(sforce.apex.execute(&quot;PriceApi.WebServiceBulkDataExecute&quot;, &quot;generateUpdatePriceRules&quot;,{bulkPriceRuleId:&quot;{!PriceApi__Bulk_Price_Rule__c.Id}&quot;}));</url>
+</WebLink>

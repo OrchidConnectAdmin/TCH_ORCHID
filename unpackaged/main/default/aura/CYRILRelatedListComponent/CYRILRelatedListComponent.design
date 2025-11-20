@@ -1,0 +1,56 @@
+<design:component label="CYRIL: Data List Component">
+    <design:attribute name="cTitle" label="Title"/>
+    <design:attribute name="cID" label="Record ID" placeholder="Ex. {!recordId},{!id},aXXXXXXXXXXXXXXX,[user:ContactId],[url:/:last]" description="Ex. {!recordId},{!id},aXXXXXXXXXXXXXXX,[user:ContactId],[url:/:last]"/>
+    <design:attribute name="cObj" label="Related Object"/>
+    <design:attribute name="cFields" label="Fields" placeholder="Id,Name"/>
+    <design:attribute name="cSoql" label="Additional SOQL Filters" />
+    <design:attribute name="cDistinct" label="Distinct Records Only"/>
+    <design:attribute name="cDistinctField" label="Distinct Field Reference"/>
+    <design:attribute name="cMField" label="Reference Field of current record" placeholder="OwnerId"/>
+    <design:attribute name="cEncoded" label="Record ID is Encoded/Encrypted"/>
+
+    <design:attribute name="cAllowView" label="Enable View Button"/>
+    
+    <design:attribute name="cBtnLabel" label="Button Label" placeholder="View"/>
+    <design:attribute name="cBtnPath" label="Button Path" placeholder="Ex. /s/details/, /s/form?id="/>
+    <design:attribute name="cAppendID" label="Append ID to Path"/>
+    <design:attribute name="cFieldPass" label="Field to pass to the Button Path" placeholder="Ex. Id,OwnerId..."/>
+    <design:attribute name="cEncloseID" label="Enclose ID with quotes"/>
+    
+    <design:attribute name="cIcon" label="Icon" placeholder="Ex. standard:contact_list"/>
+    
+    <design:attribute name="cDType" label="Display Type" datasource="Table,Accordion" default="Table" />
+    <design:attribute name="cBare" label="Remove Card Wrapper" description="Display table only."/>
+    <design:attribute name="cGroupRowColumn" label="Column Number to Group Rows" placeholder="Ex. 1 or any number - starts with 0" description="Provide a Column number if the rows are to be grouped."/>
+    <design:attribute name="cGroupRowCount" label="Display Group row count" description="Applies only on Grouped Table"/>
+    <design:attribute name="cDisableGroupHeader" label="Disable Group Header" description="Hide table column label / header."/>
+    <design:attribute name="cDisableShowItems" label="Disable Show Items Option" description="Applies only on Table"/>
+    <design:attribute name="cDisableSearch" label="Disable Table Search function" description="Applies only on Table"/>
+    <design:attribute name="cDisablePagination" label="Disable Pagination/Show All Items" description="Applies only on Table"/>
+    <design:attribute name="cNumItems" label="Number of items per page" placeholder="50" description="Applies only on Table"/>
+    <design:attribute name="cEnableHScroll" label="Enable Horizontal Scroll" description="Applies only on Table"/>
+    
+    <design:attribute name="cRowsOnly" label="Display table rows only" description="Applies only on Table"/>
+    
+	<design:attribute name="cCalCol" label="Calculate Column" placeholder="any whole number or the column index:" description="The column number to calculate. For example, if column 2 rows are to be calculated, input '2' on this field."/>
+    <design:attribute name="cCalMethod" label="Calculation Method" datasource="Sum,Average"/>
+    <design:attribute name="cCalLabel" label="Label for calculation output"/>
+    
+    <design:attribute name="cAccess" label="Enable Restricted Access"/>
+    <design:attribute name="cUserMatchingField" label="Current Record User Reference Field"/>
+    <design:attribute name="cUseContactId" label="User Current User's Contact ID"/>
+    
+    <design:attribute name="cExportCSV" label="Enable Export Data To CSV"/>
+    <design:attribute name="cHideList" label="Hide List if no result"/>
+    <design:attribute name="cEnableDataSearch" label="Enable Data Search" description="Use [search] in Additional SOQL Filters as merge tag."/>
+    <design:attribute name="cSearchStringSource" label="Search String Source" placeholder="Ex. ?search=XXX URL Param: {!search}"/>
+    
+    <design:attribute name="cShowResultCount" label="Show Result Count"/>
+    <design:attribute name="cResultCountContainer" label="Element to show the counter" placeholder="Ex. #div-name, .div-name"/>
+    
+    <design:attribute name="rSoql" label="Display Requirement (Soql)" />
+    
+    <design:attribute name="cUID" label="Unique ID" description="ID for this component. Alphanumeric, - or _"/>
+    <design:attribute name="cParentContainer" label="Parent Container" placeholder="Ex. #div-name, .div-name"/>
+	
+</design:component>

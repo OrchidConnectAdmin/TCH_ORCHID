@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_AfM</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Primary_R_T_Number__c</columns>
+    <columns>TCH_Membership_Type__c</columns>
+    <columns>ACCOUNT.ADDRESS1_STATE</columns>
+    <columns>ACCOUNT.CREATED_DATE</columns>
+    <columns>Sponsored_Organization_Count__c</columns>
+    <columns>Is_Sponsoring_Organization__c</columns>
+    <columns>Is_Licensing_Organization__c</columns>
+    <columns>FON_Annual_Dues__c</columns>
+    <columns>FON_Fixed_Rate__c</columns>
+    <columns>FON_Fixed_Rate_Parts_per_Million__c</columns>
+    <columns>FON_Fixed_Annual_Dues_PPM_Calculation__c</columns>
+    <columns>Fixed_Dues_Calculation__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>TCH_Membership_Type__c</field>
+        <operation>equals</operation>
+        <value>Affiliate Member</value>
+    </filters>
+    <label>Active AfM</label>
+</ListView>

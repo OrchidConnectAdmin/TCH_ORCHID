@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Icon__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** Badge Image Icon -- displayed in most Contact Badge list views.</description>
+    <externalId>false</externalId>
+    <formula>IMAGE(IF(ISBLANK(OrderApi__Icon_Location__c),&#39;https://s3.us-east-1.amazonaws.com/fonteva-customer-media/00D1U000000FLVyUAO/WcRwRzNr_placeholder_svg&#39;,OrderApi__Image_Location__c), Name,12,12)</formula>
+    <inlineHelpText>** System Calculated ** Badge Image Icon -- displayed in most Contact Badge list views.</inlineHelpText>
+    <label>Icon</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,45 @@
+<apex:page standardController="Contact" recordSetVar="Contact" extensions="SendEmailContact" action="{!updateContactRecords}">
+    
+    
+    <apex:slds />
+    <div class="slds-scope">
+        <apex:form id="form" >
+            <apex:outputpanel rendered="{!displaySpinner}" >
+                <!-- SPINNER -->
+                <div id="spinner" class="slds-spinner " >
+                    <div role="status" class="slds-spinner slds-spinner--large slds-spinner--brand">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+                <!-- / SPINNER -->
+            </apex:outputpanel>
+            
+            <apex:outputpanel rendered="{!!displaySpinner}" >
+                <div align="Center" style="padding-right:3%;padding-left:3%;">
+                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+                        <span class="slds-assistive-text">warning</span>
+                        <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small" title="Description of icon when needed">
+                           
+                        </span>
+                        <p ><b> The Process is Completed.</b></p><br/>
+                        
+                        <div class="slds-notify__close">
+                           
+                        </div>
+                    </div>
+                    <br/><br/>
+                    
+                    <apex:commandButton styleClass="slds-button slds-button_brand" 
+                                        action="{!redirect}" value="Go Back" id="theButton"/>
+                    
+                       
+                   <!-- <button class="slds-button slds-button_brand" onclick="{!redirect}">Go Back</button>-->
+                </div>
+                
+            </apex:outputpanel>
+        </apex:form>
+    </div>
+    
+    
+</apex:page>

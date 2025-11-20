@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Drag and drop interface for creating dynamic forms connected directly to your Salesforce.com database.</description>
+    <label>form_builder</label>
+    <packageVersions>
+        <majorNumber>124</majorNumber>
+        <minorNumber>4</minorNumber>
+        <namespace>Framework</namespace>
+    </packageVersions>
+</ApexPage>

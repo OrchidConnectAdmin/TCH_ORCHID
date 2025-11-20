@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Disable_Attendee_Assignment__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>By checking this field, the user will bypass the need to insert attendee names. This means all attendee records will have the name of the purchaser.</description>
+    <inlineHelpText>By checking this field, the user will bypass the need to insert attendee names. This means all attendee records will have the name of the purchaser.</inlineHelpText>
+    <label>Disable Attendee Assignment</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

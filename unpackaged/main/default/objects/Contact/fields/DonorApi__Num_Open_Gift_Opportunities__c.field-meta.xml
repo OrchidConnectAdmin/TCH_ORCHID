@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Num_Open_Gift_Opportunities__c</fullName>
+    <defaultValue>0</defaultValue>
+    <deprecated>false</deprecated>
+    <description>**System Calculated Field** Calculates the total number of open gift opportunities related to the contact.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>**System Calculated Field** Calculates the total number of open gift opportunities related to the contact.</inlineHelpText>
+    <label>Num Open Gift Opportunities</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

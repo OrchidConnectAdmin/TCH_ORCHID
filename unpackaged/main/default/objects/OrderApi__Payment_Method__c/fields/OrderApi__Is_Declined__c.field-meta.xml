@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Declined__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Checked when the last transaction for the Payment Method was declined by your Payment Gateway. Default unchecked.</description>
+    <inlineHelpText>Checked when the last transaction for the Payment Method was declined by your Payment Gateway. Default unchecked.</inlineHelpText>
+    <label>Is Declined</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

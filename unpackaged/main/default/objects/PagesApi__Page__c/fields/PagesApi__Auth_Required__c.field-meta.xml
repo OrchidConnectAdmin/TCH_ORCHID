@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Auth_Required__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked the Page will require a User to be authenticated either through the Customer Portal, Partner Portal, or Community. Defaults unchecked.</description>
+    <inlineHelpText>When checked the Page will require a User to be authenticated either through the Customer Portal, Partner Portal, or Community. Defaults unchecked.</inlineHelpText>
+    <label>Auth Required</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

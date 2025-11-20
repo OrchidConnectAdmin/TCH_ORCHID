@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProgramApi__All</fullName>
+    <columns>NAME</columns>
+    <columns>ProgramApi__Profile__c</columns>
+    <columns>Contact__c</columns>
+    <columns>ProgramApi__Start_Date__c</columns>
+    <columns>ProgramApi__End_Date__c</columns>
+    <columns>ProgramApi__Active__c</columns>
+    <columns>ProgramApi__Is_Maintenance__c</columns>
+    <columns>FON_Credits_Acquired__c</columns>
+    <columns>Total_Credits__c</columns>
+    <columns>FON_Total_Credits_after_Auditing__c</columns>
+    <columns>FON_Workshops_Attended__c</columns>
+    <columns>FON_Workshops_Attended2__c</columns>
+    <columns>Workshops_Approved__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ProgramApi__Active__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>ProgramApi__End_Date__c</field>
+        <operation>lessThan</operation>
+        <value>1/1/2023</value>
+    </filters>
+    <filters>
+        <field>ProgramApi__Start_Date__c</field>
+        <operation>greaterThan</operation>
+        <value>12/31/2021</value>
+    </filters>
+    <label>All</label>
+</ListView>

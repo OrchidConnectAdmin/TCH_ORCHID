@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__All</fullName>
+    <columns>NAME</columns>
+    <columns>PagesApi__Description__c</columns>
+    <columns>PagesApi__Display_Style__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Form_URL__c</columns>
+    <columns>PagesApi__Submit_Style__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>notContain</operation>
+        <value>FON</value>
+    </filters>
+    <label>All</label>
+</ListView>

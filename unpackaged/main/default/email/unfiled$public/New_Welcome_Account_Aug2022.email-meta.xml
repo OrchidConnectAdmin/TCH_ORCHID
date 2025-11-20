@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Classic_TCH_Letterhead</letterhead>
+    <name>New Welcome Account Aug2022</name>
+    <style>formalLetter</style>
+    <subject>Welcome New ECCHO Member</subject>
+    <textOnly>Dear {!Account.OrderApi__Primary_Contact__c}, {!Account.Name}:
+
+Welcome to ECCHO! We are pleased that you have chosen to over 2,500 ECCHO members who use the ECCHO Rules to govern their image exchange and gain information and support for check payments processing. Please feel free to circulate this letter throughout your check operations to communicate the ECCHO benefits which are now available to your organization.
+
+Our Strategic Priorities
+
+ECCHO provides:
+
+ECCHO Rules for private sector electronic check exchanges
+Advocacy for the check industry including helping members understand proposed regulatory changes and providing comments on proposals for regulatory amendments
+Check Education on All Things Check, What Do I Do When? and a library of check related education and resources, and National Check Certification (NCP) program is a nationally recognized accreditation for check professionals who successfully pass the exam enabling them to have proven knowledge on check rules &amp; regulations, check operations, check products, fraud and risk mitigation.
+
+Special ECCHO-Only Rules:
+
+Rule 9 warranty for forged/counterfeit items – subject to conditions &amp; ability to opt out
+Rule 8 – ability to use return system to process unauthorized RCC warranty claims
+Ability to send electronic checks with as-read/partial MICR by agreement
+ECCHO only adjustments:
+
+Return adjustment
+
+
+
+Next Steps/Action Items:
+
+ECCHO Exceptions Contact Directory:
+
+A benefit of your ECCHO Membership is access to the Exceptions Contact Directory, a listing of ECCHO member contacts for warranty claims. There is no additional cost for this benefit, as it is provided in the “give to get” model. By providing the following information, you will have access to other ECCHO members who also participate through providing their exception contacts. Thank you for your participation!
+
+
+
+Phone Number
+
+Fax Number
+
+Email Address (can be a distribution list email)
+
+Hours of Operation
+
+Time Zone
+Presentment location for Rule 9 claims (forged maker and counterfeit) for your institution
+
+
+
+
+Additional ECCHO Online Users:
+
+As the primary contact for your organization, you have automatically been granted access to ECCHO Online, in addition to your colleagues listed on the membership agreement (if any). Should additional users require access, please forward this link to them: https://cha.my.site.com/LightningMemberPortal/s/form?id=a0S6g0000035Z8d
+
+
+
+
+ECCHO Resources:
+(look for your ECCHO Online account welcome email to access some of these items)
+
+ECCHO Rules and Adjustment Matrix
+ECCHOEd – Free Recorded Training for Members
+ECCHO Member Look-up
+Rule 9 Member Opt Out List
+Rule 9 briefing and whitepaper
+Return Code Handbook
+Sample Altered Item/Indorsement Issue Claim Letter
+Sample RDC Indemnity Claim Letter
+Valuable exceptions information
+FAQs on ECCHO Rules &amp; Checks
+CheckImage Central ECCHO and Federal Reserve check information on one website
+
+
+Key ECCHO Contacts:
+
+Check Education and Support
+ecchoinfo@theclearinghouse.org
+214-273-3200
+
+Membership Billing &amp; Events
+Stephanie Porter
+214.273.3210
+stephanie.porter@theclearinghouse.org
+
+ECCHO Online Account Access &amp; General Questions
+Nicole Hanlin
+214.273.3218
+nicole.hanlin@theclearinghouse.org
+
+NCP Program
+Jackie Pagán
+332.213.6731
+jackie.pagan@theclearinghouse.org</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

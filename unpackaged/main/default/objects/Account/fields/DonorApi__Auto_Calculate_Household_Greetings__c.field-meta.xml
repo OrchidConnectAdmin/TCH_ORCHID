@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Auto_Calculate_Household_Greetings__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If flagged as true the account will automatically update the household greetings based on DonorNation&#39;s default household greeting format.</description>
+    <inlineHelpText>If flagged as true the account will automatically update the household greetings based on DonorNation&#39;s default household greeting format.</inlineHelpText>
+    <label>Auto Calculate Household Greetings</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

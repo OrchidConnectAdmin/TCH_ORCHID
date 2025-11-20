@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required/Do Not Modify Picklist Values** &quot;Cash Receipt&quot; receipts are used to record inbound cash such as customer payments. &quot;Cash Payment&quot; receipts are used to record outbound cash such as refunds.</description>
+    <inlineHelpText>**Required/Do Not Modify Picklist Values** &quot;Cash Receipt&quot; receipts are used to record inbound cash such as customer payments. &quot;Cash Payment&quot; receipts are used to record outbound cash such as refunds.</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Payment</fullName>
+                <default>true</default>
+                <label>Payment</label>
+            </value>
+            <value>
+                <fullName>Refund</fullName>
+                <default>false</default>
+                <label>Refund</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

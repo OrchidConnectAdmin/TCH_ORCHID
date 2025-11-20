@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Term_Assignments_Allowed__c</fullName>
+    <deprecated>false</deprecated>
+    <description>System Calculated ** The number of Assignments allowed for the term.</description>
+    <inlineHelpText>System Calculated ** The number of Assignments allowed for the term.</inlineHelpText>
+    <label>Term Assignments Allowed</label>
+    <summarizedField>OrderApi__Renewal__c.OrderApi__Assignments_Allowed__c</summarizedField>
+    <summaryFilterItems>
+        <field>OrderApi__Renewal__c.OrderApi__Is_Active__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryForeignKey>OrderApi__Renewal__c.OrderApi__Subscription__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Memo__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Customer-facing memo for the receipt.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Customer-facing memo for the receipt.</inlineHelpText>
+    <label>Memo</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

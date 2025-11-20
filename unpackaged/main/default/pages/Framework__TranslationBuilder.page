@@ -1,0 +1,42 @@
+<apex:page id="TranslationBuilder"
+    controller="Framework.TranslationBuilderController"
+    sideBar="false"
+    showHeader="false"
+    standardStylesheets="false"
+>
+    <apex:includeLightning />
+    <style>
+        body {
+            margin: 0;
+            background-image: linear-gradient(#2a426c, #ffffff 200%);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+        }
+        .slds-dueling-list__column.slds-dueling-list__column_responsive {
+            flex: 1;
+        }
+        [data-name='contentFrame'] > c-pfm-tile > div.pfm-tile {
+            height: calc(100vh - 82px - 3rem);
+        }
+        [data-name='headerFrame'] > c-pfm-tile > div.pfm-tile {
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+
+        [lightning-duallistbox_duallistbox].slds-required {
+            display: none;
+        }
+    </style>
+
+    <div id="mainContainer" />
+
+    <script>
+        $Lightning.use('{!Namespace}:TranslationBuilderApp', function () {
+            $Lightning.createComponent('{!Namespace}:TranslationBuilderWrapper', {}, 'mainContainer', function (
+                cmp
+            ) {});
+        });
+    </script>
+</apex:page>

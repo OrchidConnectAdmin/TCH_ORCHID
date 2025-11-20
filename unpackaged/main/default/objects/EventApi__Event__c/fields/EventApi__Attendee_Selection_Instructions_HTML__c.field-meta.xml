@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Attendee_Selection_Instructions_HTML__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The text that at the top of the &quot;Attendee Selection&quot; page during registration.</description>
+    <inlineHelpText>The text that appears at the top of the &quot;Attendee Selection&quot; page during registration.</inlineHelpText>
+    <label>Attendee Selection Instructions</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

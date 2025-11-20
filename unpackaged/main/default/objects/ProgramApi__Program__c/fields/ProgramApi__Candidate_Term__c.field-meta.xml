@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProgramApi__Candidate_Term__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Identifies the number of months that a candidate has to complete goals</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Identifies the number of months that a candidate has to complete goals</inlineHelpText>
+    <label>Candidate Term</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

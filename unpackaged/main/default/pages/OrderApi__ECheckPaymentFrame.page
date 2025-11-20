@@ -1,0 +1,158 @@
+<apex:page id="ECheckPaymentFrame" controller="OrderApi.EPaymentController" showHeader="false" showChat="false" sidebar="false">
+	<!-- bank_account[form] -->
+	<form accept-charset="UTF-8"
+				action="https://core.spreedly.com/v1/payment_methods"
+				method="POST" id="bank_account_form" name="bank_account_form"
+				class="form-horizontal">
+
+		<input id="echeck_payment_redirect_url"
+					 name="redirect_url"
+					 type="hidden"/>
+
+		<input name="environment_key"
+					 type="hidden"
+					 value="{!JSENCODE($CurrentPage.parameters.environmentKey)}"/>
+
+		<input name="utf8"
+					 type="hidden"
+					 value="true"/>
+
+		<input name="payment_method_type" type="hidden" value="bank_account" />
+
+		<!-- bank_account[full_name] -->
+		<div class="form-group string">
+			<label class="col-sm-12" for="full_name">
+      {!$Label.Account_Holder_Name} <span class="text-danger">&#42;</span>
+			</label>
+			<div class="col-sm-12">
+				<input id="full_name"
+							 placeholder="{!$Label.Account_Holder_Name}"
+							 minlength="5" name="full_name" type="text"
+							 required="true" class="form-control string"/>
+			</div>
+		</div>
+
+		<!-- bank_account[bank_name] -->
+		<div class="form-group string">
+			<label class="col-sm-12" for="bank_name">
+      {!$ObjectType.Epayment__c.Fields.Bank_Name__c.Label} <span class="text-danger">&#42;</span>
+			</label>
+			<div class="col-sm-12">
+				<input id="bank_name"
+							 placeholder="{!$ObjectType.Epayment__c.Fields.Bank_Name__c.Label}"
+							 minlength="5" name="bank_name" type="text"
+							 required="true" class="form-control string" autocomplete="off"/>
+			</div>
+		</div>
+
+		<!-- bank_account[bank_routing_number] -->
+		<div class="form-group string">
+			<label class="col-sm-12" for="bank_routing_number">
+      {!$ObjectType.Epayment__c.Fields.Bank_Routing_Number__c.Label} <span class="text-danger">&#42;</span>
+			</label>
+			<div class="col-sm-12">
+				<input id="bank_routing_number"
+							 placeholder="{!$ObjectType.Epayment__c.Fields.Bank_Routing_Number__c.Label}"
+							 minlength="5" name="bank_routing_number" type="tel"
+							 required="true" class="form-control string" autocomplete="off"/>
+			</div>
+		</div>
+
+		<!-- bank_account[bank_account_number] -->
+		<div class="form-group string">
+			<label class="col-sm-12" for="bank_account_number">
+      {!$ObjectType.Epayment__c.Fields.Bank_Account_Number__c.Label} <span class="text-danger">&#42;</span>
+			</label>
+			<div class="col-sm-12">
+				<input id="bank_account_number"
+							 placeholder="{!$ObjectType.Epayment__c.Fields.Bank_Account_Number__c.Label}"
+							 minlength="5" name="bank_account_number" type="tel"
+							 required="true" class="form-control string" autocomplete="off"/>
+			</div>
+		</div>
+
+		<!-- bank_account[bank_account_type] -->
+		<div class="form-group">
+			<label class="col-sm-12" for="bank_account_type">
+      {!$ObjectType.Epayment__c.Fields.Bank_Account_Type__c.Label} <span class="text-danger">&#42;</span>
+			</label>
+			<div class="col-sm-12">
+				<select id="bank_account_type" name="bank_account_type" class="selectize form-control">
+					<option name="checking">{!$Label.Checking}</option>
+					<option name="savings">{!$Label.Savings}</option>
+				</select>
+			</div>
+		</div>
+
+		<!-- bank_account[account_holder_type] -->
+		<div class="form-group">
+			<label class="col-sm-12" for="bank_account_holder_type">
+      {!$ObjectType.Epayment__c.Fields.Bank_Account_Holder_Type__c.Label} <span class="text-danger">&#42;</span>
+			</label>
+			<div class="col-sm-12">
+				<select id="bank_account_holder_type" name="bank_account_holder_type" class="selectize form-control">
+					<option name="personal">{!$Label.Personal}</option>
+					<option name="business">{!$Label.Business}</option>
+				</select>
+			</div>
+		</div>
+	</form> <!-- /form -->
+    <script type="text/javascript">
+	    if ('{!JSENCODE($CurrentPage.parameters.is_success)}') {
+			var dataObj = {identifier : '{!JSENCODE($CurrentPage.parameters.identifier)}', eventType : 'completedPayment', receipt : '{!JSENCODE($CurrentPage.parameters.receipt)}'};
+			parent.window.postMessage(dataObj, window.location.origin);
+		}
+		else if ('{!JSENCODE($CurrentPage.parameters.message)}') {
+		  var dataObj = {identifier : '{!JSENCODE($CurrentPage.parameters.identifier)}', eventType : 'errors', error : '{!JSENCODE($CurrentPage.parameters.message)}'};
+		  parent.window.postMessage(dataObj, window.location.origin);
+		}
+		else if ('{!JSENCODE($CurrentPage.parameters.error)}') {
+			var dataObj = {identifier : '{!JSENCODE($CurrentPage.parameters.identifier)}', eventType : 'errors', error : '{!JSENCODE($CurrentPage.parameters.error)}'};
+			parent.window.postMessage(dataObj, window.location.origin);
+		}
+        function setRedirectUrl(dataObj) {
+		    var url = '{!URLFOR($Page.epayment_post)}';
+		    if ('{!JSENCODE($CurrentPage.parameters.useNewPaymentEngine)}' === 'true') {
+		        url = url.replace(new RegExp('{!Namespace}', 'gi'),'FDService'); // @todo do we need this?
+				}
+            var redirectURL = '{!baseURL}'+url+'?gateway_token='+dataObj.gatewayToken+'&redirect_url={!URLENCODE($currentpage.URL)}&postback_url={!URLENCODE($currentpage.URL)}&retain_on_success='+dataObj.savePaymentMethod;
+				if (dataObj.salesOrderId) {
+					redirectURL += '&sales_order='+dataObj.salesOrderId;
+				}
+				else if (dataObj.epaymentId) {
+					redirectURL += '&epayment='+dataObj.epaymentId;
+				}
+				if (dataObj.verifyAndSave) {
+					redirectURL += '&transaction_type=PayMethodVerify&customerId='+dataObj.contactId;
+				}
+				if (dataObj.depositAccount) {
+					redirectURL += '&deposit_Account='+dataObj.depositAccount;
+				}
+            document.getElementById('echeck_payment_redirect_url').value = redirectURL;
+        }
+        function updateFormAndSubmit(dataObj) {
+             document.getElementById('full_name').value = dataObj.fullName;
+             document.getElementById('bank_name').value = dataObj.bankName;
+             document.getElementById('bank_routing_number').value = dataObj.bankRoutingNumber;
+             document.getElementById('bank_account_number').value = dataObj.bankAccountNumber;
+             document.getElementById('bank_account_type').value = dataObj.bankAccountType;
+             document.getElementById('bank_account_holder_type').value = dataObj.bankAccountHolderType;
+             document.getElementById('bank_account_form').submit();
+        }
+        function receiveMessage(event)
+        {
+            if (event.data.identifier === '{!JSENCODE($CurrentPage.parameters.identifier)}') {
+                if (event.data.eventType === 'initialize') {
+                    setRedirectUrl(event.data);
+                }
+                else if(event.data.eventType === 'updateRedirectUrl') {
+                  setRedirectUrl(event.data);
+                }
+                else if (event.data.eventType === 'pay') {
+                  updateFormAndSubmit(event.data);
+                }
+            }
+        }
+        window.addEventListener("message", receiveMessage, false);
+    </script>
+</apex:page>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Hero_Button_Text_Color__c</fullName>
+    <defaultValue>&quot;#FFFFFF&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Text color of the related event&#39;s banner button. Valid hexadecimal notation required.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Text color of the related event&#39;s banner button. Valid hexadecimal notation required.</inlineHelpText>
+    <label>Hero Button Text Color</label>
+    <length>10</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

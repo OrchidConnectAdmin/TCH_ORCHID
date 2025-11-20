@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Vendor_Number__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <deprecated>false</deprecated>
+    <description>** Unique Case Insensitive ** Enter a code for the vendor for batch expense entry.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>** Unique Case Insensitive ** Enter a code for the vendor for batch expense entry.</inlineHelpText>
+    <label>Vendor Number</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

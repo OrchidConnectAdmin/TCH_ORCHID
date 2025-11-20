@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Apex_Class__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Defines the class to be executing during certain actions in event lifecycle.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Defines the class to be executing during certain actions in event lifecycle.</inlineHelpText>
+    <label>Apex Class</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

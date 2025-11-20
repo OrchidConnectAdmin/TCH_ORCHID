@@ -1,0 +1,7 @@
+Dear {!OrderApi__Subscription__c.OrderApi__Contact__c},
+
+Thank you for renewing {!OrderApi__Subscription__c.OrderApi__Item__c} .Your subscription will expire on {!OrderApi__Subscription__c.OrderApi__Current_Term_End_Date__c}.
+
+If you have any questions about your subscription or benefits, please contact us.
+
+{!Organization.Name}

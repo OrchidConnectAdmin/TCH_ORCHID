@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Amount__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** Sum of the &quot;Total&quot; field of related Payment Activity Lines.</description>
+    <inlineHelpText>**System Calculated** Sum of the &quot;Total&quot; field of related Payment Activity Lines.</inlineHelpText>
+    <label>Amount</label>
+    <summarizedField>OrderApi__EPayment_Line__c.OrderApi__Total__c</summarizedField>
+    <summaryForeignKey>OrderApi__EPayment_Line__c.OrderApi__EPayment__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

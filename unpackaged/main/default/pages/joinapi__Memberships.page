@@ -1,0 +1,719 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           controller="joinapi.JoinProcessMembershipsController"
+           action="{!createSalesOrder}">
+
+  <apex:composition template="joinapi__template">
+    <apex:define name="jpTitle">
+      {!step.joinapi__Page_Title__c}
+    </apex:define>
+    <apex:define name="jpStyles">
+      <style>
+      .itemDescription{
+        margin-top: 7px;
+      }
+      .bottom_buttons{
+        margin: auto;
+        width: 30%;
+      }
+      .cancelButton{
+        width:10%
+        float:left;
+      }
+      .subscriptionPlanSelect{
+        height:39px;
+        margin-top:5px;
+      }
+      .listPrice{
+          text-decoration:line-through;
+      }
+      </style>
+    </apex:define>
+    <apex:define name="jpMain">
+      <c:InvalidPermissionHeader enabledProcess="{!hasPermission}" />
+      <apex:outputPanel styleClass="noItemsPanel">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 p-t-40 p-b-40">
+              <div class="well">
+                <div class="text-center">
+                  <h2>{!$Label.No_Results_Found}</h2>
+                  <h2 class="m-20">{!$Label.Thank_You_For_Applying}</h2>
+                  <span class="command-buttons">
+                  <a href="{!step.Join_Process__r.Landing_Url__c}" class="btn btn-primary ladda-button btn-wrap" data-style="zoom-in">
+                      <span class="ladda-label">
+                        {!$Label.Back}
+                      </span>
+                  </a>
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:outputPanel>
+      <div id="errorPanel" class="hide">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 p-t-40 p-b-40">
+              <div class="well">
+                <div class="text-center">
+                  <h1>{!$Label.Error}</h1>
+                  <h1>{!$Label.Error_Title}</h1>
+                  <h2><i class="btr bt-times"></i></h2>
+                  <p class="errorMessage m-t-20"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- end: #errorPanel -->
+      <apex:outputPanel rendered="{!hasPermission}" styleClass="itemsPanel">
+        <div class="in eligibleItemsDiv">
+          <div class="container m-t-30">
+            <div class="well col-md-12">
+              <div class="row">
+                <div class="col-sm-12">
+                  <Framework:messages />
+                  <h1>{!step.joinapi__Page_Title__c}</h1>
+                  <hr class="m-b-15" />
+                </div>
+              </div>
+              <div class="row {!IF(step.Instructions__c != null,'m-b-40','')}">
+                <div class="col-md-12">
+                  <apex:outputField value="{!step.joinapi__Instructions__c}"/>
+                </div>
+              </div>
+              <apex:repeat value="{!itemWrappers}" var="key">
+                <div id="item_{!itemWrappers[key].item.Id}" data-subscription="{!itemWrappers[key].item.OrderApi__Is_Subscription__c}"> <!-- Attributes are important -->
+                  <div class="row m-t-15 eligibleItems">
+                    <div class="col-sm-12 m-b-10">
+                      <apex:outputPanel rendered="{!NOT(ISNULL(itemWrappers[key].item.OrderApi__Image_Path__c))}">
+                        <div class="col-md-3">
+                          <apex:image value="{!itemWrappers[key].item.OrderApi__Image_Path__c}" styleClass="img-responsive"/>
+                        </div>
+                      </apex:outputPanel>
+                      <div class="col-md-4">
+                        <h2><strong>{!itemWrappers[key].item.OrderApi__Display_Name__c}</strong></h2>
+                        <h3 class="text-primary">
+                            <span class="text-gray-lighter hide">
+                              <span class="priceRulePrice{!itemWrappers[key].item.Id} listPrice" data-price="{!itemWrappers[key].item.OrderApi__Price__c}" data-currency="{!itemWrappers[key].currencyIsoCode}"/>&nbsp;
+                            </span>
+                          <span class="itemPrice" id="itemPrice{!itemWrappers[key].item.Id}" data-price="{!itemWrappers[key].item.OrderApi__Price__c}" data-itemid="{!itemWrappers[key].item.Id}" data-currency="{!itemWrappers[key].currencyIsoCode}"/>
+                        </h3>
+                        <div class="itemDescription">
+                          <apex:outputField value="{!itemWrappers[key].item.OrderApi__Description__c}"/>
+                        </div>
+                      </div>
+                      <apex:outputPanel rendered="{!itemWrappers[key].item.OrderApi__Is_Subscription__c}">
+                        <div class="col-md-4">
+                          <apex:form >
+                            <apex:outputLabel for="selectSubscriptionPlan">{!$Label.joinapi__Subscription_Plan}</apex:outputLabel>
+                            <apex:selectList styleClass="form-control subscriptionPlanSelect" size="1" html-data-item="{!itemWrappers[key].item.Id}" html-data-itemclass="{!itemWrappers[key].item.OrderApi__Item_Class__c}">
+                              <apex:selectOptions value="{!itemSubscriptionSelectOptions[itemWrappers[key].item.Id]}" />
+                            </apex:selectList>
+                            <div class="m-t-10 loadingDIV{!itemWrappers[key].item.Id}" style="display:none;">
+                              <apex:outputPanel >
+                                <apex:outputLabel styleClass="text-primary" value="{!$Label.joinapi__Please_Wait_Updating_Total_Price}"/>
+                              </apex:outputPanel>
+                            </div>
+                            <div class="m-t-10">
+                              <span class="subPlanDescription{!itemWrappers[key].item.Id}"/>
+                            </div>
+                            <div class="row m-t-20" id="autoRenewEnabledPlan_{!itemWrappers[key].item.Id}">
+                              <div class="col-xs-12 p-0">
+                                <div class="col-xs-1 p-r-0">
+                                  <span><input type="checkbox" id="renewal__{!itemWrappers[key].item.Id}" data-itemid="{!itemWrappers[key].item.Id}" class="itmRenewals"/></span>
+                                </div>
+                                <div class="col-xs-11 p-l-5">
+                                  <strong>{!$Label.Would_You_Like_To_Subscribe_For_Auto_Renewal}</strong>
+                                </div>
+                              </div>
+                            </div>
+                          </apex:form>
+                        </div>
+                      </apex:outputPanel>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <apex:outputPanel rendered="{!itemWrappers[key].item.OrderApi__Package_Items__r.size > 0}">
+                        <div class="row m-b-15 m-t-15">
+                          <div class="col-sm-12">
+                            <h4>
+                              <strong><span class="col-sm-12">{!$Label.joinapi__Required_Package_Item_Text}</span></strong>
+                            </h4>
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <apex:repeat value="{!itemWrappers[key].item.OrderApi__Package_Items__r}" var="index">
+                        <apex:outputPanel rendered="{!itemWrappers[key].item.Id = index.OrderApi__Package__c}">
+                          <div class="col-sm-6 m-t-15 m-b-10">
+                            <div class="row">
+                              <apex:outputPanel rendered="{!NOT(ISNULL(index.OrderApi__Item__r.OrderApi__Image_Path__c))}">
+                                <div class="col-sm-4">
+                                  <apex:image value="{!index.OrderApi__Item__r.OrderApi__Image_Path__c}" styleClass="img-responsive"/>
+                                </div>
+                              </apex:outputPanel>
+                              <div class="col-sm-8">
+                                <h4><strong>{!index.OrderApi__Item__r.OrderApi__Display_Name__c}</strong></h4>
+                                <h4 class="text-primary">
+                                  <span class="text-gray-lighter hide">
+                                    <span class="priceRulePrice{!index.Id} listPrice" data-price="{!index.OrderApi__Item__r.OrderApi__Price__c}" data-currency="{!itemWrappers[key].currencyIsoCode}"/>&nbsp;
+                                  </span>
+                                  <span class="pItemPrice" id="itemPrice{!index.Id}" data-packageitemid="{!index.Id}" data-price="{!index.OrderApi__Item__r.OrderApi__Price__c}" data-itemid="{!index.OrderApi__Item__r.Id}" data-currency="{!itemWrappers[key].currencyIsoCode}"/>
+                                </h4>
+                                <div class="p-v-10">
+                                  <strong>{!$Label.Quantity} : <span>{!index.OrderApi__Minimum_Quantity__c}</span></strong>
+                                </div>
+                                <div>
+                                  <apex:outputField value="{!index.OrderApi__Item__r.OrderApi__Description__c}"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </apex:outputPanel>
+                      </apex:repeat>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <hr/>
+                    </div>
+                  </div>
+                </div>
+              </apex:repeat>
+              <div class="updatingItemPriceHelpText">
+                <span class="text-primary"><h4><strong>{!$Label.Please_Wait_Updating_Item_Prices}</strong></h4></span>
+              </div>
+              <div class="row col-sm-12 m-b-5">
+                <h4><strong>{!$Label.Payment_Due} <span id="checkoutPrice"></span></strong></h4>
+              </div>
+              <div class="row m-t-20 text-center">
+                <div class="col-xs-12">
+                  <apex:form id="redirectButtons">
+                    <apex:commandButton action="{!cancel}" value="{!$Label.joinapi__Cancel}" styleClass="btn btn-mini m-r-5 btn-neutral ladda-button btn-wrap" rendered="{!!hideCancelButtonMemberships}"/>
+                    <apex:commandButton action="{!previous}" value="{!$Label.joinapi__Previous_Step}" styleClass="btn btn-mini m-r-5 btn-neutral ladda-button btn-wrap"/>
+                    <a class="disableNextButton btn btn-primary ladda-button btn-wrap nextStepBtn" data-style="expand-right">
+                      <span class="{!IF(step.joinapi__Next_Step_Button_Label__c != null , 'ladda-label' , 'hidden')}">
+                              {!step.joinapi__Next_Step_Button_Label__c}
+                      </span>
+                      <span class="{!IF(step.joinapi__Next_Step_Button_Label__c == null , 'ladda-label' , 'hidden')}">
+                              {!$Label.joinapi__Next}
+                      </span>
+                    </a>
+                    <apex:actionFunction name="nextPage" action="{!next}"/>
+                  </apex:form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:outputPanel>
+    </apex:define>
+    <apex:define name="jpScripts">
+      <script type="text/javascript">
+        var salesOrder = JSON.parse('{!JSENCODE(salesOrder)}');
+        var encryptedSalesOrderId = '{!JSENCODE(encryptedSalesOrderId)}';
+        var step = JSON.parse('{!JSENCODE(stepJSON)}');
+        var items = '{!JSENCODE(itemJSON)}';
+        var contact = '{!JSENCODE(contactJSON)}';
+        var account = '{!JSENCODE(accountJSON)}';
+        var userBadges = '{!JSENCODE(userBadgesJSON)}';
+        var stepConditions = '{!JSENCODE(stepConditionsJSON)}';
+        var defaultSubscriptionPlans = '{!JSENCODE(defaultSubscriptionPlansJSON)}';
+        var subPlans = JSON.parse('{!JSENCODE(subPlanJSON)}');
+        var stringOperators = ["LIKE","NOT LIKE", "IN", "NOT IN", "LIKE%","%LIKE"];
+        var visibleCount = 0;
+        var defaultItems = new Array();
+        var salesOrderLines;
+
+        $(document).ready(function() {
+          if (items.trim().length === 0) {
+              $('.itemsPanel').remove();
+              $('#main').removeClass('pg-loading').addClass('pg-loaded');
+              $('.pg-loading-screen').addClass('hide');
+          }
+          showPageLoader();
+          parseJSONVars();
+          if (contact != null && step['{!Namespace}'+'Dynamic_Item_Selection__c']) {
+            setupVisibility();
+          } else if (contact == null) {
+            setupVisibilityforUnauthUser();
+          }
+          if(salesOrder.OrderApi__Sales_Order_Lines__r != null){
+            salesOrderLines = salesOrder.OrderApi__Sales_Order_Lines__r.records;
+          }
+          $('.itemPrice, .pItemPrice, .listPrice').each(function(){
+            var itemPrice = $(this);
+            itemPrice.html(currencyComponentAPI.formatCurrency(itemPrice.data("price"),itemPrice.data("currency")));
+          });
+
+          if ($("[id^='item_']:visible").length > 0) {
+            $('.subscriptionPlanSelect').each(function(){
+              var selectList = $(this);
+              var existingItems = [];
+              if(salesOrderLines != null && salesOrderLines.length > 0){
+               salesOrderLines.forEach(function(salesOrderLine){
+                 if(selectList.data("item") == salesOrderLine.OrderApi__Item__c){
+                   selectList.val(salesOrderLine.OrderApi__Subscription_Plan__c);
+                 }
+                 if (salesOrderLine.OrderApi__Enable_Auto_Renew__c) {
+                     $('#renewal__'+salesOrderLine.OrderApi__Item__c).prop('checked', true);
+                 }
+                 $('.pItemPrice, .itemPrice').each(function(index) {
+                     if (salesOrderLine.OrderApi__Item__c === $(this).data("itemid") && salesOrderLine.OrderApi__Sale_Price__c !== parseInt($(this).data("price"))
+                                && salesOrderLine.OrderApi__Package_Item__c === $(this).data("packageitemid")) {
+                         $(this).data('price', salesOrderLine.OrderApi__Sale_Price__c);
+                         var priceRuleField = $('.priceRulePrice' + salesOrderLines[index].OrderApi__Item__c);
+                         var priceField = $('#itemPrice' + salesOrderLines[index].OrderApi__Item__c);
+                         if (typeof salesOrderLine.OrderApi__Package_Item__c === 'undefined' && Number(priceField.data('price')) < Number(priceRuleField.data('price'))) {
+                           $('.priceRulePrice' + salesOrderLine.OrderApi__Item__c).parent().removeClass("hide");
+                         } else {
+                             if (Number(salesOrderLine.OrderApi__List_Price__c) > Number(salesOrderLine.OrderApi__Sale_Price__c)) {
+                                $('.priceRulePrice' + salesOrderLine.OrderApi__Package_Item__c).parent().removeClass("hide");
+                             }
+                         }
+                         $(this).html(currencyComponentAPI.formatCurrency(salesOrderLine.OrderApi__Sale_Price__c, $(this).data("currency")));
+                     }
+                 });
+                 existingItems.push(salesOrderLine.OrderApi__Item__c);
+               });
+               $.each(defaultSubscriptionPlans, function(key, value) {
+                   if (selectList.data("item") === key) {
+                       selectList.val(value);
+                       if (selectList.is(":visible") && existingItems.indexOf(selectList.data("item")) === -1) {
+                           createSalesOrderLines(selectList);
+                       }
+                   }
+               });
+               setTotalPrice();
+              }
+              else{
+               $.each(defaultSubscriptionPlans, function(key, value) {
+                if(selectList.data("item") == key){
+                  selectList.val(value);
+                  if(selectList.is(":visible")){
+                    createSalesOrderLines(selectList);
+                  }
+                }
+               });
+              }
+              selectList.change(function(){
+                $('.loadingDIV' + selectList.data("item")).show();
+                createSalesOrderLines(selectList);
+              });
+              for (var i=0; i < subPlans.length; i++) {
+                  if (subPlans[i].Id === selectList.val()) {
+                      if (typeof subPlans[i].OrderApi__Description__c !== "undefined") {
+                          $('.subPlanDescription' + selectList.data("item")).text(subPlans[i].OrderApi__Description__c);
+                      } else {
+                          $('.subPlanDescription' + selectList.data("item")).text('');
+                      }
+                      if (typeof subPlans[i].OrderApi__Auto_Renew_Option__c !== 'undefined' && subPlans[i].OrderApi__Auto_Renew_Option__c.toLowerCase() === 'enabled') {
+                          $('#autoRenewEnabledPlan_' + selectList.data("item")).removeClass('hidden');
+                      } else {
+                          $('#autoRenewEnabledPlan_' + selectList.data("item")).addClass('hidden');
+                      }
+                      break;
+                  }
+              }
+            });
+            if ($("[id^='item_']:visible").length > 0) {
+              var itemIds = [];
+              $("[id^='item_']:visible").each(function(){
+                if (!$(this).data('subscription')) {
+                  itemIds.push(this.id.replace('item_', ''));
+                }
+              });
+              if (itemIds.length > 0) {
+                createNonSubSols(itemIds);
+              }
+            }
+          }
+          if ($("[id^='item_']:visible").length === 0) {
+              $('.itemsPanel').remove();
+              $('#main').removeClass('pg-loading').addClass('pg-loaded');
+              $('.pg-loading-screen').addClass('hide');
+          }
+          $('.nextStepBtn').click(function(e){
+              em.loader.start(this);
+              e.preventDefault();
+              updateRenewals(this);
+          });
+          var locationref = window.location.href;
+          if(locationref.indexOf('&salesOrder') === -1 && locationref.indexOf('&salesorder') === -1 ){
+              history.pushState({} , '', locationref += '&salesOrder=' + encryptedSalesOrderId);
+          }
+        });
+
+        function setupVisibilityforUnauthUser() {
+          if ($("[id^='item_']:visible").length > 0) {
+            if (step['{!Namespace}'+'Dynamic_Item_Selection__c']) {
+              $("[id^='item_']:visible").each(function(){
+                $(this).remove();
+              });
+            }
+          }
+        }
+
+        function updateRenewals(btnRef) {
+            var itemRenewals = new Array();
+            $("input.itmRenewals:checkbox").each(function() {
+              itemRenewals.push({itemId : $(this).data('itemid'), isRenewal : $(this).is(':checked') && $(this).is(':visible') ? true : false});
+            });
+            if (itemRenewals.length > 0) {
+              Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.JoinProcessMembershipsController.updateRenewalSOLs}',
+                encryptedSalesOrderId,
+                JSON.stringify(itemRenewals),
+                function(result, event){
+                  if (event.status) {
+                    nextPage();
+                  }
+                },
+                {escape:false}
+              );
+            } else {
+                nextPage();
+            }
+          setTimeout(function(){ em.loader.stop(btnRef); }, 2000);
+        }
+
+        function createNonSubSols(itmIds){
+          Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.JoinProcessMembershipsController.setupNonSubSOL}',
+            encryptedSalesOrderId,
+            itmIds,
+            function(result, event){
+              salesOrderLines = null;
+              if(event.status && result !== null){
+                salesOrderLines = JSON.parse(result);
+              }
+              if(salesOrderLines !== null && salesOrderLines.length > 0){
+                setTotalPrice();
+                for (var i=0; i < salesOrderLines.length; i++) {
+                   $('.pItemPrice, .itemPrice').each(function(index) {
+                     if (salesOrderLines[i].OrderApi__Item__c === $(this).data("itemid") && salesOrderLines[i].OrderApi__Sale_Price__c !== parseInt($(this).data("price"))
+                                && salesOrderLines[i].OrderApi__Package_Item__c === $(this).data("packageitemid")) {
+                         $(this).data('price', salesOrderLines[i].OrderApi__Sale_Price__c);
+                         var priceRuleField = $('.priceRulePrice' + salesOrderLines[i].OrderApi__Item__c);
+                         var priceField = $('#itemPrice' + salesOrderLines[i].OrderApi__Item__c);
+                         if (typeof salesOrderLines[i].OrderApi__Package_Item__c === 'undefined' && Number(priceField.data('price')) < Number(priceRuleField.data('price'))) {
+                           $('.priceRulePrice' + salesOrderLines[i].OrderApi__Item__c).parent().removeClass("hide");
+                         } else {
+                             if (Number(salesOrderLines[i].OrderApi__List_Price__c) > Number(salesOrderLines[i].OrderApi__Sale_Price__c)) {
+                                $('.priceRulePrice' + salesOrderLines[i].OrderApi__Package_Item__c).parent().removeClass("hide");
+                             }
+                         }
+                         $(this).html(currencyComponentAPI.formatCurrency(salesOrderLines[i].OrderApi__Sale_Price__c, $(this).data("currency")));
+                     }
+                   });
+                }
+              }
+            },
+            {escape:false}
+          );
+        }
+
+        function createSalesOrderLines(selectList){
+          $('.disableNextButton').attr('disabled', true);
+          var item = selectList.data("item");
+          selectList.prop('disabled', true);
+          Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.JoinProcessMembershipsController.setupSalesOrderLine}',
+            encryptedSalesOrderId,
+            selectList.val(),
+            item,
+            selectList.data("itemclass"),
+            function(result, event){
+              salesOrderLines = null;
+              if(result){
+                 salesOrderLines = JSON.parse(result);
+              }
+              $('.disableNextButton').attr('disabled', false);
+              if(salesOrderLines != null && salesOrderLines.length > 0){
+                setTotalPrice();
+                $('.loadingDIV' + item).hide();
+                for (var i=0; i < subPlans.length; i++) {
+                  if (subPlans[i].Id === selectList.val()) {
+                    if (typeof subPlans[i].OrderApi__Description__c !== "undefined") {
+                      $('.subPlanDescription' + item).text(subPlans[i].OrderApi__Description__c);
+                    } else {
+                      $('.subPlanDescription' + item).text('');
+                    }
+                    if (typeof subPlans[i].OrderApi__Auto_Renew_Option__c !== 'undefined' && subPlans[i].OrderApi__Auto_Renew_Option__c.toLowerCase() === 'enabled') {
+                      $('#autoRenewEnabledPlan_' + item).removeClass('hidden');
+                    } else {
+                      $('#autoRenewEnabledPlan_' + item).addClass('hidden');
+                    }
+                    break;
+                  }
+                }
+                for (var i=0; i < salesOrderLines.length; i++) {
+                  $('.pItemPrice, .itemPrice').each(function(index) {
+                    if (salesOrderLines[i].OrderApi__Item__c === $(this).data("itemid") && salesOrderLines[i].OrderApi__Package_Item__c === $(this).data("packageitemid")) {
+                      $(this).data('price', salesOrderLines[i].OrderApi__Sale_Price__c);
+                      var priceRuleField = $('.priceRulePrice' + salesOrderLines[i].OrderApi__Item__c);
+                      var priceField = $('#itemPrice' + salesOrderLines[i].OrderApi__Item__c);
+                      if (typeof salesOrderLines[i].OrderApi__Package_Item__c === 'undefined' && (Number(priceField.data('price')) < Number(priceRuleField.data('price')) && salesOrderLines[i].OrderApi__Total_Installment_Price__c == 0) || (salesOrderLines[i].OrderApi__Total_Installment_Price__c
+> 0 && salesOrderLines[i].OrderApi__Total_Installment_Price__c < salesOrderLines[i].OrderApi__List_Price__c)) {
+                        $('.priceRulePrice' + salesOrderLines[i].OrderApi__Item__c).parent().removeClass("hide");
+                      } else {
+                          if (Number(salesOrderLines[i].OrderApi__List_Price__c) > Number(salesOrderLines[i].OrderApi__Sale_Price__c)) {
+                            $('.priceRulePrice' + salesOrderLines[i].OrderApi__Package_Item__c).parent().removeClass("hide");
+                            $('.priceRulePrice' + salesOrderLines[i].OrderApi__Item__c).parent().addClass("hide");
+                          }
+                      }
+                      $(this).html(currencyComponentAPI.formatCurrency(salesOrderLines[i].OrderApi__Sale_Price__c, $(this).data("currency")));
+                    }
+                  });
+                }
+              }
+              selectList.prop('disabled', false);
+            },
+            {escape:false}
+          );
+        }
+
+       function setupVisibility(){
+         var visibleItemIds = new Array();
+         if(stepConditions.length > 0){
+           var userBadgeArray = new Array();
+           if(userBadges != null && userBadges.length > 0){
+             for(var n = 0; n < userBadges.length; ++n){
+               userBadgeArray.push(userBadges[n].OrderApi__Badge_Type__c);
+             }
+           }
+           for(var i = 0; i < stepConditions.length; ++i){
+             var show = true;
+             var item = stepConditions[i].itemId;
+             var criteriaClauses = stepConditions[i].criteriaClauses;
+
+             if (stepConditions[i].isDefault) {
+                defaultItems.push(stepConditions[i].itemId);
+             }
+
+             if(stepConditions[i].badgeFilters != null && stepConditions[i].badgeFilters.length > 0){
+              if(userBadgeArray.length > 0){
+                for(var j = 0; j < stepConditions[i].badgeFilters.length; ++j){
+                  if(userBadgeArray.includes(stepConditions[i].badgeFilters[j].value)){
+                    show = true;
+                    break;
+                  } else {
+                      show = false;
+                  }
+                }
+              }
+              else{
+                show = false;
+              }
+             }
+
+             if(show){
+                if(criteriaClauses != null && criteriaClauses[0].filterObject !== null && criteriaClauses[0].filterObject.length > 0){
+                  for(var n = 0; n < criteriaClauses.length; ++n){
+                    show = evaluateCriteriaClause(criteriaClauses[n]);
+                    if(!show){
+                      break;
+                    }
+                  }
+                }
+                if (stepConditions[i].isDefault) {
+                    show = false;
+                }
+             }
+
+             if (!show) {
+               $("#item_" + item).hide();
+             } else {
+               visibleItemIds.push(item);
+             }
+           }
+         }
+
+         if (visibleItemIds.length > 0) {
+           for (var j = 0; j < visibleItemIds.length; ++j) {
+             $("#item_" + visibleItemIds[j]).show();
+           }
+         }
+
+         if ($("[id^='item_']:visible").length === 0) {
+           for (var j = 0; j < defaultItems.length; ++j) {
+             $("#item_" + defaultItems[j]).show();
+           }
+         }
+       }
+
+       function evaluateCriteriaClause(criteriaClause){
+         var field;
+         var filterVal;
+
+         if(criteriaClause.filterObject == 'Account'){
+           field = account[criteriaClause.filterField];
+         }
+         else{
+           field = contact[criteriaClause.filterField];
+         }
+         if (typeof field === 'undefined') {
+             field = '';
+         }
+         if(criteriaClause.filterOperator == '='){
+           criteriaClause.filterOperator = '==';
+         }
+         if(!stringOperators.includes(criteriaClause.filterOperator)){
+           try{
+            return eval(getVarType(field.toString()) + criteriaClause.filterOperator  + getVarType(criteriaClause.filterValue));
+           }
+           catch(error){
+             displayError(error);
+           }
+         }
+         else{
+           field = field.toLowerCase();
+           filterVal = criteriaClause.filterValue.toLowerCase();
+           if(criteriaClause.filterOperator == 'LIKE' || criteriaClause.filterOperator == 'IN'){
+             try {
+                 if (criteriaClause.filterOperator == 'LIKE') {
+                    return eval(field.includes(filterVal));
+                 } else {
+                    return eval(verifyMultiPicklistVals(field.split(new RegExp("\\s*[;]\\s*")), filterVal.split(new RegExp("\\s*[,]\\s*"))));
+                 }
+             }
+             catch(error){
+              displayError(error);
+             }
+           }
+           else if(criteriaClause.filterOperator == 'NOT LIKE' || criteriaClause.filterOperator == 'NOT IN'){
+             try {
+                 if (criteriaClause.filterOperator == 'NOT LIKE') {
+                    return eval(!field.includes(filterVal));
+                 } else {
+                     return eval(!verifyMultiPicklistVals(field.split(new RegExp("\\s*[;]\\s*")), filterVal.split(new RegExp("\\s*[,]\\s*"))));
+                 }
+             }
+             catch(error){
+              displayError(error);
+             }
+           }
+           else if(criteriaClause.filterOperator == 'LIKE%'){
+             try{
+               return eval(field.startsWith(filterVal));
+             }
+             catch(error){
+              displayError(error);
+             }
+           }
+           else if(criteriaClause.filterOperator == '%LIKE'){
+             try{
+              return eval(field.endsWith(filterVal));
+             }
+             catch(error){
+              displayError(error);
+             }
+           }
+         }
+         return true;
+       }
+
+       function displayError(error){
+         $('.errorMessage').text(error.message);
+         $('#errorPanel').removeClass(hide);
+         $('.itemsPanel').remove();
+         $('.noItemsPanel').remove();
+         $('#main').removeClass('pg-loading').addClass('pg-loaded');
+         $('.pg-loading-screen').addClass('hide');
+       }
+
+       function getVarType(variable){
+        if(variable){
+          if (variable == true || variable.toString().toLowerCase() === 'true') {
+              return true;
+          }
+          else if (variable == false || variable.toString().toLowerCase()  === 'false') {
+              return false;
+          }
+          else if(!isNaN(variable)){
+            return Number(variable);
+          }
+          else{
+            return "'" + variable.toString().toLowerCase() + "'";
+          }
+        }
+        else{
+          return null;
+        }
+       }
+
+       function verifyMultiPicklistVals(recordVals, filterVal) {
+          var isExist = false;
+          if (typeof filterVal !== 'undefined' && typeof recordVals !== 'undefined') {
+              for (var i=0; i < filterVal.length; i++) {
+                  for (var j=0; j < recordVals.length; j++) {
+                      if (filterVal[i] === recordVals[j]) {
+                          isExist = true;
+                          break;
+                      }
+                  }
+              }
+          }
+          return isExist;
+       }
+
+       function parseJSONVars(){
+          if(contact.trim() != ''){
+            contact = JSON.parse(contact);
+          }
+          else{
+            contact = null;
+          }
+          if(account.trim() != ''){
+            account = JSON.parse(account);
+          }
+          else{
+            account = null;
+          }
+          if(userBadges.trim() != ''){
+            userBadges = JSON.parse(userBadges);
+          }
+          else{
+            userBadges = null;
+          }
+          if(stepConditions.trim() != ''){
+            stepConditions = JSON.parse(stepConditions);
+          }
+          else{
+            stepConditions = null;
+          }
+          if(defaultSubscriptionPlans.trim() != ''){
+            defaultSubscriptionPlans = JSON.parse(defaultSubscriptionPlans);
+          }
+          else{
+            defaultSubscriptionPlans = null;
+          }
+       }
+
+       function setTotalPrice(){
+         $('.updatingItemPriceHelpText').remove();
+         var currencyISCode = '{!JSENCODE(currencyIsoCode)}';
+         var totalPrice = 0;
+         salesOrderLines.forEach(function(salesOrderLine){
+              totalPrice += salesOrderLine.OrderApi__Total__c;
+              currencyISCode = (salesOrderLine.CurrencyIsoCode === undefined || salesOrderLine.CurrencyIsoCode === null)
+                             ? currencyISCode : salesOrderLine.CurrencyIsoCode;
+         });
+         $('#checkoutPrice').html(currencyComponentAPI.formatCurrency(totalPrice, currencyISCode));
+         $('.noItemsPanel').remove();
+         $('#main').removeClass('pg-loading');
+         if (!$('#main').hasClass('pg-loaded')) {
+            $('#main').addClass('pg-loaded');
+         }
+         $('.pg-loading-screen').addClass('hide');
+       }
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

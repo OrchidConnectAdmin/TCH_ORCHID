@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__UOM__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** Pick the unit of measure to display on registration pages.</description>
+    <inlineHelpText>** Required ** Pick the unit of measure to display on registration pages.</inlineHelpText>
+    <label>RESERVED</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Registration</fullName>
+                <color>#0B6FCE</color>
+                <default>true</default>
+                <label>Registration</label>
+            </value>
+            <value>
+                <fullName>Ticket</fullName>
+                <color>#78C953</color>
+                <default>false</default>
+                <label>Ticket</label>
+            </value>
+            <value>
+                <fullName>Seat</fullName>
+                <color>#E27001</color>
+                <default>false</default>
+                <label>Seat</label>
+            </value>
+            <value>
+                <fullName>Table</fullName>
+                <color>#A845DC</color>
+                <default>false</default>
+                <label>Table</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <color>#F3D904</color>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

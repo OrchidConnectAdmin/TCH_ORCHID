@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Is_Published__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Display on the vendor page published on the event&#39;s website (if applicable).</description>
+    <inlineHelpText>Display on the vendor page published on the event&#39;s website (if applicable).</inlineHelpText>
+    <label>Publish to Website</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

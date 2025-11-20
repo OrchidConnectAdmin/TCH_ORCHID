@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Amend_Subscription</fullName>
+    <availability>online</availability>
+    <description>This button creates the necessary sales order and sales order lines required to amend your subscription.  The button also redirects you to a page to make the necessary amendments to the subscription.</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Amend Subscription</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/apex.js&quot; )}
+
+var connection = sforce.connection;
+
+var newOrder= new sforce.SObject(&quot;{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Sales_Order__c&quot;);
+newOrder.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Contact__c = &quot;{!OrderApi__Subscription__c.OrderApi__ContactId__c}&quot;;
+newOrder.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Account__c = &quot;{!OrderApi__Subscription__c.OrderApi__AccountId__c}&quot;;
+newOrder.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Entity__c = &quot;{!OrderApi__Subscription__c.OrderApi__Entity__c}&quot;;
+result = sforce.connection.create([newOrder]);
+
+var newLine= new sforce.SObject(&quot;{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Sales_Order_Line__c&quot;);
+newLine.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Sales_Order__c = result[0].id;
+newLine.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Is_Renewal__c = &quot;false&quot;;
+newLine.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Is_Amendment__c = &quot;true&quot;;
+newLine.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Price_Override__c = &quot;true&quot;;
+newLine.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Sale_Price__c = &quot;0&quot;;
+newLine.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Item__c = &quot;{!OrderApi__Subscription__c.OrderApi__ItemId__c}&quot;;
+newLine.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Subscription__c = &quot;{!OrderApi__Subscription__c.Id}&quot;;
+newLine.{!$Setup.OrderApi__App_Config__c.OrderApi__Namespace_Prefix__c}Entity__c = &quot;{!OrderApi__Subscription__c.OrderApi__Entity__c}&quot;;
+result2 = sforce.connection.create([newLine]);
+
+window.location = &quot;{!$Site.Prefix}/&quot; + result[0].id;</url>
+</WebLink>

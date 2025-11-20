@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Current_User_Can_Search__c</fullName>
+    <formula>$User.Account_Public_Adj_List__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Current User Can Search</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

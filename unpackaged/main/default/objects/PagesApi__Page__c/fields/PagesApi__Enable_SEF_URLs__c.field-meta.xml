@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Enable_SEF_URLs__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked URLs will be re-written into a user friendly format based on the configurations of the Site and Page &quot;Slug&quot; fields. Defaults unchecked.</description>
+    <inlineHelpText>When checked URLs will be re-written into a user friendly format based on the configurations of the Site and Page &quot;Slug&quot; fields. Defaults unchecked.</inlineHelpText>
+    <label>Enable SEF URLs</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

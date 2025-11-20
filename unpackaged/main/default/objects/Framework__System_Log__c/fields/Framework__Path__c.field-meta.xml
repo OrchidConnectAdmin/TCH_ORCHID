@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Framework__Path__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The path of the requested URL from the user who created the System Log.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The path of the requested URL from the user who created the System Log.</inlineHelpText>
+    <label>Path</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Stage__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required** Dependent picklist for the Pipeline Category picklist field used for more specific categorization of opportunities.</description>
+    <inlineHelpText>**Required** Dependent picklist for the Pipeline Category picklist field used for more specific categorization of opportunities.</inlineHelpText>
+    <label>Stage</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>DonorApi__Gift_Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Major Gift - Cultivating</fullName>
+                <default>false</default>
+                <label>Major Gift - Cultivating</label>
+            </value>
+            <value>
+                <fullName>Major Gift - Soliciting</fullName>
+                <default>false</default>
+                <label>Major Gift - Soliciting</label>
+            </value>
+            <value>
+                <fullName>Major Gift - On Hold</fullName>
+                <default>false</default>
+                <label>Major Gift - On Hold</label>
+            </value>
+            <value>
+                <fullName>Major Gift - Won</fullName>
+                <default>false</default>
+                <label>Major Gift - Won</label>
+            </value>
+            <value>
+                <fullName>Major Gift - Lost</fullName>
+                <default>false</default>
+                <label>Major Gift - Lost</label>
+            </value>
+            <value>
+                <fullName>Gift Match - Pending Submission</fullName>
+                <default>false</default>
+                <label>Gift Match - Pending Submission</label>
+            </value>
+            <value>
+                <fullName>Gift Match - Submitted</fullName>
+                <default>false</default>
+                <label>Gift Match - Submitted</label>
+            </value>
+            <value>
+                <fullName>Gift Match - Confirmed</fullName>
+                <default>false</default>
+                <label>Gift Match - Confirmed</label>
+            </value>
+            <value>
+                <fullName>Gift Match - Received</fullName>
+                <default>false</default>
+                <label>Gift Match - Received</label>
+            </value>
+            <value>
+                <fullName>Gift Match - Disqualified</fullName>
+                <default>false</default>
+                <label>Gift Match - Disqualified</label>
+            </value>
+            <value>
+                <fullName>Grant - Researching</fullName>
+                <default>false</default>
+                <label>Grant - Researching</label>
+            </value>
+            <value>
+                <fullName>Grant - Developing LOI</fullName>
+                <default>false</default>
+                <label>Grant - Developing LOI</label>
+            </value>
+            <value>
+                <fullName>Grant - LOI Submitted</fullName>
+                <default>false</default>
+                <label>Grant - LOI Submitted</label>
+            </value>
+            <value>
+                <fullName>Grant - Proposal Development</fullName>
+                <default>false</default>
+                <label>Grant - Proposal Development</label>
+            </value>
+            <value>
+                <fullName>Grant - Proposal Submitted</fullName>
+                <default>false</default>
+                <label>Grant - Proposal Submitted</label>
+            </value>
+            <value>
+                <fullName>Grant - Proposal Accepted</fullName>
+                <default>false</default>
+                <label>Grant - Proposal Accepted</label>
+            </value>
+            <value>
+                <fullName>Grant - Proposal Declined</fullName>
+                <default>false</default>
+                <label>Grant - Proposal Declined</label>
+            </value>
+            <value>
+                <fullName>Planned Gift - Cultivating</fullName>
+                <default>false</default>
+                <label>Planned Gift - Cultivating</label>
+            </value>
+            <value>
+                <fullName>Planned Gift - Soliciting</fullName>
+                <default>false</default>
+                <label>Planned Gift - Soliciting</label>
+            </value>
+            <value>
+                <fullName>Planned Gift - Committed</fullName>
+                <default>false</default>
+                <label>Planned Gift - Committed</label>
+            </value>
+            <value>
+                <fullName>Planned Gift - Received</fullName>
+                <default>false</default>
+                <label>Planned Gift - Received</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Major Gift</controllingFieldValue>
+            <valueName>Major Gift - Cultivating</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Major Gift</controllingFieldValue>
+            <valueName>Major Gift - Soliciting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Major Gift</controllingFieldValue>
+            <valueName>Major Gift - On Hold</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Major Gift</controllingFieldValue>
+            <valueName>Major Gift - Won</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Major Gift</controllingFieldValue>
+            <valueName>Major Gift - Lost</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Grant</controllingFieldValue>
+            <valueName>Grant - Researching</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Grant</controllingFieldValue>
+            <valueName>Grant - Developing LOI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Grant</controllingFieldValue>
+            <valueName>Grant - LOI Submitted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Grant</controllingFieldValue>
+            <valueName>Grant - Proposal Development</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Grant</controllingFieldValue>
+            <valueName>Grant - Proposal Submitted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Grant</controllingFieldValue>
+            <valueName>Grant - Proposal Accepted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Grant</controllingFieldValue>
+            <valueName>Grant - Proposal Declined</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Planned Giving</controllingFieldValue>
+            <valueName>Planned Gift - Cultivating</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Planned Giving</controllingFieldValue>
+            <valueName>Planned Gift - Soliciting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Planned Giving</controllingFieldValue>
+            <valueName>Planned Gift - Committed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Planned Giving</controllingFieldValue>
+            <valueName>Planned Gift - Received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Corporate Gift Match</controllingFieldValue>
+            <controllingFieldValue>Personal Gift Match</controllingFieldValue>
+            <valueName>Gift Match - Pending Submission</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Corporate Gift Match</controllingFieldValue>
+            <controllingFieldValue>Personal Gift Match</controllingFieldValue>
+            <valueName>Gift Match - Submitted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Corporate Gift Match</controllingFieldValue>
+            <controllingFieldValue>Personal Gift Match</controllingFieldValue>
+            <valueName>Gift Match - Confirmed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Corporate Gift Match</controllingFieldValue>
+            <controllingFieldValue>Personal Gift Match</controllingFieldValue>
+            <valueName>Gift Match - Received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Corporate Gift Match</controllingFieldValue>
+            <controllingFieldValue>Personal Gift Match</controllingFieldValue>
+            <valueName>Gift Match - Disqualified</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

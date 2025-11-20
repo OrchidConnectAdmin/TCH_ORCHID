@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProgramApi__Program__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Conditionally Required with Is Program Fee ** Defines the program for which a program profile is created as a result of purchasing/invoicing this item.</description>
+    <inlineHelpText>Conditionally Required with Is Program Fee ** Defines the program for which a program profile is created as a result of purchasing/invoicing this item.</inlineHelpText>
+    <label>Program</label>
+    <referenceTo>ProgramApi__Program__c</referenceTo>
+    <relationshipLabel>Items</relationshipLabel>
+    <relationshipName>Items</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

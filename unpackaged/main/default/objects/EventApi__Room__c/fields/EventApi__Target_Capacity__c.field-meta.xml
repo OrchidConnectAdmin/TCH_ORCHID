@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Target_Capacity__c</fullName>
+    <defaultValue>0</defaultValue>
+    <deprecated>false</deprecated>
+    <description>The target or ideal capacity for the Room is usually slightly less than the &quot;Capacity&quot;.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The target or ideal capacity for the Room is usually slightly less than the &quot;Capacity&quot;.</inlineHelpText>
+    <label>Target Capacity</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

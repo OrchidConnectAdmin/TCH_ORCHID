@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Future_Address__c</fullName>
+    <externalId>false</externalId>
+    <formula>Future_Notification_Address_Street__c &amp;&#39;&lt;br&gt;&#39;&amp;
+Future_Notification_Address_City__c &amp;&#39;, &#39;&amp; Future_Notification_Address_State__c &amp;&#39; &#39;&amp; Future_Notification_Address_Zip_Code__c &amp;&#39;&lt;br&gt;&#39;&amp;
+Future_Notification_Address_Country__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Future Notification</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

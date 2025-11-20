@@ -1,0 +1,4 @@
+<apex:page standardController="EventApi__Attendee__c">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<c:mobile_pass eventId="{!EventApi__Attendee__c.EventApi__Attendee_Event__c}" attendeeId="{!EventApi__Attendee__c.Id}"/>
+</apex:page>

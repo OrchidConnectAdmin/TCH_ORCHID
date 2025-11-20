@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Hours_of_Operation__c</fullName>
+    <inlineHelpText>Hours of Operation for an Account. The first 7 lines will be visible</inlineHelpText>
+    <label>Hours of Operation</label>
+    <length>2768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>7</visibleLines>
+</CustomField>

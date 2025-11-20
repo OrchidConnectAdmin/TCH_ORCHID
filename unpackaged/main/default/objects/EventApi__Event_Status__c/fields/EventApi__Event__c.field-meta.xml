@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Event__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** REQUIRED ** Link to related Event.</description>
+    <inlineHelpText>** REQUIRED ** Link to related Event.</inlineHelpText>
+    <label>Event</label>
+    <referenceTo>EventApi__Event__c</referenceTo>
+    <relationshipLabel>Event Statuses</relationshipLabel>
+    <relationshipName>Event_Statuses</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

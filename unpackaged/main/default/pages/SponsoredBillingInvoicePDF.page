@@ -1,0 +1,271 @@
+<apex:page title="Invoice Details" sidebar="false" controller="GetSponsoredBillingInvoiceController" standardStylesheets="false" showHeader="false" applyBodyTag="false" applyHtmlTag="false" renderAs="pdf" contentType="application/pdf#invoice-{!$CurrentPage.Parameters.id}.pdf">
+    <head>
+        <title>Invoice Details #{!$CurrentPage.Parameters.id}</title> 
+        <style>
+            @page {
+            margin: 20px;
+            font-size: 16px;
+            color: #363534;
+            font-family: Arial, Verdana, Helvetica sans-serif;
+            }
+            
+            table td, table th {
+            font-size: 16px;
+            color: #363534;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            padding: 10px 5px;
+            }
+            table{
+            display: table;
+            clear: both;
+            width: 100%;
+            margin: 15px 0;
+            }
+            table th{
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            }
+            table#item td{
+            border-bottom: 1px solid #333;
+            }
+            h1,h2,h3,h4,h5{
+            width: 100%;
+            display: block;
+            clear: both;
+            padding: 5px;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            }
+            a{
+            color: #363534;
+            text-decoration: none;
+            }
+            .tableClass th, .tableClass td{
+                font-size: 14px !important;
+            }
+            .tableClass .even td{
+                background: #eee;
+            }
+        </style> 
+    </head>
+    
+    <table align="left" border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 30px;">
+        <tbody>
+            <tr>
+                <td width="50%" style="padding: 5px;"><img alt="organization logo" class="pfm-img_invoice" src="/resource/1615340568000/ECCHOLogo?" style="width: auto; height: 50px;" /></td>
+                <td width="50%" style="padding: 5px;"><img alt="" src="/resource/1613608464000/TCHLogo?" style="width: auto; height: 50px;"/></td>
+            </tr>
+        </tbody>
+    </table>
+    <table align="left" border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 30px;">
+        <tbody>
+            <tr>
+                <td width="50%" style="padding-right: 10px;">
+                    <small><b>FROM</b></small><br/>
+                    {!co.OrderApi__Display_Name__c}<br/>
+                    {!co.OrderApi__Email__c}<br/>
+                    {!co.OrderApi__Phone__c}<br/>
+                    {!co.OrderApi__Homepage_URL__c}
+                    <hr></hr>
+                    <small><b>TO</b></small><br/>
+                    <apex:outputText value="{!so.OrderApi__Customer_Link__c}" escape="false"/><br/>
+                    {!so.Contact_Name__c}<br/>
+                    {!so.OrderApi__Billing_Street__c}<br/>
+                    {!so.Address__c}
+                </td>
+                <td width="50%" style="padding-left: 10px; border-left: 1px solid #ccc;padding-right: 10px;">
+                    <div>
+                        <b>Check Payments (Including overnight delivery)</b><br></br><br></br>
+                    
+                    <b>The Clearing House Payments Company L.L.C.</b><br></br>
+                    Attn: Finance<br></br>
+                    115 Business Park Drive<br></br>
+                    Winston-Salem, NC 27107
+                    <br></br><br></br>
+                    <b>ACH Remittance</b><br></br>
+                    Bank Name: Wells Fargo Bank<br></br>
+                    ABA/Routing Number: 021052053<br></br>
+                    Checking Account: 53875008
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 style="margin-top: 30px;">Invoice #{!so.Invoice_Number__c}</h3>
+    <table id="item" align="left" border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 30px; margin-top: -15px;">
+        <thead>
+            <th>Description</th>
+            <th style="text-align: right; padding-right: 15px;">Total</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td width="50%" style="padding-right: 10px;">
+                    {!so.OrderApi__Description__c}
+                </td>
+                <td width="50%" style="padding-right: 10px; text-align: right;">
+<apex:outputText value="{0, number, $###,##0.00}">
+    <apex:param value="{!solTotal}"/>
+</apex:outputText> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+	<div style="{!if((disc.OrderApi__Overall_Total__c=null),'display:none;','display:block;')}">
+        <table class="table-disc" style="width: 50%; float: right; margin-top: -20px;">
+            <tr style="background: #fff; color: #000; font-size: 18px;">
+                <td style="color: #000; text-align: right;"><b>Discount</b></td>
+                <td style="text-align: right; color: #000;">
+                    <b>
+                        <apex:outputText value="{0, number, $###,##0.00}">
+                            <apex:param value="{!disc.OrderApi__Overall_Total__c}"/>
+                        </apex:outputText>                    
+                    </b>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <table class="table-total" style="width: 50%; float: right; margin-top: -20px;">
+        <tr style="background: #333; color: #fff; font-size: 18px;">
+            <td style="color: #fff;"><b>Total</b></td>
+            <td style="text-align: right; color: #fff;">
+                <b>
+<apex:outputText value="{0, number, $###,##0.00}">
+    <apex:param value="{!so.OrderApi__Overall_Total__c}"/>
+</apex:outputText>                    
+
+                </b>
+            </td>
+        </tr>
+    </table>
+
+    <h5><apex:outputText value="{!so.Invoice_Term__c}" escape="false"/></h5>
+    
+    <h2>Sponsored Member Detail</h2>
+    <apex:dataTable value="{!sol}" var="c" id="theTable" rowClasses="odd,even" styleClass="tableClass" cellpadding="5" style="width: 100%;">
+        
+        <apex:column >
+            <apex:facet name="header">Membership Date</apex:facet>
+            <apex:outputText value="{!c.Membership_Date__c}"/>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Sponsored Account</apex:facet>
+            <apex:outputText value="{!c.FON_Sponsored_Account__c}"/>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Primary R/T</apex:facet>
+            <apex:outputText value="{!c.Primary_R_T__c}"/>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">PO ID</apex:facet>
+            <apex:outputText value="{!c.PO_ID__c}"/>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Subscription</apex:facet>
+            <apex:outputText value="{!c.Invoice_Subscription__c}"/>
+        </apex:column>
+        <apex:column rendered="{!If(so.FON_Billing_Type__c =='Deposit Based',true,false) }">
+            <apex:facet name="header">Annual Dues</apex:facet>
+            <apex:outputText value="{!c.Annual_Dues__c}"/>
+        </apex:column>
+        <apex:column rendered="{!If(so.FON_Billing_Type__c =='Item Based',true,false) }">
+            <apex:facet name="header">Volume</apex:facet>
+                <apex:outputText value="{0, number, ###,##0}">
+                    <apex:param value="{!c.Volume__c}"/>
+                </apex:outputText>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Amount Invoiced</apex:facet>
+
+<apex:outputText value="{0, number, $###,##0.00}">
+    <apex:param value="{!c.OrderApi__Overall_Total__c}"/>
+</apex:outputText>
+        </apex:column>
+
+    </apex:dataTable> 
+    
+    
+    <!-- <apex:form >
+<apex:dataTable value="{!invoices}" var="c" id="theTable" rowClasses="odd,even" styleClass="tableClass" cellpadding="5" rendered="{!if(noTTI=='false',true,false)}" style="width: 100%;">
+
+<apex:column >
+<apex:facet name="header">Module ID</apex:facet>
+<apex:outputText value="{!invoices[c].mod}"/>
+</apex:column>
+<apex:column >
+<apex:facet name="header">Test</apex:facet>
+<apex:outputText value="{!invoices[c].test}"/>
+</apex:column>
+<apex:column >
+<apex:facet name="header">Summary Item</apex:facet>
+<apex:outputText value="{!invoices[c].dmy}"/>
+</apex:column>
+<apex:column >
+<apex:facet name="header">Qty</apex:facet>
+<apex:outputText value="{!invoices[c].qty}"/>
+</apex:column>
+<apex:column style="text-align:right;">
+<apex:facet name="header">Total</apex:facet>
+<apex:outputText value="${!IF(OR(ISNULL(invoices[c].total),ISBLANK(invoices[c].total)), 0, invoices[c].total)}"/>
+</apex:column>
+
+
+</apex:dataTable> 
+
+<apex:dataTable value="{!invoices}" var="c" id="theTable2" rowClasses="odd,even" styleClass="tableClass" cellpadding="5" rendered="{!if(noTTI=='true',true,false)}" style="width: 100%;">
+
+<apex:column >
+<apex:facet name="header">Line Description</apex:facet>
+<apex:outputText value="{!invoices[c].desc}"/>
+</apex:column>
+<apex:column >
+<apex:facet name="header">Sale Price</apex:facet>
+<apex:outputText value="{!invoices[c].price}"/>
+</apex:column>
+<apex:column >
+<apex:facet name="header">Quantity</apex:facet>
+<apex:outputText value="{!invoices[c].qty}"/>
+</apex:column>
+<apex:column style="text-align:right;">
+<apex:facet name="header">Total</apex:facet>
+<apex:outputText value="${!IF(OR(ISNULL(invoices[c].total),ISBLANK(invoices[c].total)), 0, invoices[c].total)}"/>
+</apex:column>
+
+</apex:dataTable> 
+
+<div style="{!IF((noTTI=='true'), 'display:block', 'display:none')}" >
+<table class="table-total" style="width: 50%; float: right;">
+<tr style="background: #ccc;">
+<td>Subtotal</td>
+<td style="text-align: right">{!stotal} US dollars</td>
+</tr>
+<tr style="background: #333; color: #fff; font-size: 18px;">
+<td><b>Total</b></td>
+<td style="text-align: right"><b>{!total} US dollars</b></td>
+</tr>
+</table>
+</div>
+
+<div style="{!IF((noTTI=='true'), 'display:none', 'display:block')}" >
+<table class="table-total" style="width: 100%; float: right;">
+<tr style="background: #333; color: #fff; font-size: 18px;">
+<td width="30%"><b>Total</b></td>
+<td>
+<apex:outputText value="{0, number, ###,###,###,##0}">
+<apex:param value="{!qty}" />
+</apex:outputText>
+</td>
+<td style="text-align: right">
+<b>
+<apex:outputText value="{0, number, ###,###,###,##0.00}">
+<apex:param value="{!total}" />
+</apex:outputText> US dollars
+</b>
+</td>
+</tr>
+</table>
+</div> 
+
+</apex:form>-->
+    
+</apex:page>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>37.0</apiVersion>
+    <availableInTouch>true</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Connect and redact payment gateways to work with Fonteva&#39;s OrderApi platform in your environment.</description>
+    <label>payment_gateway</label>
+    <packageVersions>
+        <majorNumber>124</majorNumber>
+        <minorNumber>4</minorNumber>
+        <namespace>Framework</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>91</majorNumber>
+        <minorNumber>9</minorNumber>
+        <namespace>PagesApi</namespace>
+    </packageVersions>
+</ApexPage>

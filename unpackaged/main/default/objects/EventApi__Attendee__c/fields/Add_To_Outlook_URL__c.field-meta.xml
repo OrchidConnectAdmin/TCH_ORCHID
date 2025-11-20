@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Add_To_Outlook_URL__c</fullName>
+    <externalId>false</externalId>
+    <formula>&#39;https://outlook.office.com/calendar/action/compose?rru=addevent&amp;path=/calendar/action/compose&amp;startdt=&#39; +
+  Outlook_Event_Start_Date__c +
+  &#39;&amp;enddt=&#39; +
+  Outlook_Event_End_Date__c +
+  &#39;&amp;ctz=&#39; +
+  RIGHT(TEXT(EventApi__Attendee_Event__r.EventApi__Time_Zone__c),LEN(TEXT(EventApi__Attendee_Event__r.EventApi__Time_Zone__c)) - FIND(&quot; &quot;,TEXT(EventApi__Attendee_Event__r.EventApi__Time_Zone__c)) ) +
+  &#39;&amp;subject=&#39; +
+  EventApi__Attendee_Event__r.EventApi__Display_Name__c +
+  &#39;&amp;location=ECCHO Online&#39; +
+  &#39;&amp;body=&#39; +
+  EventApi__Attendee_Event__r.EventApi__Display_Name__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Add To Outlook URL</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

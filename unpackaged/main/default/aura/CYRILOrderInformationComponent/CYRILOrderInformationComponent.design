@@ -1,0 +1,9 @@
+<design:component label="CYRIL: Order Information Component">
+
+    <design:attribute name="cInvoiceType" label="Select Order Information Type Set Group" datasource="apex://GetCYRILOrderInfoTypesController"/>
+    <design:attribute name="cID" label="Record Id" />
+    
+    <design:attribute  name="labelColor" label="Field Label Text Color" /> 
+    <design:attribute  name="labelBGColor" label="Field Label Background Color" /> 
+
+</design:component>

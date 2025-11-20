@@ -1,0 +1,6 @@
+<messaging:emailTemplate subject="Test VF" recipientType="Contact" relatedToType="ProgramApi__Program_Profile__c">
+<messaging:plainTextEmailBody >
+Congratulations!
+This is your new Visualforce Email Template.
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,38 @@
+<aura:component implements="forceCommunity:layout" description="ECCHO Multi-rows Layout" access="global">
+    <aura:attribute name="header" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="bottom" type="Aura.Component[]" required="false"></aura:attribute>
+    
+    <aura:attribute name="contentTop" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="contentLeft" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="contentRight" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="contentBottom" type="Aura.Component[]" required="false"></aura:attribute>
+    
+    <div class="pfm-portal-layout LTEPortalAssets LTEFontevaPortalPageLayout siteforceContentArea">
+            <header class="content-header pfm-portal_navbar">
+                {!v.header}
+            </header>
+
+        <div id="pfmPortalContent" class="pfm-portal_content" style="margin-top: 25px;">
+            <div id="row-top">
+                <div class="slds-grid slds-gutters">
+                  <div class="slds-col">{!v.contentTop}</div>
+                </div>
+            </div>
+            <div id="row-middle">
+                <div class="slds-grid slds-gutters">
+                  <div class="slds-col">{!v.contentLeft}</div>
+                  <div class="slds-col">{!v.contentRight}</div>
+                </div>
+            </div>
+            <div id="row-bottom">
+                <div class="slds-grid slds-gutters">
+                  <div class="slds-col">{!v.contentBottom}</div>
+                </div>
+            </div>
+       </div>
+            <footer class="content-footer">
+                {!v.bottom}
+            </footer>
+
+    </div>
+</aura:component>

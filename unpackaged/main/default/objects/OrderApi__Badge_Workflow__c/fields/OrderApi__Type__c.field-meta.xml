@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** Select &quot;Line Contact&quot; to assign the Badge to the purchasing Customer as defined in the &quot;Contact&quot; lookup field on the Sales Order Line. Select &quot;Assigned Contacts&quot; to give the Badge to all &quot;Active&quot; assigned Contacts.</description>
+    <inlineHelpText>** Required ** Select &quot;Line Contact&quot; to assign the Badge to the purchasing Customer as defined in the &quot;Contact&quot; lookup field on the Sales Order Line. Select &quot;Assigned Contacts&quot; to give the Badge to all &quot;Active&quot; assigned Contacts.</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Line Contact</fullName>
+                <default>true</default>
+                <label>Line Contact</label>
+            </value>
+            <value>
+                <fullName>Assigned Contacts</fullName>
+                <default>false</default>
+                <label>Assigned Contacts</label>
+            </value>
+            <value>
+                <fullName>Line Account</fullName>
+                <default>false</default>
+                <label>Line Account</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>check_contact_program_profiles</name>
+        <label>check contact program profiles</label>
+        <locationX>176</locationX>
+        <locationY>395</locationY>
+        <defaultConnector>
+            <targetReference>Set_Status_and_Allowed_Credentials</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>w_profiles</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Contact_Program_Profiles</leftValueReference>
+                <operator>IsEmpty</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>w/ profiles</label>
+        </rules>
+    </decisions>
+    <description>- assign correct status for new registrants
+- assign allowed Credits
+- assign allowed Workshops</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>allowedCredits</name>
+        <dataType>Number</dataType>
+        <expression>VALUE({!$Label.Allowed_Credits_NCP})</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>allowedWorkshop</name>
+        <dataType>Number</dataType>
+        <expression>VALUE({!$Label.Allowed_Workshops_NCP})</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>RTFU - Program Profile Set Status, Allowed Credits, Allowed Workshops {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RTFU - Program Profile Set Status, Allowed Credits, Allowed Workshops</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Contact_Program_Profiles</name>
+        <label>Get Contact Program Profiles</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>check_contact_program_profiles</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ProgramApi__Contact__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ProgramApi__Contact__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>ProgramApi__Program_Profile__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Set_Status_and_Allowed_Credentials</name>
+        <label>Set Status and Allowed Credentials</label>
+        <locationX>264</locationX>
+        <locationY>503</locationY>
+        <inputAssignments>
+            <field>Allowed_Credits__c</field>
+            <value>
+                <elementReference>allowedCredits</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Allowed_Workshops__c</field>
+            <value>
+                <elementReference>allowedWorkshop</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ProgramApi__Status__c</field>
+            <value>
+                <stringValue>On Track</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Contact_Program_Profiles</targetReference>
+        </connector>
+        <object>ProgramApi__Program_Profile__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

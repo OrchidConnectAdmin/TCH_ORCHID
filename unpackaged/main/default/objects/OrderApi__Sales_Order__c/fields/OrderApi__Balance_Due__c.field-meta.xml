@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Balance_Due__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Defines the remaining amount due for this sales order.</description>
+    <formula>OrderApi__Overall_Total__c -  OrderApi__Amount_Paid__c + IF(OrderApi__Is_Invoiced__c, OrderApi__Amount_Refunded__c, 0) - OrderApi__Credits_Applied__c + OrderApi__Credits_and_Adjustments__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Total - Total Payments</inlineHelpText>
+    <label>Balance Due</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,97 @@
+<apex:page showHeader="false"
+  standardStylesheets="false"
+  docType="html-5.0"
+  applyHtmlTag="false"
+  applyBodyTag="false" action="{!cleanSalesOrderLines}" controller="CPBase.TemplateController">
+    <style>
+      .pg-loading-logo {
+                height: auto!important;
+                max-width: 70vw!important;
+            }
+      @media(min-width: 768px ) {
+          .pg-loading-logo {
+              height: auto!important;
+              max-width: 30vw!important;
+          }
+      }
+      .em-topbar .topbar-list > li{
+          white-space: nowrap;
+      }
+  </style>
+  <apex:composition template="PagesApi__default_template">
+    <apex:define name="title">
+      <apex:insert name="pageTitle"/>
+    </apex:define>
+
+    <apex:define name="styles">
+      <apex:insert name="pageStyles"/>
+    </apex:define>
+
+    <apex:define name="supernavLeft">
+      <apex:insert name="pageSupernavLeft"/>
+    </apex:define>
+
+    <apex:define name="navbarOverride">
+      <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(siteNav.Name))}">
+        <OrderApi:navlist name="{!siteNav.Name}"
+          ulStyleClass="nav navbar-nav navbar-right open" contactId="{!con.Id}"/>
+      </apex:outputPanel>
+    </apex:define>
+
+    <apex:define name="supernavList">
+      <apex:outputPanel layout="none" rendered="{!$CurrentPage.parameters.isPreview != 'true'}">
+        <OrderApi:portal_shopping_cart />
+      </apex:outputPanel>
+    </apex:define>
+
+    <apex:define name="supernavListAuthenticated">
+      <apex:insert name="pageSupernavListAuthenticated"/>
+    </apex:define>
+
+    <apex:define name="navbarProfileDropdownMenuItems">
+      <OrderApi:accessible_sites customerId="{!con.Id}"/>
+    </apex:define>
+
+    <apex:define name="supernavListUnauthenticated">
+      <apex:insert name="pageSupernavListUnauthenticated"/>
+    </apex:define>
+
+    <apex:define name="scriptOverride">
+      <script src="{!URLFOR($Resource.emerald_1_0, 'jquery/v2.2.4/jquery-2.2.4.min.js')}"/>
+      <script src="{!URLFOR($Resource.emerald_1_0, 'jquery/jquery.mousewheel.min.js')}" />
+      <script src="{!URLFOR($Resource.emerald_1_0, 'vendor.min.js')}" />
+      <script src="{!URLFOR($Resource.emerald_1_0, 'FontevaStyler.js')}" />
+      <script src="{!URLFOR($Resource.emerald_1_0, 'pendo.min.js')}" />
+      <script src="{!URLFOR($Resource.emerald_1_0, 'ThemeGenerator.js')}" />
+    </apex:define>
+
+    <apex:define name="supernavRight">
+      <apex:insert name="pageSupernavRight"/>
+    </apex:define>
+
+    <apex:define name="navbar">
+      <apex:insert name="pageNavbar"/>
+    </apex:define>
+
+    <apex:define name="main">
+      <apex:insert name="pageMain"/>
+    </apex:define>
+
+    <apex:define name="scripts">
+      <apex:insert name="pageScripts"/>
+    </apex:define>
+
+    <apex:define name="bodyClose">
+      <apex:actionStatus id="actionStatus">
+        <apex:facet name="start">
+          <script>em.actionStatus.alert();</script>
+        </apex:facet>
+        <apex:facet name="stop">
+          <script>em.actionStatus.close();</script>
+        </apex:facet>
+      </apex:actionStatus>
+    </apex:define>
+
+  </apex:composition>
+
+</apex:page>

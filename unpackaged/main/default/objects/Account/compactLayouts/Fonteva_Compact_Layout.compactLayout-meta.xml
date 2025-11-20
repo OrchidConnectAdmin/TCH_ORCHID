@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fonteva_Compact_Layout</fullName>
+    <fields>Name</fields>
+    <fields>Primary_R_T_Number__c</fields>
+    <fields>TCH_Membership_Type__c</fields>
+    <fields>Billing_Quarter__c</fields>
+    <fields>FON_Billing_Type__c</fields>
+    <fields>FON_Annual_Dues__c</fields>
+    <fields>FON_AsM_PM_Tiered_Annual_Dues__c</fields>
+    <fields>FON_Fixed_Annual_Dues_PPM_Calculation__c</fields>
+    <label>Fonteva Compact Layout</label>
+</CompactLayout>

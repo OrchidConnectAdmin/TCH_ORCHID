@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Posting_Entity__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Select either Invoice or Receipt. Valid and restricted to Registration Groups where &quot;Create Standing Sales Order&quot; is checked.</description>
+    <inlineHelpText>Select either Invoice or Receipt. Valid and restricted to Registration Groups where &quot;Create Standing Sales Order&quot; is checked.</inlineHelpText>
+    <label>Posting Entity</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+                <label>Invoice</label>
+            </value>
+            <value>
+                <fullName>Receipt</fullName>
+                <default>false</default>
+                <label>Receipt</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

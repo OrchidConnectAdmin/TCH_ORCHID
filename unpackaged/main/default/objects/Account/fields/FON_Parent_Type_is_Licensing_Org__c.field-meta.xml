@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Parent_Type_is_Licensing_Org__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>If checked, indicates this Account is a Licensing Organization. Default is Unchecked.</inlineHelpText>
+    <label>Parent Type is Licensing Org</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

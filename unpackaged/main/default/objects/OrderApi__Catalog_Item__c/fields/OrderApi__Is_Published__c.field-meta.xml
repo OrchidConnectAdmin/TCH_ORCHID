@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Published__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Override ** Is Published is unchecked when the linked Item &quot;Is Active&quot; is unchecked. When checked, the Item &quot;Listing&quot; is included when results are retrieved via the API for E-Store integrations. Defaults checked for &quot;Active&quot; Items.</description>
+    <inlineHelpText>** System Calculated Override ** Is Published is unchecked when the linked Item &quot;Is Active&quot; is unchecked. When checked, the Item &quot;Listing&quot; is included when results are retrieved via the API for E-Store integrations. Defaults checked for &quot;Active&quot; Items.</inlineHelpText>
+    <label>Is Published</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

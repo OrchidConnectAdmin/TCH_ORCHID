@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Auto_Generated_Item_Number__c</fullName>
+    <description>Any time a new item gets created, the system will autogenerate a number. This field is used specifically for NCP Session IDs</description>
+    <displayFormat>{00000}</displayFormat>
+    <externalId>false</externalId>
+    <inlineHelpText>Any time a new item gets created, the system will autogenerate a number. This field is used specifically for NCP Session IDs</inlineHelpText>
+    <label>Auto Generated Item Number</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>AutoNumber</type>
+</CustomField>

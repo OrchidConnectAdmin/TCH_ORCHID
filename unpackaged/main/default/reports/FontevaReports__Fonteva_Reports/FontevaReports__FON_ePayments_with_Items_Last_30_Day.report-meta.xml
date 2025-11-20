@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OrderApi__EPayment__c$Name</field>
+    </columns>
+    <columns>
+        <field>OrderApi__EPayment__c$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>OrderApi__EPayment__c$OrderApi__Account__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__EPayment__c$OrderApi__Contact__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__EPayment__c.OrderApi__EPayment_Lines__r$OrderApi__Item__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__EPayment__c.OrderApi__EPayment_Lines__r$OrderApi__Invoice__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__EPayment__c$OrderApi__Amount__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__EPayment__c$OrderApi__Transaction_Type__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__EPayment__c$OrderApi__Transaction_Token__c</field>
+    </columns>
+    <columns>
+        <field>OrderApi__EPayment__c$OrderApi__Last_Four_Digits__c</field>
+    </columns>
+    <description>ePayments made in the last 30 days with customer and item details.  For reconciliation of credit card and EFT payments with merchant account.  Grouped by ePayment Status.</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OrderApi__EPayment__c$OrderApi__Status__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FON - ePayments with Items - Last 30 Day</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>FontevaReports__FON_ePayments_with_ePayment_Lines__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>OrderApi__EPayment__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_LAST30</interval>
+    </timeFrameFilter>
+</Report>

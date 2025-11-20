@@ -1,0 +1,379 @@
+<apex:page title="{!$Label.joinapi__Package_Items}"
+           showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           controller="joinapi.PackageItemsController"
+           applyHtmlTag="false"
+           applyBodyTag="false">
+  <apex:composition template="joinapi__template">
+    <apex:define name="jpTitle">{!$Label.joinapi__Package_Items}</apex:define>
+    <apex:define name="jpStyles">
+    </apex:define>
+    <apex:define name="jpMain">
+      <c:InvalidPermissionHeader enabledProcess="{!hasPermission}" />
+      <apex:outputPanel rendered="{!hasPermission}">
+        <hr/>
+        <div class="container">
+          <div class="row m-t-10">
+            <div class="col-xs-12">
+              <div class="well">
+                <div class="row">
+                  <div class="col-xs-12" id="packageItems" />
+                </div>
+                <div class="row m-t-20 text-center">
+                  <div class="col-xs-12">
+                    <apex:form >
+                      <apex:commandButton action="{!cancel}" value="{!$Label.joinapi__Cancel}" styleClass="btn btn-mini m-r-5 btn-neutral ladda-button nextStep btn-wrap"/>
+                      <apex:commandButton action="{!previous}" value="{!$Label.joinapi__Back}" styleClass="btn btn-mini m-r-5 btn-neutral ladda-button nextStep btn-wrap"/>
+                      <a class="btn btn-mini btn-primary ladda-button nextPackageItems btn-wrap" data-style="expand-right">
+                        <span class="ladda-label">
+                                {!$Label.joinapi__Next}
+                        </span>
+                      </a>
+                      <apex:actionFunction name="nextPackageItems" action="{!next}"/>
+                    </apex:form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:outputPanel>
+      <script id="package_items" type="text/x-handlers-template">
+        {{#each packItems}}
+        <div class="col-xs-12">
+          <h2>{{{pi.OrderApi__Display_Label__c}}}</h2>
+          <h5>{{{pi.OrderApi__Display_Instructions__c}}}</h5>
+          <br/>
+          <div class="col-xs-12" id="{{pi.Id}}-messages">
+          </div>
+          {{#each items}}
+          <div class="row">
+            <div class="col-sm-2 product-img" style="background-image: url({{#if item.OrderApi__Image_Path__c}}{{item.OrderApi__Image_Path__c}}{{else}}'//package-assets.s3.amazonaws.com/integration/emerald/img/placeholders/item.png'{{/if}}); background-position:top left;">
+            </div>
+            {{{loadAddItem this ../pi}}}
+          </div>
+          <hr />
+          {{/each}}
+        </div>
+        {{/each}}
+      </script>
+      <script id="additional_item" type="text/x-handlers-template">
+        <div class="col-sm-10 p-t-15" id="{{pi.Id}}-{{item.Id}}">
+          <div class="row">
+            <div class="col-xs-6 col-sm-8 p-l-0">
+              <h3>
+                <span class="m-t-0 h4">
+                    <strong>{{{item.OrderApi__Display_Name__c}}}</strong>
+                </span>
+              </h3>
+              <h4>
+                {{#ifEqualCon item.OrderApi__Price__c 0.00}}
+                  <span class="text-primary f-w-bold">
+                    Free
+                  </span>
+                {{else}}
+                  {{#ifEqualCon rolledBackSOL.OrderApi__Sale_Price__c rolledBackSOL.OrderApi__List_Price__c}}
+                    <span class="text-primary f-w-bold">
+                      {{#ifNullSOL rolledBackSOL}}
+                        {{{formatCurrency item.OrderApi__Price__c this.currencyIsoCode}}}
+                      {{else}}
+                        {{{formatCurrency rolledBackSOL.OrderApi__List_Price__c this.currencyIsoCode}}}
+                      {{/ifNullSOL}}
+                    </span>
+                  {{else}}
+                    <s class="text-gray-lighter f-w-bold">
+                      {{{formatCurrency rolledBackSOL.OrderApi__List_Price__c this.currencyIsoCode}}}
+                    </s>
+                    <span class="text-primary f-w-bold">
+                      {{{formatCurrency rolledBackSOL.OrderApi__Sale_Price__c this.currencyIsoCode}}}
+                    </span>
+                  {{/ifEqualCon}}
+                {{/ifEqualCon}}
+              </h4>
+              <h5>
+                <p>
+                  {{{item.OrderApi__Line_Description__c}}}
+                </p>
+              </h5>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+              <div class="row">
+                <div class="col-sm-4 p-r-0">
+                  <div class="form-group">
+                    {{#ifCond pi.OrderApi__Maximum_Quantity__c pi.OrderApi__Maximum_Quantity_Per_Item__c pi.OrderApi__Minimum_Quantity__c}}
+                      <input type="number" id="{{pi.Id}}-{{item.Id}}-quantity" size="3" class="form-control item-quantity-spinner"
+                             {{#if pi.OrderApi__Minimum_Quantity__c}}
+                              min="{{pi.OrderApi__Minimum_Quantity__c}}"
+                             {{else}}
+                              min="1"
+                             {{/if}}
+                             {{#if pi.OrderApi__Maximum_Quantity__c}}
+                              max="{{pi.OrderApi__Maximum_Quantity__c}}"
+                             {{else if pi.OrderApi__Maximum_Quantity_Per_Item__c}}
+                              max="{{pi.OrderApi__Maximum_Quantity_Per_Item__c}}"
+                             {{/if}}
+                             {{#if sol.OrderApi__Quantity__c}}
+                              value="{{sol.OrderApi__Quantity__c}}"
+                             {{else}}
+                             {{#if pi.OrderApi__Minimum_Quantity__c}}
+                              value="{{pi.OrderApi__Minimum_Quantity__c}}"
+                             {{else}}
+                              value="1"
+                             {{/if}}
+                             {{/if}}
+                              />
+                    {{else}}
+                      <input type="number" id="{{pi.Id}}-{{item.Id}}-quantity" size="3" value="{{pi.OrderApi__Minimum_Quantity__c}}" disabled class="form-control"/>
+                    {{/ifCond}}
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  {{#isItemRequired pi.OrderApi__Is_Required__c pi.OrderApi__Item_Class__c}}
+                    <div class="text-center p-t-10">
+                      <strong>
+                          <span class="text-success">
+                            <i class="btb bt-check-circle m-r-5"></i>
+                            {{{replaceQuantity pi.OrderApi__Maximum_Quantity__c}}}
+                          </span>
+                      </strong>
+                    </div>
+                  {{else}}
+                     <a href="#" class="btn btn-mini btn-primary ladda-button addItem" data-itemId="{{item.Id}}" data-piId="{{pi.Id}}" data-minRequired="{{pi.OrderApi__Minimum_Quantity__c}}"
+                       {{#if pi.OrderApi__Maximum_Quantity__c}}
+                       data-maxRequired="{{pi.OrderApi__Maximum_Quantity__c}}"
+                       {{else if pi.OrderApi__Maximum_Quantity_Per_Item__c}}
+                       data-maxRequired="{{pi.OrderApi__Maximum_Quantity_Per_Item__c}}"
+                       {{/if}}
+                      {{#ifEqualCondition pi.OrderApi__Maximum_Quantity__c sol.OrderApi__Quantity__c}}
+                        disabled="true"
+                      {{/ifEqualCondition}}
+                      data-style="expand-right">
+                        <span class="ladda-label">
+                          {{#if pi.OrderApi__Display_Button_Label__c}}
+                            {{{pi.OrderApi__Display_Button_Label__c}}}
+                          {{else}}
+                            {{labels.add_To_Order}}
+                          {{/if}}
+                        </span>
+                    </a>
+                  {{/isItemRequired}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12" id="{{pi.Id}}-{{item.Id}}-messages">
+                  {{#if sol.Id}}
+                  <strong>
+                  <span class="text-success">
+                    <i class="btb bt-check-circle m-r-5"></i>
+                    {{{replaceQuantity sol.OrderApi__Quantity__c}}}
+                  </span>
+                  </strong>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </script>
+    </apex:define>
+    <apex:define name="jpScripts">
+      <script type="text/javascript">
+
+          var packageItemsAddedByItemClassRequired = new Array();
+          var pagelabels = {
+              add_To_Order: '{!$Label.joinapi__Add_To_Order}',
+          };
+          Handlebars.registerHelper('isItemRequired', function(v1, v2, options) {
+              if (v1 && v2 === undefined) {
+                  return options.fn(this);
+              } else {
+                  return options.inverse(this);
+              }
+          });
+          Handlebars.registerHelper('ifCond', function(v1, v2, v3, options) {
+              if ((v1 !== undefined || v2 !== undefined) && v3 !== undefined) {
+                  if ((v1 === v3 || v2 === v3)) {
+                    return options.inverse(this);
+                  } else {
+                    return options.fn(this);
+                  }
+              } else {
+                  return options.fn(this);
+              }
+          });
+          Handlebars.registerHelper('ifEqualCon', function(type, value, opts) {
+              if (type == value || type === undefined) {
+                  return opts.fn(this);
+              } else {
+                  return opts.inverse(this);
+              }
+          });
+          Handlebars.registerHelper('ifEqualCondition', function(type, value, opts) {
+              if (typeof type !== 'undefined' && typeof value !== 'undefined' && type == value) {
+                  return opts.fn(this);
+              } else {
+                  return opts.inverse(this);
+              }
+          });
+          Handlebars.registerHelper('ifNullSOL', function(type, opts) {
+              if (type === undefined || type === null) {
+                  return opts.fn(this);
+              } else {
+                  return opts.inverse(this);
+              }
+          });
+          Handlebars.registerHelper('replaceQuantity', function(value) {
+              var label = "{!$Label.joinapi__Package_Item_Added_Quantity}";
+              var item = label.substring(label.lastIndexOf("{{")+2,label.lastIndexOf("}}"));
+              var finalValue = value + " " + item;
+              if (value > 1)
+                finalValue += "s";
+              label = label.replace("{{" + item + "}}", finalValue);
+              return new Handlebars.SafeString(label);
+          });
+          Handlebars.registerHelper('loadAddItem', function(value, package_item) {
+              var record_data = {
+                  item: value.item,
+                  pi: package_item,
+                  labels: pagelabels,
+                  rolledBackSOL: value.rolledBackSOL,
+                  currencyIsoCode : value.currencyIsoCode
+              };
+              var additionalItemHTMLTemplate = Handlebars.compile($('#additional_item').html());
+              return additionalItemHTMLTemplate(record_data);
+          });
+          Handlebars.registerHelper('formatCurrency', function(price,currencyIsoCode) {
+             if (price == undefined) {
+                 price = 0;
+             }
+             return currencyComponentAPI.formatCurrency(price,currencyIsoCode);
+          });
+          $(document).ready(function() {
+              loadPackageItems('{!$CurrentPage.parameters.salesorder}');
+              showPageLoader();
+
+              $(document).on('click', '.addItem', function(e) {
+                  e.preventDefault();
+                  em.loader.start(this);
+                  var selItm = $(this);
+                  var itemId = selItm.attr('data-itemId');
+                  var piId = selItm.attr('data-piId');
+                  var minRequired = selItm.attr('data-minRequired');
+                  var maxRequired = selItm.attr('data-maxRequired');
+                  var quant = $("#" + piId + "-" + itemId + "-quantity").val();
+                  if (quant < 1 || (minRequired && parseInt(minRequired) > parseInt(quant))) {
+                      if (!minRequired)
+                        minRequired = 1;
+                      $('#'+ piId + '-' + itemId + '-messages').html('<p class="description text-danger">{!$Label.joinapi__Package_Item_Min_Required} ' + minRequired +'</p>');
+                      $('#'+ piId + '-' + itemId + '-quantity').val(minRequired);
+                      em.loader.stop(this);
+                      return;
+                  } else if (maxRequired && maxRequired >= 1 && parseInt(maxRequired) < parseInt(quant)) {
+                      $('#'+ piId + '-' + itemId + '-' + 'messages').html('<p class="description text-danger">{!$Label.joinapi__Package_Item_Max_Required} ' + maxRequired + '</p>');
+                      em.loader.stop(this);
+                      return;
+                  }
+                  var jsonData = {
+                      itmId: itemId,
+                      pItmId: piId,
+                      quantity: quant,
+                      salesOrderId: '{!$CurrentPage.parameters.salesorder}'
+                  };
+                  Visualforce.remoting.Manager.invokeAction(
+                      '{!$RemoteAction.PackageItemsController.addAdditionalLine}',
+                      JSON.stringify(jsonData),
+                      function(result, event) {
+                          if (event.status) {
+                              var index = packageItemsAddedByItemClassRequired.indexOf(result.pi.Id);
+                              if (index > -1) {
+                                  packageItemsAddedByItemClassRequired.splice(index, 1);
+                              }
+                              var resItm = result.items[0];
+                              var record_data = {
+                                  item: resItm.item,
+                                  rolledBackSOL: resItm.sol,
+                                  pi: result.pi,
+                                  labels: pagelabels,
+                                  currencyIsoCode : resItm.currencyIsoCode,
+                                  sol : resItm.sol
+                              };
+                              var result_html = Handlebars.compile($('#additional_item').html())(record_data);
+                              $("#" + result.pi.Id + '-' + resItm.item.Id).replaceWith(result_html);
+                          } else {
+                              messageTools.addError(event.message, true, true);
+                          }
+                          em.loader.stop(this);
+                      }, {
+                          escape: true
+                      }
+                  );
+              });
+          });
+
+          function validatePackage() {
+              if (packageItemsAddedByItemClassRequired.length > 0) {
+                  packageItemsAddedByItemClassRequired.forEach(function (element) {
+                      $('#'+ element + '-messages').html('<p class="description text-danger text-center">{!$Label.joinapi__Package_Item_Class_Required}</p>');
+                      window.location.hash = '#'+ element + '-messages';
+                  });
+                  em.loader.stopAll();
+                  return false;
+              }
+              return true;
+          }
+          function loadPackageItems(soId) {
+            if (soId !== null) {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.PackageItemsController.getAdditionalItems}',
+                    soId,
+                    function (result, event) {
+                        if (event.status) {
+                            var record_data = {
+                                packItems: result,
+                                labels: pagelabels
+                            };
+
+                            result.forEach(function (element) {
+                                if (element.pi.OrderApi__Is_Required__c && element.pi.OrderApi__Item_Class__c != null) {
+                                    var sols = 0;
+                                    element.items.forEach(function (element) {
+                                        if (typeof element.sol != 'undefined' && typeof element.sol.Id != 'undefined') {
+                                            sols++;
+                                        }
+                                    });
+
+                                    if (sols == 0) {
+                                        packageItemsAddedByItemClassRequired.push(element.pi.Id);
+                                    }
+                                }
+                            });
+
+                            var resultListHTMLTemplate = Handlebars.compile($("#package_items").html());
+                            $('#packageItems').html(resultListHTMLTemplate(record_data));
+                            $('#main').removeClass('pg-loading');
+                            if (!$('#main').hasClass('pg-loaded')) {
+                              $('#main').addClass('pg-loaded');
+                            }
+                            $('.pg-loading-screen').addClass('hide');
+                        } else {
+                            messageTools.addError(event.message, true, true);
+                        }
+                    }, {
+                        escape: true
+                    }
+                );
+            }
+          }
+          $(document).on('click', '.nextPackageItems', function(e) {
+              em.loader.start(this);
+              var btnRef = this;
+              if (validatePackage()) {
+                nextPackageItems();
+              }
+              setTimeout(function(){ em.loader.stop(btnRef); }, 1000);
+          });
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

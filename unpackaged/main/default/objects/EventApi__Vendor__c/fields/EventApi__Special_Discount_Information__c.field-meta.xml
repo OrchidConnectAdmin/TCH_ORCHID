@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Special_Discount_Information__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Describe any event discounts the vendor is offering as a special/promotion for event attendees.</description>
+    <inlineHelpText>Describe any event discounts the vendor is offering as a special/promotion for event attendees.</inlineHelpText>
+    <label>Special Discount Information</label>
+    <length>1000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

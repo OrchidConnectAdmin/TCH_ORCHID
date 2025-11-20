@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Test" recipientType="Contact" relatedToType="ProgramApi__Program_Profile__c">
+<messaging:htmlEmailBody >
+<c:AuditEmailTemplate progprofile="{!relatedTo}" />
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

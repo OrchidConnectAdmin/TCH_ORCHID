@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_SM_Coordinator__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Manually populated by TCH if the information is known. Will need to manually assign a badge for special permissions</inlineHelpText>
+    <label>Is SM Coordinator</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

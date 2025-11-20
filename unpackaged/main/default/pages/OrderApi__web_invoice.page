@@ -1,0 +1,107 @@
+<apex:page tabStyle="OrderApi__Invoice__c"
+    docType="html-5.0"
+    showHeader="false"
+    standardStylesheets="false"
+    applyBodyTag="false"
+    applyHtmlTag="false"
+    action="{!redirect}"
+    controller="PagesApi.DefaultTemplateController"
+    extensions="OrderApi.NewReceiptInvoiceController">
+
+    <apex:remoteObjects >
+      <apex:remoteObjectModel name="OrderApi__Invoice__c" jsShorthand="Invoice" fields="Name,Id"/>
+    </apex:remoteObjects>
+
+    <html>
+        <head>
+            <meta charset="utf-8"/>
+            <title id="invoice-page-title">{!$ObjectType.Invoice__c.Fields.Name.Label}&nbsp;</title>
+            <script src="//s3.amazonaws.com/package-assets/master/aui/lib/jquery/dist/jquery.min.js"/>
+            <style>
+                .print-button a {
+                    border: 1px solid #aeaeae;
+                    padding: 10px 25px;
+                    text-decoration: none;
+                    color: black;
+                }
+                .print-button a:hover {
+                    background-color: #aeaeae;
+                    text-decoration: none;
+                    color: white;
+                }
+                .print-button {
+                    text-align: center;
+                    margin: 45px;
+                }
+                @media print {
+                    .print-button {
+                        display: none;
+                    }
+                }
+                .invoice-address {
+                    padding-left: 15px;
+                    padding-top: 10px;
+                    padding-bottom: 10px
+                }
+            </style>
+        </head>
+        <body id="document" style="font-family: 'Helvetica+Neue', 'Arial', Sans-serif!important;">
+        <apex:outputPanel rendered="{!hasAccessPermission}">
+        <apex:outputPanel layout="none" rendered="{!isAppUpdateActivated}">
+                <c:new_receipt_invoice recInvId="{!attr_Id}"/>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!NOT(isAppUpdateActivated)}">
+                <c:invoice invoiceId="{!attr_Id}"/>
+            </apex:outputPanel>
+        </apex:outputPanel>
+            <apex:outputPanel id="errorPanel" rendered="{! NOT(hasAccessPermission)}">
+                <section class="error-404">
+                    <div class="container m-t-30">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="well text-center">
+                                    <h1>{!$Label.OrderApi__PageNotFoundTitle}</h1>
+                                    <p class="lead">{!$Label.OrderApi__PageNotFoundDescription}</p>
+                                    <Framework:messages />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </apex:outputPanel>
+        <!-- end: #errorPanel -->
+        </body>
+        <script type="text/javascript">
+            var invoice = new SObjectModel.Invoice();
+            var query = {
+                where: {
+                    Id: { eq: "{!$CurrentPage.parameters.id}" }
+                }
+            };
+            invoice.retrieve(query, function(error, results) {
+                if (error) {
+                   document.getElementById('invoice-page-title').innerHTML += "{!$CurrentPage.parameters.id}"+" {!$Label.OrderApi__Invoice_Not_Found}";
+                }
+                else {
+                    if (results.length == 1) {
+                      document.getElementById('invoice-page-title').innerHTML += results[0].get("Name");
+                    }
+                    else {
+                      document.getElementById('invoice-page-title').innerHTML += "{!$CurrentPage.parameters.id}"+" {!$Label.OrderApi__Invoice_Not_Found}";
+                    }
+                }
+            });
+
+           $(document).ready(function(){
+            $("a[id^='lookup']").each(function(){
+              var lookup = $(this);
+              var anchor = $(this).text();
+              var parent = $(this).parent();
+              lookup.remove();
+              parent.append(anchor);
+            });
+          });
+        </script>
+    </html>
+
+</apex:page>

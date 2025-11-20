@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Search_Results_Sort_Order__c</fullName>
+    <defaultValue>&quot;ASC&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>** Defaults Ascending ** Combined with the Search Results Sort Field, this field defines the order in which the search results will be displayed.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** Defaults Ascending ** Combined with the Search Results Sort Field, this field defines the order in which the search results will be displayed.</inlineHelpText>
+    <label>Search Results Sort Order</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

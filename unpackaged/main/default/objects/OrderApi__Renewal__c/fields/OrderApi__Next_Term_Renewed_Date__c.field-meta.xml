@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Next_Term_Renewed_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field defines the date that the subscription term was renewed to a new term.</description>
+    <inlineHelpText>This field defines the date that the subscription term was renewed to a new term.</inlineHelpText>
+    <label>Next Term Renewed Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

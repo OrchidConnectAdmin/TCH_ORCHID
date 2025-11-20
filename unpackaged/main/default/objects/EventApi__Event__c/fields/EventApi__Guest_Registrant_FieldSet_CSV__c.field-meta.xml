@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Guest_Registrant_FieldSet_CSV__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Custom fieldset defined on the Assignment Object that is used to collect information during guest checkout. Use the API name of the fieldset and ensure that fields on the Assignment object mirror the fields on the Attendee object.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Custom fieldset defined on the Assignment Object that is used to collect information during guest checkout. Use the API name of the fieldset and ensure that fields on the Assignment object mirror the fields on the Attendee object.</inlineHelpText>
+    <label>Guest Registrant Field Sets (CSV)</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

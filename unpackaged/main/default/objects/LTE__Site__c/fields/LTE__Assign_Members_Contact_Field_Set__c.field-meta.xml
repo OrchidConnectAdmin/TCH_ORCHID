@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Assign_Members_Contact_Field_Set__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field defines the field set to be used for the Add Member button on the assignments component.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field defines the field set to be used for the Add Member button on the assignments component.</inlineHelpText>
+    <label>Assign Members Contact Field Set</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

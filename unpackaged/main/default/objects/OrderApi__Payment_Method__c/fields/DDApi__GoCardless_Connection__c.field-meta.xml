@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__GoCardless_Connection__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Generated ** GoCardless connection related to the mandate on this payment method</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** System Generated ** GoCardless connection related to the mandate on this payment method</inlineHelpText>
+    <label>GoCardless Connection</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

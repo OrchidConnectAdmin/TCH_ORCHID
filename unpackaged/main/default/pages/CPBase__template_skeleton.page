@@ -1,0 +1,50 @@
+<apex:page showHeader="false"
+  standardStylesheets="false"
+  docType="html-5.0"
+  applyHtmlTag="false"
+  applyBodyTag="false">
+
+  <apex:composition template="PagesApi__default_template">
+
+    <apex:define name="title">
+      <apex:insert name="pageTitle"/>
+    </apex:define>
+
+    <apex:define name="styles">
+      <apex:insert name="pageStyles"/>
+    </apex:define>
+
+    <apex:define name="supernavOverride">&nbsp;</apex:define>
+    <apex:define name="topnavOverride">&nbsp;</apex:define>
+    <apex:define name="headerOverride">&nbsp;</apex:define>
+    <apex:define name="footerOverride">&nbsp;</apex:define>
+
+    <apex:define name="main">
+      <apex:insert name="pageMain"/>
+    </apex:define>
+
+    <apex:define name="scripts">
+      <script type="text/javascript">
+        $(function(){
+          if (typeof primary_brand !== 'undefined') {
+            $('body').css('background-color',primary_brand);
+            $('body').addClass('login-format');
+          }
+        });
+      </script>
+      <apex:insert name="pageScripts"/>
+    </apex:define>
+
+    <apex:define name="bodyClose">
+      <apex:actionStatus id="actionStatus">
+        <apex:facet name="start">
+          <script>em.actionStatus.alert();</script>
+        </apex:facet>
+        <apex:facet name="stop">
+          <script>em.actionStatus.close();</script>
+        </apex:facet>
+      </apex:actionStatus>
+    </apex:define>
+
+  </apex:composition>
+</apex:page>

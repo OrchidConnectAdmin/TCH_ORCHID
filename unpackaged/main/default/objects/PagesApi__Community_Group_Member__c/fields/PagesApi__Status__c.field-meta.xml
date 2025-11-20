@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Status of the group member record:
+1. Request Submitted - group member has requested to join a private group.
+2. Active - group member has been added to a group.
+3. Request Declined - group member has been rejected upon request to join a private group.
+4. Deactivated - group member has been deactivated.</description>
+    <inlineHelpText>Status of the group member record:
+1. Request Submitted - requested to join a private group.
+2. Active - added to a group.
+3. Request Declined - rejected upon request to join a private group.
+4. Deactivated - deactivated.</inlineHelpText>
+    <label>Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Request Submitted</fullName>
+                <default>false</default>
+                <label>Request Submitted</label>
+            </value>
+            <value>
+                <fullName>Active</fullName>
+                <default>true</default>
+                <label>Active</label>
+            </value>
+            <value>
+                <fullName>Request Declined</fullName>
+                <default>false</default>
+                <label>Request Declined</label>
+            </value>
+            <value>
+                <fullName>Deactivated</fullName>
+                <default>false</default>
+                <label>Deactivated</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

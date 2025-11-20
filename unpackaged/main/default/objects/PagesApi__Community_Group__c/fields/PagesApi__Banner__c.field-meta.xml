@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Banner__c</fullName>
+    <defaultValue>&quot;https://s3.amazonaws.com/package-assets/integration/emerald/img/cover-bgs/cover-1.jpg&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Banner displayed in the group</description>
+    <inlineHelpText>Banner displayed in the group</inlineHelpText>
+    <label>Banner</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

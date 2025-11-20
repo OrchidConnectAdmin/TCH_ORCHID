@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Item_Count__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** Count of the number of items related to the sales order.</description>
+    <inlineHelpText>**System Calculated** Count of the number of items related to the sales order.</inlineHelpText>
+    <label>Item Count</label>
+    <summaryForeignKey>OrderApi__Sales_Order_Line__c.OrderApi__Sales_Order__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

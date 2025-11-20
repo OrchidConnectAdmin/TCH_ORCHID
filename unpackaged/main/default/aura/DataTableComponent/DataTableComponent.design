@@ -1,0 +1,53 @@
+<design:component label="Current-User Related Data List">
+    <design:attribute name="cTitle" label="List Title"/>
+    <design:attribute name="cObj" label="Main Object" placeholder="ex. Contact, Account, Object__c"/>
+    <design:attribute name="cFields" label="Fields to display" placeholder="ex. Id,Name"/>
+    <design:attribute name="cSoql" label="SOQL Filter" />
+    <design:attribute name="cUserMatchingField" label="Field to match current user" placeholder="ex. OwnerId, ContactId, Primary_contact__c"/>
+    <design:attribute name="cUseContactId" label="Match using User's ContacId" description="When matching a field to current user, this setting will use ContactId instead of the user's Id."/>
+    
+    <design:attribute name="cAllowRec" label="Enable Add New Recordd Button" />
+    <design:attribute name="cRecBtnLabel" label="New Record Button Label" placeholder="Add New"/>
+    <design:attribute name="cRecPage" label="New Record Button Path" placeholder="ex. createrecord, form?id=XXX..."/>
+    <design:attribute name="cAppendRecID" label="Append ID to New Button path" />
+    <design:attribute name="cEncloseRecID" label="Enclose ID with quotes" />
+    
+    <design:attribute name="cAllowView" label="Enable View Button" />
+    <design:attribute name="cBtnLabel" label="View Button Label" placeholder="View"/>
+    <design:attribute name="cDPage" label="View Page Path" placeholder="ex. record-details, contact-details"/>
+    <design:attribute name="cAppendID" label="Append ID to View path" />
+    <design:attribute name="cEncloseID" label="Enclose ID with quotes" />
+    
+    <design:attribute name="cAllowEdit" label="Enable Edit Button" />
+    <design:attribute name="cEditBtnLabel" label="Edit Button Label" placeholder="ex. Recommend, Review"/>
+    <design:attribute name="cEDPage" label="Edit Button Path" placeholder="ex. form?id="/>
+    <design:attribute name="cAppendEditID" label="Append ID to Edit path" />
+    <design:attribute name="cEncloseEditID" label="Enclose ID with quotes" />
+    
+    <design:attribute name="cAllowAdd" label="Enable Advanced Button" />
+    <design:attribute name="cAddiontalBtnLabel" label="Advanced Button Label" placeholder="ex. Recommend, Review"/>
+    <design:attribute name="cADPage" label="Advanced Button Path" placeholder="ex. form?id="/>
+    <design:attribute name="cAddField" label="Field to pass" placeholder="ex. Id, Event__c"/>
+    <design:attribute name="cADParam" label="Advanced Path Parameters" placeholder="ex. form?id="/>
+    <design:attribute name="cAppendAddID" label="Append ID to Advanced Button Path" />
+    <design:attribute name="cEncloseAddID" label="Enclose ID with quotes" />
+    <design:attribute name="cAddPopup" label="Open path on popup" />
+    
+    <design:attribute name="cIcon" label="Icon" description="Refer to https://www.lightningdesignsystem.com/icons/" placeholder="standard:contact_list"/>
+
+    <design:attribute name="cDType" label="Display Type" datasource="Table,Accordion" default="Table" />
+    <design:attribute name="cRowsOnly" label="Show Table Rows Only (applies on Table Display Type)" />
+    <design:attribute name="cCFilters" label="Enable Column Filters" />
+    
+    <design:attribute name="cEnableIndicator" label="Enable Badge Indicator"/>
+    <design:attribute name="cIObj" label="Indicator record source object" placeholder="ex. Contact, Account, Object__c"/>
+    <design:attribute name="cIFields" label="Fields to validate" placeholder="ex. Name, Reviewed__c"/>
+    <design:attribute name="cISoql" label="Additional SOQL"/>
+	<design:attribute name="cIMainObjField" label="Indicator Object field referencing main object" placeholder="ex. Contact, Account, Object__c"/>
+    <design:attribute name="cIUserMatchingField" label="Field referencing current user"/>
+    <design:attribute name="cIUseContactId" label="Use current user's Contact Id"/>
+    <design:attribute name="cILabel" label="Indicator Label"/>
+    <design:attribute name="cIColumn" label="Append indicator to column" description="Index of the table column where to insert the badge indicator"/>
+    
+    
+</design:component>

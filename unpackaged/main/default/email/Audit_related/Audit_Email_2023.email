@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="NCP CE Credit Audit Notification" recipientType="Contact" relatedToType="ProgramApi__Program_Profile__c">
+    <messaging:htmlEmailBody >    
+        <c:Fon_AuditTemplate proId="{!relatedTo.Id}" />
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>37.0</apiVersion>
+    <description>Displays a table of data for whichever object and fields are set in configuration.</description>
+    <label>dataTable</label>
+    <packageVersions>
+        <majorNumber>124</majorNumber>
+        <minorNumber>4</minorNumber>
+        <namespace>Framework</namespace>
+    </packageVersions>
+</ApexComponent>

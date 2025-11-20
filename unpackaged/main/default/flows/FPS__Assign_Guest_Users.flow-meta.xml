@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Assigns users to the Fonteva_Guest_Group permission set group</description>
+    <environments>Default</environments>
+    <label>Fonteva: Assign Guest Users</label>
+    <processType>Flow</processType>
+</Flow>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Fields that will have translation strings generated when Fonteva Community Language Bulk Generation is used.</description>
+    <label>Bulk Generated Translation Fields</label>
+    <pluralLabel>Bulk Generated Translation Fields</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

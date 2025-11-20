@@ -1,0 +1,7 @@
+Dear {!OrderApi__Receipt__c.OrderApi__Contact__c},
+
+Your refund has been processed in the amount of {!OrderApi__Receipt__c.OrderApi__Total__c}.  If you paid with a credit card, please allow 2-3 business days for your transaction to be refunded.  If you paid by check, please allow 3-5 business days to receive a check by mail.
+
+Receipt Link -  https://us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.force.com/LightningMemberPortal/s/refund?id={!OrderApi__Receipt__c.OrderApi__Encrypted_Id__c}
+
+If you have any questions or concerns, please feel free to contact us.

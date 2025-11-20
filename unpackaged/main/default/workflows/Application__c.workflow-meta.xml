@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Send_email_to_staff_when_application_is_submitted</fullName>
+        <ccEmails>tanya.renne@theclearinghouse.org</ccEmails>
+        <description>Send email to staff when application is submitted</description>
+        <protected>false</protected>
+        
+        
+        
+        <senderAddress>ncp@theclearinghouse.org</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Worflow_Emails/Send_email_to_staff_when_application_is_submitted</template>
+    </alerts>
+    <rules>
+        <fullName>Send email to staff when an application is submitted</fullName>
+        <actions>
+            <name>Send_email_to_staff_when_application_is_submitted</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Application__c.IsPaid__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

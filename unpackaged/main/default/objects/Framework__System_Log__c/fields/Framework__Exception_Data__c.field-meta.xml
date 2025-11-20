@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Framework__Exception_Data__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Exception data contains information specifically related to exceptions handled by the Fonteva Platform including code line number, exception message, exception type, as well as blamed Registered App and/or Registered Object when applicable.</description>
+    <inlineHelpText>Exception data contains information specifically related to exceptions handled by the Fonteva Platform including code line number, exception message, exception type, as well as blamed Registered App and/or Registered Object when applicable.</inlineHelpText>
+    <label>Exception Data</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>8</visibleLines>
+</CustomField>

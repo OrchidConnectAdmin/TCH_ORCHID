@@ -1,0 +1,18 @@
+#fonteva .panel-heading { height: 40px; }
+#fonteva .panel-heading-container { font-size: 19px; position: relative; top: -6px; font-weight: 500; }
+#fonteva .panel-heading-container a, #fonteva .panel-heading-container a:hover, #fonteva .panel-heading-container a:focus { color: white; text-decoration: none; }
+#fonteva .form-group-instructions { background-color: #f3f4f4; border-bottom: 1px solid #eee; }
+.group-placeholder{min-height:120px;min-width:100%;border:2px dashed #e46800;background:#fbf9ee;color:#363636;margin:20px 0;list-style:none;}
+.field-placeholder{min-height:45px;min-width:100%;border:2px dashed #e46800;background:#fbf9ee;color:#363636;margin:5px 0;list-style:none;}
+.fonteva-messenger,ul.fonteva-messenger .message {color:#468847;background:#dff0d8;border:1px solid #d6e9c6;padding:10px;margin:0;width:100%;display:block;}
+#fonteva .cursor-move { cursor: move !important; }
+#fonteva .ns-field { border-radius: 0px !important; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important; }
+#fonteva .ns-field:hover { background-color: #fff !important; }
+#fonteva ul.fieldList { min-height: 20px; margin-bottom: 0px; }
+#actionbuttoncontainer { margin-bottom: 20px; }
+#fonteva button.close, #fonteva button.close:hover { background: none; padding: 0; border: none; }
+#fonteva textarea { min-height: 60px; }
+#fonteva .panel-body-title { margin: 0 4px 0 8px; }
+#fonteva .model-content { width: 700px; }
+#fonteva .icon.icon-asterisk { font-size: 9px; top: -1px; left: -3px; }
+#fonteva input[type="radio"], #fonteva input[type="checkbox"] { margin: 10px 0 0; }

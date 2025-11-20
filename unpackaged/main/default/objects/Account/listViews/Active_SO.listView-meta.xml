@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_SO</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>FON_Is_Member__c</columns>
+    <columns>Primary_R_T_Number__c</columns>
+    <columns>TCH_Membership_Type__c</columns>
+    <columns>Sponsored_Organization_Count__c</columns>
+    <columns>FON_Original_Member_Join_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>FON_Account_Name__c</field>
+        <operation>notContain</operation>
+        <value>Household</value>
+    </filters>
+    <filters>
+        <field>Is_Sponsoring_Organization__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Active SO</label>
+</ListView>

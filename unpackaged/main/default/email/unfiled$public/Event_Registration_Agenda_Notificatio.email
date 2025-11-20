@@ -1,0 +1,9 @@
+<messaging:emailTemplate subject="Event Registration" recipientType="User" relatedToType="EventApi__Attendee__c">
+    <messaging:htmlEmailBody >
+    <p>You have registered for the {!relatedTo.EventApi__Attendee_Event__r.EventApi__Display_Name__c}. Times listed below are approximate - refer to the final meeting agenda for exact times. We look forward to seeing you there!</p>
+        <c:FON_EventSessions aId="{!relatedTo.Id}" />
+        <p style="margin: 15px; text-align: center;">
+<a href="{!relatedTo.Add_To_Outlook_URL__c}">Add To Outlook Calendar</a>
+</p>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

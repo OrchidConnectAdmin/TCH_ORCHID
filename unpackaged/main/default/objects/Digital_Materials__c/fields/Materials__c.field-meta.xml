@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Materials__c</fullName>
+    <externalId>false</externalId>
+    <formula>If(Material_URL__c==&#39;hidethis&#39;,&#39;&lt;a href=&quot;&#39;&amp; Material_URL__c &amp;&#39;&quot; class=&quot;slds-button slds-button_brand&quot; target=&quot;_blank&quot;&gt;Media&lt;/a&gt;&#39;,null)&amp;
+If(PDF_URL__c!=null,&#39;&lt;a href=&quot;&#39;&amp; PDF_URL__c &amp;&#39;&quot; class=&quot;slds-button slds-button_brand&quot; target=&quot;_blank&quot;&gt;PDF&lt;/a&gt;&#39;,null)&amp;
+If(Digital_Item__r.FON_External_File_URL__c!=null,&#39;&lt;a href=&quot;&#39;&amp; Digital_Item__r.FON_External_File_URL__c &amp;&#39;&quot; class=&quot;slds-button slds-button_brand&quot; target=&quot;_blank&quot;&gt;WebEx&lt;/a&gt;&#39;,null)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Materials</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

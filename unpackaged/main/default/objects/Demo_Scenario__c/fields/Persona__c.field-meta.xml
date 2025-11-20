@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Persona__c</fullName>
+    <description>Select the persona related to the demo scenario.</description>
+    <inlineHelpText>Select the persona(s) related to the demo scenario.</inlineHelpText>
+    <label>Persona</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Chapter President</fullName>
+                <default>false</default>
+                <label>Chapter President</label>
+            </value>
+            <value>
+                <fullName>Committee/Group Manager</fullName>
+                <default>false</default>
+                <label>Committee/Group Manager</label>
+            </value>
+            <value>
+                <fullName>Database Administrator &amp; Web Developer</fullName>
+                <default>false</default>
+                <label>Database Administrator &amp; Web Developer</label>
+            </value>
+            <value>
+                <fullName>Director of Finance &amp; Administration</fullName>
+                <default>false</default>
+                <label>Director of Finance &amp; Administration</label>
+            </value>
+            <value>
+                <fullName>Education/Certification Manager</fullName>
+                <default>false</default>
+                <label>Education/Certification Manager</label>
+            </value>
+            <value>
+                <fullName>Events Manager</fullName>
+                <default>false</default>
+                <label>Events Manager</label>
+            </value>
+            <value>
+                <fullName>Executive Director</fullName>
+                <default>false</default>
+                <label>Executive Director</label>
+            </value>
+            <value>
+                <fullName>Marketing &amp; Communications Manager</fullName>
+                <default>false</default>
+                <label>Marketing &amp; Communications Manager</label>
+            </value>
+            <value>
+                <fullName>Member/Customer</fullName>
+                <default>false</default>
+                <label>Member/Customer</label>
+            </value>
+            <value>
+                <fullName>Membership Coordinator</fullName>
+                <default>false</default>
+                <label>Membership Coordinator</label>
+            </value>
+            <value>
+                <fullName>Prospective Member/Customer</fullName>
+                <default>false</default>
+                <label>Prospective Member/Customer</label>
+            </value>
+            <value>
+                <fullName>Publications/Advertising Manager</fullName>
+                <default>false</default>
+                <label>Publications/Advertising Manager</label>
+            </value>
+            <value>
+                <fullName>Public Website Visitor</fullName>
+                <default>false</default>
+                <label>Public Website Visitor</label>
+            </value>
+            <value>
+                <fullName>Sales Manager (Sponsorships/Advertisements)</fullName>
+                <default>false</default>
+                <label>Sales Manager (Sponsorships/Advertisements)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Account_is_Archived__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>This is a manual process. Check this box to archive a record. Default is unchecked. Used for reporting purposes and remove an Account as a potential option for member sponsorship</inlineHelpText>
+    <label>Organization is Inactive</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

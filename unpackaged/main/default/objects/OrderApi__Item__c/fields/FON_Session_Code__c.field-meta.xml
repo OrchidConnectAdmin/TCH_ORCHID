@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Session_Code__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( FON_Session_Types__c,
+&quot;Conference&quot;, &quot;C&quot;,
+&quot;Conference Call&quot;, &quot;CC&quot;,
+&quot;e-Publication&quot;, &quot;PUB&quot;,
+&quot;ECCHO Business Committee Meeting&quot;, &quot;EB&quot;,
+&quot;ECCHO Hosted Session&quot;, &quot;E&quot;,
+&quot;ECCHO NCP Editorial Board&quot;, &quot;ENEB&quot;,
+&quot;ECCHO OPS Chairman&quot;, &quot;EOO&quot;,
+&quot;ECCHO OPS Committee Meeting&quot;, &quot;EO&quot;,
+&quot;General Session&quot;, &quot;GS&quot;,
+&quot;In-Person Meeting&quot;, &quot;IPM&quot;,
+&quot;In-Person Training&quot;, &quot;IPT&quot;,
+&quot;Lunch-N-Learn&quot;, &quot;LL&quot;,
+&quot;NCP CE Workshop&quot;, &quot;EWK&quot;,
+&quot;NCP Evaluation of Pilot Items&quot;, &quot;EPI&quot;,
+&quot;NCP Guide Program&quot;, &quot;NCPG&quot;,
+&quot;NCP Partner Training&quot;, &quot;ETT&quot;,
+&quot;OnDemand&quot;, &quot;OD&quot;,
+&quot;Roundtable&quot;, &quot;ERDT&quot;,
+&quot;Seminar&quot;, &quot;S&quot;,
+&quot;User Group&quot;, &quot;UG&quot;,
+&quot;Web Based Training&quot;, &quot;WBT&quot;,
+&quot;Webinar&quot;, &quot;W&quot;,
+&quot;Workshop&quot;, &quot;WK&quot;,
+NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Session Code</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

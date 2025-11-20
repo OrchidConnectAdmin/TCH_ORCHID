@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Merchant_Name__c</fullName>
+    <defaultValue>$Organization.Name</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Some gateways allow you to customize the name that appears on customer&#39;s credit card statements. (Optional) provide a custom merchant name descriptor.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Some gateways allow you to customize the name that appears on customer&#39;s credit card statements. (Optional) provide a custom merchant name descriptor.</inlineHelpText>
+    <label>Merchant Name</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

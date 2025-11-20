@@ -1,0 +1,33 @@
+<aura:component description="Check Sponsorship Agreement" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction,lightning:isUrlAddressable,flexipage:availableForAllPageTypes,lightning:availableForFlowScreens" access="global">
+
+    <ltng:require scripts="{!$Resource.jQuery3}" afterScriptsLoaded="{!c.doInit}"/>
+	<!-- aura:handler name="init" value="{!this}" action="{!c.doInit}"/ -->
+    
+    <aura:attribute name="flowName" type="String" />
+    <aura:attribute name="rID" type="String" />
+    <aura:attribute name="coverMe" type="Boolean" default="true"/>
+
+    <!-- <aura:if isTrue="{!v.coverMe==false}">
+        <div class="body-cover">
+            <lightning:spinner alternativeText="Loading" size="small" />
+        </div>
+    </aura:if> -->
+    <div class="slds-hide">
+    	<lightning:flow aura:id="flowData" onstatuschange="{!c.handleStatusChange}"/>
+    </div>
+    
+
+    <aura:html tag="style">
+        /*.slds-spinner_container {
+	    background-color: rgba(255, 255, 255, 1);
+        }*/
+        #pfmPortalContent{
+        	display: none;
+        }
+        <aura:if isTrue="{!v.coverMe==false}">
+            #pfmPortalContent{
+                display: block;
+            }
+        </aura:if>
+    </aura:html>
+</aura:component>

@@ -1,0 +1,1637 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/aui.css">
+	<link rel="stylesheet" href="css/icons.css">
+	<link rel="stylesheet" href="css/chosen.css">
+	<link rel="stylesheet" href="css/tweaks.css">
+	<style>
+		.aui .test {
+			padding: 10px;
+			border: 1px solid #ccc;
+			margin-bottom: 20px;
+		}
+		.aui .test > h4 {
+			text-transform: UPPERCASE;
+			font-size: 13px;
+			color: #999;
+		}
+		.aui .test.test-buttons .btn {
+			margin: 10px 10px 10px 0;
+		}
+
+		.clickable{
+			cursor: pointer;
+		}
+	</style>
+
+</head>
+
+<body class="aui">
+
+	<div class="container-fluid">
+
+		<div class="page-header">
+			<h2>Standard Select</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				<select class="form-control">
+					<option>Ordinary select box</option>
+				</select>
+			</div>
+			<div class="col-md-3">
+				<select data-placeholder="Choose a Country" class="chosen-select" tabindex="2">
+					<option value=""></option>
+					<option value="United States">United States</option>
+					<option value="United Kingdom">United Kingdom</option>
+					<option value="Afghanistan">Afghanistan</option>
+					<option value="Albania">Albania</option>
+					<option value="Algeria">Algeria</option>
+					<option value="American Samoa">American Samoa</option>
+					<option value="Andorra">Andorra</option>
+					<option value="Angola">Angola</option>
+					<option value="Anguilla">Anguilla</option>
+					<option value="Antarctica">Antarctica</option>
+					<option value="Antigua and Barbuda">Antigua and Barbuda</option>
+					<option value="Argentina">Argentina</option>
+					<option value="Armenia">Armenia</option>
+					<option value="Aruba">Aruba</option>
+					<option value="Australia">Australia</option>
+					<option value="Austria">Austria</option>
+					<option value="Azerbaijan">Azerbaijan</option>
+					<option value="Bahamas">Bahamas</option>
+					<option value="Bahrain">Bahrain</option>
+					<option value="Bangladesh">Bangladesh</option>
+					<option value="Barbados">Barbados</option>
+					<option value="Belarus">Belarus</option>
+					<option value="Belgium">Belgium</option>
+					<option value="Belize">Belize</option>
+					<option value="Benin">Benin</option>
+					<option value="Bermuda">Bermuda</option>
+					<option value="Bhutan">Bhutan</option>
+					<option value="Bolivia">Bolivia</option>
+					<option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+					<option value="Botswana">Botswana</option>
+					<option value="Bouvet Island">Bouvet Island</option>
+					<option value="Brazil">Brazil</option>
+					<option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+					<option value="Brunei Darussalam">Brunei Darussalam</option>
+					<option value="Bulgaria">Bulgaria</option>
+					<option value="Burkina Faso">Burkina Faso</option>
+					<option value="Burundi">Burundi</option>
+					<option value="Cambodia">Cambodia</option>
+					<option value="Cameroon">Cameroon</option>
+					<option value="Canada">Canada</option>
+					<option value="Cape Verde">Cape Verde</option>
+					<option value="Cayman Islands">Cayman Islands</option>
+					<option value="Central African Republic">Central African Republic</option>
+					<option value="Chad">Chad</option>
+					<option value="Chile">Chile</option>
+					<option value="China">China</option>
+					<option value="Christmas Island">Christmas Island</option>
+					<option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+					<option value="Colombia">Colombia</option>
+					<option value="Comoros">Comoros</option>
+					<option value="Congo">Congo</option>
+					<option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+					<option value="Cook Islands">Cook Islands</option>
+					<option value="Costa Rica">Costa Rica</option>
+					<option value="Cote D'ivoire">Cote D'ivoire</option>
+					<option value="Croatia">Croatia</option>
+					<option value="Cuba">Cuba</option>
+					<option value="Cyprus">Cyprus</option>
+					<option value="Czech Republic">Czech Republic</option>
+					<option value="Denmark">Denmark</option>
+					<option value="Djibouti">Djibouti</option>
+					<option value="Dominica">Dominica</option>
+					<option value="Dominican Republic">Dominican Republic</option>
+					<option value="Ecuador">Ecuador</option>
+					<option value="Egypt">Egypt</option>
+					<option value="El Salvador">El Salvador</option>
+					<option value="Equatorial Guinea">Equatorial Guinea</option>
+					<option value="Eritrea">Eritrea</option>
+					<option value="Estonia">Estonia</option>
+					<option value="Ethiopia">Ethiopia</option>
+					<option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+					<option value="Faroe Islands">Faroe Islands</option>
+					<option value="Fiji">Fiji</option>
+					<option value="Finland">Finland</option>
+					<option value="France">France</option>
+					<option value="French Guiana">French Guiana</option>
+					<option value="French Polynesia">French Polynesia</option>
+					<option value="French Southern Territories">French Southern Territories</option>
+					<option value="Gabon">Gabon</option>
+					<option value="Gambia">Gambia</option>
+					<option value="Georgia">Georgia</option>
+					<option value="Germany">Germany</option>
+					<option value="Ghana">Ghana</option>
+					<option value="Gibraltar">Gibraltar</option>
+					<option value="Greece">Greece</option>
+					<option value="Greenland">Greenland</option>
+					<option value="Grenada">Grenada</option>
+					<option value="Guadeloupe">Guadeloupe</option>
+					<option value="Guam">Guam</option>
+					<option value="Guatemala">Guatemala</option>
+					<option value="Guinea">Guinea</option>
+					<option value="Guinea-bissau">Guinea-bissau</option>
+					<option value="Guyana">Guyana</option>
+					<option value="Haiti">Haiti</option>
+					<option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
+					<option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+					<option value="Honduras">Honduras</option>
+					<option value="Hong Kong">Hong Kong</option>
+					<option value="Hungary">Hungary</option>
+					<option value="Iceland">Iceland</option>
+					<option value="India">India</option>
+					<option value="Indonesia">Indonesia</option>
+					<option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
+					<option value="Iraq">Iraq</option>
+					<option value="Ireland">Ireland</option>
+					<option value="Israel">Israel</option>
+					<option value="Italy">Italy</option>
+					<option value="Jamaica">Jamaica</option>
+					<option value="Japan">Japan</option>
+					<option value="Jordan">Jordan</option>
+					<option value="Kazakhstan">Kazakhstan</option>
+					<option value="Kenya">Kenya</option>
+					<option value="Kiribati">Kiribati</option>
+					<option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+					<option value="Korea, Republic of">Korea, Republic of</option>
+					<option value="Kuwait">Kuwait</option>
+					<option value="Kyrgyzstan">Kyrgyzstan</option>
+					<option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+					<option value="Latvia">Latvia</option>
+					<option value="Lebanon">Lebanon</option>
+					<option value="Lesotho">Lesotho</option>
+					<option value="Liberia">Liberia</option>
+					<option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+					<option value="Liechtenstein">Liechtenstein</option>
+					<option value="Lithuania">Lithuania</option>
+					<option value="Luxembourg">Luxembourg</option>
+					<option value="Macao">Macao</option>
+					<option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+					<option value="Madagascar">Madagascar</option>
+					<option value="Malawi">Malawi</option>
+					<option value="Malaysia">Malaysia</option>
+					<option value="Maldives">Maldives</option>
+					<option value="Mali">Mali</option>
+					<option value="Malta">Malta</option>
+					<option value="Marshall Islands">Marshall Islands</option>
+					<option value="Martinique">Martinique</option>
+					<option value="Mauritania">Mauritania</option>
+					<option value="Mauritius">Mauritius</option>
+					<option value="Mayotte">Mayotte</option>
+					<option value="Mexico">Mexico</option>
+					<option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+					<option value="Moldova, Republic of">Moldova, Republic of</option>
+					<option value="Monaco">Monaco</option>
+					<option value="Mongolia">Mongolia</option>
+					<option value="Montenegro">Montenegro</option>
+					<option value="Montserrat">Montserrat</option>
+					<option value="Morocco">Morocco</option>
+					<option value="Mozambique">Mozambique</option>
+					<option value="Myanmar">Myanmar</option>
+					<option value="Namibia">Namibia</option>
+					<option value="Nauru">Nauru</option>
+					<option value="Nepal">Nepal</option>
+					<option value="Netherlands">Netherlands</option>
+					<option value="Netherlands Antilles">Netherlands Antilles</option>
+					<option value="New Caledonia">New Caledonia</option>
+					<option value="New Zealand">New Zealand</option>
+					<option value="Nicaragua">Nicaragua</option>
+					<option value="Niger">Niger</option>
+					<option value="Nigeria">Nigeria</option>
+					<option value="Niue">Niue</option>
+					<option value="Norfolk Island">Norfolk Island</option>
+					<option value="Northern Mariana Islands">Northern Mariana Islands</option>
+					<option value="Norway">Norway</option>
+					<option value="Oman">Oman</option>
+					<option value="Pakistan">Pakistan</option>
+					<option value="Palau">Palau</option>
+					<option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+					<option value="Panama">Panama</option>
+					<option value="Papua New Guinea">Papua New Guinea</option>
+					<option value="Paraguay">Paraguay</option>
+					<option value="Peru">Peru</option>
+					<option value="Philippines">Philippines</option>
+					<option value="Pitcairn">Pitcairn</option>
+					<option value="Poland">Poland</option>
+					<option value="Portugal">Portugal</option>
+					<option value="Puerto Rico">Puerto Rico</option>
+					<option value="Qatar">Qatar</option>
+					<option value="Reunion">Reunion</option>
+					<option value="Romania">Romania</option>
+					<option value="Russian Federation">Russian Federation</option>
+					<option value="Rwanda">Rwanda</option>
+					<option value="Saint Helena">Saint Helena</option>
+					<option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+					<option value="Saint Lucia">Saint Lucia</option>
+					<option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+					<option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+					<option value="Samoa">Samoa</option>
+					<option value="San Marino">San Marino</option>
+					<option value="Sao Tome and Principe">Sao Tome and Principe</option>
+					<option value="Saudi Arabia">Saudi Arabia</option>
+					<option value="Senegal">Senegal</option>
+					<option value="Serbia">Serbia</option>
+					<option value="Seychelles">Seychelles</option>
+					<option value="Sierra Leone">Sierra Leone</option>
+					<option value="Singapore">Singapore</option>
+					<option value="Slovakia">Slovakia</option>
+					<option value="Slovenia">Slovenia</option>
+					<option value="Solomon Islands">Solomon Islands</option>
+					<option value="Somalia">Somalia</option>
+					<option value="South Africa">South Africa</option>
+					<option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+					<option value="South Sudan">South Sudan</option>
+					<option value="Spain">Spain</option>
+					<option value="Sri Lanka">Sri Lanka</option>
+					<option value="Sudan">Sudan</option>
+					<option value="Suriname">Suriname</option>
+					<option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+					<option value="Swaziland">Swaziland</option>
+					<option value="Sweden">Sweden</option>
+					<option value="Switzerland">Switzerland</option>
+					<option value="Syrian Arab Republic">Syrian Arab Republic</option>
+					<option value="Taiwan, Republic of China">Taiwan, Republic of China</option>
+					<option value="Tajikistan">Tajikistan</option>
+					<option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+					<option value="Thailand">Thailand</option>
+					<option value="Timor-leste">Timor-leste</option>
+					<option value="Togo">Togo</option>
+					<option value="Tokelau">Tokelau</option>
+					<option value="Tonga">Tonga</option>
+					<option value="Trinidad and Tobago">Trinidad and Tobago</option>
+					<option value="Tunisia">Tunisia</option>
+					<option value="Turkey">Turkey</option>
+					<option value="Turkmenistan">Turkmenistan</option>
+					<option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+					<option value="Tuvalu">Tuvalu</option>
+					<option value="Uganda">Uganda</option>
+					<option value="Ukraine">Ukraine</option>
+					<option value="United Arab Emirates">United Arab Emirates</option>
+					<option value="United Kingdom">United Kingdom</option>
+					<option value="United States">United States</option>
+					<option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+					<option value="Uruguay">Uruguay</option>
+					<option value="Uzbekistan">Uzbekistan</option>
+					<option value="Vanuatu">Vanuatu</option>
+					<option value="Venezuela">Venezuela</option>
+					<option value="Viet Nam">Viet Nam</option>
+					<option value="Virgin Islands, British">Virgin Islands, British</option>
+					<option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+					<option value="Wallis and Futuna">Wallis and Futuna</option>
+					<option value="Western Sahara">Western Sahara</option>
+					<option value="Yemen">Yemen</option>
+					<option value="Zambia">Zambia</option>
+					<option value="Zimbabwe">Zimbabwe</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="page-header">
+			<h2>Multiple Select</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				<form>
+					<input type="text" class="form-control" value="Ordinary text box" />
+				</form>
+			</div>
+			<div class="col-md-3">
+				<select data-placeholder="Choose a Country" class="chosen-select" multiple tabindex="4">
+					<option value=""></option>
+					<option value="United States">United States</option>
+					<option value="United Kingdom">United Kingdom</option>
+					<option value="Afghanistan">Afghanistan</option>
+					<option value="Albania">Albania</option>
+					<option value="Algeria">Algeria</option>
+					<option value="American Samoa">American Samoa</option>
+					<option value="Andorra">Andorra</option>
+					<option value="Angola">Angola</option>
+					<option value="Anguilla">Anguilla</option>
+					<option value="Antarctica">Antarctica</option>
+					<option value="Antigua and Barbuda">Antigua and Barbuda</option>
+					<option value="Argentina">Argentina</option>
+					<option value="Armenia">Armenia</option>
+					<option value="Aruba">Aruba</option>
+					<option value="Australia">Australia</option>
+					<option value="Austria">Austria</option>
+					<option value="Azerbaijan">Azerbaijan</option>
+					<option value="Bahamas">Bahamas</option>
+					<option value="Bahrain">Bahrain</option>
+					<option value="Bangladesh">Bangladesh</option>
+					<option value="Barbados">Barbados</option>
+					<option value="Belarus">Belarus</option>
+					<option value="Belgium">Belgium</option>
+					<option value="Belize">Belize</option>
+					<option value="Benin">Benin</option>
+					<option value="Bermuda">Bermuda</option>
+					<option value="Bhutan">Bhutan</option>
+					<option value="Bolivia">Bolivia</option>
+					<option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+					<option value="Botswana">Botswana</option>
+					<option value="Bouvet Island">Bouvet Island</option>
+					<option value="Brazil">Brazil</option>
+					<option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+					<option value="Brunei Darussalam">Brunei Darussalam</option>
+					<option value="Bulgaria">Bulgaria</option>
+					<option value="Burkina Faso">Burkina Faso</option>
+					<option value="Burundi">Burundi</option>
+					<option value="Cambodia">Cambodia</option>
+					<option value="Cameroon">Cameroon</option>
+					<option value="Canada">Canada</option>
+					<option value="Cape Verde">Cape Verde</option>
+					<option value="Cayman Islands">Cayman Islands</option>
+					<option value="Central African Republic">Central African Republic</option>
+					<option value="Chad">Chad</option>
+					<option value="Chile">Chile</option>
+					<option value="China">China</option>
+					<option value="Christmas Island">Christmas Island</option>
+					<option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+					<option value="Colombia">Colombia</option>
+					<option value="Comoros">Comoros</option>
+					<option value="Congo">Congo</option>
+					<option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+					<option value="Cook Islands">Cook Islands</option>
+					<option value="Costa Rica">Costa Rica</option>
+					<option value="Cote D'ivoire">Cote D'ivoire</option>
+					<option value="Croatia">Croatia</option>
+					<option value="Cuba">Cuba</option>
+					<option value="Cyprus">Cyprus</option>
+					<option value="Czech Republic">Czech Republic</option>
+					<option value="Denmark">Denmark</option>
+					<option value="Djibouti">Djibouti</option>
+					<option value="Dominica">Dominica</option>
+					<option value="Dominican Republic">Dominican Republic</option>
+					<option value="Ecuador">Ecuador</option>
+					<option value="Egypt">Egypt</option>
+					<option value="El Salvador">El Salvador</option>
+					<option value="Equatorial Guinea">Equatorial Guinea</option>
+					<option value="Eritrea">Eritrea</option>
+					<option value="Estonia">Estonia</option>
+					<option value="Ethiopia">Ethiopia</option>
+					<option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+					<option value="Faroe Islands">Faroe Islands</option>
+					<option value="Fiji">Fiji</option>
+					<option value="Finland">Finland</option>
+					<option value="France">France</option>
+					<option value="French Guiana">French Guiana</option>
+					<option value="French Polynesia">French Polynesia</option>
+					<option value="French Southern Territories">French Southern Territories</option>
+					<option value="Gabon">Gabon</option>
+					<option value="Gambia">Gambia</option>
+					<option value="Georgia">Georgia</option>
+					<option value="Germany">Germany</option>
+					<option value="Ghana">Ghana</option>
+					<option value="Gibraltar">Gibraltar</option>
+					<option value="Greece">Greece</option>
+					<option value="Greenland">Greenland</option>
+					<option value="Grenada">Grenada</option>
+					<option value="Guadeloupe">Guadeloupe</option>
+					<option value="Guam">Guam</option>
+					<option value="Guatemala">Guatemala</option>
+					<option value="Guinea">Guinea</option>
+					<option value="Guinea-bissau">Guinea-bissau</option>
+					<option value="Guyana">Guyana</option>
+					<option value="Haiti">Haiti</option>
+					<option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
+					<option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+					<option value="Honduras">Honduras</option>
+					<option value="Hong Kong">Hong Kong</option>
+					<option value="Hungary">Hungary</option>
+					<option value="Iceland">Iceland</option>
+					<option value="India">India</option>
+					<option value="Indonesia">Indonesia</option>
+					<option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
+					<option value="Iraq">Iraq</option>
+					<option value="Ireland">Ireland</option>
+					<option value="Israel">Israel</option>
+					<option value="Italy">Italy</option>
+					<option value="Jamaica">Jamaica</option>
+					<option value="Japan">Japan</option>
+					<option value="Jordan">Jordan</option>
+					<option value="Kazakhstan">Kazakhstan</option>
+					<option value="Kenya">Kenya</option>
+					<option value="Kiribati">Kiribati</option>
+					<option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+					<option value="Korea, Republic of">Korea, Republic of</option>
+					<option value="Kuwait">Kuwait</option>
+					<option value="Kyrgyzstan">Kyrgyzstan</option>
+					<option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+					<option value="Latvia">Latvia</option>
+					<option value="Lebanon">Lebanon</option>
+					<option value="Lesotho">Lesotho</option>
+					<option value="Liberia">Liberia</option>
+					<option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+					<option value="Liechtenstein">Liechtenstein</option>
+					<option value="Lithuania">Lithuania</option>
+					<option value="Luxembourg">Luxembourg</option>
+					<option value="Macao">Macao</option>
+					<option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+					<option value="Madagascar">Madagascar</option>
+					<option value="Malawi">Malawi</option>
+					<option value="Malaysia">Malaysia</option>
+					<option value="Maldives">Maldives</option>
+					<option value="Mali">Mali</option>
+					<option value="Malta">Malta</option>
+					<option value="Marshall Islands">Marshall Islands</option>
+					<option value="Martinique">Martinique</option>
+					<option value="Mauritania">Mauritania</option>
+					<option value="Mauritius">Mauritius</option>
+					<option value="Mayotte">Mayotte</option>
+					<option value="Mexico">Mexico</option>
+					<option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+					<option value="Moldova, Republic of">Moldova, Republic of</option>
+					<option value="Monaco">Monaco</option>
+					<option value="Mongolia">Mongolia</option>
+					<option value="Montenegro">Montenegro</option>
+					<option value="Montserrat">Montserrat</option>
+					<option value="Morocco">Morocco</option>
+					<option value="Mozambique">Mozambique</option>
+					<option value="Myanmar">Myanmar</option>
+					<option value="Namibia">Namibia</option>
+					<option value="Nauru">Nauru</option>
+					<option value="Nepal">Nepal</option>
+					<option value="Netherlands">Netherlands</option>
+					<option value="Netherlands Antilles">Netherlands Antilles</option>
+					<option value="New Caledonia">New Caledonia</option>
+					<option value="New Zealand">New Zealand</option>
+					<option value="Nicaragua">Nicaragua</option>
+					<option value="Niger">Niger</option>
+					<option value="Nigeria">Nigeria</option>
+					<option value="Niue">Niue</option>
+					<option value="Norfolk Island">Norfolk Island</option>
+					<option value="Northern Mariana Islands">Northern Mariana Islands</option>
+					<option value="Norway">Norway</option>
+					<option value="Oman">Oman</option>
+					<option value="Pakistan">Pakistan</option>
+					<option value="Palau">Palau</option>
+					<option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+					<option value="Panama">Panama</option>
+					<option value="Papua New Guinea">Papua New Guinea</option>
+					<option value="Paraguay">Paraguay</option>
+					<option value="Peru">Peru</option>
+					<option value="Philippines">Philippines</option>
+					<option value="Pitcairn">Pitcairn</option>
+					<option value="Poland">Poland</option>
+					<option value="Portugal">Portugal</option>
+					<option value="Puerto Rico">Puerto Rico</option>
+					<option value="Qatar">Qatar</option>
+					<option value="Reunion">Reunion</option>
+					<option value="Romania">Romania</option>
+					<option value="Russian Federation">Russian Federation</option>
+					<option value="Rwanda">Rwanda</option>
+					<option value="Saint Helena">Saint Helena</option>
+					<option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+					<option value="Saint Lucia">Saint Lucia</option>
+					<option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+					<option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+					<option value="Samoa">Samoa</option>
+					<option value="San Marino">San Marino</option>
+					<option value="Sao Tome and Principe">Sao Tome and Principe</option>
+					<option value="Saudi Arabia">Saudi Arabia</option>
+					<option value="Senegal">Senegal</option>
+					<option value="Serbia">Serbia</option>
+					<option value="Seychelles">Seychelles</option>
+					<option value="Sierra Leone">Sierra Leone</option>
+					<option value="Singapore">Singapore</option>
+					<option value="Slovakia">Slovakia</option>
+					<option value="Slovenia">Slovenia</option>
+					<option value="Solomon Islands">Solomon Islands</option>
+					<option value="Somalia">Somalia</option>
+					<option value="South Africa">South Africa</option>
+					<option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+					<option value="South Sudan">South Sudan</option>
+					<option value="Spain">Spain</option>
+					<option value="Sri Lanka">Sri Lanka</option>
+					<option value="Sudan">Sudan</option>
+					<option value="Suriname">Suriname</option>
+					<option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+					<option value="Swaziland">Swaziland</option>
+					<option value="Sweden">Sweden</option>
+					<option value="Switzerland">Switzerland</option>
+					<option value="Syrian Arab Republic">Syrian Arab Republic</option>
+					<option value="Taiwan, Republic of China">Taiwan, Republic of China</option>
+					<option value="Tajikistan">Tajikistan</option>
+					<option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+					<option value="Thailand">Thailand</option>
+					<option value="Timor-leste">Timor-leste</option>
+					<option value="Togo">Togo</option>
+					<option value="Tokelau">Tokelau</option>
+					<option value="Tonga">Tonga</option>
+					<option value="Trinidad and Tobago">Trinidad and Tobago</option>
+					<option value="Tunisia">Tunisia</option>
+					<option value="Turkey">Turkey</option>
+					<option value="Turkmenistan">Turkmenistan</option>
+					<option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+					<option value="Tuvalu">Tuvalu</option>
+					<option value="Uganda">Uganda</option>
+					<option value="Ukraine">Ukraine</option>
+					<option value="United Arab Emirates">United Arab Emirates</option>
+					<option value="United Kingdom">United Kingdom</option>
+					<option value="United States">United States</option>
+					<option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+					<option value="Uruguay">Uruguay</option>
+					<option value="Uzbekistan">Uzbekistan</option>
+					<option value="Vanuatu">Vanuatu</option>
+					<option value="Venezuela">Venezuela</option>
+					<option value="Viet Nam">Viet Nam</option>
+					<option value="Virgin Islands, British">Virgin Islands, British</option>
+					<option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+					<option value="Wallis and Futuna">Wallis and Futuna</option>
+					<option value="Western Sahara">Western Sahara</option>
+					<option value="Yemen">Yemen</option>
+					<option value="Zambia">Zambia</option>
+					<option value="Zimbabwe">Zimbabwe</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="page-header">
+			<h2>Option Group Support</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<h3>Single Select with Groups</h3>
+				<select data-placeholder="Your Favorite Football Team" class="chosen-select" tabindex="5">
+					<option value=""></option>
+					<optgroup label="NFC EAST">
+						<option>Dallas Cowboys</option>
+						<option>New York Giants</option>
+						<option>Philadelphia Eagles</option>
+						<option>Washington Redskins</option>
+					</optgroup>
+					<optgroup label="NFC NORTH">
+						<option>Chicago Bears</option>
+						<option>Detroit Lions</option>
+						<option>Green Bay Packers</option>
+						<option>Minnesota Vikings</option>
+					</optgroup>
+					<optgroup label="NFC SOUTH">
+						<option>Atlanta Falcons</option>
+						<option>Carolina Panthers</option>
+						<option>New Orleans Saints</option>
+						<option>Tampa Bay Buccaneers</option>
+					</optgroup>
+					<optgroup label="NFC WEST">
+						<option>Arizona Cardinals</option>
+						<option>St. Louis Rams</option>
+						<option>San Francisco 49ers</option>
+						<option>Seattle Seahawks</option>
+					</optgroup>
+					<optgroup label="AFC EAST">
+						<option>Buffalo Bills</option>
+						<option>Miami Dolphins</option>
+						<option>New England Patriots</option>
+						<option>New York Jets</option>
+					</optgroup>
+					<optgroup label="AFC NORTH">
+						<option>Baltimore Ravens</option>
+						<option>Cincinnati Bengals</option>
+						<option>Cleveland Browns</option>
+						<option>Pittsburgh Steelers</option>
+					</optgroup>
+					<optgroup label="AFC SOUTH">
+						<option>Houston Texans</option>
+						<option>Indianapolis Colts</option>
+						<option>Jacksonville Jaguars</option>
+						<option>Tennessee Titans</option>
+					</optgroup>
+					<optgroup label="AFC WEST">
+						<option>Denver Broncos</option>
+						<option>Kansas City Chiefs</option>
+						<option>Oakland Raiders</option>
+						<option>San Diego Chargers</option>
+					</optgroup>
+				</select>
+			</div>
+
+			<div class="col-md-6">
+				<h3>Multiple Select with Groups</h3>
+				<select data-placeholder="Your Favorite Football Teams" class="chosen-select" multiple tabindex="6">
+					<option value=""></option>
+					<optgroup label="NFC EAST">
+						<option>Dallas Cowboys</option>
+						<option>New York Giants</option>
+						<option>Philadelphia Eagles</option>
+						<option>Washington Redskins</option>
+					</optgroup>
+					<optgroup label="NFC NORTH">
+						<option>Chicago Bears</option>
+						<option>Detroit Lions</option>
+						<option>Green Bay Packers</option>
+						<option>Minnesota Vikings</option>
+					</optgroup>
+					<optgroup label="NFC SOUTH">
+						<option>Atlanta Falcons</option>
+						<option>Carolina Panthers</option>
+						<option>New Orleans Saints</option>
+						<option>Tampa Bay Buccaneers</option>
+					</optgroup>
+					<optgroup label="NFC WEST">
+						<option>Arizona Cardinals</option>
+						<option>St. Louis Rams</option>
+						<option>San Francisco 49ers</option>
+						<option>Seattle Seahawks</option>
+					</optgroup>
+					<optgroup label="AFC EAST">
+						<option>Buffalo Bills</option>
+						<option>Miami Dolphins</option>
+						<option>New England Patriots</option>
+						<option>New York Jets</option>
+					</optgroup>
+					<optgroup label="AFC NORTH">
+						<option>Baltimore Ravens</option>
+						<option>Cincinnati Bengals</option>
+						<option>Cleveland Browns</option>
+						<option>Pittsburgh Steelers</option>
+					</optgroup>
+					<optgroup label="AFC SOUTH">
+						<option>Houston Texans</option>
+						<option>Indianapolis Colts</option>
+						<option>Jacksonville Jaguars</option>
+						<option>Tennessee Titans</option>
+					</optgroup>
+					<optgroup label="AFC WEST">
+						<option>Denver Broncos</option>
+						<option>Kansas City Chiefs</option>
+						<option>Oakland Raiders</option>
+						<option>San Diego Chargers</option>
+					</optgroup>
+				</select>
+			</div>
+		</div>
+
+		<div class="page-header">
+			<h2>Selected and Disabled Support</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<h3>Single Select</h3>
+				<select data-placeholder="Your Favorite Type of Bear" class="chosen-select" tabindex="7">
+					<option value=""></option>
+					<option>American Black Bear</option>
+					<option>Asiatic Black Bear</option>
+					<option>Brown Bear</option>
+					<option>Giant Panda</option>
+					<option selected>Sloth Bear</option>
+					<option disabled>Sun Bear</option>
+					<option>Polar Bear</option>
+					<option disabled>Spectacled Bear</option>
+				</select>
+			</div>
+
+			<div class="col-md-6">
+				<h3>Multiple Select</h3>
+				<select data-placeholder="Your Favorite Types of Bear" multiple class="chosen-select" tabindex="8">
+					<option value=""></option>
+					<option>American Black Bear</option>
+					<option>Asiatic Black Bear</option>
+					<option>Brown Bear</option>
+					<option>Giant Panda</option>
+					<option>Sloth Bear</option>
+					<option disabled>Sun Bear</option>
+					<option selected>Polar Bear</option>
+					<option disabled>Spectacled Bear</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="page-header">
+			<h2>Allow Deselect on Single Selects</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				<select data-placeholder="Your Favorite Type of Bear" class="chosen-select-deselect" tabindex="7">
+					<option value=""></option>
+					<option>American Black Bear</option>
+					<option>Asiatic Black Bear</option>
+					<option>Brown Bear</option>
+					<option>Giant Panda</option>
+					<option selected>Sloth Bear</option>
+					<option>Sun Bear</option>
+					<option>Polar Bear</option>
+					<option>Spectacled Bear</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="page-header">
+			<h2>Right to Left</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<h3>Single Select</h3>
+				<select data-placeholder="Your Favorite Type of Bear" class="chosen-select chosen-rtl" tabindex="7">
+					<option value=""></option>
+					<option>American Black Bear</option>
+					<option>Asiatic Black Bear</option>
+					<option>Brown Bear</option>
+					<option>Giant Panda</option>
+					<option selected>Sloth Bear</option>
+					<option disabled>Sun Bear</option>
+					<option>Polar Bear</option>
+					<option disabled>Spectacled Bear</option>
+				</select>
+			</div>
+
+			<div class="col-md-6">
+				<h3>Multiple Select</h3>
+				<select data-placeholder="Your Favorite Types of Bear" multiple class="chosen-select chosen-rtl" tabindex="8">
+					<option value=""></option>
+					<option>American Black Bear</option>
+					<option>Asiatic Black Bear</option>
+					<option>Brown Bear</option>
+					<option>Giant Panda</option>
+					<option>Sloth Bear</option>
+					<option disabled>Sun Bear</option>
+					<option selected>Polar Bear</option>
+					<option disabled>Spectacled Bear</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<section id="tables">
+
+					<div class="page-header">
+						<h1>Tables</h1>
+					</div>
+
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Username</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Mark</td>
+								<td>Otto</td>
+								<td>@mdo</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Jacob</td>
+								<td>Thornton</td>
+								<td>@fat</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Larry</td>
+								<td>the Bird</td>
+								<td>@twitter</td>
+							</tr>
+							<tr class="warning">
+								<td>warning</td>
+								<td>Warning</td>
+								<td>Warning</td>
+								<td>@warning</td>
+							</tr>
+							<tr class="danger">
+								<td>danger</td>
+								<td>danger</td>
+								<td>danger</td>
+								<td>@danger</td>
+							</tr>
+							<tr class="success">
+								<td>success</td>
+								<td>success</td>
+								<td>success</td>
+								<td>@success</td>
+							</tr>
+							<tr class="info">
+								<td>info</td>
+								<td>info</td>
+								<td>info</td>
+								<td>@info</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-md-6">
+
+				<div class="page-header">
+					<h2>Forms</h2>
+				</div>
+
+				<div class="test">
+					<h4>Horizontal Form with Legend</h4>
+					<form class="form-horizontal">
+						<fieldset>
+
+							<legend>This is legendary</legend>
+
+							<div class="alert alert-danger">
+								<a class="close" data-dismiss="alert">&times</a>
+								<h3><i class="icon icon-warning"></i> Danger!</h3>
+								<p>You have really screwed up now!</p>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Text Input</label>
+								<div class="col-md-8">
+									<input type="text" placeholder="placeholder" class="form-control">
+
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Password Input</label>
+								<div class="col-md-8">
+									<input type="password" placeholder="placeholder" class="form-control">
+
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Search Input</label>
+								<div class="col-md-8">
+									<input type="search" placeholder="Search..." class="form-control search">
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Prepended Text</label>
+								<div class="col-md-8">
+									<div class="input-group">
+										<span class="input-group-addon">Sample Prepended Text</span>
+										<input class="form-control" placeholder="placeholder" type="text">
+									</div>
+
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4">Text Area</label>
+								<div class="col-md-8">
+									<textarea class="form-control">default text</textarea>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Select Basic</label>
+								<div class="col-md-8">
+									<select id="selectbasic" name="selectbasic" class="form-control">
+										<option>Option one</option>
+										<option>Option two</option>
+									</select>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Select Multiple</label>
+								<div class="col-md-8">
+									<select class="form-control" multiple="multiple">
+										<option>Option one</option>
+										<option>Option two</option>
+									</select>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Multiple Radios</label>
+								<div class="col-md-8">
+									<label class="radio" >
+										<input type="radio" name="radios" value="Option one" checked="checked">
+										Option one
+									</label>
+									<label class="radio" >
+										<input type="radio" name="radios" value="Option two">
+										Option two
+									</label>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Inline Radios</label>
+								<div class="col-md-8">
+									<label class="radio inline" >
+										<input type="radio" name="radios" value="1" checked="checked">
+										1
+									</label>
+									<label class="radio inline" >
+										<input type="radio" name="radios" value="2">
+										2
+									</label>
+									<label class="radio inline" >
+										<input type="radio" name="radios" value="3">
+										3
+									</label>
+									<label class="radio inline" >
+										<input type="radio" name="radios" value="4">
+										4
+									</label>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Multiple Checkboxes</label>
+								<div class="col-md-8">
+									<label class="checkbox" >
+										<input type="checkbox" name="checkboxes" value="Option one">
+										Option one
+									</label>
+									<label class="checkbox" >
+										<input type="checkbox" name="checkboxes" value="Option two">
+										Option two
+									</label>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Inline Checkboxes</label>
+								<div class="col-md-8">
+									<label class="checkbox inline" >
+										<input type="checkbox" name="checkboxes" value="1">
+										1
+									</label>
+									<label class="checkbox inline" >
+										<input type="checkbox" name="checkboxes" value="2">
+										2
+									</label>
+									<label class="checkbox inline" >
+										<input type="checkbox" name="checkboxes" value="3">
+										3
+									</label>
+									<label class="checkbox inline" >
+										<input type="checkbox" name="checkboxes" value="4">
+										4
+									</label>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >File Button</label>
+								<div class="col-md-8">
+									<input name="filebutton" class="input-file" type="file">
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-md-4" >Double Button</label>
+								<div class="col-md-8">
+									<button class="btn btn-success">Success!</button>
+									<button class="btn btn-danger">Danger</button>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+				</div>
+
+			</div>
+
+			<div class="col-md-6">
+
+				<div class="page-header">
+					<h2>Blockquote Callouts</h2>
+				</div>
+
+
+				<div class="test">
+					<h4>Blockqoutes</h4>
+					<div class="blockquote-box clearfix">
+						<div class="square pull-left">
+							<img src="http://placehold.it/60/8e44ad/FFF&text=B" alt="" class="" />
+						</div>
+						<h4>Bootsnipp</h4>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
+							ante.
+						</p>
+					</div>
+					<div class="blockquote-box blockquote-primary clearfix">
+						<div class="square pull-left">
+							<span class="glyphicon glyphicon-music glyphicon-lg"></span>
+						</div>
+						<h4>Let's music play</h4>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
+							ante. <a href="http://www.jquery2dotnet.com/search/label/jquery">jquery2dotnet</a>
+						</p>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-md-12">
+
+				<div class="page-header">
+					<h2>Navigation</h2>
+				</div>
+
+				<div class="test">
+
+					<h4>Large Dropdowns (megamenu)</h4>
+
+					<nav class="navbar navbar-default navbar-static">
+
+						<div class="navbar-header">
+							<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="#">Large Dropdown Menu</a>
+						</div>
+
+						<div class="collapse navbar-collapse js-navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li class="dropdown dropdown-large">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+
+									<ul class="dropdown-menu dropdown-menu-large row">
+										<li class="col-md-3">
+											<ul>
+												<li class="dropdown-header">Glyphicons</li>
+												<li><a href="#">Available glyphs</a></li>
+												<li class="disabled"><a href="#">How to use</a></li>
+												<li><a href="#">Examples</a></li>
+												<li class="divider"></li>
+												<li class="dropdown-header">Dropdowns</li>
+												<li><a href="#">Example</a></li>
+												<li><a href="#">Aligninment options</a></li>
+												<li><a href="#">Headers</a></li>
+												<li><a href="#">Disabled menu items</a></li>
+											</ul>
+										</li>
+										<li class="col-md-3">
+											<ul>
+												<li class="dropdown-header">Button groups</li>
+												<li><a href="#">Basic example</a></li>
+												<li><a href="#">Button toolbar</a></li>
+												<li><a href="#">Sizing</a></li>
+												<li><a href="#">Nesting</a></li>
+												<li><a href="#">Vertical variation</a></li>
+												<li class="divider"></li>
+												<li class="dropdown-header">Button dropdowns</li>
+												<li><a href="#">Single button dropdowns</a></li>
+											</ul>
+										</li>
+										<li class="col-md-3">
+											<ul>
+												<li class="dropdown-header">Input groups</li>
+												<li><a href="#">Basic example</a></li>
+												<li><a href="#">Sizing</a></li>
+												<li><a href="#">Checkboxes and radio addons</a></li>
+												<li class="divider"></li>
+												<li class="dropdown-header">Navs</li>
+												<li><a href="#">Tabs</a></li>
+												<li><a href="#">Pills</a></li>
+												<li><a href="#">Justified</a></li>
+											</ul>
+										</li>
+										<li class="col-md-3">
+											<ul>
+												<li class="dropdown-header">Navbar</li>
+												<li><a href="#">Default navbar</a></li>
+												<li><a href="#">Buttons</a></li>
+												<li><a href="#">Text</a></li>
+												<li><a href="#">Non-nav links</a></li>
+												<li><a href="#">Component alignment</a></li>
+												<li><a href="#">Fixed to top</a></li>
+												<li><a href="#">Fixed to bottom</a></li>
+												<li><a href="#">Static top</a></li>
+												<li><a href="#">Inverted navbar</a></li>
+											</ul>
+										</li>
+									</ul>
+
+								</li>
+							</ul>
+
+						</div>
+					</nav>
+
+				</div>
+
+
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-3">
+
+				<div class="page-header">
+					<h2>Buttons</h2>
+				</div>
+
+				<div class="test test-buttons">
+					<h4>Standard Buttons</h4>
+					<button class="btn btn-default">Submit</button>
+					<button class="btn btn-primary">Submit</button>
+					<button class="btn btn-warning">Submit</button>
+					<button class="btn btn-danger">Submit</button>
+					<button class="btn btn-success">Submit</button>
+					<button class="btn btn-info">Submit</button>
+				</div>
+				<div class="test test-buttons">
+					<h4>Large Buttons</h4>
+					<button class="btn btn-default btn-lg">Submit</button>
+					<button class="btn btn-primary btn-lg">Submit</button>
+					<button class="btn btn-warning btn-lg">Submit</button>
+					<button class="btn btn-danger btn-lg">Submit</button>
+					<button class="btn btn-success btn-lg">Submit</button>
+					<button class="btn btn-info btn-lg">Submit</button>
+				</div>
+				<div class="test test-buttons">
+					<h4>Small Buttons</h4>
+					<button class="btn btn-default btn-sm">Submit</button>
+					<button class="btn btn-primary btn-sm">Submit</button>
+					<button class="btn btn-warning btn-sm">Submit</button>
+					<button class="btn btn-danger btn-sm">Submit</button>
+					<button class="btn btn-success btn-sm">Submit</button>
+					<button class="btn btn-info btn-sm">Submit</button>
+				</div>
+				<div class="test test-buttons">
+					<h4>Block Buttons</h4>
+					<button class="btn btn-default btn-block">Submit</button>
+					<button class="btn btn-primary btn-block">Submit</button>
+					<button class="btn btn-warning btn-block">Submit</button>
+					<button class="btn btn-danger btn-block">Submit</button>
+					<button class="btn btn-success btn-block">Submit</button>
+					<button class="btn btn-info btn-block">Submit</button>
+				</div>
+
+			</div>
+
+			<div class="col-md-6">
+
+				<div class="page-header">
+					<h2>Panels &amp; Menus</h2>
+				</div>
+
+
+
+				<div class="test clearfix">
+
+					<h4>User Details Menu</h4>
+
+					<div class="user-details">
+
+						<div class="user-image">
+							<img src="http://placehold.it/100x100" alt="Karan Singh Sisodia" title="Karan Singh Sisodia" class="img-circle">
+						</div>
+
+						<div class="user-info-block">
+							<div class="user-heading">
+								<h3>James T Sample</h3>
+								<span class="help-block">San Francisco, CA</span>
+							</div>
+							<ul class="navigation">
+								<li class="active">
+									<a data-toggle="tab" href="#information">
+										<span class="icon icon-user"></span>
+									</a>
+								</li>
+								<li>
+									<a data-toggle="tab" href="#settings">
+										<span class="icon icon-settings"></span>
+									</a>
+								</li>
+								<li>
+									<a data-toggle="tab" href="#email">
+										<span class="icon icon-paper-plane"></span>
+									</a>
+								</li>
+								<li>
+									<a data-toggle="tab" href="#events">
+										<span class="icon icon-calendar"></span>
+									</a>
+								</li>
+							</ul>
+							<div class="user-body">
+								<div class="tab-content">
+									<div id="information" class="tab-pane active">
+										<h4>Account Information</h4>
+									</div>
+									<div id="settings" class="tab-pane">
+										<h4>Settings</h4>
+									</div>
+									<div id="email" class="tab-pane">
+										<h4>Send Message</h4>
+									</div>
+									<div id="events" class="tab-pane">
+										<h4>Events</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="test">
+
+					<h4>Collapsible Panels</h4>
+
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Information Panel</h3>
+							<span class="pull-right toggle"><i class="icon icon-collapse"></i></span>
+						</div>
+						<div class="panel-body">Panel content</div>
+					</div>
+
+
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Information Panel</h3>
+							<span class="pull-right toggle"><i class="icon icon-collapse"></i></span>
+						</div>
+						<div class="panel-body">Panel content</div>
+					</div>
+
+
+					<div class="panel panel-danger">
+						<div class="panel-heading">
+							<h3 class="panel-title">Information Panel</h3>
+							<span class="pull-right toggle"><i class="icon icon-collapse"></i></span>
+						</div>
+						<div class="panel-body">Panel content</div>
+					</div>
+
+
+					<div class="panel panel-warning">
+						<div class="panel-heading">
+							<h3 class="panel-title">Information Panel</h3>
+							<span class="pull-right toggle"><i class="icon icon-collapse"></i></span>
+						</div>
+						<div class="panel-body">Panel content</div>
+					</div>
+
+
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h3 class="panel-title">Information Panel</h3>
+							<span class="pull-right toggle"><i class="icon icon-collapse"></i></span>
+						</div>
+						<div class="panel-body">Panel content</div>
+					</div>
+
+				</div>
+
+
+
+
+				<div class="page-header">
+					<h2>Table Panel Widget</h2>
+				</div>
+
+				<div class="test">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Developers
+								<span class="pull-right clickable filter"
+									data-toggle="tooltip"
+									title="Toggle table filter"
+									data-container="body">
+										<i class="icon icon-filter"></i>
+								</span>
+							</h3>
+						</div>
+						<div class="panel-body" style="display:none;">
+							<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
+						</div>
+						<table class="table table-hover" id="dev-table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Username</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Kilgore</td>
+									<td>Trout</td>
+									<td>kilgore</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Bob</td>
+									<td>Loblaw</td>
+									<td>boblahblah</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Holden</td>
+									<td>Caulfield</td>
+									<td>penceyreject</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-md-3">
+
+				<div class="page-header">
+					<h2>Callouts</h2>
+				</div>
+
+				<div class="test">
+					<h4>Blockqoutes</h4>
+					<div class="blockquote-box clearfix">
+						<div class="square pull-left">
+							<img src="http://placehold.it/60/8e44ad/FFF&text=B" alt="" class="" />
+						</div>
+						<h4>Bootsnipp</h4>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
+							ante.
+						</p>
+					</div>
+					<div class="blockquote-box blockquote-primary clearfix">
+						<div class="square pull-left">
+							<span class="glyphicon glyphicon-music glyphicon-lg"></span>
+						</div>
+						<h4>Let's music play</h4>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
+							ante. <a href="http://www.jquery2dotnet.com/search/label/jquery">jquery2dotnet</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="page-header">
+					<h2>Progress Panels</h2>
+				</div>
+
+
+				<div class="test">
+
+					<h4>Progress Panel (Primary)</h4>
+
+					<div class="tile-progress grad-primary">
+						<div class="tile-header">
+							<h3><i class="icon icon-info"></i> Primary</h3>
+							<span>so far in our blog, and our website.</span>
+						</div>
+						<div class="tile-progressbar">
+							<span data-fill="65.5%" style="width: 65.5%;"></span>
+						</div>
+						<div class="tile-footer">
+							<h4>
+								<span class="pct-counter">65.5</span>% increase
+							</h4>
+							<span>so far in our blog and our website</span>
+						</div>
+					</div>
+
+					<div class="tile-progress grad-danger">
+						<div class="tile-header">
+							<h3><i class="icon icon-warning"></i> Danger</h3>
+							<span>so far in our blog, and our website.</span>
+						</div>
+						<div class="tile-progressbar">
+							<span data-fill="65.5%" style="width: 65.5%;"></span>
+						</div>
+						<div class="tile-footer">
+							<h4>
+								<span class="pct-counter">65.5</span>% increase
+							</h4>
+							<span>so far in our blog and our website</span>
+						</div>
+					</div>
+
+					<div class="tile-progress grad-warning">
+						<div class="tile-header">
+							<h3><i class="icon icon-warning"></i> Warning</h3>
+							<span>so far in our blog, and our website.</span>
+						</div>
+						<div class="tile-progressbar">
+							<span data-fill="65.5%" style="width: 65.5%;"></span>
+						</div>
+						<div class="tile-footer">
+							<h4>
+								<span class="pct-counter">65.5</span>% increase
+							</h4>
+							<span>so far in our blog and our website</span>
+						</div>
+					</div>
+
+					<div class="tile-progress grad-info">
+						<div class="tile-header">
+							<h3>Aqua Tile</h3>
+							<span>so far in our blog, and our website.</span>
+						</div>
+						<div class="tile-progressbar">
+							<span data-fill="65.5%" style="width: 65.5%;"></span>
+						</div>
+						<div class="tile-footer">
+							<h4>
+								<span class="pct-counter">65.5</span>% increase
+							</h4>
+							<span>so far in our blog and our website</span>
+						</div>
+					</div>
+
+					<div class="tile-progress grad-success">
+						<div class="tile-header">
+							<h3>Success Tile</h3>
+							<span>so far in our blog, and our website.</span>
+						</div>
+						<div class="tile-progressbar">
+							<span data-fill="65.5%" style="width: 65.5%;"></span>
+						</div>
+						<div class="tile-footer">
+							<h4>
+								<span class="pct-counter">65.5</span>% increase
+							</h4>
+							<span>so far in our blog and our website</span>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-md-8">
+
+				<div class="test">
+					<h4>Step Wizard</h4>
+					<div class="stepwizard">
+						<div class="stepwizard-row">
+							<div class="stepwizard-step">
+								<button type="button" class="btn btn-default btn-circle">1</button>
+								<p>Cart</p>
+							</div>
+							<div class="stepwizard-step">
+								<button type="button" class="btn btn-primary btn-circle">2</button>
+								<p>Shipping</p>
+							</div>
+							<div class="stepwizard-step">
+								<button type="button" class="btn btn-default btn-circle" disabled="disabled">3</button>
+								<p>Payment</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="test">
+					<div class="page-header">
+				        <h1 id="timeline">Timeline</h1>
+				    </div>
+				    <ul class="timeline">
+				        <li>
+				          <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+				          <div class="timeline-panel">
+				            <div class="timeline-heading">
+				              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+				              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+				            </div>
+				            <div class="timeline-body">
+				              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+				            </div>
+				          </div>
+				        </li>
+				        <li class="timeline-inverted">
+				          <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+				          <div class="timeline-panel">
+				            <div class="timeline-heading">
+				              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+				            </div>
+				            <div class="timeline-body">
+				              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+				              <p>Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Interagi no mé, cursus quis, vehicula ac nisi. Aenean vel dui dui. Nullam leo erat, aliquet quis tempus a, posuere ut mi. Ut scelerisque neque et turpis posuere pulvinar pellentesque nibh ullamcorper. Pharetra in mattis molestie, volutpat elementum justo. Aenean ut ante turpis. Pellentesque laoreet mé vel lectus scelerisque interdum cursus velit auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac mauris lectus, non scelerisque augue. Aenean justo massa.</p>
+				            </div>
+				          </div>
+				        </li>
+				        <li>
+				          <div class="timeline-badge danger"><i class="glyphicon glyphicon-credit-card"></i></div>
+				          <div class="timeline-panel">
+				            <div class="timeline-heading">
+				              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+				            </div>
+				            <div class="timeline-body">
+				              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+				            </div>
+				          </div>
+				        </li>
+				        <li class="timeline-inverted">
+				          <div class="timeline-panel">
+				            <div class="timeline-heading">
+				              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+				            </div>
+				            <div class="timeline-body">
+				              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+				            </div>
+				          </div>
+				        </li>
+				        <li>
+				          <div class="timeline-badge info"><i class="glyphicon glyphicon-floppy-disk"></i></div>
+				          <div class="timeline-panel">
+				            <div class="timeline-heading">
+				              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+				            </div>
+				            <div class="timeline-body">
+				              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+				              <hr>
+				              <div class="btn-group">
+				                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+				                  <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
+				                </button>
+				                <ul class="dropdown-menu" role="menu">
+				                  <li><a href="#">Action</a></li>
+				                  <li><a href="#">Another action</a></li>
+				                  <li><a href="#">Something else here</a></li>
+				                  <li class="divider"></li>
+				                  <li><a href="#">Separated link</a></li>
+				                </ul>
+				              </div>
+				            </div>
+				          </div>
+				        </li>
+				        <li>
+				          <div class="timeline-panel">
+				            <div class="timeline-heading">
+				              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+				            </div>
+				            <div class="timeline-body">
+				              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+				            </div>
+				          </div>
+				        </li>
+				        <li class="timeline-inverted">
+				          <div class="timeline-badge success"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+				          <div class="timeline-panel">
+				            <div class="timeline-heading">
+				              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+				            </div>
+				            <div class="timeline-body">
+				              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+				            </div>
+				          </div>
+				        </li>
+				    </ul>
+				</div>
+
+			</div>
+
+			<div class="col-md-4">
+
+
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/chosen.jquery.js"></script>
+<script type="text/javascript" src="js/fonteva.js"></script>
+<script>
+	$(function() {
+		$(".chosen-select").chosen();
+		$(".chosen-select-deselect").chosen({ allow_single_deselect: true });
+	});
+
+</script>
+</body>
+</html>

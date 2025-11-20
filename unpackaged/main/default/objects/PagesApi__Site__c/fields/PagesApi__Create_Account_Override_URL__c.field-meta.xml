@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Create_Account_Override_URL__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Providing a URL will hide the &quot;Create a user account&quot; checkbox on the authentication page and display the provided URL link in its place.</description>
+    <inlineHelpText>Providing a URL will hide the &quot;Create a user account&quot; checkbox on the authentication page and display the provided URL link in its place.</inlineHelpText>
+    <label>Create Account Override URL</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>2</visibleLines>
+</CustomField>

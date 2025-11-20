@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Proforma_Invoice_Email_From_Name__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The value in this field will auto-populate the sender&#39;s name for proforma emails manually sent to your customers. User&#39;s Name is used if left blank. This field is not available for automated emails (i.e. auto renewal emails).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The name of the sender of the proforma invoice email as it will display to your customers. Your user&#39;s first name and last name will be used if this field is left blank.</inlineHelpText>
+    <label>Proforma Invoice Email From Name</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

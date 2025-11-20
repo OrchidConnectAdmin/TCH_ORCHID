@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Member_Search_Filter_Field_s_CSV__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Enter additional fields, comma separated, to narrow group member searches on the group listing page. Be sure to use the field&#39;s API name.</description>
+    <inlineHelpText>Enter additional fields, comma separated, to narrow group member searches on the group listing page. Be sure to use the field&#39;s API name.</inlineHelpText>
+    <label>Member Search Filter Fields (CSV)</label>
+    <length>31768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

@@ -1,0 +1,129 @@
+/* line 6, ../form-builder.scss */
+.messenger-message {
+  background: #57B786 !important;
+  opacity: 0.3 !important;
+  color: #fff !important;
+  position: fixed;
+  z-index: 99999;
+  bottom: 0;
+  right: 0%;
+  left: 0%;
+  height: 45px;
+  border: none !important;
+  border-radius: 0 !important;
+  width: 100%;
+  display: block !important;
+  padding: 25px;
+  margin: 0;
+}
+
+/* line 26, ../form-builder.scss */
+.aui#aui-layout .list-group .list-group-item:hover,
+.aui#aui-layout .list-group .list-group-item:active,
+.aui#aui-layout .list-group .list-group-item:focus {
+  cursor: move !important;
+}
+/* line 32, ../form-builder.scss */
+.aui#aui-layout .list-group {
+  list-style: none !important;
+}
+/* line 36, ../form-builder.scss */
+.aui#aui-layout .modal {
+  overflow-y: scroll !important;
+}
+/* line 37, ../form-builder.scss */
+.aui#aui-layout .text-white,
+.aui#aui-layout .text-white:hover,
+.aui#aui-layout .text-white:focus,
+.aui#aui-layout .text-white:active {
+  color: #fff !important;
+}
+/* line 42, ../form-builder.scss */
+.aui#aui-layout select[size] {
+  height: 32px !important;
+}
+/* line 48, ../form-builder.scss */
+.aui#aui-layout #accordion-wallet .panel-body {
+  background-color: #f9f9f9;
+}
+/* line 53, ../form-builder.scss */
+.aui#aui-layout .form-group-instructions {
+  background-color: #f3f4f4;
+  border-bottom: 1px solid #eee;
+}
+/* line 54, ../form-builder.scss */
+.aui#aui-layout .group-placeholder {
+  min-height: 120px;
+  min-width: 100%;
+  border: 2px dashed #e46800;
+  background: #fbf9ee;
+  color: #363636;
+  margin: 20px 0;
+  list-style: none;
+}
+/* line 55, ../form-builder.scss */
+.aui#aui-layout .field-placeholder {
+  min-height: 45px;
+  min-width: 100%;
+  border: 2px dashed #e46800;
+  background: #fbf9ee;
+  color: #363636;
+  margin: 5px 0;
+  list-style: none;
+}
+/* line 56, ../form-builder.scss */
+.aui#aui-layout .fonteva-messenger, .aui#aui-layout ul.fonteva-messenger .message {
+  color: #fff;
+  background: #EF9B27;
+  border: 1px solid transparent;
+  padding: 20px;
+  margin: 0;
+  width: 100%;
+  display: block;
+}
+/* line 57, ../form-builder.scss */
+.aui#aui-layout .cursor-move {
+  cursor: move !important;
+}
+/* line 58, ../form-builder.scss */
+.aui#aui-layout .ns-field {
+  border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  -webkit-border-radius: 0px !important;
+}
+/* line 59, ../form-builder.scss */
+.aui#aui-layout .ns-field:hover {
+  background-color: #fff !important;
+}
+/* line 60, ../form-builder.scss */
+.aui#aui-layout ul.fieldList {
+  min-height: 20px;
+  margin-bottom: 0px;
+  list-style: none !important;
+}
+/* line 61, ../form-builder.scss */
+.aui#aui-layout #actionbuttoncontainer {
+  margin-bottom: 20px;
+}
+/* line 62, ../form-builder.scss */
+.aui#aui-layout button.close, .aui#aui-layout button.close:hover {
+  background: none;
+  padding: 0;
+  border: none;
+}
+/* line 63, ../form-builder.scss */
+.aui#aui-layout textarea {
+  min-height: 60px;
+}
+/* line 64, ../form-builder.scss */
+.aui#aui-layout .model-content {
+  width: 700px;
+}
+/* line 65, ../form-builder.scss */
+.aui#aui-layout input[type="radio"], .aui#aui-layout input[type="checkbox"] {
+  margin: 10px 0 0;
+}
+/* line 68, ../form-builder.scss */
+.aui#aui-layout #newFieldGroupModal .form-group .static, .aui#aui-layout #newFieldModal .form-group .static {
+  padding-top: 7px;
+}

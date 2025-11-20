@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Invoice__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to related Invoice. Payment Activity Lines must be linked to one and only one Invoice, Credit Memo, or Sales Order.</description>
+    <inlineHelpText>Link to related Invoice. Payment Activity Lines must be linked to one and only one Invoice, Credit Memo, or Sales Order.</inlineHelpText>
+    <label>Invoice</label>
+    <referenceTo>OrderApi__Invoice__c</referenceTo>
+    <relationshipName>EPayment_Lines</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

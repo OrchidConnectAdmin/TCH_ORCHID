@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Item_Class__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>This field is a system field. Update at your own risk.</description>
+    <inlineHelpText>This field is a system field. Update at your own risk.</inlineHelpText>
+    <label>SYSTEM</label>
+    <referenceTo>OrderApi__Item_Class__c</referenceTo>
+    <relationshipLabel>Schedule</relationshipLabel>
+    <relationshipName>Schedule</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

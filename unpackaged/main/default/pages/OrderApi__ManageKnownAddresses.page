@@ -1,0 +1,49 @@
+<apex:page id="known-addresses" showHeader="true" sidebar="false" docType="html-5.0" tabStyle="OrderApi__Known_Address__c"
+					 cache="true" extensions="OrderApi.ManageKnownAddressesController" standardController="OrderApi__Known_Address__c" standardStylesheets="false"
+					 applyBodyTag="false">
+	<apex:includeLightning />
+	<link rel="stylesheet" media="screen" href="{!URLFOR($Resource.Framework__SLDS_BaseV2,'css/fullStyles.css')}"/>
+	<div class="slds slds-loading-layout" id="mainWrapper">
+		<div class="slds-grid slds-loading-layout slds-theme--shade">
+			<div class="slds-col slds-text-align--center slds-align-middle" >
+				<img src="{!URLFOR($Resource.Framework__SLDS_BaseV2,'/img/spinners/slds_spinner_brand.gif')}" alt="saving" width="50" height="50" />&nbsp;
+				<span class="slds-text-heading--medium">Loading...</span>
+			</div>
+		</div>
+	</div>
+	<script>
+      function componentLoaded() {
+          document.getElementById('mainWrapper').classList.add('hidden');
+          document.getElementById('mainWrapper').setAttribute("style", "display: none;");
+      }
+
+      var sObjId = '{!JSENCODE($CurrentPage.parameters.recordId)}';
+      var accountId = '{!JSENCODE($CurrentPage.parameters.accountId)}';
+      var urlArr = window.location.href.replace(/^.*\?/,'').split('&');
+      urlArr.forEach(function(element){
+          element = decodeURIComponent(element);
+        	if (element.startsWith('id=') && element.indexOf('id=') > -1) {
+							sObjId = element.replace('id=','');
+          }
+          else if (element.indexOf('_lkid') > -1) {
+              sObjId = element.replace(/^.*=/,'');
+          }
+          else if (element.indexOf('retURL') > -1 && element.indexOf('/lightning/cb') === -1) {
+              sObjId = element.replace('retURL=%2F','');
+          }
+      });
+      $Lightning.use("{!Namespace}:ChargeApp", function() {
+          $Lightning.createComponent("{!Namespace}:ManageAddress",
+              {
+                  recordId : sObjId,
+                  accountId : accountId
+              },
+              "lightning",
+              function(cmp) {
+                  $A.eventService.addHandler({ "event": "{!Namespace}:ComponentLoadedEvent", "handler" : componentLoaded});
+              }
+          );
+      });
+	</script>
+	<div id="lightning" />
+</apex:page>

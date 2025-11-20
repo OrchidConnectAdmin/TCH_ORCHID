@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Memo__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated/Override** The memo will auto-populate with information from the transaction line source from the source record memo or description.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>**System Calculated/Override** The memo will auto-populate with information from the transaction line source from the source record memo or description.</inlineHelpText>
+    <label>Memo</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

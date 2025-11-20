@@ -1,0 +1,374 @@
+<aura:component description="Data Table Component" controller="GetRelatedListController" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction,lightning:isUrlAddressable,flexipage:availableForAllPageTypes" access="global">
+    <ltng:require scripts="{!$Resource.jQuery3}" />
+    <ltng:require scripts="{!$Resource.DataTableJS}" styles="{!$Resource.DataTableCSS}" afterScriptsLoaded="{!c.initDataTable}" />
+    
+    <aura:attribute name="bURL" type="String" />
+    <!-- CONFIGS -->
+    <aura:attribute name="cTitle" type="String" default="My Contact"/>
+    <aura:attribute name="cDPage" type="String" default="contact"/>
+    <aura:attribute name="cRecPage" type="String" default="contact"/>
+    <aura:attribute name="cADPage" type="String" default=""/>
+    <aura:attribute name="cADParam" type="String" default=""/>
+    <aura:attribute name="cEDPage" type="String" default=""/>
+    <aura:attribute name="cID" type="String"/>
+    <aura:attribute name="cObj" type="String" default="Contact"/>
+    <aura:attribute name="cFields" type="String" default="Id,Name"/>
+    <aura:attribute name="cSoql" type="String" />
+    <aura:attribute name="cMField" type="String" default="OwnerId"/>
+    <aura:attribute name="cUserMatchingField" type="String" default="OwnerId"/>
+    <aura:attribute name="cUseContactId" type="Boolean" default="false"/>
+    
+    <aura:attribute name="cAllowRec" type="Boolean" default="false"/>
+    <aura:attribute name="cRecBtnLabel" type="String" default="Add New"/>
+    <aura:attribute name="cAppendRecID" type="Boolean" default="false"/>
+    <aura:attribute name="cEncloseRecID" type="Boolean" default="false"/>
+    
+    <aura:attribute name="cAllowView" type="Boolean" default="false"/>
+    <aura:attribute name="cBtnLabel" type="String" default="View"/>
+    <aura:attribute name="cAppendID" type="Boolean" default="false"/>
+    <aura:attribute name="cEncloseID" type="Boolean" default="false"/>
+    <aura:attribute name="cAllowEdit" type="Boolean" default="false"/>
+    <aura:attribute name="cEditBtnLabel" type="String" default="Edit"/>
+    <aura:attribute name="cAppendEditID" type="Boolean" default="false"/>
+    <aura:attribute name="cEncloseEditID" type="Boolean" default="false"/>
+    <aura:attribute name="cAllowAdd" type="Boolean" default="false"/>
+    <aura:attribute name="cAddiontalBtnLabel" type="String" default="Action"/>
+    <aura:attribute name="cAddField" type="String" default="Id"/>
+    <aura:attribute name="cAddPopup" type="Boolean" default="false"/>
+    <aura:attribute name="cAppendAddID" type="Boolean" default="false"/>
+    <aura:attribute name="cEncloseAddID" type="Boolean" default="false"/>
+    <aura:attribute name="cIcon" type="String" default="standard:contact_list"/>
+    <aura:attribute name="cDType" type="String" default="Table"/>
+    <aura:attribute name="cRowsOnly" type="Boolean" default="false"/>
+    <aura:attribute name="cCFilters" type="Boolean" default="false"/>
+    
+    <aura:attribute name="cEnableIndicator" type="Boolean" default="false"/>
+    <aura:attribute name="cIObj" type="String" default="Contact"/>
+    <aura:attribute name="cIFields" type="String" default="Name"/>
+    <aura:attribute name="cISoql" type="String"/>
+    <aura:attribute name="cIMainObjField" type="String" default="Id"/>
+    <aura:attribute name="cIUserMatchingField" type="String" default="OwnerId"/>
+    <aura:attribute name="cIUseContactId" type="Boolean" default="false"/>
+    <aura:attribute name="cILabel" type="String" default="Completed"/>
+    <aura:attribute name="cIColumn" type="String" default="1"/>
+    
+    <aura:attribute name="cDisableShowItems" type="Boolean" default="false"/>
+    <aura:attribute name="cDisableSearch" type="Boolean" default="false"/>
+    <aura:attribute name="cDisablePagination" type="Boolean" default="false"/>
+    <aura:attribute name="cNumItems" type="String" default="50"/>
+    <aura:attribute name="cGroupRowColumn" type="String"/>
+    
+    <aura:attribute name="cCalCol" type="String"/>
+    <aura:attribute name="cCalLabel" type="String"/>
+    <aura:attribute name="cCalMethod" type="String"/>
+    
+    <!-- data -->
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="items" type="List" />
+    <aura:attribute name="iLength" type="Integer" />
+    <aura:attribute name="tid" type="String" />
+    
+    <aura:attribute name="andsym" type="String" />
+    <aura:attribute name="loadPopup" type="Boolean" default="false"/>
+    
+    
+    
+    <aura:if isTrue="{!v.cDType == 'Table'}">
+        
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid" style="padding-bottom: 15px;">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-contact_list" title="List">
+                            <lightning:icon iconName="{!v.cIcon}" alternativeText="List" title="List" />
+                            
+                            <span class="slds-assistive-text">List</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>{!v.cTitle}</span>
+                        </h2>
+                    </div>
+                    <aura:if isTrue="{!v.cAllowRec}">
+                        <div class="slds-no-flex">
+                            <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                                <!--<aura:if isTrue="{!v.cAppendRecID}">
+                                    <aura:if isTrue="{!v.cEncloseRecID}">
+                                        <a class="slds-button slds-button_success" href="{!v.bURL+v.cRecPage+'%27'+item.id+'%27' }" target="_blank">{!v.cRecBtnLabel}</a>
+                                        <aura:set attribute="else">     
+                                            <a class="slds-button slds-button_success" href="{!v.bURL+v.cRecPage+item.id}" target="_blank">{!v.cRecBtnLabel}</a>
+                                        </aura:set>
+                                    </aura:if>
+                                    
+                                    <aura:set attribute="else"> -->     
+                                        <a class="slds-button slds-button_outline-brand" href="{!v.bURL+v.cRecPage}" >{!v.cRecBtnLabel}</a>
+                                    <!--</aura:set> 
+                                </aura:if> -->
+                            </div>
+                        </div>
+                    </aura:if>
+                    
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                
+                
+                <table id="{!'resultTable-'+v.tid}" class="{!'slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped resultTable-'+v.cObj}" style="margin-top: 15px;">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <aura:iteration items="{!v.columns}" var="col" indexVar="index">
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="{!col}">{!col}</div>
+                                    <div class="head-filter"></div>
+                                </th>
+                            </aura:iteration>
+                            <th class="" scope="col">
+                                
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.items}" var="item" indexVar="i">
+                            <tr class="slds-hint-parent" data-id="{!item.id}">
+                                <aura:iteration items="{!item.data[0]}" var="it" indexVar="j">
+                                    <aura:if isTrue="{!not(greaterthan(j,v.iLength))}">
+                                        <td scope="row">
+                                            <aura:unescapedHtml value="{!it}"/>
+                                        </td>
+                                    </aura:if>
+                                </aura:iteration>
+                                <td class="col-action" scope="col" style="text-align: right;">
+                                    <aura:if isTrue="{!v.cAllowView}">
+                                        <aura:if isTrue="{!v.cAppendID}">
+                                            <aura:if isTrue="{!v.cEncloseID}">
+                                                <a class="slds-button slds-button_brand" href="{!v.bURL+v.cDPage+'%27'+item.id+'%27' }" target="_blank">{!v.cBtnLabel}</a>
+                                                <aura:set attribute="else">     
+                                                    <a class="slds-button slds-button_brand" href="{!v.bURL+v.cDPage+item.id }" target="_blank">{!v.cBtnLabel}</a>
+                                                </aura:set>
+                                            </aura:if>
+                                            <aura:set attribute="else">     
+                                                <a class="slds-button slds-button_brand" href="{!v.bURL+v.cDPage}" target="_blank">{!v.cBtnLabel}</a>
+                                            </aura:set>
+                                        </aura:if> 
+                                    </aura:if>
+                                    
+                                    <aura:if isTrue="{!v.cAllowEdit}">
+                                        <aura:if isTrue="{!v.cAppendEditID}">
+                                            <aura:if isTrue="{!v.cEncloseEditID}">
+                                                <a class="slds-button slds-button_neutral" href="{!v.bURL+v.cEDPage+'%27'+item.id+'%27' }">{!v.cEditBtnLabel}</a>
+                                                <aura:set attribute="else">     
+                                                    <a class="slds-button slds-button_neutral" href="{!v.bURL+v.cEDPage+item.id}">{!v.cEditBtnLabel}</a>
+                                                </aura:set>
+                                            </aura:if>
+                                            
+                                            <aura:set attribute="else">     
+                                                <a class="slds-button slds-button_neutral" href="{!v.bURL+v.cEDPage}">{!v.cEditBtnLabel}</a>
+                                            </aura:set>
+                                        </aura:if> 
+                                    </aura:if>
+                                    
+                                    <aura:if isTrue="{!v.cAllowAdd}">
+                                        <aura:if isTrue="{!not(empty(v.cAddField))}">
+                                                <aura:iteration items="{!item.data[0]}" var="it" indexVar="j">
+                                                    <aura:if isTrue="{!greaterthan(j,v.iLength)}">
+                                                        <aura:if isTrue="{!v.cAppendAddID}">
+                                                            <aura:if isTrue="{!v.cEncloseAddID}">
+                                                                <a class="slds-button slds-button_neutral" data-url="{!v.bURL+v.cADPage+'%27'+it+'%27'+v.cADParam+item.id }" target="_blank" onclick="{! c.openModal }">{!v.cAddiontalBtnLabel}</a>
+                                                                <aura:set attribute="else">     
+                                                                    <a class="slds-button slds-button_neutral" data-url="{!v.bURL+v.cADPage+it+v.cADParam+item.id }" target="_blank" onclick="{! c.openModal }">{!v.cAddiontalBtnLabel}</a>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        <aura:set attribute="else"> 
+                                                            <aura:if isTrue="{!v.cEncloseAddID}">
+                                                                <a class="slds-button slds-button_neutral" data-url="{!v.bURL+v.cADPage+'%27'+it+'%27'+v.cADParam }" target="_blank" onclick="{! c.openModal }">{!v.cAddiontalBtnLabel}</a>
+                                                                <aura:set attribute="else">     
+                                                                    <a class="slds-button slds-button_neutral" data-url="{!v.bURL+v.cADPage+it+v.cADParam }" target="_blank" onclick="{! c.openModal }">{!v.cAddiontalBtnLabel}</a>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </aura:set>
+                                                        </aura:if>
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    </aura:if>
+                                                </aura:iteration>
+
+                                        <aura:set attribute="else">
+
+                                            <aura:if isTrue="{!v.cAppendAddID}">
+                                                <aura:if isTrue="{!v.cEncloseAddID}">
+                                                    <a class="slds-button slds-button_neutral" data-url="{!v.bURL+v.cADPage+'%27'+item.id+'%27'+v.cADParam }" target="_blank" onclick="{! c.openModal }">{!v.cAddiontalBtnLabel}</a>
+                                                    <aura:set attribute="else">     
+                                                        <a class="slds-button slds-button_neutral" data-url="{!v.bURL+v.cADPage+item.id+v.cADParam }" target="_blank" onclick="{! c.openModal }">{!v.cAddiontalBtnLabel}</a>
+                                                    </aura:set>
+                                                </aura:if>
+                                                <aura:set attribute="else">     
+                                                    <a class="slds-button slds-button_neutral" data-url="{!v.bURL+v.cADPage+v.cADParam}" target="_blank" onclick="{! c.openModal }">{!v.cAddiontalBtnLabel}</a>
+                                                </aura:set>
+                                            </aura:if> 
+                                        </aura:set>
+                                        </aura:if>
+                                    </aura:if>
+                                    <!-- <a class="slds-button slds-button_neutral" data-url="http://www.google.com" onclick="{! c.openModal }">Test Button</a> -->
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+                
+            </div>
+            
+        </article>
+        
+        <aura:set attribute="else">
+            <h2>
+                <span>{!v.cTitle}</span>
+            </h2>
+            <lightning:accordion aura:id="accordion">
+                <aura:iteration items="{!v.items}" var="item" indexVar="i">
+                    <lightning:accordionSection name="{!item.id}" class="{!'sec-bar sec-'+item.id}" label="{!item.name}">
+                        
+                        <table class="no-pad" style="margin-bottom: 15px;">
+                            <tbody>
+                                <tr class="slds-hint-parent">
+                                    <td width="30%">
+                                        <table class="table-columns no-pad">
+                                            <tbody>
+                                                <aura:iteration items="{!v.columns}" var="col" indexVar="c" start="2" end="{!v.iLength}">
+                                                    <tr>
+                                                        <td class="" scope="col">
+                                                            <div class="slds-truncate" title="{!col}">{!col}</div>
+                                                        </td>
+                                                    </tr>
+                                                </aura:iteration>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td width="70%">
+                                        
+                                        <table class="table-items no-pad" style="table-layout:fixed">
+                                            <tbody>
+                                                <aura:iteration items="{!item.data[0]}" var="it" indexVar="j" start="2" end="{!v.iLength}">
+                                                    <tr>
+                                                        
+                                                        <td scope="row">
+                                                            <b>{!it}</b>
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                </aura:iteration>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                        <aura:if isTrue="{!v.cAllowView}">
+                            <aura:if isTrue="{!v.cAppendID}">
+                                <aura:if isTrue="{!v.cEncloseID}">
+                                    <a class="slds-button slds-button_neutral" href="{!v.bURL+v.cDPage+'%27'+item.id+'%27' }" target="_blank">{!v.cBtnLabel}</a>
+                                    <aura:set attribute="else">     
+                                        <a class="slds-button slds-button_neutral" href="{!v.bURL+v.cDPage+item.id }" target="_blank">{!v.cBtnLabel}</a>
+                                    </aura:set>
+                                </aura:if>
+                                <aura:set attribute="else">     
+                                    <a class="slds-button slds-button_neutral" href="{!v.bURL+v.cDPage}" target="_blank">{!v.cBtnLabel}</a>
+                                </aura:set>
+                            </aura:if> 
+                        </aura:if>
+                        
+                        <aura:if isTrue="{!v.cAllowEdit}">
+                            <aura:if isTrue="{!v.cAppendEditID}">
+                                <aura:if isTrue="{!v.cEncloseEditID}">
+                                    <a class="slds-button slds-button_success" href="{!v.bURL+v.cEDPage+'%27'+item.id+'%27' }" target="_blank">{!v.cEditBtnLabel}</a>
+                                    <aura:set attribute="else">     
+                                        <a class="slds-button slds-button_success" href="{!v.bURL+v.cEDPage+item.id}" target="_blank">{!v.cEditBtnLabel}</a>
+                                    </aura:set>
+                                </aura:if>
+                                
+                                <aura:set attribute="else">     
+                                    <a class="slds-button slds-button_success" href="{!v.bURL+v.cEDPage}" target="_blank">{!v.cEditBtnLabel}</a>
+                                </aura:set>
+                            </aura:if> 
+                        </aura:if>
+                        
+                        <aura:if isTrue="{!v.cAllowAdd}">
+                            <aura:if isTrue="{!v.cAppendAddID}">
+                                <aura:if isTrue="{!v.cEncloseAddID}">
+                                    <a class="slds-button slds-button_brand" href="{!v.bURL+v.cADPage+'%27'+item.id+'%27' }" target="_blank">{!v.cAddiontalBtnLabel}</a>
+                                    <aura:set attribute="else">     
+                                        <a class="slds-button slds-button_brand" href="{!v.bURL+v.cADPage+item.id }" target="_blank">{!v.cAddiontalBtnLabel}</a>
+                                    </aura:set>
+                                </aura:if>
+                                <aura:set attribute="else">     
+                                    <a class="slds-button slds-button_brand" href="{!v.bURL+v.cADPage}" target="_blank">{!v.cAddiontalBtnLabel}</a>
+                                </aura:set>
+                            </aura:if> 
+                        </aura:if>
+                    </lightning:accordionSection>
+                </aura:iteration>
+            </lightning:accordion>
+            
+        </aura:set>
+    </aura:if> 
+
+    <aura:if isTrue="{!v.loadPopup}">
+        <div class="slds-m-around_xx-large">
+            <!--Use aura:if tag to display/hide popup based on isModalOpen value-->  
+            <!-- Modal/Popup Box starts here-->
+            <section aura:id="modal-add" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal">
+                <div class="slds-modal__container" style="overflow: visible !important;">
+                    <!-- Modal/Popup Box Header Starts here-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModal }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.cAddiontalBtnLabel}</h2>
+                    </header>
+                    <!--Modal/Popup Box Body Starts here-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="padding: 0;overflow: visible;">
+                         <iframe id="popup-iframe" frameborder="0" style="width: 100%; height: 80vh;overflow-x: hidden; overflow-y: scroll" onload="{!c.resizeIframe}">Loading...</iframe>
+                    </div>
+                </div>
+            </section>
+            <div aura:id="modal-add-back" class="slds-backdrop"></div>
+        </div>
+    </aura:if>
+    
+    <aura:html tag="style">
+        {!'#resultTable-'+v.tid}{
+        	margin-top: 15px;
+        }
+        {!'#resultTable-'+v.tid+'_length'}{
+        margin-bottom: 15px;
+        }
+        .slds-accordion__summary-heading .slds-button{
+        padding: 0 !important;
+        }
+        table.no-pad td{
+        padding: 0 !important;
+        }
+        .slds-modal .slds-modal__container{
+          width: 100% !important;
+          max-width: 95%;
+        }
+        <aura:if isTrue="{!v.cRowsOnly}">
+        {!'#resultTable-'+v.tid+'_length'},{!'#resultTable-'+v.tid+'_filter'},{!'#resultTable-'+v.tid+'_info'},#{!'#resultTable-'+v.tid+'_paginate'},.dataTable thead{
+            display: none;
+        }
+        </aura:if>
+    </aura:html>
+    
+</aura:component>

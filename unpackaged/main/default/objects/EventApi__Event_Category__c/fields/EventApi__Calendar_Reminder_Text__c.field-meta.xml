@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Calendar_Reminder_Text__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Replaces Event: Description. When the customer clicks an &quot;Add to Calendar&quot; link on the event, this text is the body of the calendar item. By default, the Event Name, Start Time, End Time, and Venue information are included.</description>
+    <inlineHelpText>Replaces Event: Description. When the customer clicks an &quot;Add to Calendar&quot; link on the event, this text is the body of the calendar item. By default, the Event Name, Start Time, End Time, and Venue information are included.</inlineHelpText>
+    <label>Calendar Reminder Text</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

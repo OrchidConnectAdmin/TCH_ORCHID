@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DirectoryApi__Email_Template__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Provide the Email Template you wish to use for directory communication</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Provide the Email Template you wish to use for directory communication</inlineHelpText>
+    <label>Email Template</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

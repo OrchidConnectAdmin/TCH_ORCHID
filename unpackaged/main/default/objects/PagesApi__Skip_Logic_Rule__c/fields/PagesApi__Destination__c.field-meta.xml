@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Destination__c</fullName>
+    <deprecated>false</deprecated>
+    <description>List of fields that should appear on selecting the value matching the answer field value(CSV).</description>
+    <inlineHelpText>List of fields that should appear on selecting the value matching the answer field value(CSV).</inlineHelpText>
+    <label>Destination</label>
+    <length>131072</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

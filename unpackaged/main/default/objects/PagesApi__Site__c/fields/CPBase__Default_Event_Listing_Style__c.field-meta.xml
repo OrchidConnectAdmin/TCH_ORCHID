@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CPBase__Default_Event_Listing_Style__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Dictates which event listing style is presented by default within the Events page.</description>
+    <inlineHelpText>Dictates which event listing style is presented by default within the Events page.</inlineHelpText>
+    <label>Default Event Listing Style</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Tile</fullName>
+                <color>#0B6FCE</color>
+                <default>true</default>
+                <label>Tile</label>
+            </value>
+            <value>
+                <fullName>List</fullName>
+                <color>#78C953</color>
+                <default>false</default>
+                <label>List</label>
+            </value>
+            <value>
+                <fullName>Calendar</fullName>
+                <color>#E27001</color>
+                <default>false</default>
+                <label>Calendar</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Item_Name__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The name of the Item as you would like it to display when published to customers. Defaults to the same value of the &quot;Item Display Name&quot; field.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The name of the Item as you would like it to display when published to customers. Defaults to the same value of the &quot;Item Display Name&quot; field.</inlineHelpText>
+    <label>Item Name</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

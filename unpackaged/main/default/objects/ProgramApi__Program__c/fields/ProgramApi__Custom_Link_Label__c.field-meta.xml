@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProgramApi__Custom_Link_Label__c</fullName>
+    <defaultValue>&#39;Certificate&#39;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field defines the label to be presented to the end user when the custom link is presented.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field defines the label to be presented to the end user when the custom link is presented.</inlineHelpText>
+    <label>Custom Link Label</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

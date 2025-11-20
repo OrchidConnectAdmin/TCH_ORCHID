@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Revenue_Subcategory__c</fullName>
+    <description>Used by the Customer360 component as well as other reports and dashboards as the detail level categorization of revenue (dependent on value of Revenue Category field).</description>
+    <inlineHelpText>Used by the Customer360 component as well as other reports and dashboards as the detail level categorization of revenue (dependent on value of Revenue Category field).</inlineHelpText>
+    <label>Revenue Subcategory</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Revenue_Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Member</fullName>
+                <default>false</default>
+                <label>New Member</label>
+            </value>
+            <value>
+                <fullName>Renewals</fullName>
+                <default>false</default>
+                <label>Renewals</label>
+            </value>
+            <value>
+                <fullName>Registration</fullName>
+                <default>false</default>
+                <label>Registration</label>
+            </value>
+            <value>
+                <fullName>Sponsorship</fullName>
+                <default>false</default>
+                <label>Sponsorship</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Candidate Fees</fullName>
+                <default>false</default>
+                <label>Candidate Fees</label>
+            </value>
+            <value>
+                <fullName>Maintenance Fees</fullName>
+                <default>false</default>
+                <label>Maintenance Fees</label>
+            </value>
+            <value>
+                <fullName>Tax/VAT</fullName>
+                <default>false</default>
+                <label>Tax/VAT</label>
+            </value>
+            <value>
+                <fullName>Shipping</fullName>
+                <default>false</default>
+                <label>Shipping</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Membership</controllingFieldValue>
+            <valueName>New Member</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Membership</controllingFieldValue>
+            <valueName>Renewals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Events</controllingFieldValue>
+            <valueName>Registration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Events</controllingFieldValue>
+            <valueName>Sponsorship</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Events</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Candidate Fees</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Maintenance Fees</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Shipping, Tax &amp; Delivery</controllingFieldValue>
+            <valueName>Tax/VAT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Shipping, Tax &amp; Delivery</controllingFieldValue>
+            <valueName>Shipping</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Layout__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** Select the option that best describes the Layout of the Room.</description>
+    <inlineHelpText>** Required ** Select the option that best describes the Layout of the Room.</inlineHelpText>
+    <label>Layout</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Banquet</fullName>
+                <color>#0B6FCE</color>
+                <default>false</default>
+                <label>Banquet</label>
+            </value>
+            <value>
+                <fullName>Classroom</fullName>
+                <color>#78C953</color>
+                <default>false</default>
+                <label>Classroom</label>
+            </value>
+            <value>
+                <fullName>Conference</fullName>
+                <color>#E27001</color>
+                <default>true</default>
+                <label>Conference</label>
+            </value>
+            <value>
+                <fullName>Field</fullName>
+                <color>#A845DC</color>
+                <default>false</default>
+                <label>Field</label>
+            </value>
+            <value>
+                <fullName>Hollow</fullName>
+                <color>#F3D904</color>
+                <default>false</default>
+                <label>Hollow</label>
+            </value>
+            <value>
+                <fullName>Other Indoor</fullName>
+                <color>#A53711</color>
+                <default>false</default>
+                <label>Other Indoor</label>
+            </value>
+            <value>
+                <fullName>Other Outdoor</fullName>
+                <color>#66E9BD</color>
+                <default>false</default>
+                <label>Other Outdoor</label>
+            </value>
+            <value>
+                <fullName>Reception</fullName>
+                <color>#0B24BE</color>
+                <default>false</default>
+                <label>Reception</label>
+            </value>
+            <value>
+                <fullName>Stadium</fullName>
+                <color>#419249</color>
+                <default>false</default>
+                <label>Stadium</label>
+            </value>
+            <value>
+                <fullName>Tent</fullName>
+                <color>#B6E32E</color>
+                <default>false</default>
+                <label>Tent</label>
+            </value>
+            <value>
+                <fullName>Theater</fullName>
+                <color>#641CCF</color>
+                <default>false</default>
+                <label>Theater</label>
+            </value>
+            <value>
+                <fullName>U-Shape</fullName>
+                <color>#F96FB7</color>
+                <default>false</default>
+                <label>U-Shape</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

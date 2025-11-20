@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Enable_Sponsors__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, enables sponsor package sales for event Registration Styles that support it.</description>
+    <inlineHelpText>When checked, enables sponsor package sales for event Registration Styles that support it.</inlineHelpText>
+    <label>Enable Sponsor Sales</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

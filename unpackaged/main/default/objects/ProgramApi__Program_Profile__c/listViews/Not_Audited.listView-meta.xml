@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Not_Audited</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>FON_Audited__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>Not Audited</label>
+    <language>en_US</language>
+</ListView>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Is_Event_Published__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When a status is set as the current event status, the value of this field will be mapped to the Is Published field on the event.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>When a status is set as the current event status, the value of this field will be mapped to the Is Published field on the event.</inlineHelpText>
+    <label>Is Event Published</label>
+    <type>Checkbox</type>
+</CustomField>

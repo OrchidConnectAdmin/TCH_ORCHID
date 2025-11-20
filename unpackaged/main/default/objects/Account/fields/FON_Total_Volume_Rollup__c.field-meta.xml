@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Total_Volume_Rollup__c</fullName>
+    <inlineHelpText>*System Generated* Roll-up summary of the latest volume record uploaded into the &quot;Item Based Upload&quot; Object</inlineHelpText>
+    <label>Total Volume</label>
+    <summarizedField>Item_Based_Upload_Information__c.FON_Total_Volume__c</summarizedField>
+    <summaryFilterItems>
+        <field>Item_Based_Upload_Information__c.Report_Source__c</field>
+        <operation>equals</operation>
+        <value />
+    </summaryFilterItems>
+    <summaryForeignKey>Item_Based_Upload_Information__c.Account_Name__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

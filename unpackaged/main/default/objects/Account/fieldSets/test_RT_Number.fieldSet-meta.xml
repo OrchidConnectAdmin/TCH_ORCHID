@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>test_RT_Number</fullName>
+    <description>Guest checkout</description>
+    <displayedFields>
+        <field>Primary_R_T_Number__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>test RT Number</label>
+</FieldSet>

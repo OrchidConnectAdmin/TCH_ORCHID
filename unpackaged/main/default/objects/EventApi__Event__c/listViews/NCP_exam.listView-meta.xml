@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NCP_exam</fullName>
+    <columns>NAME</columns>
+    <columns>EventApi__Status__c</columns>
+    <columns>EventApi__Start_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>EventApi__Display_Name__c</field>
+        <operation>contains</operation>
+        <value>NCP</value>
+    </filters>
+    <label>NCP exam</label>
+</ListView>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Memberships</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>OrderApi__Current_Term_Start_Date__c</columns>
+    <columns>OrderApi__Current_Term_End_Date__c</columns>
+    <columns>OrderApi__Subscription_Plan__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OrderApi__Activated_Date__c</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:30</value>
+    </filters>
+    <label>New Memberships</label>
+</ListView>

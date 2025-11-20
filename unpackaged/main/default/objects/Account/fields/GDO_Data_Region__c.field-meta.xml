@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GDO_Data_Region__c</fullName>
+    <description>Classifies the account record as a &quot;US&quot; or &quot;EMEA&quot; record for the purposes of reporting on the demo data set.</description>
+    <inlineHelpText>Classifies the account record as a &quot;US&quot; or &quot;EMEA&quot; record for the purposes of reporting on the demo data set.</inlineHelpText>
+    <label>GDO Data Region</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>US</fullName>
+                <default>false</default>
+                <label>US</label>
+            </value>
+            <value>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+                <label>EMEA</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

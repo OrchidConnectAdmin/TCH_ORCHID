@@ -1,0 +1,64 @@
+<apex:page tabStyle="Framework__tab" sidebar="false" showHeader="true" docType="html-5.0" controller="Framework.AdminApiServicesController">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <apex:composition template="Framework__admin">
+
+    <apex:define name="admin-icon">
+      <img src="//fonteva-cdn.s3.amazonaws.com/framework-admin/APIServices/APIServices.svg" style="height:50px;" alt="Placeholder" />
+    </apex:define>
+
+    <apex:define name="new_button">
+      <button class="slds-button slds-button--neutral" data-toggle="modal" data-target="#modalNewAPIServices">New API Service</button>
+    </apex:define>
+
+    <apex:define name="breadcrumbs">
+      <li class="slds-list__item slds-text-heading--label"><a href="{!$Page.admin}">{!$Label.Dashboard}</a></li>
+    </apex:define>
+
+      <apex:define name="title">{!$Label.API} {!$Label.Services}</apex:define>
+      <apex:define name="main">
+        <div class="slds-grid slds-wrap slds-p-around--medium">
+        
+          <apex:repeat value="{!services}" var="service">
+            <div class="slds-col--padded slds-size--1-of-3 slds-m-bottom--medium">
+              <div class="slds-media slds-tile">
+                <div class="slds-media__figure">
+                  <a href="{!$Page.admin_api_service}?key={!service.Name}">
+                    <apex:outputPanel id="no_img_container" rendered="{!ISBLANK(service.imagePath)}">
+                      <span class="slds-avatar">
+                        <svg aria-hidden="true" class="slds-icon slds-icon--large slds-icon-text-default">
+                          <use xlink:href="{!URLFOR($Resource.SLDS_Icons, 'icons/utility-sprite/svg/symbols.svg#image')}"></use>
+                        </svg>
+                        <span class="slds-assistive-text">No Image</span>
+                      </span>
+                    </apex:outputPanel>
+                    <apex:image rendered="{!NOT(ISBLANK(service.imagePath))}" styleClass="slds-avatar slds-avatar--medium" value="{!service.imagePath}" />
+                  </a>
+                </div>
+                <div class="slds-media__body">
+                  <p class="slds-tile__title slds-text-heading--small slds-truncate {!service.isEnabled}">
+                    <a href="{!$Page.admin_api_service}?key={!service.name}">
+                      {!service.displayName}
+                    </a>
+                  </p>
+                  <span class="slds-tile__detail slds-text-body--small slds-truncate">
+                    {!service.description}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </apex:repeat>
+        </div>
+        <c:api_service />
+      </apex:define>
+      <apex:define name="scripts">
+        <script>
+          $(function(e) {
+            $( "#extend-state" ).removeClass( "collapsed" );
+            $('#admin_api_services').addClass('selected');
+            $('#extend').addClass('in');
+          });
+        </script>
+      </apex:define>
+  </apex:composition>
+  </html>
+</apex:page>

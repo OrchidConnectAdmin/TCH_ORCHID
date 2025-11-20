@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_Event_Items</fullName>
+    <columns>NAME</columns>
+    <columns>OrderApi__Item_Class__c</columns>
+    <columns>OrderApi__Price__c</columns>
+    <columns>OrderApi__Is_Active__c</columns>
+    <columns>OrderApi__Is_Event__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>notContain</operation>
+        <value>FON-,FON</value>
+    </filters>
+    <filters>
+        <field>OrderApi__Item_Class__c</field>
+        <operation>notContain</operation>
+        <value>ticket class,sponsor class,schedule class</value>
+    </filters>
+    <label>Non-Event Items</label>
+</ListView>

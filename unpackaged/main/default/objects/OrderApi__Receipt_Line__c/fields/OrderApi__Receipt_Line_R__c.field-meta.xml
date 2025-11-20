@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Receipt_Line_R__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Relates the functional Receipt Line to the reporting Receipt Line when Fonteva&#39;s multi-currency is enabled.</description>
+    <inlineHelpText>Relates the functional Receipt Line to the reporting Receipt Line when Fonteva&#39;s multi-currency is enabled.</inlineHelpText>
+    <label>Receipt Line (R)</label>
+    <referenceTo>OrderApi__Receipt_Line_R__c</referenceTo>
+    <relationshipLabel>Receipt Lines</relationshipLabel>
+    <relationshipName>Receipt_Lines</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

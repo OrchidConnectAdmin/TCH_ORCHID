@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Entity__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Required** The entity the system should consider the &quot;Customer&quot; related to the record.</description>
+    <inlineHelpText>**Required** The entity the system should consider the &quot;Customer&quot; related to the record.</inlineHelpText>
+    <label>Entity</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Contact</fullName>
+                <default>true</default>
+                <label>Contact</label>
+            </value>
+            <value>
+                <fullName>Account</fullName>
+                <default>false</default>
+                <label>Account</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

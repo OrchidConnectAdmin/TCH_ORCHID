@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rate_Override__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To override the automatic deposit-based calculations</description>
+    <inlineHelpText>Checking this will look for alternative values (see field: Override Annual Dues) for deposit-based billing</inlineHelpText>
+    <label>Rate Override</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

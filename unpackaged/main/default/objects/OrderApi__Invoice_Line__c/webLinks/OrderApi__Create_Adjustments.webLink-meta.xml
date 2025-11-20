@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Create_Adjustments</fullName>
+    <availability>online</availability>
+    <description>Combined with action checkboxes, this button quickly creates adjustment lines for a posted invoice.</description>
+    <displayType>massActionButton</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Create Credit Note</masterLabel>
+    <openType>replace</openType>
+    <page>OrderApi__create_invoice_adjustments</page>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+</WebLink>

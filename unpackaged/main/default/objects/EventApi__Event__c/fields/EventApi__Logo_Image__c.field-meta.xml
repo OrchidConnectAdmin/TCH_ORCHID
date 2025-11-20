@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Logo_Image__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The image defined in this field appears in the lefthand side of the navbar in the microsite.
+            Recommended size 90px by 90px. (Image will be cropped to these dimensions)</description>
+    <inlineHelpText>The image defined in this field appears in the lefthand side of the navbar in the microsite.
+            Recommended size 90px by 90px. (Image will be cropped to these dimensions)</inlineHelpText>
+    <label>Logo Image URL</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

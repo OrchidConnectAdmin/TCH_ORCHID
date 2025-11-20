@@ -1,0 +1,154 @@
+<apex:page showHeader="true"
+    sidebar="false"
+    docType="html-5.0"
+    title="{!$Label.PagesApi__Community_Builder}"
+    controller="PagesApi.CommunitiesController"
+>
+    <apex:composition template="Framework__slds_template">
+        <apex:define name="styles">
+            <link
+                rel="stylesheet"
+                media="screen"
+                href="{!URLFOR($Resource.SLDS_BaseV2, 'css/fullStyles.css')}"
+            />
+        </apex:define>
+
+        <apex:define name="admin-icon"> </apex:define>
+
+        <apex:define name="breadcrumbs"> </apex:define>
+
+        <apex:define name="title">
+            Fonteva {!$Label.PagesApi__Communities}
+        </apex:define>
+
+        <apex:define name="main">
+            <div
+                class="slds-grid slds-wrap slds-p-around--small slds-theme--shade slds-object-height--full__nofooter slds-scrollable--y slds-size--1-of-1"
+            >
+                <div class="slds-col slds-p-around--medium slds-size--1-of-1 service">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-size--1-of-2 slds-grid slds-wrap slds-m-bottom--large">
+                            <div class="slds-media slds-size--1-of-1 slds-grid">
+                                <div class="slds-media__figure">
+                                    <a href="{!URLFOR($Action.Community_Group__c.Tab,$ObjectType.Community_Group__c)}">
+                                        <img
+                                            src="{!URLFOR($Resource.aui,'img/apps/communities/community-groups/community-groups.svg')}"
+                                            style="height: 75px;"
+                                            alt="Placeholder"
+                                        />
+                                    </a>
+                                </div>
+                                <!-- /.slds-media__figure -->
+                                <div class="slds-media__body">
+                                    <a href="{!URLFOR($Action.Community_Group__c.Tab,$ObjectType.Community_Group__c)}">
+                                        <div class="slds-text-heading--small">
+                                            {!$ObjectType.Community_Group__c.LabelPlural}
+                                        </div>
+                                    </a>
+                                    <div class="slds-text-body--regular">
+                                        Create and manage public and private community groups for chapters and interest
+                                        groups.
+                                    </div>
+                                </div>
+                                <!-- /.slds-media__body -->
+                            </div>
+                            <!-- /.slds-media -->
+                        </div>
+
+                        <div class="slds-size--1-of-2 slds-grid slds-wrap slds-m-bottom--large">
+                            <div class="slds-media slds-size--1-of-1 slds-grid">
+                                <div class="slds-media__figure">
+                                    <a
+                                        href="{!URLFOR($Action.Media_Asset_Collection__c.Tab,$ObjectType.Media_Asset_Collection__c)}"
+                                    >
+                                        <img
+                                            src="{!URLFOR($Resource.aui,'img/apps/communities/media-collections/media-collections.svg')}"
+                                            style="height: 75px;"
+                                            alt="Placeholder"
+                                        />
+                                    </a>
+                                </div>
+                                <!-- /.slds-media__figure -->
+                                <div class="slds-media__body">
+                                    <a
+                                        href="{!URLFOR($Action.Media_Asset_Collection__c.Tab,$ObjectType.Media_Asset_Collection__c)}"
+                                    >
+                                        <div class="slds-text-heading--small">
+                                            {!$ObjectType.Media_Asset_Collection__c.LabelPlural}
+                                        </div>
+                                    </a>
+                                    <div class="slds-text-body--regular">
+                                        Upload and group all kinds of media assets—images, files, video—for use in your
+                                        community or organization.
+                                    </div>
+                                </div>
+                                <!-- /.slds-media__body -->
+                            </div>
+                            <!-- /.slds-media -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.slds-col -->
+
+                <div class="slds-col slds-p-around--medium slds-size--1-of-1 service">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-size--1-of-2 slds-grid slds-wrap slds-m-bottom--large">
+                            <div class="slds-media slds-size--1-of-1 slds-grid">
+                                <div class="slds-media__figure">
+                                    <a href="{!URLFOR($Action.Site__c.Tab,$ObjectType.Site__c)}">
+                                        <img
+                                            src="{!URLFOR($Resource.aui,'img/apps/communities/sites/sites.svg')}"
+                                            style="height: 75px;"
+                                            alt="Placeholder"
+                                        />
+                                    </a>
+                                </div>
+                                <!-- /.slds-media__figure -->
+                                <div class="slds-media__body">
+                                    <a href="{!URLFOR($Action.Site__c.Tab,$ObjectType.Site__c)}">
+                                        <div class="slds-text-heading--small">{!$ObjectType.Site__c.LabelPlural}</div>
+                                    </a>
+                                    <div class="slds-text-body--regular">
+                                        Create fully functioning websites with a few clicks, that include events,
+                                        groups, stores, and custom pages you define.
+                                    </div>
+                                </div>
+                                <!-- /.slds-media__body -->
+                            </div>
+                            <!-- /.slds-media -->
+                        </div>
+
+                        <div class="slds-size--1-of-2 slds-grid slds-wrap slds-m-bottom--large">
+                            <div class="slds-media slds-size--1-of-1 slds-grid">
+                                <div class="slds-media__figure">
+                                    <a href="{!URLFOR($Action.Theme__c.Tab,$ObjectType.Theme__c)}">
+                                        <img
+                                            src="{!URLFOR($Resource.aui,'img/apps/communities/themes/themes.svg')}"
+                                            style="height: 75px;"
+                                            alt="Placeholder"
+                                        />
+                                    </a>
+                                </div>
+                                <!-- /.slds-media__figure -->
+                                <div class="slds-media__body">
+                                    <a href="{!URLFOR($Action.Theme__c.Tab,$ObjectType.Theme__c)}">
+                                        <div class="slds-text-heading--small">{!$ObjectType.Theme__c.LabelPlural}</div>
+                                    </a>
+                                    <div class="slds-text-body--regular">
+                                        Brand your community Portal with point-and-click color palettes, user-defined
+                                        headers and footers, or custom code.
+                                    </div>
+                                </div>
+                                <!-- /.slds-media__body -->
+                            </div>
+                            <!-- /.slds-media -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.slds-col -->
+            </div>
+        </apex:define>
+
+        <apex:define name="scripts"> </apex:define>
+    </apex:composition>
+</apex:page>

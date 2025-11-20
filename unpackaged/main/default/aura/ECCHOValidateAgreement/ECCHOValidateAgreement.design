@@ -1,0 +1,3 @@
+<design:component label="ECCHO: Check Agreement Access">
+   <design:attribute name="rID" label="Record ID" />
+</design:component>

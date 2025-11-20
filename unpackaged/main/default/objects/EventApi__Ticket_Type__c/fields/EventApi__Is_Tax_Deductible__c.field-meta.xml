@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Is_Tax_Deductible__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the Ticket Type is considered as a Tax Deductible contribution and the Cost of the Ticket Type will be used when deriving the &quot;Tax Deductible Donation Amount&quot; on Attendee&#39;s Receipts. Defaults unchecked.</description>
+    <inlineHelpText>When checked, the Ticket Type is considered as a Tax Deductible contribution and the Cost of the Ticket Type will be used when deriving the &quot;Tax Deductible Donation Amount&quot; on Attendee&#39;s Receipts. Defaults unchecked.</inlineHelpText>
+    <label>Is Tax Deductible</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

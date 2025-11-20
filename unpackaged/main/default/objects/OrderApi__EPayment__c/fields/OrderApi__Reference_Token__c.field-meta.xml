@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Reference_Token__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** The reference token used (in lieu of a payment method) to invoke the transaction. (Reference Transactions are not supported by all gateways).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>**System Calculated** The reference token used (in lieu of a payment method) to invoke the transaction. (Reference Transactions are not supported by all gateways).</inlineHelpText>
+    <label>Reference Token</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

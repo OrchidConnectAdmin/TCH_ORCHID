@@ -1,0 +1,379 @@
+<apex:page showHeader="false"
+    sidebar="false"
+    standardStylesheets="false"
+    docType="html-5.0"
+    applyHtmlTag="false"
+    applyBodyTag="false"
+    controller="PagesApi.DefaultTemplateController"
+    language="{!languageISOCode}"
+>
+    <!-- Page Variables -->
+    <apex:variable var="usr" value="{!currentUser}" />
+    <apex:variable var="con" value="{!currentContact}" />
+    <apex:variable var="theme" value="{!theme}" />
+    <apex:variable var="isAuthenticated" value="{!NOT(ISPICKVAL($User.UserType,'Guest'))}" />
+    <apex:variable var="siteNav" value="{!siteNav}" />
+    <apex:variable var="userInfoObj" value="{!userInfoObj}" />
+    <html>
+        <head>
+            <title>
+                <apex:insert name="title"/>&nbsp;{!site.Title_Tag_Separator__c}&nbsp;{!site.Base_Title_Tag__c}
+            </title>
+
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+            <meta charset="utf-8" />
+
+            <apex:insert name="metaOverride">
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+                <meta name="robots" content="{!MetaRobotsTag}" />
+                <meta name="description" content="" />
+                <meta name="author" content="" />
+            </apex:insert>
+
+            <link
+                rel="icon"
+                href="{!IF(ISBLANK(theme.Favicon_Image__c), $Resource.Content + '/favicon.ico',theme.Favicon_Image__c)}"
+            />
+
+            <apex:insert name="styleOverride">
+                <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(theme.PagesApi__Lightning_Community_Styles__c))}">
+                    <!-- *****SECURITY REVIEW FALSE POSITIVE***** -->
+                    <!-- The 'Lightning_Community_Styles__c' field should
+                         not be escaped because it contains CSS -->
+                    <style type="text/css">
+                        {!theme.PagesApi__Lightning_Community_Styles__c}
+                    </style>
+                </apex:outputPanel>
+                <apex:outputPanel id="lightningStylesFonteva"
+                    rendered="{!ISBLANK(theme.PagesApi__Lightning_Community_Styles__c)}"
+                >
+                </apex:outputPanel>
+
+                <link
+                    rel="stylesheet"
+                    media="screen"
+                    href="{!IF(loadCustomCSS,theme.Custom_Stylesheet_URL__c,URLFOR($Resource.emerald_base_1_0,'css/styles.min.css'))}"
+                />
+                <apex:outputPanel rendered="{!$CurrentPage.parameters.isPreview == 'true'}">
+                    <style>
+                        body {
+                            padding-top: 0 !important;
+                        }
+                        .wrapper {
+                            min-height: 0 !important;
+                        }
+                    </style>
+                </apex:outputPanel>
+            </apex:insert>
+
+            <apex:insert name="scriptOverride">
+                <script src="{!URLFOR($Resource.jquery, 'v3.5.1/jquery.min.js')}"/>
+                <script src="{!URLFOR($Resource.jquery_mousewheel, 'v3.1.13/jquery.mousewheel.min.js')}" />
+                <script src="{!URLFOR($Resource.emerald_base_1_0, 'js/vendor.min.js')}" />
+                <script src="{!URLFOR($Resource.FontevaStyler)}" />
+                <script src="{!URLFOR($Resource.ThemeGenerator)}" />
+            </apex:insert>
+
+            <apex:insert name="head" />
+
+            <apex:insert name="styles" />
+
+            <!-- *****SECURITY REVIEW FALSE POSITIVE***** -->
+            <!-- The 'Custom_CSS__c' field should not be escaped
+                 because it contains CSS -->
+            <style type="text/css">
+             .em-topbar a{
+                color:#000 !important;
+             }
+                {!theme.PagesApi__Custom_CSS__c}
+            </style>
+
+            <!-- HTML HEAD -->
+            <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(theme.PagesApi__HTML_Head__c))}">
+                <apex:dynamicComponent componentValue="{!HTMLHead}" />
+            </apex:outputPanel>
+        </head>
+
+        <body id="main">
+            <div id="wrapper">
+                <apex:insert name="bodyOpen" />
+
+                <apex:outputPanel layout="none" rendered="{!$CurrentPage.parameters.isPreview != 'true'}">
+                    <apex:insert name="supernavOverride">
+                        <!-- supernav -->
+                        <div class="em-topbar">
+                            <div class="container container-header">
+                                <div class="row topbar-row">
+                                    <div class="col-sm-12 topmenu-holder text-right">
+                                        <span id="supernav-left" class="pull-left hidden-xs hidden-sm">
+                                            <apex:insert name="supernavLeft" />
+                                            <apex:outputPanel layout="none"
+                                                id="supernav-position-1"
+                                                rendered="{!NOT(ISBLANK(theme.PagesApi__Supernav_HTML_Position_1__c))}"
+                                            >
+                                                <apex:dynamicComponent componentValue="{!SuperNavPos1}" />
+                                            </apex:outputPanel> </span
+                                        ><!-- /#supernav-left -->
+
+                                        <apex:insert name="supernavRight" />
+
+                                        &nbsp;
+                                        <!-- forces height -->
+
+                                        <ul class="navbar-search topbar-list list-inline p-0">
+                                            <apex:outputPanel layout="none"
+                                                id="supernav-position-2"
+                                                rendered="{!NOT(ISBLANK(theme.PagesApi__Supernav_HTML_Position_2__c))}"
+                                            >
+                                                <li class="hidden-xs">
+                                                    <apex:dynamicComponent componentValue="{!SuperNavPos2}" />
+                                                </li>
+                                            </apex:outputPanel>
+
+                                            <apex:insert name="supernavList" />
+
+                                            <!-- Unauthenticated Display -->
+                                            <apex:outputPanel layout="none" rendered="{!NOT(isAuthenticated)}">
+                                                <apex:insert name="supernavListUnauthenticated" />
+
+                                                <!-- Login URL -->
+                                                <apex:outputPanel layout="none"
+                                                    rendered="{!NOT(ISBLANK(site.PagesApi__User_Login_URL__c))}"
+                                                >
+                                                    <li>
+                                                        <a
+                                                            href="{!site.User_Login_URL__c}"
+                                                            title="{!$Label.Supernav_Login}"
+                                                        >
+                                                            {!$Label.Supernav_Login}
+                                                        </a>
+                                                    </li>
+                                                </apex:outputPanel>
+
+                                                <!-- Self Register URL -->
+                                                <apex:outputPanel layout="none"
+                                                    rendered="{!NOT(ISBLANK(site.PagesApi__User_Self_Registration_URL__c))}"
+                                                >
+                                                    <li>
+                                                        <a href="{!site.User_Self_Registration_URL__c}"
+                                                            >{!$Label.Supernav_Register}</a
+                                                        >
+                                                    </li>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+
+                                            <!-- Supernav Position #3 -->
+                                            <apex:outputPanel layout="none"
+                                                id="supernav-position-3"
+                                                rendered="{!NOT(ISBLANK(theme.PagesApi__Supernav_HTML_Position_3__c))}"
+                                            >
+                                                <li class="hidden-xxs">
+                                                    <apex:dynamicComponent componentValue="{!SuperNavPos3}" />
+                                                </li> </apex:outputPanel><!-- /#supernav-position-3 -->
+
+                                            <!-- Authenticated Display -->
+                                            <apex:outputPanel layout="none" rendered="{!isAuthenticated}">
+                                                <li>
+                                                    <a
+                                                        href="#"
+                                                        class="dropdown-toggle profile-dropdown-toggle"
+                                                        data-toggle="dropdown"
+                                                        role="button"
+                                                        aria-expanded="false"
+                                                    >
+                                                        <img
+                                                            class="profile-dropdown-image"
+                                                            src="{!usr.SmallPhotoUrl}"
+                                                        />
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu profile-dropdown-menu" role="menu">
+                                                        <apex:outputPanel layout="none"
+                                                            rendered="{!NOT(ISBLANK(Site.PagesApi__Profile_Page_URL__c))}"
+                                                        >
+                                                            <li>
+                                                                <a href="{!Site.Profile_Page_URL__c}"
+                                                                    ><i class="btr bt-user"></i>
+                                                                    {!$Label.Profile_Page_Link_Anchor}</a
+                                                                >
+                                                            </li>
+                                                        </apex:outputPanel>
+                                                        <apex:insert name="navbarProfileDropdownMenuItems" />
+                                                        <li>
+                                                            <a onclick="em.logout();" class="logout" href="#"
+                                                                ><i class="btr bt-sign-out"></i>
+                                                                {!$Label.Supernav_Logout}</a
+                                                            >
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                                <apex:insert name="supernavListAuthenticated" />
+                                            </apex:outputPanel>
+                                        </ul>
+                                        <!-- / topbar-list -->
+                                    </div>
+                                    <!-- / topmenu-holder -->
+                                </div>
+                                <!--/ row -->
+                            </div>
+                            <!--/ container header -->
+                        </div>
+                        <!-- / em-topbar -->
+                    </apex:insert>
+
+                    <apex:insert name="topnavOverride">
+                        <!-- navbar -->
+                        <header class="fonteva-topnav">
+                            <nav class="navbar em-navbar navbar-fixed-top primary-nav">
+                                <div class="primary-nav-inner">
+                                    <div class="container">
+                                        <div class="navbar-header">
+                                            <button
+                                                type="button"
+                                                class="navbar-toggle collapsed"
+                                                data-toggle="collapse"
+                                                data-target="#navbar"
+                                                aria-expanded="false"
+                                                aria-controls="navbar"
+                                            >
+                                                <span class="sr-only">{!$Label.Toggle_Navigation}</span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                            </button>
+                                            <a
+                                                class="navbar-brand"
+                                                href="{!IF(ISBLANK(theme.Logo_URL__c),'#',theme.Logo_URL__c)}"
+                                                style="
+                                                    background-image: url('{!IF(ISBLANK(theme.Logo_Image__c),'',theme.Logo_Image__c)}');
+                                                "
+                                            ></a>
+                                        </div>
+                                        <div id="navbar" class="navbar-collapse collapse">
+                                            <apex:insert name="navbarOverride">
+                                                <apex:outputPanel layout="none"
+                                                    rendered="{!NOT(ISBLANK(siteNav.Name))}"
+                                                >
+                                                    <c:navlist name="{!siteNav.Name}"
+                                                        ulStyleClass="nav navbar-nav navbar-right open"
+                                                    />
+                                                </apex:outputPanel>
+                                            </apex:insert>
+                                            <apex:insert name="navbar" />
+                                        </div>
+                                        <!--/nav-collapse -->
+                                    </div>
+                                </div>
+                            </nav>
+                            <!-- /navbar -->
+                        </header>
+                        <!-- /fonteva-topnav -->
+                    </apex:insert>
+
+                    <!-- HEADER -->
+                    <apex:insert name="headerOverride">
+                        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(theme.PagesApi__Header__c))}">
+                            <apex:dynamicComponent componentValue="{!Header}" />
+                        </apex:outputPanel>
+                    </apex:insert>
+                </apex:outputPanel>
+
+                <div class="page-wrapper">
+                    <apex:insert name="main" />
+                    <div class="push"></div>
+                </div>
+                <!-- end: wrapper -->
+
+                <!-- FOOTER -->
+                <apex:outputPanel layout="none" rendered="{!$CurrentPage.parameters.isPreview != 'true'}">
+                    <apex:insert name="footerOverride">
+                        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(theme.PagesApi__Footer__c))}">
+                            <apex:dynamicComponent componentValue="{!Footer}" />
+                        </apex:outputPanel>
+                    </apex:insert>
+                </apex:outputPanel>
+            </div>
+            <!-- /#wrapper -->
+
+            <script type="text/javascript">
+                var supernav_bg_color = '{!JSENCODE(IF(ISBLANK(theme.Supernav_Background_Color__c),'#FFFFFF',theme.Supernav_Background_Color__c))}';
+                var supernav_text_color = '{!JSENCODE(IF(ISBLANK(theme.Supernav_Text_Color__c),'#444444',theme.Supernav_Text_Color__c))}';
+                var supernav_link_color = '{!JSENCODE(IF(ISBLANK(theme.Supernav_Link_Color__c),'#232323',theme.Supernav_Link_Color__c))}';
+                var primary_color = '{!JSENCODE(IF(ISBLANK(theme.Brand_Primary__c),'#F2A01D',theme.Brand_Primary__c))}';
+                var secondary_color = '{!JSENCODE(IF(ISBLANK(theme.Brand_Secondary__c),'#F2A01D',theme.Brand_Secondary__c))}';
+                var navbar_bg_color = '{!JSENCODE(IF(ISBLANK(theme.Navbar_Background_Color__c),'#FFFFFF',theme.Navbar_Background_Color__c))}';
+                var navbar_link_color = '{!JSENCODE(IF(ISBLANK(theme.Navbar_Link_Color__c),'#666666',theme.Navbar_Link_Color__c))}';
+                var body_bg_color = '{!JSENCODE(IF(ISBLANK(theme.Body_Background_Color__c),'#F1F1F1',theme.Body_Background_Color__c))}';
+                var text_color = '{!JSENCODE(IF(ISBLANK(theme.Text_Color__c),'#222222',theme.Text_Color__c))}';
+                var link_color = '{!JSENCODE(IF(ISBLANK(theme.Link_Color__c),'#128999',theme.Link_Color__c))}';
+                var logo_image = '{!JSENCODE(IF(ISBLANK(theme.Logo_Image__c),  $Resource.Content + '/fonteva.svg',theme.Logo_Image__c))}';
+                var logo_url = '{!JSENCODE(IF(ISBLANK(theme.Logo_URL__c),'#',theme.Logo_URL__c))}';
+                var logo_text = '{!JSENCODE(IF(ISBLANK(theme.Logo_Text__c),'Fonteva',theme.Logo_Text__c))}';
+                var favicon_image = '{!JSENCODE(IF(ISBLANK(theme.Favicon_Image__c), $Resource.Content + '/favicon.ico',theme.Favicon_Image__c))}';
+                var login_url = '{!JSENCODE(site.User_Login_URL__c)}';
+                var site_url = '{!JSENCODE($Site.CurrentSiteUrl)}';
+                var isAuthenticated = '{!NOT(ISPICKVAL($User.UserType,'Guest'))}';
+                if ({!lightningStylesCalculated} && document.getElementById('{!$Component.lightningStylesFonteva}')) {
+                    var themeObj = {
+                        brandPrimary : primary_color,
+                        linkColor : link_color,
+                        navbarBackgroundColor : navbar_bg_color,
+                        textColor : text_color
+                    };
+                    var style = document.createElement('style');
+                    style.type = 'text/css';
+                    style.innerHTML = ThemeGenerator.generateTheme(themeObj);
+                    document.getElementById('{!$Component.lightningStylesFonteva}').appendChild(style);
+                }
+            </script>
+            <script src="{!URLFOR($Resource.emerald_base_1_0,'js/app.min.js')}" />
+
+            <!-- Ladda -->
+            <script src="{!URLFOR($Resource.emerald_base_1_0,'js/lib/spin.min.js')}" />
+            <script src="{!URLFOR($Resource.emerald_base_1_0,'js/lib/ladda.min.js')}" />
+            <script type="text/javascript">
+                if (document.all && !document.addEventListener) {
+                    window.location.href = '{!URLFOR($Page.unsupported_browser)}';
+                }
+                else {
+                    if (($.browser.msie && $.browser.version < 9)) {
+                      window.location.href = '{!URLFOR($Page.unsupported_browser)}';
+                    }
+                    }
+            </script>
+            <apex:insert name="cookiePrompt">
+                <apex:outputPanel layout="none" rendered="{!ISBLANK($CurrentPage.parameters.isPreview)}">
+                    <apex:includeLightning />
+                    <style>
+                        .noscroll {
+                            overflow: hidden;
+                            position: relative;
+                        }
+                    </style>
+                    <div id="cookiePrompt" />
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $Lightning.use("{!namespace}:EngageApp", function () {
+                                $Lightning.createComponent("{!namespace}:CookieUsagePrompt",
+                                    {
+                                        site : '{!JSENCODE(site.Id)}',
+                                        contact : '{!JSENCODE(currentContact.Id)}',
+                                        isGuest : {!ISPICKVAL($User.UserType,'Guest')}
+                                    },
+                                    "cookiePrompt",
+                                    function (cmp) {
+
+                                    });
+                            });
+                        });
+                    </script>
+                </apex:outputPanel>
+            </apex:insert>
+            <apex:insert name="scripts" />
+
+            <apex:insert name="bodyClose" />
+        </body>
+    </html>
+</apex:page>

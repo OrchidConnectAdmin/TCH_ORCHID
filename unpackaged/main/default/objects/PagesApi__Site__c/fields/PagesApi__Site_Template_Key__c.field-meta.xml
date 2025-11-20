@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Site_Template_Key__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The name of the template to use for creating standard pages and menus related to the site.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The name of the template to use for creating standard pages and menus related to the site.</inlineHelpText>
+    <label>Site Template Key</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

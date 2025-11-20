@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Attempt_3DS__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When selected, 3D Secure will be enabled for the related payment gateway. Displayed only if a payment gateway supports
+            3D Secure.</description>
+    <inlineHelpText>When selected, 3DS will be enabled for the related payment gateway. Displayed only if a payment gateway supports 3DS.</inlineHelpText>
+    <label>Enable 3D Secure</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

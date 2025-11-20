@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DDApi__Require_Credit_Card_for_First_Payment__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Checking this field will require the purchaser using direct debits to make the first payment with a credit card.</description>
+    <inlineHelpText>Checking this field will require the purchaser using direct debits to make the first payment with a credit card.</inlineHelpText>
+    <label>Require Credit Card for First Payment</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

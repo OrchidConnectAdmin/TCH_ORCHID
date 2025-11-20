@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Auto_Calculate_Activation_Date__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Override ** Valid if the Sales Order Line is related to a &quot;Subscription&quot; Item. When checked, the system will automatically calculate the &quot;Activation Date&quot; based on conditions set on the selected &quot;Subscription Plan&quot;. Defaults checked.</description>
+    <inlineHelpText>** System Calculated Override ** Valid if the Sales Order Line is related to a &quot;Subscription&quot; Item. When checked, the system will automatically calculate the &quot;Activation Date&quot; based on conditions set on the selected &quot;Subscription Plan&quot;. Defaults checked.</inlineHelpText>
+    <label>Auto Calculate Activation Date</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

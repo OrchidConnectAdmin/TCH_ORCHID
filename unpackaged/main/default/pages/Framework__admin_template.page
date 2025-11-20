@@ -1,0 +1,9 @@
+<apex:page title="Framework Admin"
+    controller="Framework.AdminTemplateController"
+    sidebar="false"
+    tabStyle="Framework__tab"
+    docType="html-5.0"
+    cache="false"
+>
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"></html>
+</apex:page>

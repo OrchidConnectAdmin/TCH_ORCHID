@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_of_Crime__c</fullName>
+    <label>Type of Crime</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Abduction</fullName>
+                <default>false</default>
+                <label>Abduction</label>
+            </value>
+            <value>
+                <fullName>Arson</fullName>
+                <default>false</default>
+                <label>Arson</label>
+            </value>
+            <value>
+                <fullName>Assault (non-sexual)</fullName>
+                <default>false</default>
+                <label>Assault (non-sexual)</label>
+            </value>
+            <value>
+                <fullName>Burglary</fullName>
+                <default>false</default>
+                <label>Burglary</label>
+            </value>
+            <value>
+                <fullName>Child Abuse or Neglect</fullName>
+                <default>false</default>
+                <label>Child Abuse or Neglect</label>
+            </value>
+            <value>
+                <fullName>Conservatorship / Guardianship / Fraud Abuse</fullName>
+                <default>false</default>
+                <label>Conservatorship / Guardianship / Fraud Abuse</label>
+            </value>
+            <value>
+                <fullName>Cruelty to Animals</fullName>
+                <default>false</default>
+                <label>Cruelty to Animals</label>
+            </value>
+            <value>
+                <fullName>Cyberstalking</fullName>
+                <default>false</default>
+                <label>Cyberstalking</label>
+            </value>
+            <value>
+                <fullName>Destruction of Property</fullName>
+                <default>false</default>
+                <label>Destruction of Property</label>
+            </value>
+            <value>
+                <fullName>Domestic Violence</fullName>
+                <default>false</default>
+                <label>Domestic Violence</label>
+            </value>
+            <value>
+                <fullName>DWI / DUI Survivor</fullName>
+                <default>false</default>
+                <label>DWI / DUI Survivor</label>
+            </value>
+            <value>
+                <fullName>Elder Abuse or Neglect</fullName>
+                <default>false</default>
+                <label>Elder Abuse or Neglect</label>
+            </value>
+            <value>
+                <fullName>Financial Exploitation</fullName>
+                <default>false</default>
+                <label>Financial Exploitation</label>
+            </value>
+            <value>
+                <fullName>Hate or Bias Crime</fullName>
+                <default>false</default>
+                <label>Hate or Bias Crime</label>
+            </value>
+            <value>
+                <fullName>Homicide Survivor</fullName>
+                <default>false</default>
+                <label>Homicide Survivor</label>
+            </value>
+            <value>
+                <fullName>Human Trafficking-Labor</fullName>
+                <default>false</default>
+                <label>Human Trafficking-Labor</label>
+            </value>
+            <value>
+                <fullName>Human Trafficking-Sexual</fullName>
+                <default>false</default>
+                <label>Human Trafficking-Sexual</label>
+            </value>
+            <value>
+                <fullName>Identity Theft</fullName>
+                <default>false</default>
+                <label>Identity Theft</label>
+            </value>
+            <value>
+                <fullName>Other (pls specify)</fullName>
+                <default>false</default>
+                <label>Other (pls specify)</label>
+            </value>
+            <value>
+                <fullName>Robbery</fullName>
+                <default>false</default>
+                <label>Robbery</label>
+            </value>
+            <value>
+                <fullName>Sexual Assault</fullName>
+                <default>false</default>
+                <label>Sexual Assault</label>
+            </value>
+            <value>
+                <fullName>Stalking</fullName>
+                <default>false</default>
+                <label>Stalking</label>
+            </value>
+            <value>
+                <fullName>Theft</fullName>
+                <default>false</default>
+                <label>Theft</label>
+            </value>
+            <value>
+                <fullName>Threats</fullName>
+                <default>false</default>
+                <label>Threats</label>
+            </value>
+            <value>
+                <fullName>Arrest Record?</fullName>
+                <default>false</default>
+                <label>Arrest Record?</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

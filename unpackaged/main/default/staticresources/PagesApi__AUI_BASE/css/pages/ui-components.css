@@ -1,0 +1,4 @@
+/* line 6, ../ui-components.scss */
+.aui#aui-layout section h4:first-of-type, .aui#aui-layout .section h4:first-of-type {
+  margin-bottom: 15px !important;
+}

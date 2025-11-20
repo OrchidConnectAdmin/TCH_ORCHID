@@ -1,0 +1,214 @@
+<template>
+    <template if:true={dataLoadedComplete}>
+        <lightning-record-edit-form 
+            record-id={recordId}
+            object-api-name={objectApiName}
+            onsubmit={handleSubmit}
+            onsuccess={handleSuccess}
+        >
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="12">
+                    <lightning-messages></lightning-messages>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <div>Organization Information</div>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field
+                        field-name="Legal_Organization_Name__c"
+                        value={sponsoredOrganization.Name}
+                        required=""
+                    >
+                    </lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field field-name="PO_ID__c"></lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field field-name="In_Production__c" required=""></lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field field-name="Rules_Access__c" required=""></lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field
+                        field-name="Primary_R_T_Number__c"
+                        value={sponsoredOrganization.Primary_R_T_Number__c}
+                        required=""
+                        readonly
+                    >
+                    </lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field
+                        field-name="Affiliation_Type__c"
+                        value={affiliateType}
+                        required=""
+                        disabled
+                    >
+                    </lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field
+                        field-name="Charter_Number__c"
+                        value={sponsoredOrganization.FON_Charter_Number__c}
+                    >
+                    </lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input-field
+                        field-name="Organization_URL__c"
+                        value={sponsoredOrganization.Organization_URL__c}
+                    >
+                    </lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-m-vertical_medium" size="12">
+                    <lightning-layout multiple-rows="true">
+                        <lightning-layout-item size="6">
+                            <lightning-layout multiple-rows="true">
+                                <lightning-layout-item size="12">
+                                    <div>Primary Contact Information</div>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12">
+                                    <lightning-input-field
+                                        field-name="Primary_Contact_First_Name__c"
+                                        value={primaryContact.FirstName}
+                                        required=""
+                                    >
+                                    </lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12">
+                                    <lightning-input-field
+                                        field-name="Primary_Contact_Last_Name__c"
+                                        value={primaryContact.LastName}
+                                        required=""
+                                    >
+                                    </lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12">
+                                    <lightning-input-field
+                                        field-name="Primary_Contact_Title__c"
+                                        value={primaryContact.Title}
+                                    >
+                                    </lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12">
+                                    <lightning-input-field
+                                        field-name="Primary_Contact_Email__c"
+                                        value={primaryContact.Email}
+                                        required=""
+                                    >
+                                    </lightning-input-field>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12">
+                                    <lightning-input-field
+                                        field-name="Primary_Office_Number__c"
+                                        value={primaryContact.OrderApi__Work_Phone__c}
+                                        required=""
+                                    >
+                                    </lightning-input-field>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <lightning-layout multiple-rows="true">
+                                <lightning-layout-item size="12">
+                                    <div>Executed By Contact Information</div>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12">
+                                    <lightning-input
+                                        type="checkbox"
+                                        label="Same as Primary Contact"
+                                        name="same-as-primary-contact"
+                                        data-element="same-as-primary-contact-checkbox"
+                                        onchange={handleCheckboxChange}
+                                        checked
+                                    >
+                                    </lightning-input>
+                                </lightning-layout-item>
+                                <template if:false={sameAsPrimaryContact}>
+                                    <lightning-layout-item size="12">
+                                        <lightning-input-field field-name="Executed_By_First_Name__c" required="">
+                                        </lightning-input-field>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="12">
+                                        <lightning-input-field field-name="Executed_By_Last_Name__c" required="">
+                                        </lightning-input-field>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="12">
+                                        <lightning-input-field field-name="Executed_By_Email__c" required="">
+                                        </lightning-input-field>
+                                    </lightning-layout-item>
+                                </template>
+                            </lightning-layout>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <lightning-layout multiple-rows="true">
+                        <lightning-layout-item size="12">
+                            <div>Address Information</div>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input-address
+                                address-label="Mailing Address"
+                                street-label="Street"
+                                city-label="City"
+                                country-label="Country"
+                                province-label="Province/State"
+                                postal-code-label="PostalCode"
+                                street={mailingAddress.street}
+                                city={mailingAddress.city}
+                                country={mailingAddress.country}
+                                province={mailingAddress.province}
+                                postal-code={mailingAddress.postalCode}
+                                country-options={getCountryOptions}
+                                province-options={getMailingProvinceOptions}
+                                required
+                                onchange={handleMailingAddressChange}>
+                            </lightning-input-address>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input
+                                type="checkbox"
+                                label="Same as Mailing Address"
+                                name="same-as-mailing-address"
+                                data-element="same-as-mailing-address-checkbox"
+                                onchange={handleCheckboxChange}
+                                checked
+                            >
+                            </lightning-input>
+                            <template if:false={sameAsMailingAddress}>
+                                <lightning-input-address
+                                    address-label="Future Notification Address"
+                                    street-label="Street"
+                                    city-label="City"
+                                    country-label="Country"
+                                    province-label="Province/State"
+                                    postal-code-label="PostalCode"
+                                    street={futureNotificationAddress.street}
+                                    city={futureNotificationAddress.city}
+                                    country={futureNotificationAddress.country}
+                                    province={futureNotificationAddress.province}
+                                    postal-code={futureNotificationAddress.postalCode}
+                                    country-options={getCountryOptions}
+                                    province-options={getFutureNotificationProvinceOptions}
+                                    required
+                                    onchange={handleFutureNotificationAddressChange}>
+                                </lightning-input-address>
+                            </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-layout-item>
+                <lightning-button
+                    class="slds-m-top_small"
+                    variant="brand"
+                    type="submit"
+                    name="save"
+                    label="Save"
+                >
+                </lightning-button>
+            </lightning-layout>
+        </lightning-record-edit-form>
+    </template>
+</template>

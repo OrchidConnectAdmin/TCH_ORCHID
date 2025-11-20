@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Select the appropriate type for the GL Account.</description>
+    <inlineHelpText>Select the appropriate type for the GL Account.</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>OrderApi__Report_Category__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Asset</fullName>
+                <color>#0B6FCE</color>
+                <default>false</default>
+                <label>Asset</label>
+            </value>
+            <value>
+                <fullName>Capital</fullName>
+                <color>#78C953</color>
+                <default>false</default>
+                <label>Capital</label>
+            </value>
+            <value>
+                <fullName>Cost of Goods Sold</fullName>
+                <color>#E27001</color>
+                <default>false</default>
+                <label>Cost of Goods Sold</label>
+            </value>
+            <value>
+                <fullName>Equity</fullName>
+                <color>#A845DC</color>
+                <default>false</default>
+                <label>Equity</label>
+            </value>
+            <value>
+                <fullName>Expenses</fullName>
+                <color>#F3D904</color>
+                <default>false</default>
+                <label>Expenses</label>
+            </value>
+            <value>
+                <fullName>Income</fullName>
+                <color>#A53711</color>
+                <default>false</default>
+                <label>Income</label>
+            </value>
+            <value>
+                <fullName>Liability</fullName>
+                <color>#66E9BD</color>
+                <default>false</default>
+                <label>Liability</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Asset</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Capital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Equity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Balance Sheet</controllingFieldValue>
+            <valueName>Liability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Income Statement</controllingFieldValue>
+            <valueName>Cost of Goods Sold</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Income Statement</controllingFieldValue>
+            <valueName>Expenses</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Income Statement</controllingFieldValue>
+            <valueName>Income</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

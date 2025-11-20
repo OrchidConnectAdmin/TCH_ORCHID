@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Affiliation_Type__c</fullName>
+    <label>Membership Type</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sponsored Member</fullName>
+                <default>true</default>
+                <label>Sponsored Member</label>
+            </value>
+            <value>
+                <fullName>Affiliate Participant</fullName>
+                <default>false</default>
+                <label>Affiliate Participant</label>
+            </value>
+            <value>
+                <fullName>Licensing Participant</fullName>
+                <default>false</default>
+                <label>Licensing Participant</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

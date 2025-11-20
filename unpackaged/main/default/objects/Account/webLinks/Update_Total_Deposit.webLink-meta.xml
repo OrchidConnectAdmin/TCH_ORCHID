@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Update_Total_Deposit</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Update Total Deposit</masterLabel>
+    <openType>noSidebar</openType>
+    <protected>false</protected>
+    <url>https://cha.lightning.force.com/flow/SCREENFLOW_Update_Account_Deposit_Total?rID={!Account.Id}?operationContext=S1</url>
+</WebLink>

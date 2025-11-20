@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Published__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Boolean flag that specifies if the page is available for use</description>
+    <inlineHelpText>Set this box to true to make the page available for use</inlineHelpText>
+    <label>Is Published</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

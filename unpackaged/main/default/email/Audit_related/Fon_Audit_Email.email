@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Audit Email" recipientType="Contact" relatedToType="Contact">
+<messaging:htmlEmailBody >
+<c:Fon_AuditTemplate conid="{!relatedTo.Id}" />
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

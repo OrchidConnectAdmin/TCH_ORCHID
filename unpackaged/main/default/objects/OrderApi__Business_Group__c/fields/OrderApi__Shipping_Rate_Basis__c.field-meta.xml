@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Shipping_Rate_Basis__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Select whether you want shipping to be calculated based on item weight or item value (price).</description>
+    <inlineHelpText>Select whether you want shipping to be calculated based on item weight or item value (price).</inlineHelpText>
+    <label>Shipping Rate Basis</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Item Weight</fullName>
+                <default>true</default>
+                <label>Item Weight</label>
+            </value>
+            <value>
+                <fullName>Item Value</fullName>
+                <default>false</default>
+                <label>Item Value</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

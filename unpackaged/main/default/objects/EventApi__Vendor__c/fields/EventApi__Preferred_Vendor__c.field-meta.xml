@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Preferred_Vendor__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When checked, the Vendor should be considered the &quot;Preffered Vendor&quot;. Best practice would be to limit the &quot;Preffered Vendor&quot; attribute to one Vendor per Vendor Category defined for an Event. Defaults unchecked.</description>
+    <inlineHelpText>When checked, the Vendor should be considered the &quot;Preffered Vendor&quot;. Best practice would be to limit the &quot;Preffered Vendor&quot; attribute to one Vendor per Vendor Category defined for an Event. Defaults unchecked.</inlineHelpText>
+    <label>Preferred Vendor</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

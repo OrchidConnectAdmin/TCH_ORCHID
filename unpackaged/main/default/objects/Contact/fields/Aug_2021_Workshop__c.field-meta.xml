@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aug_2021_Workshop__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Aug 2021 Workshop</description>
+    <label>Aug 2021 Workshop</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

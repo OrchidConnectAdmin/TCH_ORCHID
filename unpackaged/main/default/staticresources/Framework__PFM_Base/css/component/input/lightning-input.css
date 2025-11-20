@@ -1,0 +1,18 @@
+.pfm c-pfm-input.pfm-input_portal .slds-input,
+.pfm c-pfm-input.pfm-input_portal .slds-select_container select {
+    min-height: 40px;
+}
+
+.pfm c-pfm-input.pfm-input_portal .slds-select_container:before {
+    top: 12px;
+    margin-top: 0;
+}
+
+.pfm c-pfm-input.pfm-input_portal .slds-select_container:after {
+    bottom: 12px;
+    margin-bottom: 0;
+}
+
+.pfm c-pfm-input.pfm-input_portal .slds-checkbox__label {
+    font-weight: 700;
+}

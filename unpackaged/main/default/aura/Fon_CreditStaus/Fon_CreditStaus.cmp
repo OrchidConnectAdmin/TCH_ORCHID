@@ -1,0 +1,200 @@
+<aura:component Controller="Fon_Creditstatus">
+    
+    <!-- calling method onload -->    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- handle Refresh event -->
+    <aura:handler event="c:RefreshCreditTabs" action="{!c.doInit}"/>
+    
+    <!-- this will save the user name to be displayed -->    
+    <aura:attribute name="userDetails" type="object" />
+    
+    <!-- saving prog profile details -->
+    <aura:attribute name="progProfile" type="object" />
+    
+    <!-- saving prog profile details -->
+    <aura:attribute name="progProfileDetails" type="object" />
+    
+    <!-- spinner -->
+    <aura:attribute name="displaySpinner" type="Boolean" default="false"/>
+    
+    <!-- spinner -->
+    <aura:if isTrue="{!v.displaySpinner}">
+        <div class="">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>      
+    
+    <!-- first section -->
+    <div class="slds-section slds-is-open">
+        <h3 class="slds-section__title clrClass" style="background-color:#1797C0;">
+            <button style="background-color:#1797C0;" aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">                
+                <span class="slds-truncate" title="Section Title" style="color:White;">Current Certification Requirements</span>
+            </button>
+        </h3>
+        <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+            <p>
+                <table style="width: 30%;">
+                    <tr>
+                        <td class="colBoder">
+                            Start Years:
+                        </td>
+                        <td class="colBoder">
+                            {!v.progProfileDetails.startYear}
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="colBoder">
+                            End Year:
+                        </td>
+                        <td class="colBoder">
+                            {!v.progProfileDetails.endYear}
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="colBoder">
+                            Credits Required:
+                        </td>
+                        <td class="colBoder">
+                            {!v.progProfileDetails.CreditsRequired}
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="colBoder">
+                            WorkShop Required:
+                        </td>
+                        <td class="colBoder">
+                            {!v.progProfileDetails.WCreditsRequired}
+                        </td>
+                    </tr>
+                </table>
+            </p>
+        </div>
+    </div>
+    
+    
+    <!-- Second Section -->
+    <div class="slds-section slds-is-open">
+        <h3 class="slds-section__title" style="background-color:#1797C0;">
+            <button style="background-color:#1797C0;" aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">                
+                <span class="slds-truncate" title="Section Title" style="color:White;">Where do I stand?</span>
+            </button>
+        </h3>
+        <br/>
+        
+        <!-- iteration for each prog profile -->
+        <aura:if isTrue="{!v.progProfileDetails.lstProfileWrapper}">
+            <table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td colspan="3" class="colBoder">Processed CE Sessions</td>
+                    <td colspan="3" class="colBoder"><a>Including Pending CE Sessions</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="colBoder" >Certificate Period </td>
+                    <td style="border: 1px solid black; text-align: center;width:10%;">Status</td>
+                    <td class="colBoder">Remaining  Credits Required</td>
+                    <td class="colBoder">Remaining Workshops Required</td>
+                    <td style="border: 1px solid black; text-align: center; width:10%;">Status</td>
+                    <td class="colBoder">Remaining Credits Required</td>
+                    <td class="colBoder">Remaining Workshops Required</td>
+                </tr>
+                <aura:iteration items="{!v.progProfileDetails.lstProfileWrapper}" var="item">
+                    <tr>
+                        <td></td>
+                        <td class="colBoder">
+                            <ui:outputDate value="{!item.progProfile.FON_Program_Start_Date__c}" format="MM/DD/YYYY"/>
+                            &nbsp;-&nbsp;
+                            <ui:outputDate value="{!item.progProfile.FON_Program_End_Date__c}"  format="MM/DD/YYYY"/>
+                        </td>
+                        <td class="colBoder">{!item.progProfile.ProgramApi__Status__c}</td>
+                        <!--<td class="colBoder"><lightning:formattedNumber value="{!sub(v.progProfileDetails.CreditsRequired,item.approvedCredits) > 0 ? sub(v.progProfileDetails.CreditsRequired,item.approvedCredits) : 0}" maximumFractionDigits="2"/></td>-->
+                        <td class="colBoder">
+                            <lightning:formattedNumber value="{!sub(v.progProfileDetails.CreditsRequired,item.approvedCredits) > 0 ? sub(v.progProfileDetails.CreditsRequired,item.approvedCredits) : 0}" maximumFractionDigits="2"/>
+                           <!-- <lightning:formattedNumber value="{!sub(v.progProfileDetails.CreditsRequired,item.adjustedCredits) > 0 ? sub(v.progProfileDetails.CreditsRequired,item.adjustedCredits) : 0}" maximumFractionDigits="2"/> -->
+                            <!-- {!v.progProfileDetails.CreditsRequired}-{!item.approvedCredits}<br/>
+                            {!v.progProfileDetails.CreditsRequired}-{!item.adjustedCredits} -->
+                        </td>
+                        <td class="colBoder"><lightning:formattedNumber value="{!sub(v.progProfileDetails.WCreditsRequired,item.approvedWorkCredits) > 0 ? sub(v.progProfileDetails.WCreditsRequired,item.approvedWorkCredits) : 0}" maximumFractionDigits="2"/></td>
+                        <td class="colBoder">{!item.progProfile.ProgramApi__Status__c}</td>                        
+                        <!--<td class="colBoder"><lightning:formattedNumber value="{!sub(v.progProfileDetails.CreditsRequired,add(item.AllCredits,item.approvedCredits)) > 0 ? sub(v.progProfileDetails.CreditsRequired,add(item.AllCredits,item.approvedCredits)) : 0}" maximumFractionDigits="2"/></td> -->
+                        <td class="colBoder">
+                            <lightning:formattedNumber value="{!sub(v.progProfileDetails.CreditsRequired,item.AllCredits) > 0 ? sub(v.progProfileDetails.CreditsRequired,item.AllCredits) : 0}" maximumFractionDigits="2"/>
+                            <!-- <br/>{!v.progProfileDetails.CreditsRequired}-{!item.AllCredits} -->
+                        </td>
+                        <td class="colBoder"><lightning:formattedNumber value="{!sub(v.progProfileDetails.WCreditsRequired,item.AllWorkCredits) > 0 ? sub(v.progProfileDetails.WCreditsRequired,item.AllWorkCredits) : 0}" maximumFractionDigits="2"/></td>
+                        
+                    </tr>
+                </aura:iteration>
+            </table>
+            <br/>
+            <i>
+            	Current certification status is based on Processed CE Sessions and CE Workshops. The counts in the gray area above are a courtesy view that include your pending CE sessions. CE Sessions will not count towards requirements until they are officially submitted during the annual filing window.
+            </i>
+        </aura:if>
+        
+    </div>
+    
+    
+    
+    <!-- Third Section -->
+    <div class="slds-section slds-is-open">
+        <h3 class="slds-section__title" style="background-color:#1797C0;">
+            <button style="background-color:#1797C0;" aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">                
+                <span class="slds-truncate" title="Section Title" style="color:White;">Annual Details</span>
+            </button>
+        </h3>
+        <br/>
+        
+        <!-- iteration for each prog profile -->
+        <aura:if isTrue="{!v.progProfileDetails.lstProfileWrapper}">
+            <table>
+                <!--
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td colspan="3" class="colBoder">Processed CE Sessions</td>
+                    <td colspan="3" class="colBoder"><a>Including Pending CE Sessions</a></td>
+                </tr>
+				-->
+                <tr>
+                    <td></td>
+                    <td class="colBoder" >Certificate Period </td>
+                    <td style="border: 1px solid black; text-align: center;width:10%;">Status</td>
+                    <td class="colBoder">Credits Acquired</td>
+                    <td class="colBoder">Workshops Attended</td>
+                    <!--<td style="border: 1px solid black; text-align: center; width:10%;">Status</td>-->
+                    <td class="colBoder">Allowed Credits</td>
+                    <td class="colBoder">Allowed Workshops</td>
+                </tr>
+                <aura:iteration items="{!v.progProfileDetails.lstProfileWrapper}" var="profile">
+                    <aura:iteration items="{!profile.progTerms}" var="item">
+                        <tr>
+                            <td></td>
+                            <td class="colBoder">
+                                <ui:outputDate value="{!item.progTerm.ProgramApi__Start_Date__c}" format="MM/DD/YYYY"/>
+                                &nbsp;-&nbsp;
+                                <ui:outputDate value="{!item.progTerm.ProgramApi__End_Date__c}"  format="MM/DD/YYYY"/>
+                            </td>
+                            <td class="colBoder">{!profile.progProfile.ProgramApi__Status__c}</td>
+                            <td class="colBoder">{!item.adjCredits}</td>
+                            <td class="colBoder">{!item.progTerm.FON_Workshops_Attended2__c}</td>
+                            <td class="colBoder">{!item.progTerm.FON_Allowed_Credits__c}</td>
+                            <td class="colBoder">{!item.progTerm.FON_Allowed_Workshops__c}</td>
+                            <!--<td class="colBoder">{!profile.progProfile.ProgramApi__Status__c}</td>-->
+                            
+                        </tr>
+                    </aura:iteration>
+                </aura:iteration>
+            </table>
+            
+        </aura:if>
+        
+    </div>
+    
+</aura:component>

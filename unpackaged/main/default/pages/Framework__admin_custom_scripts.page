@@ -1,0 +1,15 @@
+<apex:page tabStyle="Framework__tab" sidebar="false" showHeader="true">
+  <apex:composition template="Framework__admin">
+      <apex:define name="title">{!$Label.Custom_Scripts}</apex:define>
+		<apex:define name="admin-icon">
+			<img alt="Placeholder" src="//fonteva-cdn.s3.amazonaws.com/framework-admin/CustomScripts/CustomScripts.svg" style="height:50px;" />
+		</apex:define>
+      <apex:define name="main">
+        <div class="row">
+          <div class="col-md-12">
+
+          </div>
+        </div>
+      </apex:define>
+  </apex:composition>
+</apex:page>

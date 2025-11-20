@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Large_Profile_Photo_URL__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Secure (&quot;https://&quot;) location of an image that will display on the event with the speaker&quot;s name and bio. Square images work best. Image should be at least 412px square and the file size should be less than 250 KB.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Secure (&quot;https://&quot;) location of an image that will display on the event with the speaker&quot;s name and bio. Square images work best. Image should be at least 412px square and the file size should be less than 250 KB.</inlineHelpText>
+    <label>Speaker Photo URL</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

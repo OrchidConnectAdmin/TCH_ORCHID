@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Icon_Path__c</fullName>
+    <defaultValue>&quot;https://dl.dropboxusercontent.com/u/74862951/no_image.jpg&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>The path to the component Icon that can be used in various pages</description>
+    <inlineHelpText>Provide the Icon path that can be utilized in the various pages</inlineHelpText>
+    <label>Icon Path</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

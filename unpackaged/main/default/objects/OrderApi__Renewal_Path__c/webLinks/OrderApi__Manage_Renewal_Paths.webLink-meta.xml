@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Manage_Renewal_Paths</fullName>
+    <availability>online</availability>
+    <description>Manage the Renewal Paths enabled for a &quot;Subscription&quot; Item.</description>
+    <displayType>massActionButton</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Manage Renewal Paths</masterLabel>
+    <openType>replace</openType>
+    <page>OrderApi__item_renewal_path</page>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+</WebLink>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated Required Override ** The Type of Log.</description>
+    <inlineHelpText>** System Calculated Required Override ** The Type of Log.</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Contact Assigned</fullName>
+                <default>false</default>
+                <label>Contact Assigned</label>
+            </value>
+            <value>
+                <fullName>Contact Unassigned</fullName>
+                <default>false</default>
+                <label>Contact Unassigned</label>
+            </value>
+            <value>
+                <fullName>Invoice Sent</fullName>
+                <default>false</default>
+                <label>Invoice Sent</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Payment Method Error Notification Sent</fullName>
+                <default>false</default>
+                <label>Payment Method Error Notification Sent</label>
+            </value>
+            <value>
+                <fullName>Payment Method Updated</fullName>
+                <default>false</default>
+                <label>Payment Method Updated</label>
+            </value>
+            <value>
+                <fullName>Payment Received</fullName>
+                <default>false</default>
+                <label>Payment Received</label>
+            </value>
+            <value>
+                <fullName>Scheduled Payment Declined</fullName>
+                <default>false</default>
+                <label>Scheduled Payment Declined</label>
+            </value>
+            <value>
+                <fullName>Scheduled Payment Processed</fullName>
+                <default>false</default>
+                <label>Scheduled Payment Processed</label>
+            </value>
+            <value>
+                <fullName>Subscription Activated</fullName>
+                <default>false</default>
+                <label>Subscription Activated</label>
+            </value>
+            <value>
+                <fullName>Subscription Cancelled</fullName>
+                <default>false</default>
+                <label>Subscription Cancelled</label>
+            </value>
+            <value>
+                <fullName>Subscription Expired</fullName>
+                <default>false</default>
+                <label>Subscription Expired</label>
+            </value>
+            <value>
+                <fullName>Subscription Renewal Reminder</fullName>
+                <default>false</default>
+                <label>Subscription Renewal Reminder</label>
+            </value>
+            <value>
+                <fullName>Subscription Renewed</fullName>
+                <default>false</default>
+                <label>Subscription Renewed</label>
+            </value>
+            <value>
+                <fullName>Subscription Suspended</fullName>
+                <default>false</default>
+                <label>Subscription Suspended</label>
+            </value>
+            <value>
+                <fullName>Subscription Upgraded</fullName>
+                <default>false</default>
+                <label>Subscription Upgraded</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

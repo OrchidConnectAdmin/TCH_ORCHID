@@ -1,0 +1,14 @@
+#fonteva .gateway-details { font-size; 16px; font-weight: 300; }
+#fonteva dt, #fonteva dl, #fonteva dd { font-size: 13px; }
+#fonteva dd i.icon { font-size: 20px; position: relative; top: -6px; }
+#fonteva .gateway-name { font-weight: 400; }
+#fonteva h2, #fonteva h3, #fonteva h4 { display: block; }
+#fonteva .gateway-signup-action { text-align: center; padding: 10px 0; font-size: 18px; }
+#fonteva .label-lg { font-size: 16px; }
+#fonteva .sub-lead { font-size: 14px; line-height: 21px; }
+#fonteva .gateway-form-header { border-bottom: 1px solid #ccc; margin-bottom: 18px;  }
+#fonteva dl, #fonteva dd, #fonteva dt { width: 100%; overflow: visible; whitespace: nowrap; }
+#fonteva p.lead.lead-sm { font-size: 14px; }
+#fonteva h3.panel-title { font-size: 19px; }
+#fonteva .lead.slogan { position: relative; left: 9px; }
+#fonteva img.fonteva-logo { height: auto; max-width: 140px; padding: 10px 0; margin-top: -20px; top: -10px; position: relative; padding: 0; margin: 0;}

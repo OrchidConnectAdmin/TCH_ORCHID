@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__e_Invoice</fullName>
+    <availability>online</availability>
+    <description>View the Invoice as it will display to the customer.</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>View Invoice</masterLabel>
+    <openType>replace</openType>
+    <page>OrderApi__web_invoice</page>
+    <protected>false</protected>
+</WebLink>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Enhanced_List_Enable_Action_Button__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>By selecting this field you will enable an action button on the record&#39;s row in Enhanced List View.</description>
+    <inlineHelpText>By selecting this field you will enable an action button on the record&#39;s row in Enhanced List View.</inlineHelpText>
+    <label>Enable Action Button</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

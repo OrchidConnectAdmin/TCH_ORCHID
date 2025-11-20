@@ -1,0 +1,106 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           controller="joinapi.FormsController">
+  <apex:composition template="joinapi__template">
+    <apex:define name="jpTitle">
+            {!stepObject.joinapi__Page_Title__c}
+    </apex:define>
+    <apex:define name="jpStyles">
+      <style>
+
+      </style>
+    </apex:define>
+
+    <apex:define name="jpMain">
+      <c:InvalidPermissionHeader enabledProcess="{!hasPermission}" />
+      <apex:outputPanel rendered="{!hasPermission}">
+        <div>
+          <div class="container m-t-30">
+            <div class="well col-md-12">
+              <div class="row">
+                <div class="col-sm-12 p-b-5">
+                  <h2>{!stepObject.joinapi__Page_Title__c}</h2>
+                </div>
+              </div>
+              <apex:dynamicComponent componentValue="{!FormPanel}"/>
+              <Framework:messages />
+              <div class="row m-t-20 text-center">
+                <div class="col-xs-12">
+                  <apex:form id="formsPageButton">
+                    <apex:commandButton action="{!cancel}" value="{!$Label.joinapi__Forms_Cancel}" styleClass="btn btn-mini m-r-5 btn-neutral ladda-button nextStep btn-wrap" rendered="{!!hideCancelButtonForms}"/>
+                    <apex:commandButton action="{!previous}" value="{!$Label.joinapi__Forms_Back}" styleClass="btn btn-mini m-r-5 btn-neutral ladda-button nextStep btn-wrap"/>
+                    <a class="btn btn-mini btn-primary ladda-button nextForms btn-wrap" data-style="expand-right">
+                      <span class="ladda-label">
+                        {!$Label.joinapi__Next}
+                      </span>
+                    </a>
+                    <apex:actionFunction name="redirectToNextStep" action="{!next}"/>
+                  </apex:form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:outputPanel>
+    </apex:define>
+    <apex:define name="jpScripts">
+      <script type="text/javascript">
+        $(document).on('click', '.nextForms', function(e) {
+              em.loader.start(this);
+              var btnRef = this;
+              validateForms(e);
+              setTimeout(function(){ em.loader.stop(btnRef); }, 1000);
+        });
+        function validateForms(evt) {
+            evt.preventDefault();
+            var dupFormObjArr = [];
+            $('.form-pages-template').each(function(index,element) {
+              var formObj = $('#'+element.id);
+              if (!formObj.data('multiple')) {
+                dupFormObjArr.push(formObj);
+              }
+            });
+
+            async.eachSeries(dupFormObjArr,function(formObj,callback){
+                var parsleyForm = formObj.parsley();
+                if (parsleyForm.validate()) {
+                  formObj.serializeObject(formObj[0].id,function(err,result){
+                    formResults[formObj[0].id] = result;
+                    callback(null,true);
+                  });
+                } else {
+                    var i = 0;
+                    var requiredEles = $('input[data-parsley-required="true"][data-is-hidden="false"]');
+                    requiredEles.each(function(index,ele){
+                        if ($(this).val() !== undefined && $(this).val() !== '' && $(this).val().trim().length > 0) {
+                             i++;
+                        }
+                    });
+                    if (i === requiredEles.length) {
+                        formObj.serializeObject(formObj[0].id,function(err,result){
+                            formResults[formObj[0].id] = result;
+                            callback(null,true);
+                        });
+                    }
+                }
+            },function(err,result){
+                var validated = true;
+                formBuilder.submitForm(function(response){
+                    if(response == null){
+                        validated = false;
+                    }
+                    setTimeout(function(){
+                      if(validated){
+                        redirectToNextStep();
+                      }
+                    }, 250);
+                });
+            });
+        }
+      </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

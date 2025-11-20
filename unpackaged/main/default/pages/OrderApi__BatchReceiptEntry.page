@@ -1,0 +1,798 @@
+<!--
+    =================================
+    COPYRIGHT (C) 2014, FONTEVA, INC.
+    ALL RIGHTS RESERVED.
+    =================================
+    ALL INFORMATION CONTAINED HEREIN IS, AND REMAINS THE PROPERTY OF FONTEVA
+    INCORPORATED AND ITS SUPPLIERS, IF ANY. THE INTELLECTUAL AND TECHNICAL
+    CONCEPTS CONTAINED HEREIN ARE PROPRIETARY TO FONTEVA INCORPORATED AND
+    ITS SUPPLIERS AND MAY BE COVERED BY U.S. AND FOREIGN PATENTS, PATENTS IN
+    PROCESS, AND ARE PROTECTED BY TRADE SECRET OR COPYRIGHT LAW. DISSEMINATION
+    OF THIS INFORMATION OR REPRODUCTION OF THIS MATERIAL IS STRICTLY FORBIDDEN
+    UNLESS PRIOR WRITTEN PERMISSION IS OBTAINED FROM FONTEVA, INC.
+-->
+<apex:page tabStyle="OrderApi__Batch__c" controller="OrderApi.BatchReceiptEntryController" sidebar="false" cache="false" docType="html-5.0">
+
+    <!-- Styles -->
+    <apex:stylesheet value="{!URLFOR($Resource.OrderApi__app_v1,'aui/css/aui.css')}"/>
+    <!-- Add ons -->
+    <apex:stylesheet value="{!URLFOR($Resource.OrderApi__app_v1,'aui/css/tweaks.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.OrderApi__app_v1,'aui/css/icons.css')}"/>
+    <!-- Plugins -->
+    <apex:stylesheet value="{!URLFOR($Resource.OrderApi__app_v1,'aui/lib/validator/css/bootstrapValidator.min.css')}"/>
+
+    <!-- Scripts -->
+    <apex:includeScript value="{!URLFOR($Resource.OrderApi__app_v1, 'js/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.OrderApi__app_v1,'js/bootstrap.min.js')}"/>
+    <!-- Plugins -->
+    <apex:includeScript value="{!URLFOR($Resource.OrderApi__app_v1,'aui/lib/validator/js/bootstrapValidator.js')}"/>
+    <!-- Add ons -->
+    <apex:includeScript value="{!URLFOR($Resource.OrderApi__app_v1,'js/fonteva.js')}"/>
+    <apex:includeScript value="{!$Resource.Framework__UrlUtil}"/>
+
+    <style type="text/stylesheet">
+        .aui .hud-wrapper .hud-panel .title { color: #f28411!important; }
+    </style>
+
+    <apex:actionStatus id="actionStatus">
+        <apex:facet name="start">
+            <c:loader />
+        </apex:facet>
+    </apex:actionStatus>
+
+
+    <apex:outputPanel styleClass="aui" layout="block">
+        <apex:outputPanel styleClass="container-fluid" layout="block">
+
+            <!-- error panel -->
+            <apex:outputPanel rendered="{!IF(batch.Id == null, true, false)}" styleClass="row" layout="block">
+                <div class="col-md-6 col-md-offset-3" style="padding-top:60px;">
+                    <div class="alert alert-info clearfix">
+                        <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+                        <h4>
+                            <i class="icon icon-warning"></i> Whoops!!! to return to the Batch click on the Batch tab
+                            and then click the "Edit" link next to the appropriate Batch record.
+                        </h4>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!batch.OrderApi__Is_Closed__c}" styleClass="row" layout="block">
+                <div class="col-md-6 col-md-offset-3" style="padding-top:60px;">
+                    <div class="alert alert-info clearfix">
+                        <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+                        <h4>
+                            <i class="icon icon-warning"></i> This {!$ObjectType.Batch__c.Label} is closed!
+                        </h4>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <!-- main content wrapper-->
+            <apex:outputPanel rendered="{!IF(batch.Id == null || batch.OrderApi__Is_Closed__c, false, true)}">
+
+                <apex:includeScript value="{!URLFOR($Resource.OrderApi__app_v1,'aui/js/bootstrap-table-nav.js')}"/>
+                <apex:includeScript value="{!URLFOR($Resource.OrderApi__app_v1,'aui/js/chosen.jquery.js')}"/>
+                <apex:includeScript value="{!URLFOR($Resource.OrderApi__app_v1,'app/batch/app.js')}"/>
+                <style type="text/css">
+                    .aui .listButtons { margin-bottom: 20px; }
+                </style>
+                <!-- Page wrapper used to anchor re-render requests
+                     ================================================ -->
+                <apex:form styleClass="form-horizontal mainForm" id="pageForm">
+
+                    <apex:outputPanel id="pageWrapper">
+
+                        <apex:styleSheet value="{!URLFOR($Resource.OrderApi__app_v1,'app/batch/app.css')}"/>
+
+
+                        <!-- Heads up display
+                             =============================== -->
+                        <apex:outputPanel id="hud" styleClass="row" layout="block">
+
+                            <div class="hud-wrapper" style="padding-bottom: 25px;">
+                                <div class="col-md-2 hud-panel">
+                                    <div class="title">{!$ObjectType.OrderApi__Batch__c.Fields.Name.Label}</div>
+                                    <div class="value">{!batch.Name}</div>
+                                </div>
+                                <div class="col-md-2 hud-panel">
+                                    <div class="title">{!$ObjectType.OrderApi__Batch__c.Fields.OrderApi__Expected_Count__c.Label}</div>
+                                    <div class="value">{!batch.OrderApi__Actual_Count__c} of {!batch.OrderApi__Expected_Count__c}</div>
+                                </div>
+                                <div class="col-md-2 hud-panel">
+                                    <div class="title">{!$ObjectType.OrderApi__Batch__c.Fields.OrderApi__Expected_Amount__c.Label}</div>
+                                    <div class="value"><apex:outputField value="{!batch.OrderApi__Actual_Amount__c}"/>&nbsp;of&nbsp;<apex:outputField value="{!batch.OrderApi__Expected_Amount__c}"/></div>
+                                </div>
+                                <div class="col-md-2 hud-panel">
+                                    <div class="title">{!$ObjectType.OrderApi__Batch__c.Fields.OrderApi__Deposit_Account__c.Label}</div>
+                                    <div class="value"><apex:outputField value="{!batch.OrderApi__Deposit_Account__c}"/></div>
+                                </div>
+                                <div class="col-md-2 hud-panel">
+                                    <div class="title">{!$ObjectType.OrderApi__Batch__c.Fields.OrderApi__Opened_Date__c.Label}</div>
+                                    <div class="value"><apex:outputField value="{!batch.OrderApi__Opened_Date__c}"/></div>
+                                </div>
+                                <div class="col-md-2 hud-panel">
+                                    <div class="title">Status</div>
+                                    <div class="value">{!IF(batch.Is_Posted__c,'Posted',IF(batch.Is_Closed__c,'Closed','Open'))}&nbsp;<apex:outputField value="{!batch.OrderApi__Posted_Date__c}" rendered="{!batch.OrderApi__Is_Posted__c}"/><apex:outputField value="{!batch.OrderApi__Closed_Date__c}" rendered="{!IF(NOT(batch.OrderApi__Is_Posted__c) && batch.OrderApi__Is_Closed__c, true, false)}"/></div>
+                                </div>
+                            </div>
+
+                            <!-- batch closed notification -->
+                            <apex:outputPanel rendered="{!IF(NOT(batch.OrderApi__Is_Closed__c) && (batch.OrderApi__Expected_Amount__c == batch.OrderApi__Actual_Amount__c) && (batch.OrderApi__Expected_Count__c == batch.OrderApi__Actual_Count__c),true,false)}" styleClass="row" layout="block">
+                                <div class="col-md-6 col-md-offset-3 text-center">
+                                    <div class="alert alert-success" style="margin-top:20px;">
+                                    <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+                                        <h3>
+                                            <i class="icon icon-circle-dotted-active"></i>
+                                                                        This {!$ObjectType.Batch__c.Label} is ready to be closed!
+                                                                        <br/>
+                                                                        <div class="clearfix text-middle">
+                                                                            <apex:commandButton value="Close {!$ObjectType.OrderApi__Batch__c.Label}" action="{!closeBatch}" styleClass="btn btn-default"/>
+                                                                        </div>
+                                        </h3>
+                                    </div>
+                                </div>
+                                </apex:outputPanel>
+
+                        </apex:outputPanel><!-- end: hud -->
+
+
+                        <apex:outputPanel id="content-wrapper" styleClass="content-wrapper row" style="padding-top: 20px;" layout="block">
+
+                            <!-- Section navigation links
+                                ================================= -->
+
+                            <apex:outputPanel id="section-nav" styleClass="col-md-2" layout="block">
+                                <ul class="nav nav-pills nav-stacked">
+                                    <li class="active"><a data-target="#main" data-toggle="tab">Receipt Detail</a></li>
+                                    <apex:repeat value="{!pageSections}" var="s">
+                                        <li style="{!IF(s.render,'','display:none;')}">
+                                            <a data-target="#{!s.sectionName}" data-toggle="tab">{!s.label}</a>
+                                        </li>
+                                    </apex:repeat>
+                                    <!--
+                                    <apex:repeat value="{!lists}" var="list">
+                                        <li style="{!IF(receipt.Id != null && list.render != false,'','display:none;')}">
+                                            <a data-target="#{!list.objectName}" data-toggle="tab">{!list.label}</a>
+                                        </li>
+                                    </apex:repeat>-->
+                                </ul>
+                            </apex:outputPanel><!-- end: Section navigation links -->
+
+
+                            <!-- Sections
+                                 ================================= -->
+
+                            <apex:outputPanel id="sections" styleClass="col-md-10" layout="block">
+
+
+                                <!-- Tab content
+                                     =========== -->
+                                  <apex:outputPanel id="messages">
+                                    <apex:outputPanel id="message-container" rendered="{!showMessages}">
+                                       <div class="alert alert-warning">
+                                            <p>{!message}</p>
+                                       </div>
+                                    </apex:outputPanel>
+                                  </apex:outputPanel>
+
+                                <apex:outputPanel id="tab-content" styleClass="tab-content" layout="block">
+
+                                    <!-- Main form for receipt entry
+                                         =========================== -->
+
+                                    <div id="main" class="tab-pane fade in active" layout="block">
+
+                                        <h4 class="section-title">{!$ObjectType.Receipt__c.Label} Detail</h4>
+
+                                            <apex:outputPanel id="mainFormDetail" styleClass="row" layout="block">
+
+                                                <apex:outputPanel styleClass="col-md-6" layout="block" id="main-left">
+
+                                                    <!-- Entity radio options -->
+                                                    <apex:outputPanel id="entityPanel" styleClass="form-group" layout="block">
+                                                        <label class="col-md-4 control-label">{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Entity__c.Label}</label>
+                                                        <apex:outputPanel id="entityRadio" styleClass="col-md-6" layout="block">
+                                                            <apex:selectRadio styleClass="radioOptions" layout="page-direction" value="{!receipt.OrderApi__Entity__c}" id="entity__c">
+                                                                <apex:selectOptions value="{!entities}"/>
+                                                                <apex:actionSupport event="onchange" status="actionStatus" rerender="messages,mainFormDetail" action="{!evalEntity}"/>
+                                                            </apex:selectRadio>
+                                                        </apex:outputPanel>
+                                                    </apex:outputPanel><!-- end: Entity radio options -->
+
+                                                    <!-- Customer lookups -->
+                                                    <apex:outputPanel id="lookupPanel" styleClass="form-group" layout="block">
+                                                        <label class="col-md-4 control-label required">{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Customer_Link__c.Label}</label>
+                                                        <apex:outputPanel styleClass="col-md-6" id="customerLookups" layout="block">
+                                                            <apex:inputField rendered="{!NOT(isContact)}" taborderhint="2" value="{!receipt.OrderApi__Account__c}" styleClass="form-control" html-placeholder="{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Account__c.Label}">
+                                                                <apex:actionSupport event="onchange" oncomplete="checkOutstandingInvoices();" status="actionStatus" rerender="messages,customer-info,oInvoiceWrapper" action="{!match}" />
+                                                            </apex:inputField>
+                                                            <apex:inputField rendered="{!isContact}" taborderhint="2" value="{!receipt.OrderApi__Contact__c}" styleClass="form-control" html-placeholder="{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Contact__c.Label}">
+                                                                <apex:actionSupport event="onchange" oncomplete="checkOutstandingInvoices();" status="actionStatus" rerender="messages,customer-info,oInvoiceWrapper" action="{!match}" />
+                                                            </apex:inputField>
+                                                        </apex:outputPanel>
+                                                    </apex:outputPanel><!-- end: Customer lookups -->
+
+                                                    <!-- Source code -->
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Source_Code__c.Label}</label>
+                                                        <div class="col-md-6">
+                                                            <apex:inputField value="{!receipt.OrderApi__Source_Code__c}" taborderhint="3" styleClass="form-control" html-placeholder="{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Source_Code__c.Label}"/>
+                                                        </div>
+                                                    </div><!-- end: Source code -->
+
+                                                    <!-- Payment type -->
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label required">{!$ObjectType.Receipt__c.Fields.Payment_Type__c.Label}</label>
+                                                        <div class="col-md-4">
+                                                            <apex:inputField value="{!receipt.OrderApi__Payment_Type__c}" taborderhint="4" styleClass="form-control requiredField"/>
+                                                        </div>
+                                                    </div><!-- end: Payment type -->
+
+                                                    <!-- Date -->
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label required">{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Date__c.Label}</label>
+                                                        <div class="col-md-4">
+                                                          <apex:inputField value="{!receipt.OrderApi__Date__c}" taborderhint="5" styleClass="form-control requiredField" html-placeholder="{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Date__c.Label}"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Reference number -->
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label required">{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Reference_Number__c.Label}</label>
+                                                        <div class="col-md-6">
+                                                          <apex:inputField html-data-api-name="reference_number__c" value="{!receipt.OrderApi__Reference_Number__c}" taborderhint="6" styleClass="form-control requiredField" html-placeholder="{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Reference_Number__c.Label}"/>
+                                                        </div>
+                                                    </div>
+
+                                                </apex:outputPanel>
+
+                                                <apex:outputPanel layout="block" styleClass="col-md-6" id="customer-info">
+
+                                                    <apex:outputPanel styleClass="panel panel-info" id="customer-highlight" rendered="{!showCustomer}" layout="block">
+
+                                                        <div class="panel-heading">
+                                                            <h4>{!$ObjectType[receipt.Entity__c].Label} Information</h4>
+                                                        </div>
+
+                                                        <div class="panel-body">
+                                                            <!-- Name -->
+                                                            <div class="form-group outputField">
+                                                                <label class="control-label col-md-4">{!$ObjectType.Contact.Fields.Name.Label}</label>
+                                                                <div class="col-md-8">
+                                                                    <span class="readOnly">{!con.Name}{!acc.Name}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Account/Contact LINK -->
+                                                            <apex:outputPanel rendered="{!isContact}" styleClass="form-group outputField" layout="block">
+                                                                <label class="control-label col-md-4">{!$ObjectType.Account.Label}</label>
+                                                                <div class="col-md-8">
+                                                                    <span class="readOnly">
+                                                                        <apex:outputField value="{!con.AccountId}"/>
+                                                                    </span>
+                                                                </div>
+                                                            </apex:outputPanel>
+
+                                                            <!-- Account/Contact LINK (ACCOUNT) -->
+                                                            <apex:outputPanel rendered="{!NOT(isContact)}" styleClass="form-group outputField" layout="block">
+                                                                <label class="control-label col-md-4">{!$ObjectType.Contact.Label}</label>
+                                                                <div class="col-md-8">
+                                                                    <span class="readOnly">
+                                                                        <apex:outputField value="{!acc.OrderApi__Primary_Contact__c}"/>
+                                                                    </span>
+                                                                </div>
+                                                            </apex:outputPanel>
+
+                                                            <!-- Phone -->
+                                                            <div class="form-group outputField">
+                                                                <label class="control-label col-md-4">{!$ObjectType.Contact.Fields.Phone.Label}</label>
+                                                                <div class="col-md-8">
+                                                                    <span class="readOnly"><apex:outputField value="{!con.OrderApi__Preferred_Phone__c}"/><apex:outputField value="{!acc.Phone}"/></span>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Email -->
+                                                            <div class="form-group outputField">
+                                                                <label class="control-label col-md-4">{!$ObjectType.Contact.Fields.Email.Label}</label>
+                                                                <div class="col-md-8">
+                                                                    <span class="readOnly"><apex:outputField value="{!con.OrderApi__Preferred_Email__c}"/><apex:outputField value="{!acc.OrderApi__Account_Email__c}"/></span>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Address -->
+                                                            <div class="form-group outputField">
+                                                                <label class="control-label col-md-4">Address</label>
+                                                                <div class="col-md-8">
+                                                                    <span class="readOnly">
+                                                                        <apex:outputPanel rendered="{!isContact}">
+                                                                            {!con.MailingStreet}<br/>
+                                                                            {!con.MailingCity} {!con.MailingState} {!con.MailingPostalCode}<br/>
+                                                                            {!con.MailingCountry}
+                                                                        </apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!NOT(isContact)}">
+                                                                            {!acc.BillingStreet}<br/>
+                                                                            {!acc.BillingCity} {!acc.BillingState} {!acc.BillingPostalCode}<br/>
+                                                                            {!acc.BillingCountry}
+                                                                        </apex:outputPanel>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- View / Edit -->
+                                                            <div class="form-group outputField">
+                                                                <label class="control-label col-md-4"> </label>
+                                                                <div class="col-md-8">
+                                                                    <span class="readOnly text-center">
+                                                                        <apex:outputPanel rendered="{!IF(isContact && batch != null && con.Id != null, true, false)}" styleClass="commandButtons">
+                                                                            <apex:outputLink target="_blank" styleClass="btn btn-default commandButton btn-sm" value="{!URLFOR($Action.Contact.View,con.Id,[batch=batch.Id])}">View</apex:outputLink>
+                                                                            <apex:outputLink target="_blank" styleClass="btn btn-info commandButton btn-sm" value="{!URLFOR($Action.Contact.Edit,con.Id,[retURL=URLFOR($Page.OrderApi__BatchReceiptEntry)+'?batch='+batch.Id])}">Edit</apex:outputLink>
+                                                                        </apex:outputPanel>
+                                                                        <apex:outputPanel rendered="{!IF(NOT(isContact) && batch != null && acc.Id != null, true, false)}" styleClass="commandButtons">
+                                                                            <apex:outputLink target="_blank" styleClass="btn btn-default commandButton btn-sm" value="{!URLFOR($Action.Account.View,acc.Id,[batch=batch.Id])}">View</apex:outputLink>
+                                                                            <apex:outputLink target="_blank" styleClass="btn btn-info commandButton btn-sm" value="{!URLFOR($Action.Account.Edit,acc.Id,[retURL=URLFOR($Page.OrderApi__BatchReceiptEntry)+'?batch='+batch.Id])}">Edit</apex:outputLink>
+                                                                        </apex:outputPanel>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </apex:outputPanel>
+
+                                                </apex:outputPanel>
+
+                                            </apex:outputPanel>
+
+                                             <!-- =============================
+                                                     OUTSTANDING INVOICES
+                                                 ============================= -->
+                                            <apex:outputPanel id="oInvoiceWrapper">
+                                              <div class="modal fade" id="invoiceModal" data-backdrop="static">
+                                                <div class="modal-dialog modal-lg">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                                                      <h3 class="modal-title" id="myLargeModalLabel">Outstanding {!$ObjectType.Invoice__c.labelPlural}</h3>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <apex:outputPanel id="matchResults">
+                                                          <apex:outputPanel id="matchResultsInner" rendered="{!showInvoices}">
+                                                            <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="alert alert-info alert-dismiss">
+                                                                    <a class="close" data-dismiss="alert" href="#">&times;</a>
+                                                                    <span class="alertMsg">The selected {!$ObjectType.Receipt__c.Fields.Customer_Link__c.Label} has outstanding {!$ObjectType.Invoice__c.LabelPlural}.</span>
+                                                                </div>
+                                                                <table class="table table-bordered table-condensed" id="oInvoicesTable">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="width:14px;text-align:center;">Select</th>
+                                                                            <th style="width:20px;">{!$ObjectType.Invoice__c.Label}</th>
+                                                                            <th>{!$ObjectType.Invoice__c.Fields.Status__c.Label}</th>
+                                                                            <th>{!$ObjectType.Invoice__c.Fields.Due_Date__c.Label}</th>
+                                                                            <th>{!$ObjectType.Invoice__c.Fields.Balance_Due__c.Label}</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <apex:repeat value="{!oInvoices}" var="item">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <apex:inputCheckbox value="{!item.selected}"/>
+                                                                                </td>
+                                                                                <td class="text-middle">
+                                                                                    <a href="{!URLFOR($Action.OrderApi__Invoice__c.View,item.inv.Id)}">
+                                                                                        <apex:outputField value="{!item.inv.Name}"/>
+                                                                                    </a>
+                                                                                </td>
+                                                                                <td class="text-middle">
+                                                                                    <apex:outputField value="{!item.inv.OrderApi__Status__c}"/>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <apex:outputField value="{!item.inv.OrderApi__Due_Date__c}"/>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <apex:outputField value="{!item.inv.OrderApi__Balance_Due__c}"/>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </apex:repeat>
+                                                                    </tbody>
+                                                                </table>
+                                                                <div class="table-pager"> </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="commandButtons text-center">
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                                    <apex:commandLink styleClass="btn btn-success"
+                                                                                                            rerender="messages,receiptLinesPanel"
+                                                                                                            oncomplete="$('#invoiceModal').modal('hide');fullReset();"
+                                                                                                            status="actionStatus"
+                                                                                                            action="{!addSelectedInvoices}"
+                                                                                                            style="font-size: 14px;">
+                                                                        <i class="icon icon-circle-dotted-active"></i>
+                                                                        Apply payment to selected {!$ObjectType.Invoice__c.LabelPlural}
+                                                                    </apex:commandLink>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                          </apex:outputPanel>
+                                                        </apex:outputPanel>
+                                                    </div>
+                                                  </div><!-- /.modal-content -->
+                                                </div><!-- /.modal-dialog -->
+                                              </div>
+                                            </apex:outputPanel>
+
+
+                                            <apex:outputPanel id="receiptLinesPanel" styleClass="row" layout="block">
+
+                                                <apex:outputPanel id="receiptLinesInner" styleClass="col-md-9 col-md-push-1" layout="block">
+
+                                                    <apex:variable value="{!0}" var="rowNumber" />
+
+                                                    <table class="table table-bordered table-condensed editable" style="margin-top:12px;">
+
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width:45%;">{!$ObjectType.OrderApi__Receipt_Line__c.fields.OrderApi__Item__c.label} - or - {!$ObjectType.OrderApi__Invoice__c.Label}</th>
+                                                                <th style="width:15%;">{!$ObjectType.OrderApi__Receipt_Line__c.fields.OrderApi__Sale_Price__c.label}</th>
+                                                                <th style="width:10%;">{!$ObjectType.OrderApi__Receipt_Line__c.fields.OrderApi__Quantity__c.label}</th>
+                                                                <th style="width:15%;">{!$ObjectType.OrderApi__Receipt_Line__c.fields.OrderApi__Total__c.label}</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <apex:repeat value="{!recLines}" var="rl">
+                                                                <tr>
+                                                                  <td>
+                                                                    <div class="deleteActionButton">
+                                                                        <apex:commandLink action="{!removeLine}"
+                                                                            styleClass="btn btn-danger btn-xs pull-left"
+                                                                            rerender="messages,mainFormButtons,receiptLinesPanel"
+                                                                            oncomplete="$('.chosen-select').chosen();"
+                                                                            status="actionStatus">
+                                                                                <i class="icon icon-trash"></i>
+                                                                                <apex:param name="p1" value="{!rowNumber}" assignTo="{!rowNumberToRemove}"/>
+                                                                            </apex:commandLink>
+                                                                        </div>
+                                                                        <div class="itmInputWrapper">
+                                                                        <apex:outputPanel id="itemWrapper" rendered="{!IF(rl.OrderApi__Invoice__c != null,false,true)}">
+                                                                            <!-- Item select option list for customers with less than 50 items -->
+                                                                            <apex:outputPanel id="itemSelectOption">
+                                                                                <apex:selectList rendered="{!showItemPicklist}" value="{!rl.OrderApi__Item__c}" multiselect="false" size="1" styleClass="form-control input-sm chosen-select">
+                                                                                    <apex:selectOptions value="{!itemOptions}"/>
+                                                                                    <apex:actionSupport status="actionStatus" event="onchange" action="{!refreshReceiptLines}" rerender="messages,mainFormButtons,receiptLinesPanel" oncomplete="$('.chosen-select').chosen();"/>
+                                                                                </apex:selectList>
+                                                                            </apex:outputPanel>
+
+                                                                            <apex:inputField value="{!rl.OrderApi__Item__c}" styleClass="form-control input-sm" rendered="{!NOT(showItemPicklist)}">
+                                                                                <apex:actionSupport event="onchange" action="{!refreshReceiptLines}" status="actionStatus" rerender="messages,mainFormButtons,receiptLinesPanel" oncomplete="$('.chosen-select').chosen();"/>
+                                                                            </apex:inputField>
+
+                                                                         </apex:outputPanel>
+
+                                                                         <apex:outputPanel id="invoiceWrapper" rendered="{!IF(rl.OrderApi__Invoice__c != null, true, false)}" style="margin-top:6px;margin-left:10px;">
+                                                                            <strong>{!$ObjectType.Invoice__c.Label}: &nbsp; </strong><apex:outputField value="{!rl.OrderApi__Invoice__c}"/>
+                                                                         </apex:outputPanel>
+                                                                     </div>
+                                                                  </td>
+                                                                  <td>
+                                                                      <apex:inputField styleClass="form-control input-sm" value="{!rl.OrderApi__Sale_Price__c}">
+                                                                          <apex:actionSupport status="actionStatus" event="onchange" action="{!refreshReceiptLines}" rerender="messages,mainFormButtons,receiptLinesPanel" oncomplete="$('.chosen-select').chosen();"/>
+                                                                      </apex:inputField>
+                                                                  </td>
+                                                                  <td>
+                                                                      <apex:inputField styleClass="form-control input-sm" value="{!rl.OrderApi__Quantity__c}">
+                                                                          <apex:actionSupport status="actionStatus" event="onchange" action="{!refreshReceiptLines}" rerender="messages,mainFormButtons,receiptLinesPanel" oncomplete="$('.chosen-select').chosen();"/>
+                                                                      </apex:inputField>
+                                                                  </td>
+                                                                  <td>
+                                                                      <apex:outputField value="{!rl.OrderApi__Total__c}"/>
+                                                                  </td>
+                                                                </tr>
+                                                                <apex:variable var="rowNumber" value="{!rowNumber + 1}" />
+                                                            </apex:repeat>
+                                                        </tbody><!-- end: receiptLinesTable '<tbody>' -->
+
+                                                    </table><!-- end: receiptLinesTable '<table>' -->
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-right">
+                                                            <h2 class="currency-total">
+                                                                <span class="label label-primary" style="padding: .5em .6em .3em;">
+                                                                  <apex:outputField value="{!calculatedTotal.OrderApi__Total__c}"/>
+                                                                </span>
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+
+                                                </apex:outputPanel><!-- end: receiptLinesInner -->
+
+                                            </apex:outputPanel><!-- end: receiptLinesPanel -->
+
+                                    </div><!-- end: Main Section -->
+
+                                    <!-- Page Layout Sections (Configurable)
+                                         =================================== -->
+
+                                    <apex:repeat value="{!pageSections}" var="s">
+
+                                        <div id="{!s.sectionName}" class="tab-pane fade">
+
+                                            <!-- Section Title -->
+                                            <h4 class="section-title">{!s.label}</h4>
+
+                                            <!-- Section form -->
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-offset-1">
+
+                                                    <!-- Section rows -->
+                                                    <apex:repeat value="{!s.rows}" var="r">
+                                                        <div class="row">
+
+                                                            <!-- Section fields -->
+                                                            <apex:repeat value="{!r.fields}" var="f">
+                                                                <div class="{!r.styleClass}">
+                                                                    <apex:outputPanel layout="block" styleClass="fonteva-form-col" rendered="{!NOT(f.isReadOnly)}">
+                                                                        <div class="form-group {!f.groupStyleClass}">
+                                                                            <label class="col-md-3 control-label {!IF(f.isRequired,'required','')}">{!f.label}</label>
+                                                                            <div class="col-md-8">
+                                                                              <apex:inputField value="{!receipt[f.apiName]}" styleClass="{!f.fieldStyleClass}" html-placeholder="{!f.placeholder}"/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </apex:outputPanel>
+                                                                </div>
+                                                            </apex:repeat><!-- end: Section fields -->
+
+                                                        </div>
+                                                    </apex:repeat><!-- end: Section rows -->
+
+                                                </div>
+                                            </div><!-- end: Section form -->
+
+                                        </div>
+
+                                    </apex:repeat><!-- end: Page Layout Sections -->
+
+                                  <!-- Page Layout Related Lists (Configurable)
+                                       ======================================== -->
+                                  <!--<apex:outputPanel id="listsWrapper">-->
+                                  <!--
+                                    <apex:repeat value="{!lists}" var="list" id="relatedLists">
+
+                                        <div id="{!list.objectName}" class="tab-pane fade" style="{!IF(list.render && receipt.Id != null, '', 'display:none;')}">
+
+                                            <h4>{!list.label}</h4>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <div class="listButtons clearfix">
+                                                        <a target="_tab" class="pull-right btn btn-default btn-sm" href="{!URLFOR($Action[list.objectName].New)}" title="New">
+                                                            New {!$ObjectType[list.objectName].label}
+                                                        </a>
+                                                    </div>
+
+                                                    <table class="table table-bordered table-condensed editable">
+
+                                                        <thead>
+                                                            <tr>
+                                                            <th>Action</th>
+                                                            <apex:repeat value="{!list.cols}" var="col">
+                                                                <th>{!col.label}</th>
+                                                            </apex:repeat>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <apex:repeat value="{!list.listObjects}" var="lo">
+                                                                <tr>
+                                                                <td>
+                                                                <apex:outputPanel rendered="{!NOT(ISBLANK(lo['id']))}">
+                                                                    <a style="text-decoration:underline;" target="_tab" href="{!URLFOR($Action[list.objectName].Edit,lo['id'])}" title="Edit">Edit</a>
+                                                                    &nbsp;|&nbsp;
+                                                                    <a style="text-decoration:underline;" target="_tab" href="{!URLFOR($Action[list.objectName].Delete,lo['id'])}" title="Delete">Del</a>
+                                                                </apex:outputPanel>
+                                                                </td>
+
+                                                                <apex:repeat value="{!list.cols}" var="col">
+                                                                <td>
+                                                                    <apex:inputField value="{!lo[col.vfName]}" styleClass="form-control"/>
+                                                                </td>
+                                                                </apex:repeat>
+                                                                </tr>
+                                                            </apex:repeat>
+
+                                                        </tbody>
+
+                                                    </table>
+
+                                                    <div class="relatedListButtons commandButtons text-center" style="padding: 20px 0;">
+                                                        <apex:commandButton action="{!list.updateList}" rendered="{!list.hasRecords}" value="Save" styleClass="btn btn-default btn-sm"/>
+                                                        <apex:commandButton action="{!list.saveAndNew}"
+                                                                                                rendered="{!NOT(batch.OrderApi__Is_Closed__c)}"
+                                                                                                value="Save and New"
+                                                                                                styleClass="btn btn-primary btn-xs"
+                                                                                                rerender="content-wrapper,hud,drawerButtons"
+                                                                                                status="actionStatus"/>
+                                                    </div>
+                                                   </div>
+                                               </div>
+
+                                        </div>
+
+                                    </apex:repeat>
+                                                                    -->
+
+                                </apex:outputPanel><!-- end: tab-content -->
+
+                            </apex:outputPanel><!-- end: sections -->
+
+                        </apex:outputPanel> <!-- end: content-wrapper -->
+
+                        <apex:outputPanel id="drawer" styleClass="drawer" layout="block" style="z-index:999;background-transparent;">
+                            <div class="drawer-button-bar" style="background:#404040;">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <apex:outputPanel styleClass="drawer-toggle text-center commandButtons" id="drawerButtons" layout="block">
+                                                    <!-- Save and Add New
+                                                            ==================== -->
+                                                <apex:commandButton value="Save and New" onclick="disableButton(this);"
+                                                                                        action="{!ajaxSave}"
+                                                                                        style="font-size:1.1em;"
+                                                                                        styleClass="btn btn-primary save-and-new-button"
+                                                                                        title="Save and Add New Receipt"
+                                                                                        rerender="hud,content-wrapper,drawerButtons"
+                                                                                        status="actionStatus"
+                                                                                        oncomplete="fullReset();enableButton()"/>
+
+                                                <!-- Cancel
+                                                        ================ -->
+                                                <apex:commandButton value="Cancel"
+                                                                                        action="{!resetForm}"
+                                                                                        style="font-size:1.1em;"
+                                                                                        styleClass="btn btn-warning"
+                                                                                        rerender="hud,content-wrapper,drawerButtons"
+                                                                                        status="actionStatus"
+                                                                                        oncomplete="cancelReceipt();"/>
+
+
+                                                <!-- Edit Batch
+                                                    ===================== -->
+                                                <apex:outputLink value="{!URLFOR($Action.OrderApi__Batch__c.Edit,CASESAFEID(batch.Id))}"
+                                                                    styleClass="btn btn-info btn-sm btn-icon"
+                                                                    title="Edit {!$ObjectType.OrderApi__Batch__c.Label}"
+                                                                    rendered="{!batch.Id != null}">
+                                                    <i class="icon icon-settings"> </i>
+                                                </apex:outputLink>
+
+                                                <!-- Drawer toggle
+                                                    ===================== -->
+                                                <apex:commandLink onclick="toggleReceiptsHandler();return false;"
+                                                                                        styleClass="btn btn-default btn-sm btn-icon"
+                                                                    title="Toggle to view Batch Receipts">
+                                                                        <i id="collapse-icon" class="icon icon-collapse-top"></i>
+                                                </apex:commandLink>
+
+                                                <apex:actionFunction name="toggleReceiptsDrawer"
+                                                                                            action="{!toggleReceipts}"
+                                                                                            status="actionStatus"
+                                                                                            rerender="messages,drawerPanel"
+                                                                                            oncomplete="redrawPagination();toggleCallback();return false;" />
+                                            </apex:outputPanel>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <apex:outputPanel id="receiptsTableWrapper">
+
+                            <div class="drawer-content" id="drawer-content" style="background-color: #f9f9f9">
+
+                                <div class="container-fluid">
+
+                                    <div class="row">
+
+                                        <div class="col-md-12 drawer-inner-container">
+
+                                            <apex:outputPanel id="drawerPanel">
+
+                                                <!-- Receipt Table Panel
+                                                     =================== -->
+
+                                                <apex:outputPanel id="receiptTablePanel">
+
+                                                    <apex:outputPanel id="receiptTableInner">
+
+                                                        <table class="table table-bordered table-condensed table-hover paginate" id="receiptTable">
+
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Action</th>
+                                                                    <th>{!$ObjectType.OrderApi__Receipt__c.Fields.Name.Label}</th>
+                                                                    <th>{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Customer_Link__c.Label}</th>
+                                                                    <th>{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Payment_Type__c.Label}</th>
+                                                                    <th>{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Reference_Number__c.Label}</th>
+                                                                    <th>{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Date__c.Label}</th>
+                                                                    <th>{!$ObjectType.OrderApi__Receipt__c.Fields.OrderApi__Total__c.Label}</th>
+                                                                </tr>
+                                                            </thead>
+                                                                                                                        <apex:variable value="{!0}" var="receiptRowNumber" />
+                                                            <tbody>
+                                                                <apex:repeat value="{!batchReceipts}" var="r">
+                                                                    <tr>
+                                                                        <td class="text-center">
+                                                                                <apex:commandLink action="{!editReceipt}"
+                                                                                                                    rendered="{!NOT(batch.OrderApi__Is_Closed__c)}"
+                                                                                                                    rerender="hud,content-wrapper"
+                                                                                                                    status="actionStatus"
+                                                                                                                    style="text-decoration: underline;"
+                                                                                                                    oncomplete="toggleCallback();$('.chosen-select').chosen();">
+                                                                                                                    Edit
+                                                                                                                                                        <apex:param name="p2" value="{!receiptRowNumber}" assignTo="{!receiptRowNumberToEdit}"/>
+                                                                                </apex:commandLink>
+                                                                        </td>
+                                                                        <td><a href="{!URLFOR($Action.OrderApi__Receipt__c.View,r.Id)}" title="{!r.Name}">
+                                                                            <apex:outputField value="{!r.Name}"/></a>
+                                                                        </td>
+                                                                        <td><apex:outputField value="{!r.OrderApi__Customer_Link__c}"/></td>
+                                                                        <td><apex:outputField value="{!r.OrderApi__Payment_Type__c}"/></td>
+                                                                        <td><apex:outputField value="{!r.OrderApi__Reference_Number__c}"/></td>
+                                                                        <td><apex:outputField value="{!r.OrderApi__Date__c}"/></td>
+                                                                        <td><apex:outputField value="{!r.OrderApi__Total__c}"/></td>
+                                                                    </tr>
+                                                                    <apex:variable var="receiptRowNumber" value="{!receiptRowNumber + 1}" />
+                                                                </apex:repeat>
+
+                                                            </tbody>
+
+                                                        </table>
+
+                                                        <div class="table-pager text-center">
+
+                                                        </div>
+
+                                                    </apex:outputPanel><!-- end: receiptTableInner -->
+
+                                                </apex:outputPanel><!-- end: receiptTablePanel -->
+
+                                            </apex:outputPanel> <!-- end: #drawerPanel -->
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                          </apex:outputPanel>
+
+                        </apex:outputPanel><!-- end: #drawer -->
+
+                    </apex:outputPanel><!-- end: page-wrapper -->
+
+                </apex:form><!-- end: form -->
+
+            </apex:outputPanel>
+
+        </apex:outputPanel>
+    </apex:outputPanel>
+    <script type="text/javascript">
+        function disableButton(element) {
+          element.setAttribute('disabled',true);
+          return true;
+        }
+        function enableButton() {
+            $('.save-and-new-button').removeAttr('disabled');
+        }
+        function cancelReceipt() {
+            UrlUtil.navToSObject('{!batch.Id}');
+        }
+    </script>
+</apex:page>

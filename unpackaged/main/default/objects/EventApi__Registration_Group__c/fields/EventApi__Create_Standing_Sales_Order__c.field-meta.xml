@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Create_Standing_Sales_Order__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>A &quot;Standing&quot; Sales Order is created allowing group members to register for the Event without providing payment. The Primary Contact will be responsible for the total fees accrued during registration of related group members. Defaults unchecked.</description>
+    <inlineHelpText>A &quot;Standing&quot; Sales Order is created allowing group members to register for the Event without providing payment. The Primary Contact will be responsible for the total fees accrued during registration of related group members. Defaults unchecked.</inlineHelpText>
+    <label>Create Standing Sales Order</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

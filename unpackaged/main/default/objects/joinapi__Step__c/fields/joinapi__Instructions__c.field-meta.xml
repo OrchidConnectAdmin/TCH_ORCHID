@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>joinapi__Instructions__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The value in this field will be presented under the title at the top of the page.</description>
+    <inlineHelpText>The value in this field will be presented under the title at the top of the page.</inlineHelpText>
+    <label>Instructions</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

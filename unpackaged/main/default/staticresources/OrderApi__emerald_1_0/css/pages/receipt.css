@@ -1,0 +1,246 @@
+/* line 21, ../receipt.scss */
+.receipt-brand-logo {
+  max-width: 150px;
+  height: auto;
+}
+
+/* line 26, ../receipt.scss */
+.receipt-content .logo a:hover {
+  text-decoration: none;
+  color: #7793C4;
+}
+
+/* line 31, ../receipt.scss */
+.receipt-content .invoice-wrapper {
+  background: #FFF;
+  border: 1px solid #CDD3E2;
+  box-shadow: 0px 0px 1px #CCC;
+  padding: 40px 40px 60px;
+  margin-top: 40px;
+  border-radius: 4px;
+}
+
+/* line 40, ../receipt.scss */
+.receipt-content .invoice-wrapper .payment-details span {
+  color: #A9B0BB;
+  display: block;
+}
+
+/* line 44, ../receipt.scss */
+.receipt-content .invoice-wrapper .payment-details a {
+  display: inline-block;
+  margin-top: 5px;
+}
+
+/* line 49, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .print a {
+  display: inline-block;
+  border: 1px solid #9CB5D6;
+  padding: 13px 13px;
+  border-radius: 5px;
+  color: #708DC0;
+  font-size: 13px;
+  -khtml-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+/* line 59, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .print a:hover {
+  text-decoration: none;
+  border-color: #333;
+  color: #333;
+}
+
+/* line 65, ../receipt.scss */
+.receipt-content {
+  background: transparent;
+}
+
+/* line 69, ../receipt.scss */
+.receipt-content .logo {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* line 74, ../receipt.scss */
+.receipt-content .logo a {
+  font-size: 36px;
+  letter-spacing: .1px;
+  color: #555;
+  font-weight: 300;
+  -khtml-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+/* line 82, ../receipt.scss */
+.receipt-content .invoice-wrapper .intro {
+  line-height: 25px;
+  color: #444;
+}
+
+/* line 87, ../receipt.scss */
+.receipt-content .invoice-wrapper .payment-info {
+  margin-top: 25px;
+  padding-top: 15px;
+}
+
+/* line 92, ../receipt.scss */
+.receipt-content .invoice-wrapper .payment-info span {
+  color: #A9B0BB;
+}
+
+/* line 96, ../receipt.scss */
+.receipt-content .invoice-wrapper .payment-info strong {
+  display: block;
+  color: #444;
+  margin-top: 3px;
+}
+
+@media (max-width: 767px) {
+  /* line 103, ../receipt.scss */
+  .receipt-content .invoice-wrapper .payment-info .text-right {
+    text-align: left;
+    margin-top: 20px;
+  }
+}
+/* line 107, ../receipt.scss */
+.receipt-content .invoice-wrapper .payment-details {
+  border-top: 2px solid #EBECEE;
+  margin-top: 30px;
+  padding-top: 20px;
+  line-height: 22px;
+}
+
+@media (max-width: 767px) {
+  /* line 116, ../receipt.scss */
+  .receipt-content .invoice-wrapper .payment-details .text-right {
+    text-align: left;
+    margin-top: 20px;
+  }
+}
+/* line 120, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items {
+  margin-top: 40px;
+}
+
+/* line 123, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .headers {
+  color: #A9B0BB;
+  font-size: 13px;
+  letter-spacing: .3px;
+  border-bottom: 2px solid #EBECEE;
+  padding-bottom: 4px;
+}
+
+/* line 130, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .items {
+  margin-top: 8px;
+  border-bottom: 2px solid #EBECEE;
+  padding-bottom: 8px;
+}
+
+/* line 135, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .items .item {
+  padding: 10px 0;
+  color: #696969;
+  font-size: 15px;
+}
+
+@media (max-width: 767px) {
+  /* line 141, ../receipt.scss */
+  .receipt-content .invoice-wrapper .line-items .items .item {
+    font-size: 13px;
+  }
+}
+/* line 144, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .items .item .amount {
+  letter-spacing: 0.1px;
+  color: #84868A;
+  font-size: 16px;
+}
+
+@media (max-width: 767px) {
+  /* line 150, ../receipt.scss */
+  .receipt-content .invoice-wrapper .line-items .items .item .amount {
+    font-size: 13px;
+  }
+}
+/* line 154, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .total {
+  margin-top: 30px;
+}
+
+/* line 158, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .total .extra-notes {
+  float: left;
+  width: 40%;
+  text-align: left;
+  font-size: 13px;
+  color: #7A7A7A;
+  line-height: 20px;
+}
+
+@media (max-width: 767px) {
+  /* line 168, ../receipt.scss */
+  .receipt-content .invoice-wrapper .line-items .total .extra-notes {
+    width: 100%;
+    margin-bottom: 30px;
+    float: none;
+  }
+}
+/* line 174, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .total .extra-notes strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #454545;
+}
+
+/* line 180, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .total .field {
+  margin-bottom: 7px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* line 186, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .total .field.grand-total {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* line 192, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .total .field.grand-total span {
+  color: #20A720;
+  font-size: 16px;
+}
+
+/* line 197, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .total .field span {
+  display: inline-block;
+  margin-left: 20px;
+  min-width: 85px;
+  color: #84868A;
+  font-size: 15px;
+}
+
+/* line 205, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .print {
+  margin-top: 50px;
+  text-align: center;
+}
+
+/* line 212, ../receipt.scss */
+.receipt-content .invoice-wrapper .line-items .print a i {
+  margin-right: 3px;
+  font-size: 14px;
+}
+
+/* line 217, ../receipt.scss */
+.receipt-content .footer {
+  margin-top: 40px;
+  margin-bottom: 110px;
+  text-align: center;
+  font-size: 12px;
+  color: #969CAD;
+}

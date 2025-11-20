@@ -1,0 +1,31 @@
+<apex:page id="customprofile"
+           showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false" controller="DDApi.CustomProfileController">
+  <apex:composition template="CPBase__profile">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <apex:define name="pageScripts">
+      <script>
+          var hash = window.location.hash;
+          if (window.location.href.indexOf('error=') > -1) {
+              $("#em-profile").removeClass("active in");
+              $("#em-profile-tab").removeClass("active");
+              $('#em-payment-methods').addClass("active in");
+              $("#em-payment-methods-tab").addClass("active");
+          }
+          else if (hash.length > 0) {
+              $("#em-profile").removeClass("active in");
+              $("#em-profile-tab").removeClass("active");
+              $(hash).addClass("active in");
+              $(hash+"-tab").addClass("active");
+          }
+          else {
+              $("#em-profile").addClass("active in");
+              $("#em-profile-tab").addClass("active");
+          }
+        </script>
+    </apex:define>
+  </apex:composition>
+</apex:page>

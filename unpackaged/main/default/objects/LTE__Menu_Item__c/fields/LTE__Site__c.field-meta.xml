@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LTE__Site__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** Required ** Relates the menu items to the site.</description>
+    <inlineHelpText>** Required ** Relates the menu items to the site.</inlineHelpText>
+    <label>Community Site</label>
+    <referenceTo>LTE__Site__c</referenceTo>
+    <relationshipLabel>Community Menu Items</relationshipLabel>
+    <relationshipName>Community_Menu_Items</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

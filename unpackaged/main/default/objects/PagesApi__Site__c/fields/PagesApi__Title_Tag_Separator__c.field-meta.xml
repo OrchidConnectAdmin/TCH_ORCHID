@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Title_Tag_Separator__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Optional character to use to separate the Base Title Tag from the Page Title Tag. In the example below the &quot;&lt;&quot; character is used as the Title Tag Separator. Defaults to &quot;|&quot;
+
+&quot;My Custom Page Title Tag &lt; My Base Title Tag&quot;</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Optional character to use to separate the Base Title Tag from the Page Title Tag. In the example below the &quot;&lt;&quot; character is used as the Title Tag Separator. Defaults to &quot;|&quot;
+
+&quot;My Custom Page Title Tag &lt; My Base Title Tag&quot;</inlineHelpText>
+    <label>Title Tag Separator</label>
+    <length>1</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

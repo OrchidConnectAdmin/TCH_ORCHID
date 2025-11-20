@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Parent_Directories</fullName>
+    <columns>NAME</columns>
+    <columns>DRCTS__Object__c</columns>
+    <columns>DRCTS__Description__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>DRCTS__Is_Parent__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Parent Directories</label>
+</ListView>

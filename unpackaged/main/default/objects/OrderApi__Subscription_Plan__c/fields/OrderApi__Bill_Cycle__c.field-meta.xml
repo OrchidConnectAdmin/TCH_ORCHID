@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Bill_Cycle__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Required ** Bill Cycles drive the day of month a subscriber is invoiced/auto-charged for a subscription. Select &quot;AUTO&quot; to derive the day of month based upon the Activation/Last Renewal Date. Select &quot;CUSTOM&quot; to specify a specific &quot;Bill Cycle Day&quot;.</description>
+    <inlineHelpText>** Required ** Bill Cycles drive the day of month a subscriber is invoiced/auto-charged for a subscription. Select &quot;AUTO&quot; to derive the day of month based upon the Activation/Last Renewal Date. Select &quot;CUSTOM&quot; to specify a specific &quot;Bill Cycle Day&quot;.</inlineHelpText>
+    <label>Bill Cycle</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AUTO</fullName>
+                <default>true</default>
+                <label>AUTO</label>
+            </value>
+            <value>
+                <fullName>FIRST</fullName>
+                <default>false</default>
+                <label>FIRST</label>
+            </value>
+            <value>
+                <fullName>LAST</fullName>
+                <default>false</default>
+                <label>LAST</label>
+            </value>
+            <value>
+                <fullName>15</fullName>
+                <default>false</default>
+                <label>15</label>
+            </value>
+            <value>
+                <fullName>CUSTOM</fullName>
+                <default>false</default>
+                <label>CUSTOM</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

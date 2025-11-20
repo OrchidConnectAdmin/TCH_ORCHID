@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Framework__User_Profile__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The user profile.</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;/&quot; &amp; CreatedBy.ProfileId, CreatedBy.Profile.Name , &quot;_blank&quot;)</formula>
+    <inlineHelpText>The user profile.</inlineHelpText>
+    <label>User Profile</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,59 @@
+<apex:page showHeader="false"
+    tabStyle="PagesApi__Form__c"
+    standardController="PagesApi__Form__c"
+    extensions="PagesApi.FormController"
+    standardStylesheets="false"
+    applyHtmlTag="false"
+    applyBodyTag="false"
+    docType="html-5.0"
+    title="{!$ObjectType.PagesApi__Form__c.Fields.Name.Label} {!PagesApi__Form__c.Name} {!$Label.PagesApi__Preview}"
+>
+    <apex:composition template="PagesApi__default_template">
+        <apex:define name="cookiePrompt" />
+        <apex:define name="main">
+            <div class="container">
+                <div class="section row" id="preview">
+                    <div class="col-xs-12">
+                        <div class="well">
+                            <div class="section row" id="preview-mode-notice">
+                                <div class="col-md-10 col-md-offset-1 text-center">
+                                    <div class="alert alert-warning">
+                                        <a href="#" data-dismiss="alert" class="close pull-right">&times;</a>
+                                        <h1><i class="btr bt-eye"></i> {!$Label.Preview_Mode_Message_Heading}</h1>
+                                        <p>{!$Label.Preview_Mode_Message_Body}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section row" id="preview-mode-notice">
+                                <div class="col-md-2 col-md-offset-5 text-center">
+                                    <a href="{!$Page.form_builder}?id={!PagesApi__Form__c.Id}" class="btn btn-primary"
+                                        >Back To Form Builder</a
+                                    >
+                                </div>
+                            </div>
+                            <div id="formPreview">
+                                <c:form responderId="{!$User.Id}" formId="{!PagesApi__Form__c.Id}" wizard="false" width="100%" />
+                            </div>
+                            <div id="submitMessage" class="row" style="display: none;">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="alert alert-success text-center m-t-20 m-b-20">
+                                        <h1><strong>{!$Label.form_Submit_Success_Message}</strong></h1>
+                                        <div class="m-t-20 m-b-20">
+                                            <a
+                                                title="{!$Label.form_Return_To_Form_Button_Label}"
+                                                href="{!URLFOR($Action.Form__c.View,form__c.Id)}"
+                                                class="btn btn-default"
+                                            >
+                                                {!$Label.form_Return_To_Form_Button_Label}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

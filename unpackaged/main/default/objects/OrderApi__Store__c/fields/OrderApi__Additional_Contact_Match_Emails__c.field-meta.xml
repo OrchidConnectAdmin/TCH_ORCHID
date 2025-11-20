@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Additional_Contact_Match_Emails__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field defines the contact email fields for contact matching. Accepts CSV values.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field defines the contact email fields for contact matching. Accepts CSV values.</inlineHelpText>
+    <label>Additional Contact Match Email(s)</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

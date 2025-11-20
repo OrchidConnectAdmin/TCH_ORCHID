@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>New_Account_Welcome_email_alert</fullName>
+        <ccEmails>ecchoinfo@theclearinghouse.org</ccEmails>
+        <description>New Account Welcome email alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OrderApi__Account_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Primary_Contact_Email__c</field>
+            <type>email</type>
+        </recipients>
+        
+        <senderAddress>ecchoinfo@theclearinghouse.org</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/New_Welcome_Account_Aug2022</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Mark_Is_Member_Checkbox_to_TRUE</fullName>
+        <description>If a Membership Type is populated, the Is Member? checkbox gets updated to TRUE</description>
+        <field>FON_Is_Member__c</field>
+        <literalValue>1</literalValue>
+        <name>Mark Is Member Checkbox to TRUE</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Membership_Is_Renewal_Checkbox_FALSE</fullName>
+        <description>When a membership type has been removed from the Account record, the workflow will update &quot;Is Member&quot; checkbox to FALSE</description>
+        <field>FON_Is_Member__c</field>
+        <literalValue>0</literalValue>
+        <name>Membership Is Renewal Checkbox FALSE</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Is_Parent_Org_Checkbox</fullName>
+        <description>Check Is Parent Organization checkbox</description>
+        <field>FON_Is_Sponsored_Organization__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Is Parent Org Checkbox</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Is_Parent_Organization_Checkbox_t</fullName>
+        <description>If the Parent Type has changed from a picklist value to None, this workflow will update the checkbox to FALSE</description>
+        <field>FON_Is_Sponsored_Organization__c</field>
+        <literalValue>0</literalValue>
+        <name>Update Is Parent Organization Checkbox t</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Update Is Member Checkbox to FALSE</fullName>
+        <actions>
+            <name>Membership_Is_Renewal_Checkbox_FALSE</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1</booleanFilter>
+        <criteriaItems>
+            <field>Account.TCH_Membership_Type__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <description>When the Account Record has a Membership Type removed and the remaining value is &quot;NONE&quot;, mark Is Member? Checkbox to FALSE</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Is Member Checkbox to TRUE</fullName>
+        <actions>
+            <name>Mark_Is_Member_Checkbox_to_TRUE</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1</booleanFilter>
+        <criteriaItems>
+            <field>Account.TCH_Membership_Type__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>When the Account Record has a Membership Type selected, mark Is Member? Checkbox to TRUE</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

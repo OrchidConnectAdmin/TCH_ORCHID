@@ -1,0 +1,232 @@
+<apex:page showHeader="true"
+    sidebar="false"
+    docType="html-5.0"
+    controller="Framework.AdminMDAPIProfileToolsController"
+    tabStyle="Framework__tab"
+>
+    <apex:composition template="Framework__admin_template">
+        <apex:define name="styles"> </apex:define>
+
+        <apex:define name="title">Access Manager</apex:define>
+        <apex:define name="breadcrumbs">
+            <li class="slds-list__item slds-text-heading--label"><a href="{!$Page.admin}">{!$Label.Dashboard}</a></li>
+        </apex:define>
+        <apex:define name="admin-icon">
+            <img
+                src="//fonteva-cdn.s3.amazonaws.com/framework-admin/AccessManager/AccessManager.svg"
+                style="height: 50px;"
+                alt=""
+            />
+        </apex:define>
+
+        <apex:define name="main">
+            <div class="slds-grid slds-wrap slds-p-around--small">
+                <apex:outputPanel id="profiletools" layout="block">
+                    <apex:form id="profiletools-form" styleClass="form-horizontal">
+                        <apex:outputPanel id="pfo-list">
+                            <div class="slds-col--padded slds-size--1-of-1 slds-m-bottom--medium">
+                                <div class="slds-text-heading--small slds-m-bottom--small">
+                                    Select the Profiles to Update
+                                </div>
+                                <div class="slds-text-body--regular">
+                                    Only custom profiles and the default System Administrator profile can be updated
+                                    through the Metadata API, all standard profiles are excluded intentionally from the
+                                    list of profiles provided below.
+                                </div>
+                            </div>
+                            <!-- /.slds-col -->
+
+                            <div class="slds-col--padded slds-size--1-of-1 slds-m-bottom--medium">
+                                <div class="slds-form">
+                                    <apex:repeat value="{!ProfileOptions}" var="pfo">
+                                        <div class="slds-form-element slds-m-bottom--medium">
+                                            <label class="slds-checkbox">
+                                                <apex:inputCheckbox value="{!pfo.isChecked}"
+                                                    styleClass="m-r-10 profile-checkbox"
+                                                />
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label">{!pfo.label}</span>
+                                            </label>
+                                        </div>
+                                        <!-- /.slds-form-element -->
+                                    </apex:repeat>
+                                </div>
+                                <!-- /.slds-form -->
+                            </div>
+                            <!-- .slds-col__padded -->
+                        </apex:outputPanel>
+
+                        <apex:outputPanel id="pko-list">
+                            <div class="slds-col--padded slds-size--1-of-1 slds-m-bottom--medium slds-m-top--x-large">
+                                <div class="slds-text-heading--small slds-m-bottom--small">
+                                    Update Access for Selected Packages Only
+                                </div>
+                                <div class="slds-text-body--regular">
+                                    If one or more packages are selected form the list below, the selected profiles will
+                                    NOT be updated to expose any Custom Fields, Apex Classes, or Visualforce Pages
+                                    created custom in your environment.
+                                </div>
+                            </div>
+                            <!-- /.slds-col -->
+
+                            <div class="slds-col--padded slds-size--1-of-1 slds-m-bottom--medium">
+                                <div class="slds-form">
+                                    <div class="slds-form-element slds-m-bottom--medium">
+                                        <label class="slds-checkbox">
+                                            <input name="checkbox" type="checkbox" checked="checked" />
+                                            <span class="slds-checkbox--faux"></span>
+                                            <span class="slds-form-element__label">
+                                                Grant <strong><u>Full Access</u></strong> to all permissible components
+                                                currently in your Salesforce org. This applies to all managed packages
+                                                as well as unmanaged/custom code.
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <!-- /.slds-form-element -->
+
+                                    <apex:repeat value="{!PackageOptions}" var="pko">
+                                        <div class="slds-form-element slds-m-bottom--medium">
+                                            <label class="slds-checkbox">
+                                                <apex:inputCheckbox value="{!pko.isChecked}"
+                                                    styleClass="m-r-10 pko-option"
+                                                />
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label">{!pko.label}</span>
+                                            </label>
+                                        </div>
+                                        <!-- /.slds-form-element -->
+                                    </apex:repeat>
+                                </div>
+                                <!-- /.slds-form -->
+                            </div>
+                            <!-- .slds-col__padded -->
+                        </apex:outputPanel>
+
+                        <div class="slds-col--padded slds-size--1-of-1 slds-m-bottom--medium slds-m-top--x-large">
+                            <apex:actionFunction name="sfdcaction_updateProfilePermissions"
+                                status="mdapi_status"
+                                reRender="results,pfo-list,pko-list"
+                                action="{!updateProfilePermissions}"
+                            />
+                            <apex:actionStatus id="mdapi_status"
+                                onstart="profiletools.onstart();"
+                                onstop="profiletools.onstop();"
+                            />
+                            <button id="submit-button" class="slds-button slds-button--brand profiletools-submit">
+                                Grant Access to Selected Profiles
+                            </button>
+                        </div>
+
+                        <apex:outputPanel id="results">
+                            <!-- intentionally empty -->
+                        </apex:outputPanel>
+                    </apex:form>
+                </apex:outputPanel>
+            </div>
+        </apex:define>
+
+        <apex:define name="scripts">
+            <script type="text/javascript">
+                var profiletools = profiletools || {};
+
+                profiletools.submitButton = profiletools.submitButton || $('#submit-button');
+
+                profiletools.actionstatus = 'undefined';
+
+                profiletools.onstart = function () {
+                    profiletools.actionstatus = Ladda.create($('#submit-button')[0]);
+                    profiletools.actionstatus.start();
+                };
+
+                profiletools.onstop = function () {
+                    if (profiletools.actionstatus !== 'undefined') {
+                        profiletools.actionstatus.stop();
+                        swal(
+                            {
+                                title: 'Success',
+                                text:
+                                    'The profile(s) selected have been successfully updated with the appropriate permissions.',
+                                type: 'success',
+                                confirmButtonText: 'Return to Spark Metadata Tools'
+                            },
+                            function () {
+                                window.location.href = '{!JSENCODE(URLFOR($Page.admin_mdapi_profiletools))}';
+                            }
+                        );
+                    }
+                };
+
+                profiletools.disablePkoOptions = function () {
+                    $('.pko-option').each(function () {
+                        $(this).attr('disabled', 'true');
+                        $(this).prop('checked', false);
+                    });
+                };
+
+                profiletools.enablePkoOptions = function () {
+                    $('.pko-option').each(function () {
+                        $(this).removeAttr('disabled');
+                    });
+                };
+
+                profiletools.checkProfileSelect = function () {
+                    if (
+                        $('.profile-checkbox:checkbox:checked').length == 0 ||
+                        $('.profile-checkbox:checkbox:checked').length > 5
+                    ) {
+                        return false;
+                    }
+                    return true;
+                };
+
+                $(function () {
+                    $('.admin-mdapi').addClass('active');
+                    /* 
+            $(".profiletools-profileoptions").select2();
+            $(".profiletools-packageoptions").select2(); 
+          */
+                    $('#submit-button').click(function (e) {
+                        e.preventDefault();
+                        if (profiletools.checkProfileSelect()) {
+                            sfdcaction_updateProfilePermissions();
+                        } else {
+                            if ($('.profile-checkbox:checkbox:checked').length > 5) {
+                                swal(
+                                    {
+                                        title: 'Exceeded Maximum Profiles',
+                                        text: 'Only 5 profiles can be updated at one time',
+                                        type: 'error',
+                                        confirmButtonText: 'Close'
+                                    },
+                                    function () {}
+                                );
+                            } else {
+                                swal(
+                                    {
+                                        title: 'No Profile Selected',
+                                        text: 'At least one profile must be selected to run FLS',
+                                        type: 'error',
+                                        confirmButtonText: 'Close'
+                                    },
+                                    function () {}
+                                );
+                            }
+                        }
+                    });
+                    $('.uncheck-pko-options').change(function () {
+                        if (this.checked) {
+                            profiletools.disablePkoOptions();
+                        } else {
+                            profiletools.enablePkoOptions();
+                        }
+                    });
+                });
+                $(function (e) {
+                    $('#tools-state').removeClass('collapsed');
+                    $('#admin_mdapi_profiletools').addClass('selected');
+                    $('#tools').addClass('in');
+                });
+            </script>
+        </apex:define>
+    </apex:composition>
+</apex:page>

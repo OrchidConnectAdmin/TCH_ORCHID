@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Help_Text__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A value in this field displays a help icon next to the field on the form.  Hovering the cursor over the help icon displays a text box with the help text field&#39;s content to assist the user in understanding the nature of the question.</description>
+    <inlineHelpText>A value in this field displays a help icon next to the field on the form.  Hovering the cursor over the help icon displays a text box with the help text field&#39;s content to assist the user in understanding the nature of the question.</inlineHelpText>
+    <label>Help Text</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

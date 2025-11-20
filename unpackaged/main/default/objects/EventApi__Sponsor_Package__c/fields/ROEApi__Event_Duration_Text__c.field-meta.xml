@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ROEApi__Event_Duration_Text__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** Event Duration Text</description>
+    <externalId>false</externalId>
+    <formula>EventApi__Event__r.ROEApi__Event_Duration_Text__c</formula>
+    <inlineHelpText>**System Calculated** Event Duration Text</inlineHelpText>
+    <label>SYSTEM</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

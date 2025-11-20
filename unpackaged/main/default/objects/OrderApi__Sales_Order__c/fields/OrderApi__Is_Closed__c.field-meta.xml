@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Is_Closed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>**SYSTEM FIELD - Identifies Sales Orders as ready for payment with a status of Unpaid and identifies Invoices with a status of Draft until it is posted and ready for payment.</description>
+    <inlineHelpText>**System Calculated/Override** Checked when the Sales Order is closed. Sales Orders close automatically when paid in full by the customer, when a contract expires, or when a contract/recurring Sales Order is cancelled.</inlineHelpText>
+    <label>Is Closed</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

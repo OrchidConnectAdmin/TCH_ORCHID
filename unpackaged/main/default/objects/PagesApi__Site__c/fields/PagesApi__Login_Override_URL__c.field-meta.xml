@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Login_Override_URL__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Portal users will be redirected to the provided URL when the &quot;Login&quot; button is clicked on the authentication page.</description>
+    <inlineHelpText>Portal users will be redirected to the provided URL when the &quot;Login&quot; button is clicked on the authentication page.</inlineHelpText>
+    <label>Login Override URL</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>2</visibleLines>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>DirectoryApi__Directory__c</defaultLandingTab>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Member Directories</label>
+    <tabs>DirectoryApi__Directory__c</tabs>
+    <tabs>Case__c</tabs>
+    <tabs>Opposing_Party__c</tabs>
+    <tabs>Client_Inquiry__c</tabs>
+    <tabs>SO_Bundle__c</tabs>
+    <tabs>OrderApi__Scheduled_Payment__c</tabs>
+</CustomApplication>

@@ -1,0 +1,45 @@
+<apex:page showHeader="false"
+					 standardStylesheets="false"
+					 docType="html-5.0"
+					 applyBodyTag="false"
+					 applyHtmlTag="false">
+
+	<apex:composition template="PagesApi__default_template">
+
+      <apex:define name="supernavList">
+		<OrderApi:portal_shopping_cart />
+	  </apex:define>
+
+      <apex:define name="navbarOverride">
+        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(siteNav.Name))}">
+          <OrderApi:navlist name="{!siteNav.Name}"
+                            ulStyleClass="nav navbar-nav navbar-right open" contactId="{!con.Id}"/>
+        </apex:outputPanel>
+      </apex:define>
+
+		<!-- Def:main -->
+		<apex:define name="main">
+
+			<!-- #content-wrapper -->
+			<div id="content-wrapper m-t-40">
+
+				<!-- ===== END: CUSTOM HEADER CONTENT DEFINED ON THE CAMPAIGN PAGE ===== -->
+
+				<section id="page">
+					<div class="container">
+						<apex:outputPanel id="errorMessages">
+							<apex:outputPanel >
+								<Framework:messages />
+							</apex:outputPanel>
+						</apex:outputPanel>
+                      <c:event_registration eventId="{!$CurrentPage.parameters.event}"/>
+					</div>
+				</section>
+
+			</div><!-- END #content-wrapper -->
+
+		</apex:define><!-- END Def:main -->
+
+	</apex:composition>
+
+</apex:page>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NavigationMenu xmlns="http://soap.sforce.com/2006/04/metadata">
+    <container>ECCHO Online</container>
+    <containerType>Network</containerType>
+    <label>TileMenu</label>
+    <navigationMenuItem>
+        <label>Fonteva User Guide</label>
+        <menuItemBranding>
+            <tileImage>blue_lockersstd</tileImage>
+        </menuItemBranding>
+        <position>0</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>https://confluence.fonteva.io/display/userguide/Fonteva+User+Guide</target>
+        <type>ExternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Fonteva Developer Documents</label>
+        <menuItemBranding>
+            <tileImage>download_1</tileImage>
+        </menuItemBranding>
+        <position>1</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>https://confluence.fonteva.io/display/MDS/Welcome+to+Fonteva%27s+Developer+Documentation</target>
+        <type>ExternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Fonteva User Network</label>
+        <menuItemBranding>
+            <tileImage>download_2</tileImage>
+        </menuItemBranding>
+        <position>2</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>https://fun.fonteva.com/</target>
+        <type>ExternalLink</type>
+    </navigationMenuItem>
+</NavigationMenu>

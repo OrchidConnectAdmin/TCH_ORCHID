@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Gateway_Transaction_ID__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The transaction id for the epayment as stored by the connected payment gateway.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The transaction id for the epayment as stored by the connected payment gateway.</inlineHelpText>
+    <label>Gateway Transaction ID</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,21 @@
+<apex:page showHeader="false" showChat="false" sidebar="false">
+    <script src="{!URLFOR($Resource.UIApi)}" type="text/javascript"></script>
+    <script type="text/javascript">
+        function receiveMessage(event) {
+            if ('{!JSENCODE($CurrentPage.parameters.identifier)}' === event.data.identifier) {
+                var fieldPromise = UIApi.getFieldsFromLayout('{!$Api.Session_ID}', event.data.sObjectName);
+                fieldPromise.then(
+                    function (result) {
+                        var fieldObj = { identifier: event.data.identifier, fields: result, type: 'fieldResult' };
+                        parent.window.postMessage(fieldObj, '*');
+                    },
+                    function (reject) {
+                        var fieldObj = { identifier: event.data.identifier, fields: reject, type: 'fieldResultError' };
+                        parent.window.postMessage(fieldObj, '*');
+                    }
+                );
+            }
+        }
+        window.addEventListener('message', receiveMessage, false);
+    </script>
+</apex:page>

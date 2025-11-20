@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Schedule_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** Select &quot;Invoice&quot; to invoice the subscriber for each installment. Select &quot;Automatic Payment&quot; to automatically charge the subscriber using a stored Payment Method. Select &quot;User Option&quot; to allow the customer to choose.</description>
+    <inlineHelpText>** Conditionally Required ** Select &quot;Invoice&quot; to invoice the subscriber for each installment. Select &quot;Automatic Payment&quot; to automatically charge the subscriber using a stored Payment Method. Select &quot;User Option&quot; to allow the customer to choose.</inlineHelpText>
+    <label>Schedule Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+                <label>Invoice</label>
+            </value>
+            <value>
+                <fullName>Automatic Payment</fullName>
+                <default>false</default>
+                <label>Automatic Payment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

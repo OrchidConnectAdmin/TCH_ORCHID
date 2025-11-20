@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__System_Reference__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** SYSTEM FIELD  DO NOT EDIT ** Maps created object id for upsert updates.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** SYSTEM FIELD DO NOT EDIT **  Maps created object id for upsert updates.</inlineHelpText>
+    <label>System Reference</label>
+    <length>18</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Approved_by_Sponsor__c</fullName>
+    <description>*System Generated* Date when parent submitted agreement to ECCHO for final approval</description>
+    <inlineHelpText>*System Generated* Date when parent gave final approval and submitted agreement to ECCHO for final approval</inlineHelpText>
+    <label>Date Approved by Sponsor (Final)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

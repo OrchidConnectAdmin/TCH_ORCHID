@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_In_Progress_Audits</fullName>
+    <columns>NAME</columns>
+    <columns>ProgramApi__Account__c</columns>
+    <columns>ProgramApi__Contact__c</columns>
+    <columns>ProgramApi__Status__c</columns>
+    <columns>Registration_Origin__c</columns>
+    <columns>Registration_Termination__c</columns>
+    <columns>FON_Audited_Year__c</columns>
+    <columns>FON_Audit_Status__c</columns>
+    <columns>FON_Program_Start_Date__c</columns>
+    <columns>FON_Program_End_Date__c</columns>
+    <columns>FON_Audit_Date__c</columns>
+    <columns>FON_Audit_Submitted_Date_By_EU__c</columns>
+    <columns>FON_Audited__c</columns>
+    <columns>FON_Audited_By__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>FON_Audit_Status__c</field>
+        <operation>equals</operation>
+        <value>Open,In Progress</value>
+    </filters>
+    <label>Current In Progress Audits</label>
+</ListView>

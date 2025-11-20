@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Site_Template_Key__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** The template key used for the parent site.</description>
+    <externalId>false</externalId>
+    <formula>PagesApi__Site__r.PagesApi__Site_Template_Key__c</formula>
+    <inlineHelpText>** System Calculated ** The template key used for the parent site.</inlineHelpText>
+    <label>SYSTEM</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,50 @@
+/**
+ * Tweaks - ad hoc customizations
+ * for consideration to be included
+ * in the default AUI styles.
+ * ==========================
+ */
+
+.aui .drawer { z-index: 1; }
+.aui input[type='checkbox'].form-control { margin-top: 0; }
+.aui .tab-content { padding: 24px; }
+.aui .radioOptions tbody tr td label { margin-left: 4px; margin-right: 10px; }
+.aui .radioOptions tbody tr td:first-child label { margin-right: 10px; }
+.aui .form-horizontal .control-label { padding-top: 4px; }
+.aui label { font-weight: normal; }
+.aui label.control-label { font-weight: bold; }
+td.noSidebarCell { padding: 0; }
+.aui .section-nav-wrapper { padding: 0; margin-bottom: -11px; }
+.aui .section-nav { 
+    padding: 10px 0; 
+    background-color: #f0f0f0;
+    -webkit-box-shadow: inset -3px 0px 5px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: inset -3px 0px 5px 0px rgba(0,0,0,0.15);
+    box-shadow: inset -3px 0px 5px 0px rgba(0,0,0,0.15);
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: 1px solid #ddd; 
+}
+.aui ul.section-nav li a,
+.aui ul.section-nav li.active a {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color: #666;
+    font-weight: bold;
+}
+.aui ul.section-nav li.active a,
+.aui ul.section-nav li a:hover,
+.aui ul.section-nav li.active a:hover {
+    background-color: rgba(0,0,0,.10);
+    color: #454545;
+}
+body .bodyDiv #bodyTable { margin-bottom: -8px; }
+body .bodyDiv { background-color: #fff; }
+.aui .page-wrapper { min-height: 350px; display: block; }
+
+.aui .drawer {
+    background-color: rgb(56, 89, 117);
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,.30);
+}

@@ -1,0 +1,25 @@
+c-pfm-button:not(.pfm-button_grouped) + c-pfm-button:not(.pfm-button_grouped) {
+    margin-left: .5rem;
+}
+
+c-pfm-button-group .pfm-button_grouped:not(:last-of-type) .pfm-button {
+    border-radius: 0;
+    border-right: 1px solid transparent;
+}
+
+c-pfm-button-group .pfm-button_grouped:first-of-type .pfm-button {
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+
+c-pfm-button-group .pfm-button_grouped:last-of-type .pfm-button {
+    border-radius: 0;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+/* visualforce override */
+
+.slds-scope button.pfm-button {
+    background-image: none;
+}

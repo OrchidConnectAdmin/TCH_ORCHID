@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pending for Approval</fullName>
+                <default>true</default>
+                <label>Pending for Approval</label>
+            </value>
+            <value>
+                <fullName>Approved</fullName>
+                <default>false</default>
+                <label>Approved</label>
+            </value>
+            <value>
+                <fullName>Audited - Approved</fullName>
+                <default>false</default>
+                <label>Audited - Approved</label>
+            </value>
+            <value>
+                <fullName>Audited - Rejected</fullName>
+                <default>false</default>
+                <label>Audited - Rejected</label>
+            </value>
+            <value>
+                <fullName>Declined</fullName>
+                <default>false</default>
+                <label>Declined</label>
+            </value>
+            <value>
+                <fullName>Manual</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Manual</label>
+            </value>
+            <value>
+                <fullName>Not Considered</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Not Considered</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

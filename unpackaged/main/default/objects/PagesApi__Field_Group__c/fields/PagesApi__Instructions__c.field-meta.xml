@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Instructions__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The content entered in this field is displayed to end users to assist in entering data into the fields contained in the field group.</description>
+    <inlineHelpText>The content entered in this field is displayed to end users to assist in entering data into the fields contained in the field group.</inlineHelpText>
+    <label>Instructions</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

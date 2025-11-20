@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actions__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Members_Only__c = true,
+IF(View_PDF__c!=null,&#39;&lt;a href=&quot;https://us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.force.com/LightningMemberPortal/s/login/?startURL=%2Fs%2Fredirect%3Frurl%3D&#39;&amp;View_PDF__c&amp;&#39;&quot; class=&quot;slds-button slds-button_brand btn-view-pdf&quot; target=&quot;_blank&quot;&gt;View PDF&lt;/a&gt;&#39;,&#39;&lt;div style=&quot;height: 32px;display: inline-block; float: left;&quot;&gt;&amp;nbsp;&lt;/div&gt;&#39;)&amp;
+IF(View_WebEx__c!=null,&#39;&lt;a href=&quot;https://us-tdm-tso-15eb63ff4c6-1626e-16e1cffda8f.force.com/LightningMemberPortal/s/login/?startURL=%2Fs%2Fredirect%3Frurl%3D&#39;&amp;View_WebEx__c&amp;&#39;&quot; class=&quot;slds-button slds-button_brand btn-view-webex&quot; target=&quot;_blank&quot;&gt;View WebEx&lt;/a&gt;&#39;,&#39;&lt;div style=&quot;height: 32px;display: inline-block; float: left;&quot;&gt;&amp;nbsp;&lt;/div&gt;&#39;),
+IF(View_PDF__c!=null,&#39;&lt;a href=&quot;&#39;&amp;View_PDF__c&amp;&#39;&quot; class=&quot;slds-button slds-button_brand btn-view-pdf&quot; target=&quot;_blank&quot;&gt;View PDF&lt;/a&gt;&#39;,&#39;&lt;div style=&quot;height: 32px;display: inline-block; float: left;&quot;&gt;&amp;nbsp;&lt;/div&gt;&#39;)&amp;
+IF(View_WebEx__c!=null,&#39;&lt;a href=&quot;&#39;&amp;View_WebEx__c&amp;&#39;&quot; class=&quot;slds-button slds-button_brand btn-view-webex&quot; target=&quot;_blank&quot;&gt;View WebEx&lt;/a&gt;&#39;,&#39;&lt;div style=&quot;height: 32px;display: inline-block; float: left;&quot;&gt;&amp;nbsp;&lt;/div&gt;&#39;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Actions</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,108 @@
+<apex:page controller="SDOC.SDConfig" lightningStylesheets="true">
+
+  <apex:outputPanel rendered="{!NOT(isTranslations)}">
+    <apex:form >
+      <apex:pageBlock title="S-Docs License Key">
+        <apex:commandLink value="Click here to be redirected to the S-Docs License Key Page" oncomplete="window.location.replace('{!URLFOR(redirectLink)}');"/>
+      </apex:pageBlock>
+      <apex:pageBlock title="SDConfig" id="the-pageblock">
+      <apex:pageBlockButtons >
+        <apex:commandButton action="{!updateCustomSettingsTemplate}" 
+        value="Update S-Docs Custom Settings template" 
+        reRender="the-pageblock" oncomplete="alert('S-Docs Custom Settings template updated');" />
+        <apex:commandButton action="{!updateAllActiveTemplates}" 
+        value="Update All Active S-Docs Templates"
+        reRender="the-pageblock" oncomplete="alert('All active S-Docs Templates have been updated');" />
+        <apex:commandButton action="{!navigateToAwsS3Settings}" value="View AWS S3 Settings" 
+            rendered="{!JSENCODE($CurrentPage.parameters.viewS3Settings) == 'true'}" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection >
+        <!-- Use parameter "advancedSettings=true" to access certain options -->
+        <apex:pageBlockSectionItem rendered="{!showAdvanced}">
+          <apex:outputLabel value="Use Legacy DOC formatting" />
+          <apex:inputCheckbox value="{!legacyDOC}" />
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Whitelisted Profiles For Document Editing" />
+          <apex:inputTextarea value="{!allowEditWhitelist}"  />
+        </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+      <apex:pageBlockSection >
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Translate S-Docs" />
+          <apex:commandButton action="{!loadSDocsTranslate}" value="Load S-Docs translations page" />
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem rendered="{!ssignInstalled}">
+          <apex:outputLabel value="Translate S-Sign" />
+          <apex:commandButton action="{!loadSSignTranslate}" value="Load S-Sign translations page" />
+        </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+  </apex:outputPanel>
+
+  <apex:form >
+  
+    <apex:commandButton value="Return to previous page" oncomplete="window.history.back();" />
+    <br />
+    <br />
+
+    <apex:outputPanel id="translationPanel"  rendered="{!isTranslations}">
+
+      <apex:outputPanel >
+        <apex:pageBlock title="Choose {!productName} Translation To Edit">
+
+          <apex:outputPanel rendered="{!showLanguagePicklist}">
+            <apex:selectList value="{!languagePicklist}" size="1">
+              <apex:selectOptions value="{!languages}" />
+            </apex:selectList>
+            <apex:commandButton value="Edit the translations for this language"
+            action="{!loadTranslationTemplate}"
+            reRender="translationPanel" />
+          </apex:outputPanel>
+          <br />
+
+          <apex:actionFunction name="rerenderCreateNewBtn" action="{!doNothing}" reRender="createNewBtn" />
+          <apex:inputText value="{!languageInputText}" onkeyup="rerenderCreateNewBtn();" />
+          <apex:commandButton value="Define new translations for this language" 
+          id="createNewBtn"
+          action="{!createNewTranslationTemplate}"
+          disabled="{!languageInputText == ''}"
+          reRender="translationPanel" />
+
+        </apex:pageBlock>
+      </apex:outputPanel>
+
+      <apex:outputPanel rendered="{!choseLanguage}">
+        <apex:pageBlock title="Translate {!productName}: {!language}">
+
+          <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!saveTranslationTemplate}"
+            oncomplete="alert('Saved translation settings');"
+            reRender="translationPanel" />
+          </apex:pageBlockButtons>
+
+          <apex:pageBlockTable value="{!translationKeys}" var="key">
+            <apex:column >
+              <table>
+                <tr>
+                  <td style="width:400px; padding-right: 24px;">
+                    <apex:outputText value="{!key}" />
+                  </td>
+                  <td style="width:400px;">
+                    <apex:inputTextarea value="{!translationMap[key]}" style="width: 400px; height: 48px;" rendered="{!NOT(BEGINS(translationMap[key], 'START TRANSLATIONS'))}" />
+                  </td>
+                </tr>
+              </table>
+            </apex:column>
+          </apex:pageBlockTable>
+          
+        </apex:pageBlock>
+
+      </apex:outputPanel>
+
+    
+    </apex:outputPanel>
+  </apex:form>
+
+</apex:page>

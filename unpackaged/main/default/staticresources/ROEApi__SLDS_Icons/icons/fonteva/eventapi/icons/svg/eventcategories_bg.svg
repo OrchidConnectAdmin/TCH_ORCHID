@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 130 130" enable-background="new 0 0 130 130" xml:space="preserve">
+<polygon fill="#FFFFFF" points="118.7,118.2 96.6,118.2 100.3,102.9 122.4,102.9 "/>
+<g>
+	<g>
+		<g>
+			<g>
+				<g>
+					<circle fill="#1B1B1C" cx="65.5" cy="65" r="64"/>
+					<path opacity="0.1" fill="#FFFFFF" d="M116.5,103.8c8.2-10.8,13.1-24.2,13.1-38.8c0-35.3-28.7-64-64-64
+						C51.2,1,37.9,5.7,27.2,13.7C56.8,43.9,86.6,73.9,116.5,103.8z"/>
+					<path fill="#010101" d="M13.3,28.1C5.9,38.5,1.5,51.2,1.5,65c0,35.3,28.7,64,64,64c13.6,0,26.1-4.2,36.5-11.4
+						C72.3,87.9,42.7,58.1,13.3,28.1z"/>
+				</g>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<rect x="19.9" y="36.1" fill="#F04E3C" width="28.5" height="28.3"/>
+			<rect x="19.9" y="67.6" fill="#73B8BC" width="28.5" height="28.3"/>
+			<rect x="52.7" y="36.1" fill="#F9CA62" width="28.5" height="28.3"/>
+			<rect x="52.7" y="67.6" fill="#813090" width="28.5" height="28.3"/>
+			<rect x="85.5" y="67.6" fill="#18B898" width="28.5" height="28.3"/>
+			<rect x="85.5" y="36.1" fill="#94B83D" width="28.5" height="28.3"/>
+			<line fill="#518E40" x1="33.1" y1="99.6" x2="43.9" y2="99.6"/>
+		</g>
+		<g>
+			<polygon fill="#FFFFFF" points="43.2,48.3 36.5,48.4 34.5,42.1 32.4,48.4 25.8,48.4 31.2,52.2 29.2,58.6 34.5,54.7 39.9,58.6 
+				37.8,52.2 			"/>
+		</g>
+		<circle fill="#FFFFFF" cx="67.1" cy="50.2" r="7.1"/>
+		
+			<rect x="94.5" y="45.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 64.8644 -55.6265)" fill="#FFFFFF" width="10.1" height="10.1"/>
+		<g>
+			<path fill="#FFFFFF" d="M73.1,76.5c1.2,1.1,1.7,4.5-0.5,7.2C69.8,87,66.9,88,66.9,88s-3-1.1-5.7-4.5c-2-2.6-1.9-5.7-0.3-7.1
+				c3.1-2.6,6,1,6,1S70.4,73.9,73.1,76.5z"/>
+		</g>
+		<rect x="27.2" y="74.9" fill="#FFFFFF" width="13.8" height="13.8"/>
+		<polygon fill="#FFFFFF" points="106.6,85.4 99.3,75.8 92.1,85.4 		"/>
+	</g>
+</g>
+</svg>

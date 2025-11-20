@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Attendee__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Link to related Attendee.</description>
+    <inlineHelpText>Link to related Attendee.</inlineHelpText>
+    <label>Attendee</label>
+    <referenceTo>EventApi__Attendee__c</referenceTo>
+    <relationshipLabel>Sales Order Lines</relationshipLabel>
+    <relationshipName>Sales_Order_Lines</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

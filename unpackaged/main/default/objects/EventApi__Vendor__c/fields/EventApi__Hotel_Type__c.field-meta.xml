@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Hotel_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** Select the most appropriate type for the hotel. Required for all &quot;Hotel&quot; vendors.</description>
+    <inlineHelpText>** Conditionally Required ** Select the most appropriate type for the hotel. Required for all &quot;Hotel&quot; vendors.</inlineHelpText>
+    <label>Hotel Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Boutique</fullName>
+                <default>false</default>
+                <label>Boutique</label>
+            </value>
+            <value>
+                <fullName>Economy full service</fullName>
+                <default>false</default>
+                <label>Economy full service</label>
+            </value>
+            <value>
+                <fullName>Economy limited service</fullName>
+                <default>false</default>
+                <label>Economy limited service</label>
+            </value>
+            <value>
+                <fullName>Economy resort</fullName>
+                <default>false</default>
+                <label>Economy resort</label>
+            </value>
+            <value>
+                <fullName>Extended stay</fullName>
+                <default>false</default>
+                <label>Extended stay</label>
+            </value>
+            <value>
+                <fullName>Full service</fullName>
+                <default>false</default>
+                <label>Full service</label>
+            </value>
+            <value>
+                <fullName>Historic inn</fullName>
+                <default>false</default>
+                <label>Historic inn</label>
+            </value>
+            <value>
+                <fullName>Luxury</fullName>
+                <default>false</default>
+                <label>Luxury</label>
+            </value>
+            <value>
+                <fullName>Luxury resort</fullName>
+                <default>false</default>
+                <label>Luxury resort</label>
+            </value>
+            <value>
+                <fullName>Motel</fullName>
+                <default>false</default>
+                <label>Motel</label>
+            </value>
+            <value>
+                <fullName>Timeshare</fullName>
+                <default>false</default>
+                <label>Timeshare</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

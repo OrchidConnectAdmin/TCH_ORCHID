@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Ticket_Type__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>** Conditionally Required ** Link to related Ticket Type. Required for &quot;Ticket Type&quot; Waitlist Entries.</description>
+    <inlineHelpText>** Conditionally Required ** Link to related Ticket Type. Required for &quot;Ticket Type&quot; Waitlist Entries.</inlineHelpText>
+    <label>Ticket Type</label>
+    <referenceTo>EventApi__Ticket_Type__c</referenceTo>
+    <relationshipLabel>Waitlist</relationshipLabel>
+    <relationshipName>Waitlist_Entries</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

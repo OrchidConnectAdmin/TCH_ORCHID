@@ -1,0 +1,64 @@
+<apex:page controller="Framework.TemplateController"
+    showHeader="true"
+    sidebar="false"
+    docType="html-5.0">
+
+  <apex:variable var="cdn" value="{!CDNPath}"/>
+  <apex:insert name="first"/>
+  <link href="{!URLFOR($Resource.Framework__aui_base,'css/styles.min.css')}" rel="stylesheet"/>
+  <script type="text/javascript" src="{!URLFOR($Resource.Framework__aui_base,'js/vendor.min.js')}"/>
+
+  <apex:insert name="styles"/>
+
+  <span id="aui-layout" class="aui">
+
+    <!-- FLEX CONTENT -->
+    <div class="container-fluid aui-flex">
+
+      <!-- TITLE -->
+      <div class="aui-title">
+        
+        <label>
+          <apex:insert name="sidebarTop" >
+            &nbsp;
+          </apex:insert>
+        </label>
+
+        <label>
+          <apex:insert name="top"/>
+        </label>
+
+        <a href="#" class="toggle-fullscreen toolbar-button"><i class="btr bt-maximize"></i></a>
+
+      </div>
+
+      <div class="aui-container">
+        <!-- SIDENAV -->
+        <div class="aui-sidenav left">
+          <div class="content">
+            <apex:insert name="sidebar"/>
+          </div><!-- /.content -->
+        </div><!-- /.aui-sidenav -->
+
+        <!-- MAIN CONTENT -->
+        <div class="aui-main-content">
+          <div class="content">
+            <apex:insert name="main"/>
+          </div><!-- /.content -->
+          <div class="footer">
+            <apex:insert name="action"/>
+          </div><!-- /.footer -->
+        </div><!-- /.aui-main-component -->
+
+      </div><!-- /.aui-container -->
+
+    </div><!-- /.aui-flex -->
+
+  </span><!-- //#aui-layout -->
+
+
+  <script type="text/javascript" src="{!URLFOR($Resource.Framework__aui_base,'js/app.min.js')}"/>
+  <apex:insert name="scripts"/>
+  <apex:insert name="last"/>
+
+</apex:page>

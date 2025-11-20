@@ -1,0 +1,40 @@
+<apex:component access="global" controller="AuditEmailTemplate" >
+    <apex:attribute name="progprofile" type="ProgramApi__Program_Profile__c" description="Ateendee Object" assignTo="{!progProfileRec}"/>    
+    
+     
+    
+    <!-- put table code here {!lstTableData}-->
+    Hi &nbsp;{!progProfileDetails.ProgramApi__Contact__r.FirstName}&nbsp;{!progProfileDetails.ProgramApi__Contact__r.LastName},<br/>
+    
+    <div class="slds-section slds-is-open">
+        <h3 class="slds-section__title clrClass" style="background-color:#1797C0;">
+                <span class="slds-truncate" title="Section Title" style="color:White;">&nbsp; CE Sections</span>
+        </h3>
+        <table style="border:1px solid black;border-collapse: collapse;">
+            <tr style="background-color: #191970 !Important;">
+                <td style="color:White !important;border:1px solid black;">Options</td>
+                <td style="color:White !important;border:1px solid black;">Session ID</td>
+                <td style="color:White !important;border:1px solid black;">Session Date</td>
+                <td style="color:White !important;border:1px solid black;">Session Title</td>
+                <td style="color:White !important;border:1px solid black;">Credit Value</td>
+                <td style="color:White !important;border:1px solid black;">CE Provider</td>
+                <td style="color:White !important;border:1px solid black;">Description</td>
+            </tr>
+            <apex:repeat value="{!lstTableData}" var="ncPRec">
+                <tr >
+                    <td style="border:1px solid black;"> </td>
+                    <td style="border:1px solid black;">{!ncPRec.NCP_Session__r.Session_ID__c}</td>
+                    <td style="border:1px solid black;">
+                    <apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!ncPRec.FON_Session_Date__c}" /> </apex:outputText>
+                    </td>
+                    <td style="border:1px solid black;">{!ncPRec.Session_Title__c}</td>
+                    <td style="border:1px solid black;">{!ncPRec.Credit_Value__c}</td>
+                    <td style="border:1px solid black;">{!ncPRec.FON_Provider_Name__c}</td>
+                    <td style="border:1px solid black;">{!ncPRec.Session_Description__c}</td>
+                    
+                </tr>
+            </apex:repeat>
+        </table>
+        
+    </div>
+</apex:component>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Form__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>**Required** Identifies the field group&#39;s related form.</description>
+    <inlineHelpText>**Required** Identifies the field group&#39;s related form.</inlineHelpText>
+    <label>Form</label>
+    <referenceTo>PagesApi__Form__c</referenceTo>
+    <relationshipLabel>Field Groups</relationshipLabel>
+    <relationshipName>Field_Groups</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

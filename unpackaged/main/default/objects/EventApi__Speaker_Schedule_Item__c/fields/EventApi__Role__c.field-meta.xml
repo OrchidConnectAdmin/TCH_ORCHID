@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Role__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The speaker&#39;s role with respect to the related schedule item.</description>
+    <inlineHelpText>The speaker&#39;s role with respect to the related schedule item.</inlineHelpText>
+    <label>Role</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Poster Presenter</fullName>
+                <default>true</default>
+                <label>Poster Presenter</label>
+            </value>
+            <value>
+                <fullName>Keynote Speaker</fullName>
+                <default>false</default>
+                <label>Keynote Speaker</label>
+            </value>
+            <value>
+                <fullName>Panelist</fullName>
+                <default>false</default>
+                <label>Panelist</label>
+            </value>
+            <value>
+                <fullName>Paper Presenter</fullName>
+                <default>false</default>
+                <label>Paper Presenter</label>
+            </value>
+            <value>
+                <fullName>Moderator</fullName>
+                <default>false</default>
+                <label>Moderator</label>
+            </value>
+            <value>
+                <fullName>Specialist</fullName>
+                <default>false</default>
+                <label>Specialist</label>
+            </value>
+            <value>
+                <fullName>Lecturer</fullName>
+                <default>false</default>
+                <label>Lecturer</label>
+            </value>
+            <value>
+                <fullName>Primary</fullName>
+                <default>false</default>
+                <label>Primary</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

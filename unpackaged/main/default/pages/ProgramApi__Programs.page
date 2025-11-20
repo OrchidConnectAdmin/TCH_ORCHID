@@ -1,0 +1,387 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           controller="ProgramApi.ProgramsController">
+  <apex:composition template="CPBase__template">
+    <apex:define name="pageStyles">
+      <style>
+        .c-status-completed {
+            color: #7bde9c;
+        }
+        .btn-custom {
+            background: #009999;
+            color: white;
+            border-width: 0px;
+        }
+        .btn-custom:hover, .btn-custom:focus, .btn-custom:active, .btn-custom.active {
+            background: #009191;
+            color: white;
+        }
+        .c-spinner-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #fff;
+            opacity: 0.5;
+            z-index: 9990;
+        }
+        .c-spinner-container {
+            position: fixed;
+            top: 50%;
+            margin-top: -40px;
+            width: 100%;
+            z-index: 9991;
+        }
+        .c-profile-container,
+        .c-goals-container {
+            margin-bottom: 10px;
+        }
+        .c-profile-item {
+            min-height: 70px;
+        }
+        .c-profile-group {
+            border: 1px solid #ddd;
+        }
+        .c-program-stage {
+            text-align: center;
+        }
+        .c-profile-section {
+            margin-bottom: 10px;
+        }
+        .c-profile-row {
+            margin-bottom: 10px;
+        }
+        .c-display-on {
+            display: block !important;
+        }
+        .c-display-off {
+            display: none;
+        }
+        .progress-bar-custom {
+            background-color: #009999;
+        }
+        .c-progress {
+            margin-bottom: 10px;
+        }
+        span.c-program-name {
+            font-weight: bold;
+        }
+        span.c-percent-complete {
+            margin-top: 5px;
+            float: right;
+        }
+        .c-goals-container table > thead > tr > th:last-child,
+        .c-goals-container table > tbody > tr > td:last-child{
+            padding-right: 0;
+            width: 200px;
+            max-width: 200px;
+        }
+        .sfdc_richtext img {
+            display: block!important;
+            height: auto!important;
+            width: 60%!important;
+        }
+        .section-heading {
+            margin-left: -15px!important;
+        }
+        .clear-formatted-style .htmlDetailElementTable>tbody>tr>td {
+            background: transparent!important;
+        }
+        .clean-formatted-text {
+            white-space: pre-wrap!important;
+        }
+        .c-goals-container table > thead > tr > th:first-child,
+        table > tbody > tr > td:first-child {
+            padding-left: 0;
+        }
+        .c-goals-container table > thead > tr > th:last-child,
+        table > tbody > tr > td:last-child  {
+            padding-right: 0;
+        }
+        a.c-expand-goals i {
+            color: black!important;
+        }
+      </style>
+    </apex:define>
+    <apex:define name="pageScripts">
+      <script type="text/javascript">
+            (function(window, $) {
+                $('a.c-expand-goals').click(function() {
+                    if($(this).hasClass('rotate-90-animate')) {
+                         $(this).removeClass('rotate-90-animate');
+                    }
+                    else {
+                        $(this).addClass('rotate-90-animate');
+                    }
+                    $.each($(this).closest('div.c-profile-group').find("div.c-display-off"), function( index, value ) {
+                      $(value).toggleClass('c-display-on');
+                    });
+                });
+            })(window, jQuery);
+        </script>
+    </apex:define>
+    <apex:define name="pageTitle">
+      {!$Label.programapi__programs}
+    </apex:define>
+    <apex:define name="pageMain">
+      <apex:form id="mainForm">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <br/>
+              <div class="panel panel-default m-t-30 {!IF(records.size > 0, 'c-display-on', 'c-display-off')}">
+                <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h1 class="m-t-0">{!searchProgramType.Program_Profile_Page_Title__c}</h1>
+                          <hr class="m-b-15" />
+                          <div class="bg-gray-lighter p-15 clear-formatted-style {!IF(searchProgramType.Program_Profile_Instructions__c != null, 'c-display-on', 'c-display-off')}">
+                            <apex:outputField value="{!searchProgramType.ProgramApi__Program_Profile_Instructions__c}" styleClass="img-responsive"/>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="col-xs-12 m-t-20 c-type-container">
+                      <apex:repeat value="{!records}" var="record">
+                        <div class="row">
+                            <div class="col-xs-12">
+                              <div class="row">
+                                <div class="section-heading">
+                                    <span>{!record.programType.ProgramApi__Program_Type_Name__c}</span>
+                                </div>
+                              </div>
+                              <div class="row c-type-row-item c-display-on">
+                                <div class="col-xs-12 c-profile-section">
+                                  <div class="row">
+                                      <div class="col-xs-12 c-profile-container">
+                                        <div class="row">
+                                          <apex:repeat value="{!record.programs}" var="program">
+                                            <apex:outputpanel layout="none" rendered="{!program.profile.pf.ProgramApi__Status__c!=$Label.programapi__incomplete}">
+                                              <div class="col-xs-12 c-profile-row">
+                                                <div class="row">
+                                                  <div class="col-xs-12 c-profile-group">
+                                                    <div class="row">
+                                                      <div class="col-xs-12 c-profile-item">
+                                                        <div class="row">
+                                                        <div class="col-xs-12 col-md-12 c-profile-item">
+                                                          <div class="row">
+                                                            <div class="col-xs-12 c-program-section-item p-v-15">
+                                                              <div class="row">
+                                                                <div class="col-xs-10 col-sm-11">
+                                                                  <h4 class="m-t-0"><span class="c-program-name">{!program.pr.ProgramApi__Progam_Name__c}</span></h4>
+                                                                </div>
+                                                                <div class="col-xs-1 text-right">
+                                                                  <apex:outputPanel layout="none" rendered="{!program.profile.terms.size > 0}">
+                                                                    <a href="#" class="rotate-90-animate c-expand-goals"><i class="btb bt-angle-down bt-lg"></i></a>
+                                                                  </apex:outputPanel>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="row">
+                                                            <div class="col-xs-12 m-v-15">
+                                                              <div class="row">
+                                                                <apex:outputPanel layout="none" rendered="{!program.profile.terms.size > 0}">
+                                                                  <div class="col-xs-6 c-program-section-item">
+                                                                    <div class="row">
+                                                                      <div class="col-sm-12">
+                                                                        <apex:outputPanel layout="none" rendered="{!!ISBLANK(program.pr.ProgramApi__Designation__c)}">
+                                                                          <span>{!$Label.Program_Designation}:&nbsp;</span>
+                                                                          <apex:outputText value="{!program.pr.ProgramApi__Designation__c}"/>
+                                                                        </apex:outputPanel>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="row {!IF(AND(!ISBLANK(program.pr.ProgramApi__Designation__c), !ISBLANK(program.profile.termEnds),ISBLANK(program.profile.pf.ProgramApi__Completion_Date__c)), 'm-v-10', 'm-v-0')}">
+                                                                      <div class="col-sm-12">
+                                                                        <apex:outputPanel layout="none" rendered="{!AND(!ISBLANK(program.profile.termEnds),ISBLANK(program.profile.pf.ProgramApi__Completion_Date__c))}">
+                                                                          <span>{!$Label.Program_Term_End_Date}:&nbsp;</span>
+                                                                          <apex:outputText value="{0,date,{!userDateFormat}}">
+                                                                            <apex:param value="{!program.profile.termEnds}" />
+                                                                          </apex:outputText>
+                                                                        </apex:outputPanel>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="row {!IF(AND(!ISBLANK(program.profile.pf.ProgramApi__Completion_Date__c),!ISBLANK(program.pr.ProgramApi__Designation__c)), 'm-v-10', 'm-v-0')}">
+                                                                      <div class="col-sm-12">
+                                                                        <apex:outputPanel rendered="{!!ISBLANK(program.profile.pf.ProgramApi__Completion_Date__c)}">
+                                                                          <span>{!$Label.Completed}:&nbsp;</span>
+                                                                          <apex:outputField value="{!program.profile.pf.ProgramApi__Completion_Date__c}"/>
+                                                                        </apex:outputPanel>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                  <div class="col-xs-6 c-program-section-item">
+                                                                    <apex:outputPanel layout="none" rendered="{!program.profile.terms.size > 0}">
+                                                                      <apex:outputPanel layout="none" rendered="{!program.pr.ProgramApi__Progress_Bar__c}">
+                                                                        <div class="row">
+                                                                          <div class="col-sm-12">
+                                                                            <span class="pull-right">{!program.profile.percentComplete}% {!$Label.Completed}</span>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="row m-v-10">
+                                                                          <div class="col-sm-12">
+                                                                            <div class="progress c-progress">
+                                                                              <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="{!program.profile.percentComplete}"
+                                                                                   aria-valuemin="0" aria-valuemax="100" style="width:{!program.profile.percentComplete}%">
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                        </div>
+                                                                      </apex:outputPanel>
+                                                                      <apex:outputPanel layout="none" rendered="{!AND(!program.pr.ProgramApi__Progress_Bar__c, !ISBLANK(program.profile.pf.ProgramApi__Completion_Date__c), TODAY() >= program.profile.pf.ProgramApi__Completion_Date__c)}">
+                                                                        <div class="row">
+                                                                          <div class="col-sm-12">
+                                                                            <span class="pull-right">{!$Label.programapi__program_profile_status}: {!$Label.programapi__completed}</span>
+                                                                          </div>
+                                                                        </div>
+                                                                      </apex:outputPanel>
+                                                                      <apex:outputPanel layout="none" rendered="{!!ISBLANK(program.profile.pf.ProgramApi__Custom_Link_URL__c)}">
+                                                                        <div class="row {!IF(AND(!program.pr.Progress_Bar__c, !ISBLANK(program.profile.pf.Completion_Date__c), TODAY() >= program.profile.pf.Completion_Date__c), 'm-v-10','m-v-0')}">
+                                                                          <div class="col-sm-12">
+                                                                            <a href="{!program.profile.pf.Custom_Link_URL__c}" target="_blank" class="btn btn-custom pull-right" role="button">
+                                                                                   <b> {!IF(ISBLANK(program.pr.Custom_Link_Label__c), 'Certificate', program.pr.Custom_Link_Label__c)} </b>
+                                                                            </a>
+                                                                          </div>
+                                                                        </div>
+                                                                      </apex:outputPanel>
+                                                                    </apex:outputPanel>
+                                                                  </div>
+                                                                </apex:outputPanel>
+                                                                <apex:outputPanel layout="none" rendered="{!program.profile.terms.size < 1}">
+                                                                  <div class="col-xs-6 c-program-section-item">
+                                                                    <span>{!$Label.Program_Designation}:&nbsp;</span>
+                                                                    <apex:outputText value="{!program.pr.ProgramApi__Designation__c}"/>
+                                                                  </div>
+                                                                  <apex:outputPanel layout="none" rendered="{!!ISBLANK(program.profile.pf.ProgramApi__Completion_Date__c)}">
+                                                                    <div class="col-xs-6 c-program-section-item">
+                                                                      <span class="pull-right">{!$Label.programapi__program_profile_status}: {!$Label.programapi__completed}</span>
+                                                                    </div>
+                                                                  </apex:outputPanel>
+                                                                </apex:outputPanel>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="col-xs-12 m-b-15 c-display-off">
+                                                        <apex:outputText value="{!program.pr.ProgramApi__Programs_Description__c}" escape="false" styleClass="clean-formatted-text p-0"/>
+                                                      </div>
+                                                      <apex:outputPanel layout="none" rendered="{!program.profile.terms.size > 0}">
+                                                        <div class="col-xs-12 c-goals-container c-display-off table-responsive">
+                                                          <table class="table table-default">
+                                                            <thead>
+                                                              <tr>
+                                                                <apex:repeat value="{!program.fieldSet}" var="f">
+                                                                  <th>{!f.Label}</th>
+                                                                </apex:repeat>
+                                                                <th>{!$Label.programapi__program_profile_status}</th>
+                                                              </tr>
+                                                            </thead>
+                                                              <tbody>
+                                                                <apex:repeat value="{!program.profile.terms}" var="term">
+                                                                  <apex:repeat value="{!term.goals}" var="goal">
+                                                                    <tr>
+                                                                      <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(program.pr.ProgramApi__Goal_Display_Field_Set__c))}">
+                                                                        <apex:repeat value="{!program.fieldSet}" var="f">
+                                                                          <td>
+                                                                            <apex:outputField value="{!goal.gol[f.fieldPath]}"/>
+                                                                          </td>
+                                                                        </apex:repeat>
+                                                                      </apex:outputPanel>
+                                                                      <td>
+                                                                        <apex:outputPanel layout="inline" rendered="{!goal.gol.ProgramApi__Status__c='Complete'}" styleClass="text-primary">
+                                                                            {!goal.gol.ProgramApi__Status__c}
+                                                                        </apex:outputPanel>
+                                                                        <apex:outputPanel layout="inline" rendered="{!goal.gol.ProgramApi__Status__c='Incomplete'}">
+                                                                          <a href="{!goal.gol.Navigation_URL__c}" target="_blank" class="btn btn-custom
+                                                                            {!IF(OR(goal.dependenciesRequired, ISBLANK(goal.gol.Navigation_URL__c),IF(program.profile.termEnds != null,
+                                                                                  program.profile.termEnds < TODAY(), false)),'disabled','')}" role="button">
+                                                                                  {!IF(ISBLANK(goal.requirement.Goal_Button_Label__c),$Label.Programs_Button_Register,goal.requirement.Goal_Button_Label__c)}
+                                                                          </a>
+                                                                        </apex:outputPanel>
+                                                                        <apex:outputPanel layout="inline" rendered="{!AND(goal.gol.ProgramApi__Status__c!='Complete',goal.gol.ProgramApi__Status__c!='Incomplete')}">
+                                                                                {!goal.gol.ProgramApi__Status__c}
+                                                                        </apex:outputPanel>
+                                                                      </td>
+                                                                    </tr>
+                                                                  </apex:repeat>
+                                                                </apex:repeat>
+                                                              </tbody>
+                                                          </table>
+                                                        </div>
+                                                      </apex:outputPanel>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </apex:outputpanel>
+                                            <apex:outputpanel layout="none" rendered="{!program.profile.pf.ProgramApi__Status__c=$Label.programapi__incomplete}">
+                                              <div class="col-xs-12 c-profile-row">
+                                                <div class="row">
+                                                  <div class="col-xs-12 c-profile-group">
+                                                    <div class="row">
+                                                      <div class="col-xs-12 c-profile-item">
+                                                        <div class="row">
+                                                          <div class="col-xs-12 col-md-12 c-profile-item">
+                                                            <div class="row">
+                                                              <div class="col-xs-12 c-program-section-item p-v-15">
+                                                                <div class="row">
+                                                                  <div class="col-xs-10 col-sm-11">
+                                                                    <h4><span class="c-program-name">{!program.pr.Progam_Name__c}</span></h4>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="row">
+                                                              <div class="col-xs-5 m-v-15 c-program-section-item">
+                                                                <span>{!$Label.Program_Profile_Status}:&nbsp;</span><apex:outputText value="{!program.profile.pf.ProgramApi__Status__c}"/>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </apex:outputpanel>
+                                          </apex:repeat>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      </apex:repeat>
+                    </div>
+                </div>
+              </div>
+              <div class="panel panel-default m-t-40 col-xs-6 col-xs-offset-3 {!IF(records.size > 0, 'c-display-off', 'c-display-on')}">
+                <div class="panel-body c-program-stage">
+                  <h3 class="m-b-20">{!$Label.programapi__active_programs_are_not_found}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:form>
+      <div class="c-spinner c-hidden" style="display:none;">
+        <div class="c-spinner-overlay"></div>
+        <h1 class="c-spinner-container text-center">
+          <div class='sk-spinner sk-spinner-wave'>
+            <div class='sk-rect1'></div>
+            <div class='sk-rect2'></div>
+            <div class='sk-rect3'></div>
+            <div class='sk-rect4'></div>
+            <div class='sk-rect5'></div>
+          </div>
+        </h1>
+      </div>
+    </apex:define>
+  </apex:composition>
+</apex:page>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>joinapi__Is_Qualifying_Question__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Defines the step to be a qualifying question step.</description>
+    <inlineHelpText>Defines the step to be a qualifying question step.</inlineHelpText>
+    <label>Is Qualifying Question</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

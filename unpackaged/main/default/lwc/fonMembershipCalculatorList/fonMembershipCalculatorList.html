@@ -1,0 +1,16 @@
+<template>
+    <lightning-input
+        label="Search"
+        name="search"
+        onchange={handleChange}
+    >
+    </lightning-input>
+    <lightning-datatable
+        key-field="Id"
+        data={accounts}
+        columns={columns}
+        hide-checkbox-column
+        column-widths-mode="auto"
+    >
+    </lightning-datatable>
+</template>

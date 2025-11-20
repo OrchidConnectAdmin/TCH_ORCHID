@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NCP_Directory_Contact__c</fullName>
+    <externalId>false</externalId>
+    <formula>ProgramApi__Contact__r.FirstName&amp;&#39; &#39;&amp;ProgramApi__Contact__r.LastName&amp;&#39; &#39;&amp;
+IF( Honorary_NCP__c == true, &#39;&lt;span class=&quot;slds-badge slds-theme_success&quot;&gt;&#39;&amp; Honorary_Year__c &amp;&#39; Honorary &lt;/span&gt;&#39;,&#39;&#39;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Contact</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

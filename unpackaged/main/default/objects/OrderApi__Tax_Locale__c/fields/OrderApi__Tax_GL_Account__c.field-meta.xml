@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Tax_GL_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>This field defines the tax liability account to be used as the credit entry of the Order&#39;s Transaction. Populated as the income account on the Tax Item by Default.</description>
+    <inlineHelpText>This field defines the tax liability account to be used as the credit entry of the Order&#39;s Transaction. If not populated, the income account on the Tax Item will be used for the credit entry.</inlineHelpText>
+    <label>Default Tax Account</label>
+    <referenceTo>OrderApi__GL_Account__c</referenceTo>
+    <relationshipLabel>Tax Locales</relationshipLabel>
+    <relationshipName>Tax_Locales</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

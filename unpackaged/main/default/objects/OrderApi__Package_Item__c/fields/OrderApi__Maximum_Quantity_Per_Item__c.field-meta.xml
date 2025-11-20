@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Maximum_Quantity_Per_Item__c</fullName>
+    <defaultValue>0</defaultValue>
+    <deprecated>false</deprecated>
+    <description>** For Package Item for Item Classes only ** Identifies the maximum quantity of a single Item that can be selected when selecting Items from this Item Class. Defaults 0. The value of 0 is infinite.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** For Package Item for Item Classes only ** Identifies the maximum quantity of a single Item that can be selected when selecting Items from this Item Class. Defaults 0. The value of 0 is infinite.</inlineHelpText>
+    <label>Maximum Quantity Per Item</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

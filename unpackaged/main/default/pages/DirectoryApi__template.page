@@ -1,0 +1,27 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false">
+
+  <apex:composition template="CPBase__template">
+
+    <apex:define name="pageTitle">
+      <apex:insert name="mdTitle"/>
+    </apex:define>
+
+    <apex:define name="pageStyles">
+      <apex:insert name="mdStyles"/>
+    </apex:define>
+
+    <apex:define name="pageMain">
+      <apex:insert name="mdMain"/>
+    </apex:define>
+
+    <apex:define name="pageScripts">
+      <apex:insert name="mdScripts"/>
+    </apex:define>
+
+  </apex:composition>
+
+</apex:page>

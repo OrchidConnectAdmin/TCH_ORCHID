@@ -1,0 +1,10 @@
+Dear {!OrderApi__Subscription__c.OrderApi__Contact__c},
+
+This is a friendly reminder that      {!OrderApi__Subscription__c.OrderApi__Account__c}'s subscription renewal payment is due today.
+
+We look forward to receiving your subscription renewal for the upcoming year!
+
+To renew, log-in to our website using your username and password. You may select to pay by credit card or check. If you need assistance, email Customer Support.
+
+Thank you.
+{!Organization.Name}

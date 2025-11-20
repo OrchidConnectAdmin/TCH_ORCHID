@@ -1,0 +1,66 @@
+<apex:page id="rapidOrderEntry" standardStylesheets="false" tabStyle="OrderApi__Sales_Order__c" showHeader="true" sidebar="false" cache="false" controller="ROEApi.RapidOrderEntryController">
+	<apex:includeLightning />
+	<link rel="stylesheet" media="screen" href="{!URLFOR($Resource.SLDS_BaseV2,'css/fullStyles.css')}"/>
+	<div class="slds slds-loading-layout" id="mainWrapper">
+		<div class="slds-grid slds-loading-layout slds-theme--shade">
+			<div class="slds-col slds-text-align--center slds-align-middle" >
+				<img src="{!URLFOR($Resource.SLDS_BaseV2,'/img/spinners/slds_spinner_brand.gif')}" alt="saving" width="50" height="50" />&nbsp;
+				<span class="slds-text-heading--medium">Loading</span>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		if (!String.prototype.startsWith) {
+			String.prototype.startsWith = function(searchString, position) {
+				position = position || 0;
+				return this.indexOf(searchString, position) === position;
+			};
+		}
+		var salesOrder = escape('{!JSENCODE($CurrentPage.parameters.salesOrder)}');
+		if (window.location.hash.substring(1) != null && window.location.hash.substring(1).length > 0 && salesOrder.length == 0) {
+			salesOrder = escape(window.location.hash.substring(1));
+		}
+		function componentLoaded() {
+			document.getElementById('mainWrapper').classList.add('hidden');
+		}
+		$Lightning.use("{!Namespace}:ROEApp", function() {
+			if ('{!JSENCODE($CurrentPage.parameters.epayment)}' !== '') {
+				$Lightning.createComponent("OrderApi:SalesOrders",
+						{
+							salesOrderId : salesOrder,
+							environmentKey : '{!JSENCODE(Key)}',
+							eCheckRedirectUrl : '{!baseURL}{!URLFOR($Page.OrderApi__epayment_post)}?gateway_token=<<gatewayToken>>&sales_order={!$CurrentPage.parameters.sales_order}&postback_url={!URLENCODE($currentpage.URL)}&customerId=<<customerId>>&contactId=<<contactId>>'
+						},
+						"lightning",
+						function (cmp, status, errors) {
+						}
+				);
+				$Lightning.createComponent("OrderApi:EpaymentError",
+						{
+							ePaymentId: '{!JSENCODE($CurrentPage.parameters.epayment)}',
+						},
+						"lightning",
+						function () {
+							$A.eventService.addHandler({
+								"event": "{!Namespace}:ComponentLoadedEvent",
+								"handler": componentLoaded
+							});
+						}
+				);
+			} else {
+				$Lightning.createComponent("{!Namespace}:ROEWrapper", {
+							contact : '{!JSENCODE($CurrentPage.parameters.contact)}',
+							account : '{!JSENCODE($CurrentPage.parameters.account)}',
+							salesOrder : salesOrder,
+							exceptionContact : '{!ExceptionContact}',
+							exceptionAccount : '{!ExceptionAccount}',
+							dateFormat : '{!DateFormat}'},
+						"lightning",
+						function(cmp, status, errors) {
+							$A.eventService.addHandler({ "event": "{!Namespace}:ComponentLoadedEvent", "handler" : componentLoaded});
+						});
+			}
+		});
+	</script>
+	<div id="lightning" />
+</apex:page>

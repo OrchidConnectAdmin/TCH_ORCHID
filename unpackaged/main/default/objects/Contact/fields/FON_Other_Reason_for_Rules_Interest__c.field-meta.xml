@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Other_Reason_for_Rules_Interest__c</fullName>
+    <inlineHelpText>Free text. Contact has the option to specify why they are interested in ECCHO Rules if different from what has been provided.</inlineHelpText>
+    <label>Other Reason for ECCHO Rules Interest</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>TextArea</type>
+</CustomField>

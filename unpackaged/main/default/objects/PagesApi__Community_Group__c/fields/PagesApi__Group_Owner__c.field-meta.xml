@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Group_Owner__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Owner of the group. Defaults to the user creating the group, if not populated.</description>
+    <inlineHelpText>Owner of the group. Defaults to the user creating the group, if not populated.</inlineHelpText>
+    <label>Group Owner</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Community_Groups</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DRCTS__Relationship_Name__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System calculated ** This field contains the relationship name of the related lists.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** System calculated ** This field contains the relationship name of the related lists.</inlineHelpText>
+    <label>Relationship Name</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

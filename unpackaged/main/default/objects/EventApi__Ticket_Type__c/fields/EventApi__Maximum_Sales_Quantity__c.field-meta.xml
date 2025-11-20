@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Maximum_Sales_Quantity__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Requires &quot;Restrict Maximum Sales Quantity&quot; to be checked. Specifies the maximum quantity of tickets that can be purchased in a single order.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Requires &quot;Restrict Maximum Sales Quantity&quot; to be checked. Specifies the maximum quantity of tickets that can be purchased in a single order.</inlineHelpText>
+    <label>Maximum Sales Quantity</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

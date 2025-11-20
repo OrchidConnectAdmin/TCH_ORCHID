@@ -1,0 +1,77 @@
+<aura:component description="CYRIL Order Information Component" controller="GetCYRILOrderInfoController" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction,lightning:isUrlAddressable,flexipage:availableForAllPageTypes,lightning:availableForFlowScreens" access="global">
+	
+    <aura:handler name="init" value="{!this}" action="{!c.initDataTable}" />
+    
+    <aura:attribute name="bURL" type="String" /> 
+    <aura:attribute name="labelColor" type="String" /> 
+    <aura:attribute name="labelBGColor" type="String" /> 
+    
+    <!-- CONFIGS -->
+    <aura:attribute name="cInvoiceType" type="String"/>
+    <aura:attribute name="cID" type="String"/>
+    
+    <!-- data -->
+    <aura:attribute name="items" type="List" />
+    <aura:attribute name="columnCount" type="Integer" />
+    
+	<div class="{!'cyril-orderinfo cyril-orderinfo-set-'+ v.cInvoiceType}">
+        <div class="slds-grid slds-gutters">
+            <aura:iteration items="{!v.items}" var="item">
+                <div class="{!'slds-col slds-size_'+ item.span +'-of-3'}">
+                    <aura:iteration items="{!item.data}" var="it" indexVar="index">
+                        <aura:if isTrue="{!index==1}">
+                            <div class="slds-form-element" data-field="{!it[0]}" >
+                                <label class="slds-form-element__label" style="color: #ffffff;"><aura:unescapedHtml value="{!it[0]}"/></label>
+                                $<lightning:formattedNumber value="{!it[1]}" class="white-text"/>
+                            </div>
+                            <aura:set attribute="else"> 
+                               <div class="slds-form-element" data-field="{!it[0]}">
+                                    <label class="slds-form-element__label" style="{!'color:'+ v.labelColor +' !important; background-color:' + v.labelBGColor +' !important;'}"><aura:unescapedHtml value="{!it[0]}"/></label>
+                                    $<lightning:formattedNumber value="{!it[1]}" class="white-text"/>
+                                </div> 
+                            </aura:set>
+                        </aura:if>
+                        
+                    </aura:iteration>
+                </div>
+            </aura:iteration>
+        </div>
+    </div>
+
+	<aura:html tag="Style">
+		[data-fqn="c:CYRILOrderInformationComponent"]{
+        	height: auto !important
+        }
+        /* Sales Order Document Fixes */
+        *{
+        -webkit-print-color-adjust: exact; 
+            print-color-adjust: exact;
+        }
+        .cyril-orderinfo .slds-form-element{
+            padding: 15px !important;
+            display: table !important;
+            width: 100% !important;
+            font-size: 18px !important;
+            text-align: right !important;
+        }
+        .cyril-orderinfo .slds-form-element label{
+            font-size: 18px !important;
+            float: left !important;
+            color: #333333 !important;
+        }
+        .cyril-orderinfo .slds-form-element:last-child{
+            background-color: #333333 !important;
+            color: #ffffff !important;
+        }
+        .cyril-orderinfo .slds-form-element:last-child *{
+            color: #ffffff !important;
+        }
+        .cyril-orderinfo .slds-form-element:last-child label{
+            color: #ffffff !important;
+        }
+        .white-text, .white-text *{
+        	color: #fff;
+        }
+    </aura:html>
+    
+</aura:component>

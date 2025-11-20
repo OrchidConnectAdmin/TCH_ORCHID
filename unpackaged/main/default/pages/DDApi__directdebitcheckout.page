@@ -1,0 +1,73 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           controller="DDApi.DirectDebitCheckoutController"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           cache="false">
+  <apex:includeLightning />
+
+  <link rel="stylesheet" media="screen" href="{!URLFOR($Resource.Framework__SLDS_Base,'css/styles.css')}"/>
+  <style> 
+    body {
+      background-color: #eaeaea;
+    }
+    #auraErrorMessage {
+        display: none;
+    }
+    #directdebitWrapper {
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      background-color: #eaeaea;
+      z-index: 1;
+    }
+  </style>
+
+  <div id="lightning" class="slds-scope"/>
+
+  <div class="slds" id="directdebitWrapper">
+    <div class="slds-grid slds-object-height--full">
+      <div class="slds-col slds-text-align--center slds-align-middle" >
+        <img src="{!URLFOR($Resource.Framework__SLDS_Base,'/img/spinners/slds_spinner_brand.gif')}" alt="saving" width="50" height="50" />&nbsp;
+        <span class="slds-text-heading--medium slds-theme--inverse-text">{!$Label.Loading}</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var soId = '{!JSENCODE($CurrentPage.parameters.salesorder)}';
+    var ptId = '{!JSENCODE($CurrentPage.parameters.paymenttype)}';
+    var rfId = '{!JSENCODE($CurrentPage.parameters.redirect_flow_id)}';
+    var nonDDId = '{!JSENCODE($CurrentPage.parameters.nonDDOrder)}';
+    var isLightning = '{!JSENCODE($CurrentPage.parameters.isLightning)}';
+    var isLightningEvent = '{!JSENCODE($CurrentPage.parameters.isLightningEvent)}';
+    var isInvoice = '{!JSENCODE($CurrentPage.parameters.isInvoice)}';
+
+    if (window.location.hash.substring(1) != null && window.location.hash.substring(1).length > 0 && soId.length == 0) {
+        soId = window.location.hash.substring(1);
+    }
+    function componentLoaded() {
+        document.getElementById('directdebitWrapper').classList.add('hidden');
+        document.getElementById('lightning').classList.remove('hidden');
+    }
+    $Lightning.use("{!Namespace}:directdebitcheckoutapp", function() {
+        $Lightning.createComponent("{!Namespace}:directdebitcheckout",
+            {salesorderId : soId,
+             cookieName : "{!CookieName}",
+             lightningcookieName : "{!lightningCookieName}",
+             communityCookieName : "{!communityCookieName}",
+             paymentTypeId : ptId,
+             isInvoice: isInvoice,
+             redirectFlow : rfId,
+             nonDDOrderId : nonDDId,
+             isLightning : isLightning,
+             isLightningEvent : isLightningEvent},
+            "lightning",
+            function(cmp) {
+                $A.eventService.addHandler({ "event": "{!Namespace}:ComponentLoadedEvent", "handler" : componentLoaded});
+            });
+    });
+  </script>
+</apex:page>

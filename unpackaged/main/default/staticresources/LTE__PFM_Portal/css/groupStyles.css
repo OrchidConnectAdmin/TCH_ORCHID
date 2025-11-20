@@ -1,0 +1,49 @@
+/* VENDOR TOAST STYLES */
+
+.iziToast-wrapper .iziToast.iziToast-color-red {
+    background: #c23934;
+    background-color: #c23934;
+    border-color: #c23934;
+}
+
+.iziToast.iziToast-color-red .iziToast-body > p,
+.iziToast.iziToast-color-green .iziToast-body > p {
+    color: white;
+}
+
+.iziToast-wrapper .iziToast.iziToast-color-green {
+    background: #04844b;
+    background-color: #04844b;
+    border-color: #04844b;
+}
+
+.siteforceServiceBody .cCenterPanel {
+    max-width: 100%;
+}
+.siteforceStarterBody {
+    overflow: hidden;
+}
+
+.siteforceStarterBody,
+.cCenterPanel,
+.pfm-portal_content,
+.pfm-portal_content > div,
+.ui-widget {
+    height: 100%;
+}
+
+.cCenterPanel {
+    padding: 0;
+    margin: 0;
+}
+
+.siteforceStarterBody .cCenterPanel {
+    outline: none;
+    max-width: inherit;
+    margin-left: inherit;
+    margin-right: inherit;
+}
+
+.forceChatterFeedBodyText a.cuf-more.fadeOut {
+    animation: none !important;
+}

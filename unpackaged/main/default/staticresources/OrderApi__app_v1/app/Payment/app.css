@@ -1,0 +1,19 @@
+#fonteva .payment-sum{font-size:18px;padding:10px 0}
+#fonteva .payment-sum-label{font-weight:500;margin-right:10px}
+#fonteva .payment-sum-value{font-weight:300}
+#fonteva .calculated-total{font-weight:500}
+#fonteva .applied-amount { padding-right: 10px; border-right: 1px solid #ddd; }
+#fonteva .remaining-amount { padding-left: 10px; }
+#fonteva .payment-totals-panel-body { padding: 10px; }
+#fonteva .remaining-amount { margin: 0; padding-left: 0; }
+#fonteva .applied-amount { margin: 0; padding-right: 15px; border-right: 1px solid #ddd; color: inherit !important;}
+#invoice-counter { font-size: 115%; color: #333; font-weight: bold; }
+#fonteva h4.num-invoices-selected { display: block; }
+#fonteva .payment-totals-panel-body { padding: 10px; }
+#fonteva .required { color: #bf2b42; font-size: 9px; font-weight: 100; top: -2px; position: relative;}
+#fonteva span.dateFormat { display: none; }
+#fonteva table.table { font-size: 11.55555px; }
+#fonteva .required-field:after { font-size: 18px; position: relative; left: 1px; top: 4px; font-weight: 700; color: rgb(191, 43, 66); content: "*"; }
+#fonteva .payment-options { margin-bottom: 20px; }
+#fonteva .form-radio-group { margin-bottom: 10px; }
+#fonteva input[type="radio"] { text-align: left; padding-left: 0; margin: 0 6px 0 10px; }

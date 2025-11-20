@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Session_Types__c</fullName>
+    <inlineHelpText>List of the different Session Types for earning CE Credits</inlineHelpText>
+    <label>Session Types</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Conference</fullName>
+                <default>false</default>
+                <label>Conference</label>
+            </value>
+            <value>
+                <fullName>Conference Call</fullName>
+                <default>false</default>
+                <label>Conference Call</label>
+            </value>
+            <value>
+                <fullName>e-Publication</fullName>
+                <default>false</default>
+                <label>e-Publication</label>
+            </value>
+            <value>
+                <fullName>ECCHO Business Committee Meeting</fullName>
+                <default>false</default>
+                <label>ECCHO Business Committee Meeting</label>
+            </value>
+            <value>
+                <fullName>ECCHO Hosted Session</fullName>
+                <default>false</default>
+                <label>ECCHO Hosted Session</label>
+            </value>
+            <value>
+                <fullName>ECCHO NCP Editorial Board</fullName>
+                <default>false</default>
+                <label>ECCHO NCP Editorial Board</label>
+            </value>
+            <value>
+                <fullName>ECCHO OPS Chairman</fullName>
+                <default>false</default>
+                <label>ECCHO OPS Chairman</label>
+            </value>
+            <value>
+                <fullName>ECCHO OPS Committee Meeting</fullName>
+                <default>false</default>
+                <label>ECCHO OPS Committee Meeting</label>
+            </value>
+            <value>
+                <fullName>General Session</fullName>
+                <default>false</default>
+                <label>General Session</label>
+            </value>
+            <value>
+                <fullName>In-Person Meeting</fullName>
+                <default>false</default>
+                <label>In-Person Meeting</label>
+            </value>
+            <value>
+                <fullName>In-Person Training</fullName>
+                <default>false</default>
+                <label>In-Person Training</label>
+            </value>
+            <value>
+                <fullName>Lunch-N-Learn</fullName>
+                <default>false</default>
+                <label>Lunch-N-Learn</label>
+            </value>
+            <value>
+                <fullName>NCP CE Workshop</fullName>
+                <default>false</default>
+                <label>NCP CE Workshop</label>
+            </value>
+            <value>
+                <fullName>NCP Evaluation of Pilot Items</fullName>
+                <default>false</default>
+                <label>NCP Evaluation of Pilot Items</label>
+            </value>
+            <value>
+                <fullName>NCP Guide Program</fullName>
+                <default>false</default>
+                <label>NCP Guide Program</label>
+            </value>
+            <value>
+                <fullName>NCP Partner Training</fullName>
+                <default>false</default>
+                <label>NCP Partner Training</label>
+            </value>
+            <value>
+                <fullName>OnDemand</fullName>
+                <default>false</default>
+                <label>OnDemand</label>
+            </value>
+            <value>
+                <fullName>Roundtable</fullName>
+                <default>false</default>
+                <label>Roundtable</label>
+            </value>
+            <value>
+                <fullName>Seminar</fullName>
+                <default>false</default>
+                <label>Seminar</label>
+            </value>
+            <value>
+                <fullName>User Group</fullName>
+                <default>false</default>
+                <label>User Group</label>
+            </value>
+            <value>
+                <fullName>Web Based Training</fullName>
+                <default>false</default>
+                <label>Web Based Training</label>
+            </value>
+            <value>
+                <fullName>Webinar</fullName>
+                <default>false</default>
+                <label>Webinar</label>
+            </value>
+            <value>
+                <fullName>Workshop</fullName>
+                <default>false</default>
+                <label>Workshop</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

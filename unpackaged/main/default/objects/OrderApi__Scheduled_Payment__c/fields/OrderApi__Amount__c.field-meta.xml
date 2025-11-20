@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Amount__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** The amount due against the Scheduled Payment.</description>
+    <inlineHelpText>**System Calculated** The amount charged successfully against the Scheduled Payment.</inlineHelpText>
+    <label>Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

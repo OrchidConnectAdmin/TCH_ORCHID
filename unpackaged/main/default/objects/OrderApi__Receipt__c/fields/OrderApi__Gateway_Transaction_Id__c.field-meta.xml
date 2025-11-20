@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Gateway_Transaction_Id__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** The transaction ID reported from your payment gateway. Use this key as a unique key for payment reconciliation between your merchant services provider and our database.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>** System Calculated ** The transaction ID reported from your payment gateway. Use this key as a unique key for payment reconciliation between your merchant services provider and our database.</inlineHelpText>
+    <label>Gateway Transaction Id</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

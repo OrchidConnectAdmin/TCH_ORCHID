@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Accepts_Unsolicited_Proposals__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Indicates whether or not philanthropic entities accept unsolicited proposals.</description>
+    <inlineHelpText>Indicates whether or not philanthropic entities accept unsolicited proposals.</inlineHelpText>
+    <label>Accepts Unsolicited Proposals</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

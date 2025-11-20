@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Personal_Recognition_Name__c</fullName>
+    <deprecated>false</deprecated>
+    <description>If this person gives anonymously, or preferrs to be recognized by a different name in donor acknowledgement materials, what is it?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If this person gives anonymously, or preferrs to be recognized by a different name in donor acknowledgement materials, what is it?</inlineHelpText>
+    <label>Personal Recognition Name</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

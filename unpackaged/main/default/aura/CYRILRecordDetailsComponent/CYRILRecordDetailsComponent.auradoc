@@ -1,0 +1,23 @@
+<aura:documentation>
+	<aura:description>Custom Details Page</aura:description>
+	<aura:example name="Configs" ref="exampleComponentName" label="Configurations">
+		- Section Title - the title for the page
+        - Record Id (can use {!recordId} or any url param. can also use manual typed id if you need to show static record)
+        
+        - Enable Page Header - the page header is this: http://prntscr.com/v1vmsb . its up to the admin to use it or not
+        - Sub Header Field - this is the list of Field Api Names that will be displayed below the main header: http://prntscr.com/v1vn9d
+        - Header Icon - the icon. should come from https://www.lightningdesignsystem.com/icons/
+        
+        - Enable Edit Record - to enable the edit button
+        - Edit Path - to have the admin a complete liberty on where the button should lead the user. On Nomination Details case, it should be on the form where the nominator used. IF no path, the component will use the popup edit form. http://prntscr.com/v1vq0s
+        - Append ID - this is a setting to append the id to the path, useful if the path is dynamic - like forms, other details page etc.
+        - Enclose ID with quotes - in some cases, the ID needs to be inside a quotes like when you use fieldgroup SOQL on FONTEVA forms.
+        
+        - Column 1/2/3/4 Title - title for the column if there should
+        - Column 1/2/3/4 Fieldsets - field sets for the column. separated by comma.
+        - Column 1/2/3/4 span - the span of the column. There are 4 fixed columns. This will identify the width of the column.
+        
+        - Fieldsets Display Type - can set to Card or Accordion. 
+        - Hide Empty/Null Fields - hide the fields with no value (if needed)
+	</aura:example>
+</aura:documentation>

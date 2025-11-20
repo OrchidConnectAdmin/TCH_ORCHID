@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Parent_Is_Installment_Calculated__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Parent Is Installment Calculated</description>
+    <formula>OrderApi__Sales_Order_Line__r.OrderApi__Is_Installment_Calculated__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Parent Is Installment Calculated</inlineHelpText>
+    <label>SYSTEM</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

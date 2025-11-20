@@ -1,0 +1,13 @@
+.THIS {
+}
+
+.THIS .clrClass{
+    
+   background-color:Blue !important;
+}
+
+.THIS .colBoder{
+    
+    border: 1px solid black !important;
+    text-align: center !important;
+}

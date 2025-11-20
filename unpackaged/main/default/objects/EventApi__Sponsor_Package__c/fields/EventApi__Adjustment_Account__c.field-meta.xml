@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventApi__Adjustment_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>The debit account to use when posting invoice adjustments to invoices that have already posted to A/R.</description>
+    <inlineHelpText>The debit account to use when posting invoice adjustments to invoices that have already posted to A/R.</inlineHelpText>
+    <label>Adjustment Account</label>
+    <referenceTo>OrderApi__GL_Account__c</referenceTo>
+    <relationshipLabel>Items (Sales Adjustment Accounts)</relationshipLabel>
+    <relationshipName>Items2</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

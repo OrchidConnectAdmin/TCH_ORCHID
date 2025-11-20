@@ -1,0 +1,25 @@
+<apex:page standardController="OrderApi__Package_Item__c"
+					 recordSetVar="paths"
+					 extensions="FDService.ManagePackageItemsController"
+					 tabStyle="OrderApi__Item__c"
+					 docType="html-5.0"
+					 cache="true"
+					 sidebar="false">
+	<apex:includeLightning />
+	<link rel="stylesheet" href="{!URLFOR($Resource.PFM_Base,'css/full.css')}"/>
+	<div id="lightning"/>
+	<script>
+      var itemIdValue = '{!$CurrentPage.parameters.id}';
+
+      function componentLoaded() {
+          document.getElementById('mainWrapper').classList.add('hidden');
+      }
+      $Lightning.use("{!Namespace}:AdvancedPackageItemsApp", function() {
+          $Lightning.createComponent("{!Namespace}:BuilderAdvancedItems",
+              {itemId : itemIdValue},
+              "lightning",
+              function(cmp,status,message) {
+              });
+      });
+	</script>
+</apex:page>

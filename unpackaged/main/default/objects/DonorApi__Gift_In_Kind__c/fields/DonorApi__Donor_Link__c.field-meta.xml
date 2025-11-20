@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DonorApi__Donor_Link__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**System Calculated** A link to the related donor&#39;s record as determined by the value of the &quot;Entity&quot; field.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(DonorApi__Entity__c,&quot;Account&quot;),HYPERLINK(&quot;/&quot; &amp; DonorApi__Account__r.Id, DonorApi__Account__r.Name), HYPERLINK(&quot;/&quot; &amp; DonorApi__Contact__r.Id, DonorApi__Contact__r.FirstName &amp; &quot; &quot; &amp; DonorApi__Contact__r.LastName))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>**System Calculated** A link to the related donor&#39;s record as determined by the value of the &quot;Entity&quot; field.</inlineHelpText>
+    <label>Donor</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

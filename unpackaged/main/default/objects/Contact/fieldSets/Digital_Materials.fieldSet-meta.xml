@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Digital_Materials</fullName>
+    <description>On the Community site in the My Profile section</description>
+    <displayedFields>
+        <field>FON_My_Digital_Material_URL__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>Digital Materials</label>
+</FieldSet>

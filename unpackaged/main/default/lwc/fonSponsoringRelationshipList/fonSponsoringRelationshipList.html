@@ -1,0 +1,47 @@
+<!--
+  @description       : 
+  @author            : Malik Gray
+  @group             : 
+  @last modified on  : 12-22-2020
+  @last modified by  : Malik Gray
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   12-14-2020   Malik Gray   Initial Version
+-->
+<template>
+    <template if:true={sponsoringRelationshipsBySponsoringOrganizationId.data}>
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="12">
+                <lightning-layout>
+                    <lightning-layout-item padding="horizontal-medium" size="3">
+                        <strong><div>Sponsored Organization</div></strong>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="horizontal-medium" size="2">
+                        <strong><div>R/T Number</div></strong>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="horizontal-medium" size="3">
+                        <strong><div>Status</div></strong>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="2">
+                        <strong><div>Membership Start Date</div></strong>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="2">
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+            <template
+                for:each={sponsoringRelationshipsBySponsoringOrganizationId.data}
+                for:item="sponsoringRelationship"
+            >
+                <lightning-layout-item
+                    key={sponsoringRelationship.Id}
+                    size="12"
+                >
+                    <c-fon-sponsoring-relationship-list-item sponsoring-relationship={sponsoringRelationship}>
+                    </c-fon-sponsoring-relationship-list-item>
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>
+        
+    </template>
+</template>

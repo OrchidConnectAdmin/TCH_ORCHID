@@ -1,0 +1,11 @@
+<apex:page applyHtmlTag="false"
+    applyBodyTag="false"
+    id="AwsProxy"
+    controller="Framework.AwsUtil"
+    showHeader="false"
+    sideBar="false"
+    standardStylesheets="false"
+    docType="html-5.0"
+    action="{!redirect}"
+>
+</apex:page>

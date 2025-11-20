@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderApi__Schedule_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>**Conditionally Required** &quot;Installment&quot;, &quot;Termed Recurring&quot;, or &quot;Evergreen Recurring&quot; required when creating new payment schedules from an E-Payment transaction.</description>
+    <inlineHelpText>**Conditionally Required** &quot;Installment&quot;, &quot;Termed Recurring&quot;, or &quot;Evergreen Recurring&quot; required when creating new payment schedules from an E-Payment transaction.</inlineHelpText>
+    <label>Schedule Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Evergreen Recurring</fullName>
+                <default>false</default>
+                <label>Evergreen Recurring</label>
+            </value>
+            <value>
+                <fullName>Installment</fullName>
+                <default>false</default>
+                <label>Installment</label>
+            </value>
+            <value>
+                <fullName>Termed Recurring</fullName>
+                <default>false</default>
+                <label>Termed Recurring</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

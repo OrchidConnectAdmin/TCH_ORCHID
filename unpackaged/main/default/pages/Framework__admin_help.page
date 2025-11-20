@@ -1,0 +1,76 @@
+<apex:page tabStyle="Framework__tab" sidebar="false" showHeader="true">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <apex:composition template="Framework__admin">
+
+      <apex:define name="admin-icon">
+        <img src="//fonteva-cdn.s3.amazonaws.com/framework-admin/HelpSettings/HelpSettings.svg" style="height:50px;" alt="Placeholder" />
+      </apex:define>
+
+      <apex:define name="breadcrumbs">
+
+      </apex:define>
+
+      <apex:define name="title">{!$Label.Help} {!$Label.Resources}</apex:define>
+
+      <apex:define name="main">
+        <div class="slds-col slds-size--1-of-1 slds-p-vertical--medium">
+          <div class="slds-col slds-p-horizontal--small slds-grid slds-wrap">
+            
+            <div class="slds-medium-size--1-of-3 slds-small-size--1-of-1 slds-p-around--small">
+              <div class="slds-box slds-text-align--center slds-object-height--large">
+                <div class="slds-text-heading--small slds-m-bottom--small">
+                  <a href="http://fonteva.io" target="_blank">API Documentation</a>
+                </div>
+
+                <img src="{!URLFOR($Resource.SLDS_Base, 'img/help/api-docs_thumb.jpg')}" height="150px" class="slds-m-bottom--small" />
+
+                <div class="slds-text-body--regular">
+                  I/O documents for Spark, including an example API Service integration with Twitter.
+                </div>
+              </div>
+            </div>
+
+            <div class="slds-medium-size--1-of-3 slds-small-size--1-of-1 slds-p-around--small">
+              <div class="slds-box slds-text-align--center slds-object-height--large">
+                <div class="slds-text-heading--small slds-m-bottom--small">
+                  <a href="http://docs.fonteva.com" target="_blank">Online Help</a>
+                </div>
+
+                <img src="{!URLFOR($Resource.SLDS_Base, 'img/help/help-docs_thumb.jpg')}" height="150px" class="slds-m-bottom--small" />
+
+                <div class="slds-text-body--regular">
+                  Comprehensive user and administrator documentation for all Fonteva apps.
+                </div>
+              </div>
+            </div>
+
+            <div class="slds-medium-size--1-of-3 slds-small-size--1-of-1 slds-p-around--small">
+              <div class="slds-box slds-text-align--center slds-object-height--large">
+                <div class="slds-text-heading--small slds-m-bottom--small">
+                  <a href="http://fonteva.com" target="_blank">Fonteva.com</a>
+                </div>
+
+                <img src="{!URLFOR($Resource.SLDS_Base, 'img/help/fonteva_thumb.jpg')}" height="150px" class="slds-m-bottom--small" />
+
+                <div class="slds-text-body--regular">
+                  Fonteva's corporate website with information on products and solutions, news and events, and the Fonteva blog.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        
+        </div>
+      </apex:define>
+
+      <apex:define name="scripts">
+        <script type="text/javascript">
+          $(function(e) {
+            $('#admin_help').addClass('selected');
+          });
+        </script>
+      </apex:define>
+
+    </apex:composition>
+  </html>
+</apex:page>

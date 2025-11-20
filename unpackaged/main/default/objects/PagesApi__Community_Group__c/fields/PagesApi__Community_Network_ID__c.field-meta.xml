@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PagesApi__Community_Network_ID__c</fullName>
+    <deprecated>false</deprecated>
+    <description>** System Calculated ** This field shows the ID for the related community.</description>
+    <externalId>false</externalId>
+    <formula>PagesApi__Site__r.PagesApi__Community_Network_ID__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>** System Calculated ** This field shows the ID for the related community.</inlineHelpText>
+    <label>Community Network ID</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

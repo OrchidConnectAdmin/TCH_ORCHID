@@ -1,0 +1,49 @@
+<apex:page showHeader="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           controller="DirectoryApi.MemberDirectoryController">
+  <apex:composition template="DirectoryApi__template">
+    <apex:define name="mdTitle">
+      {!sd.Directory__r.Name}
+    </apex:define>
+    <apex:define name="mdStyles">
+      <link rel="stylesheet" href="//s3.amazonaws.com/fonteva-cdn/global/plugins/tags/bootstrap-tagsinput.css"/>
+      <link rel="stylesheet" href="//s3.amazonaws.com/package-assets/master/aui/lib/select2/dist/css/select2.min.css"/>
+      <link rel="stylesheet" type="text/css" href="{!cdn}/emerald/lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
+	</apex:define>
+    <apex:define name="mdScripts">
+      <script src="//s3.amazonaws.com/fonteva-cdn/global/plugins/tags/bootstrap-tagsinput.min.js"></script>
+      <script src="//s3.amazonaws.com/package-assets/master/aui/lib/select2/dist/js/select2.min.js"/>
+      <script src="{!cdn}/emerald/lib/moment/min/moment.min.js"/>
+      <script src="{!cdn}/emerald/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"/>
+    </apex:define>
+    <apex:define name="mdMain">
+      <apex:outputPanel rendered="{!$CurrentPage.parameters.autonumber != ''}">
+        <c:SearchMembers resultFieldCSV="{!resultFieldCSV}" no_results_found_message="{!$Label.directoryapi__no_results_found}"/>
+      </apex:outputPanel>
+      <apex:outputPanel id="errorPanel" rendered="{!$CurrentPage.parameters.autonumber == ''}">
+        <div class="container-fluid p-t-50">
+          <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+              <div class="panel panel-primary">
+                <div class="panel-heading" style="background:#FF9A40">
+                  <h4 class="panel-title">
+                    <span class="text-danger m-r-10 f-s-18">
+                      <i class="glyphicon glyphicon-exclamation-sign"></i>
+                    </span>
+                          {!$Label.OrderApi__Error_VF_Page_Load_Error_Panel_Title}
+                  </h4>
+                </div>
+                <div class="panel-body">
+                  <h3>{!$Label.Site_Directory_Not_Found}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:outputPanel>
+    </apex:define>
+  </apex:composition>
+</apex:page>

@@ -1,0 +1,6 @@
+Hello,
+
+A new member ({!Contact.Name}) has registered from the self registration portal. Please click {!Contact.Link} to see the contact. 
+
+Thanks,
+{!Organization.Name}
