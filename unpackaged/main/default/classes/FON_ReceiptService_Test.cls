@@ -45,12 +45,25 @@ public class FON_ReceiptService_Test {
         OrderApi__Item__c itm = new OrderApi__Item__c();
         itm.Name = 'NCP Session Application Fee';
         itm.ProgramApi__Program__c = pp.Id;
+        itm.Is_NCP_Filing_Fee__c = true;
         insert itm;
         
+        OrderApi__Sales_Order__c so = new OrderApi__Sales_Order__c();
+        //so.OrderApi__Account__c = acc.Id;
+        so.OrderApi__Contact__c = con.Id;
+        insert so;
         
+        OrderApi__Sales_Order_Line__c sol = new OrderApi__Sales_Order_Line__c();
+        sol.OrderApi__Item__c = itm.Id;
+        sol.OrderApi__Sales_Order__c = so.Id;
+        //sol.OrderApi__Account__c = acc.Id;
+        sol.OrderApi__Contact__c = con.Id;
+        insert sol;
+        
+        install();
         OrderApi__Receipt__c rec = new OrderApi__Receipt__c();
         rec.OrderApi__Contact__c = con.Id;
-        
+        rec.OrderApi__Sales_Order__c = so.Id;
         insert rec;
         
         OrderApi__Receipt_Line__c rl = new OrderApi__Receipt_Line__c();
@@ -59,7 +72,7 @@ public class FON_ReceiptService_Test {
         insert rl;
         
         
-        install();
+        
         rec.OrderApi__Is_Posted__c = true;
         rec.OrderApi__Total__c = 0;
         update rec;

@@ -287,8 +287,8 @@
     <assignments>
         <name>assign_prorate_var</name>
         <label>assign prorate var</label>
-        <locationX>1984</locationX>
-        <locationY>2025</locationY>
+        <locationX>1522</locationX>
+        <locationY>2137</locationY>
         <assignmentItems>
             <assignToReference>hasProrate</assignToReference>
             <operator>Assign</operator>
@@ -310,8 +310,8 @@
     <assignments>
         <name>assign_prorate_var_0</name>
         <label>assign prorate var</label>
-        <locationX>2943</locationX>
-        <locationY>2024</locationY>
+        <locationX>2369</locationX>
+        <locationY>2194</locationY>
         <assignmentItems>
             <assignToReference>hasProrate</assignToReference>
             <operator>Assign</operator>
@@ -402,8 +402,8 @@
     <assignments>
         <name>assign_prorate_var_0_0_0_0_0</name>
         <label>assign prorate var</label>
-        <locationX>1482</locationX>
-        <locationY>2033</locationY>
+        <locationX>1022</locationX>
+        <locationY>2145</locationY>
         <assignmentItems>
             <assignToReference>hasProrate</assignToReference>
             <operator>Assign</operator>
@@ -423,10 +423,33 @@
         </connector>
     </assignments>
     <assignments>
+        <name>assign_prorate_var_0_0_0_0_0_0</name>
+        <label>assign prorate var</label>
+        <locationX>2842</locationX>
+        <locationY>2155</locationY>
+        <assignmentItems>
+            <assignToReference>hasProrate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>proratesList</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_1QFull_Members_ALL.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>assign_vars_0_0_0_0_0_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>assign_vars</name>
         <label>assign vars</label>
-        <locationX>2115</locationX>
-        <locationY>2123</locationY>
+        <locationX>1653</locationX>
+        <locationY>2235</locationY>
         <assignmentItems>
             <assignToReference>smsList</assignToReference>
             <operator>Add</operator>
@@ -441,8 +464,8 @@
     <assignments>
         <name>assign_vars_0</name>
         <label>assign vars</label>
-        <locationX>2811</locationX>
-        <locationY>2129</locationY>
+        <locationX>2232</locationX>
+        <locationY>2268</locationY>
         <assignmentItems>
             <assignToReference>smsList</assignToReference>
             <operator>Add</operator>
@@ -505,8 +528,8 @@
     <assignments>
         <name>assign_vars_0_0_0_0_0</name>
         <label>assign vars</label>
-        <locationX>1613</locationX>
-        <locationY>2131</locationY>
+        <locationX>1153</locationX>
+        <locationY>2243</locationY>
         <assignmentItems>
             <assignToReference>smsList</assignToReference>
             <operator>Add</operator>
@@ -518,6 +541,62 @@
             <targetReference>Loop_1QFull_CONVERT</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>assign_vars_0_0_0_0_0_0</name>
+        <label>assign vars</label>
+        <locationX>2714</locationX>
+        <locationY>2258</locationY>
+        <assignmentItems>
+            <assignToReference>smsList</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_1QFull_Members_ALL.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_1QFull_Members_ALL</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>choice1Q</name>
+        <choiceText>1Q</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>1Q</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>choice2Q</name>
+        <choiceText>2Q</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>2Q</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>choice3Q</name>
+        <choiceText>3Q</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>3Q</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>choice4Q</name>
+        <choiceText>4Q</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>4Q</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>choiceBlank</name>
+        <choiceText>All</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>All</stringValue>
+        </value>
+    </choices>
     <choices>
         <name>choicesQuarterALL</name>
         <choiceText>All</choiceText>
@@ -715,8 +794,8 @@
     <decisions>
         <name>Check_Get_1QFull</name>
         <label>Check Get 1QFull</label>
-        <locationX>2667</locationX>
-        <locationY>1832</locationY>
+        <locationX>2232</locationX>
+        <locationY>1969</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>W_Get_1QFull_Non_1Q_0</name>
@@ -750,10 +829,44 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Check_Get_1QFull_ALL</name>
+        <label>Check Get 1QFull ALL</label>
+        <locationX>2705</locationX>
+        <locationY>1925</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>W_Get_1QFull_Non_1Q_0_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Sponsoring_Relationship_1QFull_All</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Loop_1QFull_Members_ALL</targetReference>
+            </connector>
+            <label>W Get 1QFull ALL</label>
+        </rules>
+        <rules>
+            <name>WO_Get_1QFull_Non_1Q_0_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Sponsoring_Relationship_1QFull_All</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>WO Get 1QFull</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Check_Get_1QFull_Non_1Q</name>
         <label>Check Get 1QFull Non 1Q</label>
-        <locationX>2274</locationX>
-        <locationY>1837</locationY>
+        <locationX>1814</locationX>
+        <locationY>1949</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>W_Get_1QFull_Non_1Q</name>
@@ -789,8 +902,8 @@
     <decisions>
         <name>Check_Get_1QFull_Non_1Q_0</name>
         <label>Check Get 1QFull Non 1Q</label>
-        <locationX>1772</locationX>
-        <locationY>1845</locationY>
+        <locationX>1312</locationX>
+        <locationY>1957</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>W_Get_1QFull_Non_1Q_0_0</name>
@@ -823,8 +936,8 @@
     <decisions>
         <name>Check_Prorate_0_0</name>
         <label>Check Prorate</label>
-        <locationX>2108</locationX>
-        <locationY>1928</locationY>
+        <locationX>1646</locationX>
+        <locationY>2040</locationY>
         <defaultConnector>
             <targetReference>assign_vars</targetReference>
         </defaultConnector>
@@ -848,8 +961,8 @@
     <decisions>
         <name>Check_Prorate_0_0_0</name>
         <label>Check Prorate</label>
-        <locationX>1606</locationX>
-        <locationY>1936</locationY>
+        <locationX>1146</locationX>
+        <locationY>2048</locationY>
         <defaultConnector>
             <targetReference>assign_vars_0_0_0_0_0</targetReference>
         </defaultConnector>
@@ -870,8 +983,8 @@
     <decisions>
         <name>Check_Prorate_0_0_0_0</name>
         <label>Check Prorate</label>
-        <locationX>2799</locationX>
-        <locationY>1923</locationY>
+        <locationX>2217</locationX>
+        <locationY>2071</locationY>
         <defaultConnector>
             <targetReference>assign_vars_0</targetReference>
         </defaultConnector>
@@ -963,6 +1076,31 @@
             </conditions>
             <connector>
                 <targetReference>assign_prorate_var_0_0_0_0</targetReference>
+            </connector>
+            <label>IM Prorate</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Prorate_0_0_0_0_0_0_0_0</name>
+        <label>Check Prorate</label>
+        <locationX>2707</locationX>
+        <locationY>2083</locationY>
+        <defaultConnector>
+            <targetReference>assign_vars_0_0_0_0_0_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IM_Prorate_0_0_0_0_0_0_0_0</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Loop_1QFull_Members_ALL.is_First_Year__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_prorate_var_0_0_0_0_0_0</targetReference>
             </connector>
             <label>IM Prorate</label>
         </rules>
@@ -1098,6 +1236,21 @@
                 <targetReference>Get_1QFull_CONVERTS</targetReference>
             </connector>
             <label>Pre Conversion</label>
+        </rules>
+        <rules>
+            <name>AllSQ</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Sub_Quarter</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>All</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Sponsoring_Relationship_1QFull_All</targetReference>
+            </connector>
+            <label>All</label>
         </rules>
         <rules>
             <name>X1Q</name>
@@ -1571,8 +1724,8 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
     <loops>
         <name>Loop_1QFull_CONVERT</name>
         <label>Loop 1QFull CONVERT</label>
-        <locationX>1784</locationX>
-        <locationY>2025</locationY>
+        <locationX>1324</locationX>
+        <locationY>2137</locationY>
         <collectionReference>Get_1QFull_CONVERTS</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1585,8 +1738,8 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
     <loops>
         <name>Loop_1QFull_Members</name>
         <label>Loop 1QFull Members</label>
-        <locationX>2676</locationX>
-        <locationY>2018</locationY>
+        <locationX>2088</locationX>
+        <locationY>2188</locationY>
         <collectionReference>Get_Sponsoring_Relationship_0</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1597,10 +1750,24 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
         </noMoreValuesConnector>
     </loops>
     <loops>
+        <name>Loop_1QFull_Members_ALL</name>
+        <label>Loop 1QFull Members ALL</label>
+        <locationX>2579</locationX>
+        <locationY>2153</locationY>
+        <collectionReference>Get_Sponsoring_Relationship_1QFull_All</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Check_Prorate_0_0_0_0_0_0_0_0</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Screen_PRORATE_Accounts_0_0</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
         <name>Loop_1QFull_Non_1Q</name>
         <label>Loop 1QFull Non 1Q</label>
-        <locationX>2280</locationX>
-        <locationY>2038</locationY>
+        <locationX>1818</locationX>
+        <locationY>2150</locationY>
         <collectionReference>Get_1QFull_Non_1Q</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1759,8 +1926,8 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
     <recordLookups>
         <name>Get_1QFull_CONVERTS</name>
         <label>Get 1QFull CONVERTS</label>
-        <locationX>1776</locationX>
-        <locationY>1641</locationY>
+        <locationX>1316</locationX>
+        <locationY>1753</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_Get_1QFull_Non_1Q_0</targetReference>
@@ -1794,8 +1961,8 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
     <recordLookups>
         <name>Get_1QFull_Non_1Q</name>
         <label>Get 1QFull Non 1Q</label>
-        <locationX>2278</locationX>
-        <locationY>1633</locationY>
+        <locationX>1821</locationX>
+        <locationY>1743</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_Get_1QFull_Non_1Q</targetReference>
@@ -2123,8 +2290,8 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
     <recordLookups>
         <name>Get_Sponsoring_Relationship_0</name>
         <label>Get 1QFull Sponsoring Relationship</label>
-        <locationX>2675</locationX>
-        <locationY>1630</locationY>
+        <locationX>2238</locationX>
+        <locationY>1737</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_Get_1QFull</targetReference>
@@ -2177,6 +2344,62 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
             <operator>EqualTo</operator>
             <value>
                 <stringValue>1Q</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Sponsoring_Relationships__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Sponsoring_Relationship_1QFull_All</name>
+        <label>Get 1QFull Sponsoring Relationship ALL</label>
+        <locationX>2710</locationX>
+        <locationY>1740</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Get_1QFull_ALL</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Sponsoring_Organization__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Account.recordId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Billing_Type_Item_or_Deposit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Billing_Type</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Is_Archived__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Date_Accepted_by_ECCHO__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>In_Production__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Yes</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
@@ -2415,7 +2638,7 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
     <screens>
         <name>Billing_Information</name>
         <label>Billing Information</label>
-        <locationX>4305</locationX>
+        <locationX>4303</locationX>
         <locationY>846</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2506,8 +2729,13 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
         </fields>
         <fields>
             <name>Sub_Quarter</name>
-            <choiceReferences>billingQuarter</choiceReferences>
+            <choiceReferences>choiceBlank</choiceReferences>
+            <choiceReferences>choice1Q</choiceReferences>
+            <choiceReferences>choice2Q</choiceReferences>
+            <choiceReferences>choice3Q</choiceReferences>
+            <choiceReferences>choice4Q</choiceReferences>
             <dataType>String</dataType>
+            <defaultSelectedChoiceReference>choiceBlank</defaultSelectedChoiceReference>
             <fieldText>Sub-Quarter</fieldText>
             <fieldType>DropdownBox</fieldType>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -2664,7 +2892,7 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
         <allowPause>true</allowPause>
         <fields>
             <name>ProcessCompleted</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(62, 62, 60); background-color: rgb(255, 255, 255);&quot;&gt;Sales Order generated, {!GET_NEW_SO.SO_URL__c} to view.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Or go to this page:&lt;/p&gt;&lt;p&gt;https://cha--tchfull.sandbox.lightning.force.com/lightning/r/OrderApi__Sales_Order__c/{!Create_SO}/view&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Sales Order generated, {!GET_NEW_SO.SO_URL__c} to view.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Or go to this page:&lt;/p&gt;&lt;p&gt;https://cha.lightning.force.com/lightning/r/OrderApi__Sales_Order__c/{!Create_SO}/view&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <styleProperties>
                 <verticalAlignment>
@@ -2705,8 +2933,8 @@ IF({!Sub_Quarter} = &#39;4Q&#39;,6,0
     <screens>
         <name>Error_Message_0</name>
         <label>Error Message</label>
-        <locationX>2504</locationX>
-        <locationY>1829</locationY>
+        <locationX>2499</locationX>
+        <locationY>1831</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>

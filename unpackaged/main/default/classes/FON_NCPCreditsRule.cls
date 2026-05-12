@@ -17,7 +17,7 @@ global without sharing class FON_NCPCreditsRule extends Framework.Domain{
     
     public override void afterInsert(){
         Framework.Log.push(FON_NCPCreditsRule.class.getName(), 'afterInsert');
-        
+        /*
         Integer year = system.today().year();
         Integer cday = system.today().day();
         Integer cmonth = system.today().month();
@@ -88,7 +88,7 @@ global without sharing class FON_NCPCreditsRule extends Framework.Domain{
             }
             
             //FON_NCPCreditService.createSO((NCP_Credits__c []) records);
-        
+        */
         
         Framework.Log.pop();
     }
@@ -102,6 +102,7 @@ global without sharing class FON_NCPCreditsRule extends Framework.Domain{
     public override void afterUpdate(Map<Id, SObject> oldMap) {
         Framework.Log.push(FON_NCPCreditsRule.class.getName(), 'afterUpdate');
 
+        /*
         Integer year = system.today().year();
         Integer cday = system.today().day();
         Integer cmonth = system.today().month();
@@ -172,7 +173,7 @@ global without sharing class FON_NCPCreditsRule extends Framework.Domain{
             }
             
             //FON_NCPCreditService.createSO((NCP_Credits__c []) records);
-                   
+            */       
         
         Framework.Log.pop();
     }

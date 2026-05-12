@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Item_Class__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Item Class</label>
+    <referenceTo>Credit_to_Cash_Item_Class__c</referenceTo>
+    <relationshipLabel>Credit to Cash Items</relationshipLabel>
+    <relationshipName>Credit_to_Cash_Items</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

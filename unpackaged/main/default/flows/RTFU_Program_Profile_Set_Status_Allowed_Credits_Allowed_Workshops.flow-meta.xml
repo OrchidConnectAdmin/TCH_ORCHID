@@ -5,8 +5,8 @@
     <decisions>
         <name>check_contact_program_profiles</name>
         <label>check contact program profiles</label>
-        <locationX>176</locationX>
-        <locationY>395</locationY>
+        <locationX>676</locationX>
+        <locationY>443</locationY>
         <defaultConnector>
             <targetReference>Set_Status_and_Allowed_Credentials</targetReference>
         </defaultConnector>
@@ -21,7 +21,7 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
-            <label>w/ profiles</label>
+            <label>w/o profiles</label>
         </rules>
     </decisions>
     <description>- assign correct status for new registrants
@@ -51,7 +51,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -64,8 +64,8 @@
     <recordLookups>
         <name>Get_Contact_Program_Profiles</name>
         <label>Get Contact Program Profiles</label>
-        <locationX>176</locationX>
-        <locationY>287</locationY>
+        <locationX>676</locationX>
+        <locationY>335</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>check_contact_program_profiles</targetReference>
@@ -78,6 +78,13 @@
                 <elementReference>$Record.ProgramApi__Contact__c</elementReference>
             </value>
         </filters>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>ProgramApi__Program_Profile__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -85,8 +92,33 @@
     <recordUpdates>
         <name>Set_Status_and_Allowed_Credentials</name>
         <label>Set Status and Allowed Credentials</label>
-        <locationX>264</locationX>
-        <locationY>503</locationY>
+        <locationX>808</locationX>
+        <locationY>551</locationY>
+        <inputAssignments>
+            <field>Allowed_Credits__c</field>
+            <value>
+                <elementReference>allowedCredits</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Allowed_Workshops__c</field>
+            <value>
+                <elementReference>allowedWorkshop</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ProgramApi__Status__c</field>
+            <value>
+                <stringValue>On Track</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Set_Status_and_Allowed_Credentials_0</name>
+        <label>Set Status and Allowed Credentials</label>
+        <locationX>994</locationX>
+        <locationY>486</locationY>
         <inputAssignments>
             <field>Allowed_Credits__c</field>
             <value>
@@ -108,14 +140,29 @@
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
-        <locationX>50</locationX>
-        <locationY>0</locationY>
+        <locationX>550</locationX>
+        <locationY>48</locationY>
         <connector>
             <targetReference>Get_Contact_Program_Profiles</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ProgramApi__Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Maintenance</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ProgramApi__Status__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
         <object>ProgramApi__Program_Profile__c</object>
-        <recordTriggerType>Create</recordTriggerType>
-        <triggerType>RecordBeforeSave</triggerType>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
 </Flow>

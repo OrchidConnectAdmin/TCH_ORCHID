@@ -3,6 +3,8 @@
  */
 
 public without sharing class FON_ProgramProfileService {
+    public static Boolean hasQueuedValidateTerms = false;
+    
     public FON_ProgramProfileService() {
         System.debug('Inside FON_ProgramProfileService Constructor');
     }
@@ -158,6 +160,165 @@ system.debug('solIDS '+solIds);
 
     }
 */
+    
+	public static void setTerms(List<ProgramApi__Program_Profile__c> records){
+        Date currentDate = system.today();
+        
+        Set<Id> ppIds = new Set<Id>();
+        Set<Id> conIds = new Set<Id>();
+        Set<Id> accIds = new Set<Id>();
+        List<ProgramApi__Program_Profile__c> ppList = new List<ProgramApi__Program_Profile__c>();
+        
+        for(ProgramApi__Program_Profile__c pp : records){
+            ppIds.add(pp.Id);
+            conIds.add(pp.ProgramApi__Contact__c);
+            accIds.add(pp.ProgramApi__Account__c);
+        }
+        
+        ppList = [
+            SELECT Id,ProgramApi__Contact__c,ProgramApi__Account__c,
+            ProgramApi__Program__r.Name,
+            ProgramApi__SalesOrderLineId__c,
+            FON_Program_Start_Date__c,
+            FON_Program_End_Date__c,
+            ProgramApi__Status__c,
+            Renewed_on_New_Year__c,
+            ProgramApi__Create_Maintenance_Term__c
+            FROM ProgramApi__Program_Profile__c
+            WHERE Id IN :ppIds
+        ];
+
+        
+        List<ProgramApi__Program_Profile__c> ppsListAll = [SELECT Id, FON_Program_Start_Date__c, FON_Program_End_Date__c, ProgramApi__Account__c, ProgramApi__Contact__c  
+                                                           FROM ProgramApi__Program_Profile__c 
+                                                           WHERE ProgramApi__Account__c IN: accIds AND ProgramApi__Contact__c IN: conIds AND Id NOT IN: ppIDs];
+        
+        Map<String, List<ProgramApi__Program_Profile__c>> mapAccContToPPList = new Map<String, List<ProgramApi__Program_Profile__c>>();
+        for(ProgramApi__Program_Profile__c pp : ppsListAll){
+            String keyPP = String.valueOf(pp.ProgramApi__Account__c) + String.valueOf(pp.ProgramApi__Contact__c);
+            if(mapAccContToPPList.containsKey(keyPP)){
+                mapAccContToPPList.get(keyPP).add(pp);
+            }else{
+                mapAccContToPPList.put(keyPP, new List<ProgramApi__Program_Profile__c>{pp});
+            }
+        }
+        
+        List<ProgramApi__Program_Term__c> pTerms = new List<ProgramApi__Program_Term__c>();
+        for(ProgramApi__Program_Profile__c pp : ppList){
+            if(pp.ProgramApi__Program__r.Name == 'NCP'){
+                
+                String keyPP = String.valueOf(pp.ProgramApi__Account__c) + String.valueOf(pp.ProgramApi__Contact__c);
+                List<ProgramApi__Program_Profile__c> currentProfiles =
+                        mapAccContToPPList.get(keyPP) != null 
+                        ? mapAccContToPPList.get(keyPP)
+                        : new List<ProgramApi__Program_Profile__c>();
+                
+                if(pp.FON_Program_End_Date__c == null || pp.FON_Program_Start_Date__c == null){
+                    continue;
+                }
+                Integer amountOfTerms = pp.FON_Program_End_Date__c.year() - pp.FON_Program_Start_Date__c.year();
+                for (Integer i = 0; i <= amountOfTerms; i++) {
+                    ProgramApi__Program_Term__c ppterm = new ProgramApi__Program_Term__c();
+                    ppterm.ProgramApi__Profile__c = pp.Id;
+                    ppterm.Contact__c = pp.ProgramApi__Contact__c;
+                    ppterm.FON_Allowed_Workshops__c = Decimal.valueOf(System.Label.Allowed_Workshops_in_1_year_NCP);
+                    ppterm.FON_Allowed_Credits__c = Decimal.valueOf(System.Label.Allowed_Credits_for_1_year_NCP);
+                    //if(i == 0 && !pTermDefault.isEmpty()) {
+                    //    // commenting out in attempt to disable default Maintenance
+                    //    //ppterm.ProgramApi__Is_Maintenance__c = TRUE;
+                    //}
+                    if(i == 0) {
+                        if(currentProfiles.size()>0 ){
+							ppterm.ProgramApi__Start_Date__c = Date.newInstance(pp.FON_Program_Start_Date__c.year(), 1, 1);
+                        }else{
+                            ppterm.ProgramApi__Start_Date__c = Date.newInstance(pp.FON_Program_Start_Date__c.year(), 4, 1);
+                        }
+                    }else{
+                        ppterm.ProgramApi__Start_Date__c = Date.newInstance(pp.FON_Program_Start_Date__c.year() + i, 1, 1);
+                    }
+                    /*else{
+                        //if(pp.Renewed_on_New_Year__c){
+                        //    ppterm.ProgramApi__Start_Date__c = Date.newInstance(pp.FON_Program_Start_Date__c.year() + i, 1, 1);
+    
+                        //}else{
+                            //if(pp.ProgramApi__Status__c == 'Maintenance'){
+                            //    ppterm.ProgramApi__Start_Date__c = Date.newInstance(pp.FON_Program_Start_Date__c.year() + i, 1, 1);
+                            //}else{
+                                Integer testvar = 0;
+                                testvar++;
+                                testvar++;
+                                testvar++;
+                                testvar++;
+                                ppterm.ProgramApi__Start_Date__c = Date.newInstance(pp.FON_Program_Start_Date__c.year() + i, 1, 1);
+                            //}
+                            
+                        //}
+                    }*/
+                    ppterm.ProgramApi__End_Date__c = Date.newInstance(pp.FON_Program_Start_Date__c.year() + i, 12, 31);
+                    pTerms.add(ppterm);
+                }
+            }
+        }
+        
+        if(pTerms.size()>0){
+            insert pTerms;
+        }
+        
+        Integer vr = 0;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+        vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+        vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+            vr++;
+        
+        //if(ppList.size()> 0){
+        //	validateTerms queueableJob = new validateTerms(ppList);
+        //	ID jobID = System.enqueueJob(queueableJob);
+        //}
+        
+        /*List<ProgramApi__Program_Term__c> pTermDefault = [SELECT Id, Name FROM ProgramApi__Program_Term__c WHERE ProgramApi__Profile__c =: ppIds AND Contact__c = null ];
+        System.debug('pTermDefault '+pTermDefault);
+        if(!pTermDefault.isEmpty()){
+         	delete pTermDefault;
+        }*/
+        
+        
+    }
+    
     public static void setBadge(List<ProgramApi__Program_Profile__c> records, Map<Id,ProgramApi__Program_Profile__c> oldRecords){
 
         Id bdgType = [SELECT Id FROM OrderApi__Badge_Type__c WHERE Name = 'NCP Maintenance Badge' LIMIT 1].Id;
@@ -204,23 +365,88 @@ system.debug('solIDS '+solIds);
             update lstConUpd;
         }
     }
-    /*
+    
     public static void setCreateStatus(List<ProgramApi__Program_Profile__c> records){
 		Set<Id> ppIDs = new Set<Id>();
+        Set<Id> conIds = new Set<Id>();
+        Set<Id> accIds = new Set<Id>();
+        String status;
+        List<ProgramApi__Program_Profile__c> updatePP = new List<ProgramApi__Program_Profile__c>();
         //for(ProgramApi__Program_Profile__c pp : records){
         //    ppIDs.add(pp.Id);
         //}
         for(ProgramApi__Program_Profile__c pp : records){
-            if(pp.Registration_Origin__c == 'New Registrant'){
-                ppIDs.add(pp.Id);      
+            if(pp.Registration_Origin__c == 'New Registrant' && pp.ProgramApi__Status__c == 'Maintenance'){
+                status = 'On Track';
+            }else{
+                status = 'Maintenance';
             }
+            conIds.add(pp.ProgramApi__Contact__c);
+            accIds.add(pp.ProgramApi__Account__c);
+            ppIDs.add(pp.Id);
 
         }
-        setStatusQueue queueableJob = new setStatusQueue(ppIDs, 'On Track');
-        ID jobID = System.enqueueJob(queueableJob);
+        
+        List<ProgramApi__Program_Profile__c> ppsListAll = [SELECT Id, FON_Program_Start_Date__c, FON_Program_End_Date__c, ProgramApi__Account__c, ProgramApi__Contact__c  
+                                                           FROM ProgramApi__Program_Profile__c 
+                                                           WHERE ProgramApi__Account__c IN: accIds AND ProgramApi__Contact__c IN: conIds AND Id NOT IN: ppIds];
+        
+        Map<String, List<ProgramApi__Program_Profile__c>> mapAccContToPPList = new Map<String, List<ProgramApi__Program_Profile__c>>();
+        for(ProgramApi__Program_Profile__c pp : ppsListAll){
+            String keyPP = String.valueOf(pp.ProgramApi__Account__c) + String.valueOf(pp.ProgramApi__Contact__c);
+            if(mapAccContToPPList.containsKey(keyPP)){
+                mapAccContToPPList.get(keyPP).add(pp);
+            }else{
+                mapAccContToPPList.put(keyPP, new List<ProgramApi__Program_Profile__c>{pp});
+            }
+        }
+        for(ProgramApi__Program_Profile__c pp : records){
+            String keyPP = String.valueOf(pp.ProgramApi__Account__c) + String.valueOf(pp.ProgramApi__Contact__c);
+            List<ProgramApi__Program_Profile__c> currentProfiles =
+                        mapAccContToPPList.get(keyPP) != null 
+                        ? mapAccContToPPList.get(keyPP)
+                        : new List<ProgramApi__Program_Profile__c>();
+            
+            ProgramApi__Program_Profile__c newPP = new ProgramApi__Program_Profile__c();
+            newPP.Id = pp.Id;
+            if(currentProfiles.size()>0 ){
+                newPP.Registration_Origin__c = null;
+                newPP.ProgramApi__Status__c = 'Maintenance';
+            }else{
+                newPP.Registration_Origin__c = 'New Registrant';
+                newPP.ProgramApi__Status__c = 'On Track';
+            }
+            //newpp.FON_Trainer_Name__c = newPP.ProgramApi__Status__c ;
+            if(newPP.ProgramApi__Status__c != pp.ProgramApi__Status__c){
+                updatePP.add(newPP);
+            }
+            
+            /*
+            if(pp.Registration_Origin__c == 'New Registrant' && pp.ProgramApi__Status__c == 'Maintenance'){
+                status = 'On Track';
+            }else{
+                status = 'Maintenance';
+            }
+            conIds.add(pp.ProgramApi__Contact__c);
+            accIds.add(pp.ProgramApi__Account__c);
+            ppIDs.add(pp.Id);
+			*/
+
+        }
+        
+        if(updatePP.size()> 0){
+            //System.enqueueJob(new FON_ProgramProfileSetStatusQueueable(updatePP, 1), 1);
+            Queueable[] jobs = new Queueable[] {
+                new FON_ProgramProfileSetStatusQueueable(updatePP)
+            };
+            
+            // Enqueue through Gatekeeper with 2-minute retry delay
+            ///System.enqueueJob(new FON_QueueableGatekeeper(jobs, 0, 2));
+            FON_QueueableGatekeeper.enqueueIfFree(jobs, 0, 2);
+        }
 
     }
-	*/
+
     /*
     public static void setStatus(List<ProgramApi__Program_Profile__c> records, Map<Id,ProgramApi__Program_Profile__c> oldRecords){
 
@@ -388,25 +614,9 @@ system.debug('solIDS '+solIds);
         update lstPProfiles;
     }
 */
-/*
-    public class setStatusQueue implements Queueable {
 
-        private Set<Id> ppIds;
-        private String status;
 
-        public setStatusQueue(Set<Id> ppIds, String status) {
-            this.ppIds = ppIds;
-            this.status = status;
-        }
 
-        public void execute(QueueableContext context) {
-            List<ProgramApi__Program_Profile__c> lstPProfiles = [SELECT id, ProgramApi__Status__c FROM ProgramApi__Program_Profile__c WHERE Id IN :ppIds ];
-    
-            for(ProgramApi__Program_Profile__c pp : lstPProfiles ) {
-                pp.ProgramApi__Status__c = status;
-            }
-            update lstPProfiles;
-        }
-    }
-*/
+
+
 }

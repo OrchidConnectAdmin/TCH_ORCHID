@@ -37,13 +37,29 @@ public without sharing class AttendeesTriggerHelper {
                 pp.ProgramApi__Account__c = att.EventApi__Account__c;
                 pp.ProgramApi__Contact__c = att.EventApi__Contact__c;
                 pp.ProgramApi__Status__c = 'On Track';
+                pp.Exam_Year__c = att.Exam_Year__c == null ? null : String.valueOf(att.Exam_Year__c.intValue());
+
+                
+                // check for current profiles
+                //String keyPP = String.valueOf(pp.ProgramApi__Account__c) + String.valueOf(pp.ProgramApi__Contact__c);
+                //List<ProgramApi__Program_Profile__c> currentProfiles = new List<ProgramApi__Program_Profile__c>();
+                //currentProfiles = mapAccContToPPList.get(keyPP);
+                    
                 if(progNCP.size() > 0){
                     pp.ProgramApi__Program__c = progNCP[0].Id;
+                    
                 }
-                if(att.Exam_Year__c != null){
-                    pp.FON_Program_Start_Date__c = date.newInstance(integer.valueOf(att.Exam_Year__c), 4, 1);
-                    pp.FON_Program_End_Date__c = date.newInstance(integer.valueOf(att.Exam_Year__c) + 4, 12, 31);
-                }
+                /*
+                if(currentProfiles.size()>0 ){
+                    pp.FON_Program_Start_Date__c = date.newInstance(integer.valueOf(att.Exam_Year__c), 1, 1);
+                    pp.FON_Program_End_Date__c = date.newInstance(integer.valueOf(att.Exam_Year__c) + 5, 12, 31);
+                }else{
+                    //if(att.Exam_Year__c != null){
+                    	pp.FON_Program_Start_Date__c = date.newInstance(integer.valueOf(att.Exam_Year__c), 4, 1);
+                    	pp.FON_Program_End_Date__c = date.newInstance(integer.valueOf(att.Exam_Year__c) + 5, 12, 31);
+                	//}
+                }*/
+
                 pps.add(pp);
             }
         }

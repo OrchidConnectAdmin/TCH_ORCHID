@@ -6,10 +6,5 @@
         <minorNumber>4</minorNumber>
         <namespace>Framework</namespace>
     </packageVersions>
-    <packageVersions>
-        <majorNumber>128</majorNumber>
-        <minorNumber>1</minorNumber>
-        <namespace>OrderApi</namespace>
-    </packageVersions>
     <status>Active</status>
 </ApexClass>

@@ -131,7 +131,7 @@ public without sharing class Fon_CEInfoCntrl {
     }
     
     // this method will be used to found Program term record id based on login user contact.
-    private static string fetchProgramTerm(date sessionDate){
+    private static string fetchProgramTerm(date sessionDate,Boolean isActive){
         string loginUserContactId = fetchCurrentlogged(); 
         List<ProgramApi__Program_Term__c> progTermList = new List<ProgramApi__Program_Term__c>();
         if(!Test.isRunningTest()){ 
@@ -142,7 +142,7 @@ public without sharing class Fon_CEInfoCntrl {
                                                           WHERE ProgramApi__Profile__r.ProgramApi__Contact__c =: loginUserContactId
                                                           //AND ProgramApi__Profile__r.ProgramApi__Status__c != 'Completed'
                                                           AND (ProgramApi__Profile__r.ProgramApi__Status__c = 'On Track' OR ProgramApi__Profile__r.ProgramApi__Status__c = 'Cautionary' OR ProgramApi__Profile__r.ProgramApi__Status__c = 'Pending Revocation')
-                                                          AND ProgramApi__Active__c = true
+                                                          AND ProgramApi__Active__c =: isActive
                             							  AND ProgramApi__Start_Date__c <= :sessionDate
                                                           AND ProgramApi__End_Date__c >= :sessionDate
                                                           order by CreatedDate desc];
@@ -176,12 +176,6 @@ public without sharing class Fon_CEInfoCntrl {
             // getting session record
             seccionRec = fetch_sssionRec(seccionRecId);
             system.debug('\n--seccionRec--'+seccionRec);
-            // get program term record id.
-            programTermId = fetchProgramTerm(seccionRec.Session_Date__c);                    
-            
-            if(programTermId == null){
-                throw new AuraHandledException('Please create program term.');
-            }
             
             // get new credit year
             Integer cyear = seccionRec.Session_Date__c.year();
@@ -194,6 +188,15 @@ public without sharing class Fon_CEInfoCntrl {
                 isActive = true;
             }
             
+            // get program term record id.
+            programTermId = fetchProgramTerm(seccionRec.Session_Date__c, isActive);                    
+            
+            if(programTermId == null){
+                throw new AuraHandledException('Please create program term.');
+            }
+            
+
+            
             // get current terms
             List<ProgramApi__Program_Term__c> cterms = new List<ProgramApi__Program_Term__c>();
             if(!Test.isRunningTest()){
@@ -204,7 +207,7 @@ public without sharing class Fon_CEInfoCntrl {
                                               FROM ProgramApi__Program_Term__c 
                                               WHERE Contact__c =:loginUserContactId
                                               AND (ProgramApi__Profile__r.ProgramApi__Status__c = 'On Track' OR ProgramApi__Profile__r.ProgramApi__Status__c = 'Cautionary' OR ProgramApi__Profile__r.ProgramApi__Status__c = 'Pending Revocation')
-                            				  AND ProgramApi__Active__c = true
+                            				  //AND ProgramApi__Active__c = true
                                               AND ProgramApi__Active__c =: isActive AND CALENDAR_YEAR(ProgramApi__End_Date__c) =: cyear ORDER BY ProgramApi__End_Date__c DESC LIMIT 1];
             }else{
         		cterms = [SELECT FON_Allowed_Credits__c,
@@ -500,7 +503,7 @@ public without sharing class Fon_CEInfoCntrl {
         if( newCreds <= remCreds || expBadges.size()>0 ){
             try{
                 // Program term record Id.
-                string programTermId = fetchProgramTerm(creditRecDetails.sessionDate);
+                string programTermId = fetchProgramTerm(creditRecDetails.sessionDate, isActive);
                 system.debug(programTermId);
                 // get login user contact id
                 

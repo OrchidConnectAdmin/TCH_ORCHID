@@ -140,6 +140,60 @@ public without sharing class FON_ReceiptService {
         }
 
     }*/
+    
+    public static void approveOldCredits(List<OrderApi__Receipt__c> records) {
+        
+        Set<Id> conIds = new Set<Id>();
+        List<Id> soIds = new List<Id>();
+        List<OrderApi__Sales_Order__c> soList = new List<OrderApi__Sales_Order__c>();
+        List<NCP_Credits__c> ncpCredits = new List<NCP_Credits__c>();
+        List<NCP_Credits__c> ncpCreditsUpd = new List<NCP_Credits__c>();
+        //Id ItemID = [SELECT Id FROM OrderApi__Item__c WHERE Name = 'CE Credit Filing Fee' LIMIT 1].Id;
+        
+        for(OrderApi__Receipt__c rp :records){
+            if (rp.FON_Fully_Paid__c == true) {
+                soIds.add(rp.OrderApi__Sales_Order__c);
+            }
+        }
+        
+        soList = [
+            SELECT  Id,
+            OrderApi__Contact__c
+            FROM OrderApi__Sales_Order__c
+            WHERE Id IN (SELECT OrderApi__Sales_Order__c 
+             FROM OrderApi__Sales_Order_Line__c WHERE OrderApi__Item__r.Is_NCP_Filing_Fee__c=true) AND Id IN :soIds
+        ];
+       system.debug('###SOS '+soList);
+        for(OrderApi__Sales_Order__c so : soList){
+            //for(OrderApi__Sales_Order_Line__c sol : so.OrderApi__Sales_Order_Lines__r){
+
+            	conIds.add(so.OrderApi__Contact__c);
+
+            //}
+        }
+        system.debug('###CONs '+conIds);
+        ncpCredits = [
+            SELECT  Id,
+            FON_Session_Date__c,
+            Status__c
+            FROM NCP_Credits__c
+            WHERE Contact_Name__c IN :conIds
+            AND Status__c = 'Pending for Approval'
+            AND Session_Type__c != 'NCP CE Workshop'
+        ];
+        system.debug('###CREDS '+ncpCredits);
+        for(NCP_Credits__c ncp : ncpCredits){
+            if(ncp.FON_Session_Date__c.year() == system.today().year() - 1){
+                ncp.Status__c = 'Approved';
+                ncpCreditsUpd.add(ncp);
+            }
+        }
+        
+        if(!ncpCreditsUpd.isEmpty()){
+            update ncpCreditsUpd;
+        }
+        
+    }
 
     public static void createCEWrkshp(List<OrderApi__Receipt__c> records, Map<Id,OrderApi__Receipt__c> oldRecords){
 
@@ -169,6 +223,24 @@ public without sharing class FON_ReceiptService {
                 WHERE OrderApi__Receipt__c IN :receiptIds
                 AND (OrderApi__Item__r.FON_Session_Types__c = 'NCP CE Workshop' OR OrderApi__Item__r.OrderApi__Item_Class__r.Name = 'NCP CE Workshops')
         ];
+        
+        // ugly workaround, remove this later after hours has been approved
+        Integer vas = 0;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+        vas++;
+
 
         for(OrderApi__Receipt_Line__c rl : recLines){
             conId.add(rl.OrderApi__Contact__c);

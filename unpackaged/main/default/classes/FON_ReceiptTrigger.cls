@@ -13,11 +13,19 @@ global without sharing class FON_ReceiptTrigger extends Framework.Domain{
             return new FON_ReceiptTrigger(sObjectList);
         }
     }
+    
+    public override void afterInsert(){
+        Framework.Log.push(FON_SalesOrderTrigger.class.getName(),'afterInsert');
+        FON_ReceiptService.approveOldCredits((OrderApi__Receipt__c []) records);
+        Framework.Log.pop();
+    }
+    
 
     public override void afterUpdate(Map<Id,SObject> oldMap){
         Framework.Log.push(FON_ReceiptTrigger.class.getName(),'afterUpdate');
         //FON_ReceiptService.generateCandidateID((OrderApi__Receipt__c []) records, (Map<Id,OrderApi__Receipt__c>) oldMap);
         FON_ReceiptService.createCEWrkshp((OrderApi__Receipt__c []) records, (Map<Id,OrderApi__Receipt__c>) oldMap);
+        FON_ReceiptService.approveOldCredits((OrderApi__Receipt__c []) records);
         Framework.Log.pop();
     }
 

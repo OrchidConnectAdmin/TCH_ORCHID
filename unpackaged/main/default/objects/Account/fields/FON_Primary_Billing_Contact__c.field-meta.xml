@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FON_Primary_Billing_Contact__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>When populated, checks a box on the Contact Record identifying the Contact as the Primary Billing Contact. Can only have one Primary Billing Contact at a time.</description>
+    <inlineHelpText>When populated, checks a box on the Contact Record identifying the Contact as the Primary Billing Contact. Can only have one Primary Billing Contact at a time.</inlineHelpText>
+    <label>Primary Billing Contact</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Accounts (Primary Billing Contact)</relationshipLabel>
+    <relationshipName>Accounts</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>
