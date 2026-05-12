@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Create CertExpress Invitation</label>
+    <protected>false</protected>
+    <values>
+        <field>HTTP_Method__c</field>
+        <value xsi:type="xsd:string">POST</value>
+    </values>
+    <values>
+        <field>Resource_Path__c</field>
+        <value xsi:type="xsd:string">/api/v2/companies/{companyId}/customers/{customerCode}/certexpressinvites</value>
+    </values>
+    <values>
+        <field>API_Reference__c</field>
+        <value xsi:type="xsd:string">https://developer.avalara.com/products/avatax/api/methods/CertExpressInvites/CreateCertExpressInvitation/</value>
+    </values>
+</CustomMetadata>

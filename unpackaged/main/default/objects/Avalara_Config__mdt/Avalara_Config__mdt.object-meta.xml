@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Configuration for the Avalara AvaTax integration. Stores company code, environment, ship-from address, and feature flags.</description>
+    <label>Avalara Config</label>
+    <pluralLabel>Avalara Configs</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

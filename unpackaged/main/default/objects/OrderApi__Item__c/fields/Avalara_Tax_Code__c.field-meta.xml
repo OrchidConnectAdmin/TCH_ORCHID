@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Avalara_Tax_Code__c</fullName>
+    <description>Avalara tax code for this product (e.g., P0000000 for tangible goods, SW054000 for SaaS, NT for non-taxable). Sent in the CreateTransaction API request.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Avalara tax code classification. Examples: P0000000 (tangible goods), SW054000 (SaaS), NT (non-taxable).</inlineHelpText>
+    <label>Avalara Tax Code</label>
+    <length>25</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Tax_Code__c</fullName>
+    <description>Fallback Avalara tax code when Avalara_Tax_Code__c is blank on an Item.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Default Tax Code</label>
+    <length>25</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
