@@ -1,5 +1,7 @@
 ({
     doInit : function(component, event, helper) {
+
+        debugger
         var compEvent = $A.get('e.FDService:SparkPlugLoadedEvent');
         compEvent.setParams({extensionPoint : component.get('v.extensionPoint')});
         compEvent.fire();
@@ -8,6 +10,8 @@
         let dType = data.type.toLowerCase();
         component.set("v.amountPaid",data.total);
         console.log("type",dType);
+        // Avalara: enqueue tax commit by order number
+        helper.enqueueAvalaraCommit(component, data.name);
         
         // get url
         var urlString = window.location.href;
@@ -25,14 +29,17 @@
             if (state === "SUCCESS") {
                 //console.log("SO Data",res);
                 var eId;
+                var soId;
                 if(dType == 'receipt'){
                 	var details = res.receipt[0];
                     //console.log(details);
                     eId = details.OrderApi__Encrypted_Id__c;
+                    soId = details.OrderApi__Sales_Order__r.Id;
                 }else{
 					var details = res.order[0];
                     //console.log(details);
                     eId = details.OrderApi__Encrypted_Id__c;
+                    soId = details.Id;
                 }
                 
                 var pURL = baseURL+'/s/receipt?generatePDF=true&language=en_US&id='+eId;
@@ -61,8 +68,6 @@
                         }
                         
                	}
-                
-                
             }else{
                 console.log("ERRROR Sparkplug",err);
                 component.set("v.cerror", true);

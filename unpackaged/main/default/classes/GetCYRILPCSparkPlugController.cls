@@ -30,4 +30,9 @@ global without sharing class GetCYRILPCSparkPlugController {
         
         return sop;
     }
+
+    @AuraEnabled
+    public static void enqueueAvalaraCommit(String receiptNumber) {
+        AvalaraPaymentConfirmationService.enqueueCommitTax(receiptNumber);
+    }
 }

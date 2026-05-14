@@ -32,8 +32,26 @@ public without sharing class AvalaraTaxCalculationService {
         ctx.shipTo = buildShipToAddress(ctx.salesOrder);
 
         validateAddress(ctx.shipTo);
-        ctx.response = callCreateTransaction(ctx);
+        ctx.response = callTransaction(ctx, 'SalesOrder', false);
         replaceTaxLines(ctx);
+    }
+
+    public static void commitTax(Id salesOrderId) {
+        TaxContext ctx = new TaxContext();
+        ctx.salesOrderId = salesOrderId;
+        ctx.salesOrder = queryProductLines(salesOrderId);
+        ctx.productLines = ctx.salesOrder.OrderApi__Sales_Order_Lines__r;
+
+        if (ctx.productLines == null || ctx.productLines.isEmpty()) {
+            return;
+        }
+
+        ctx.config = queryActiveConfig();
+        ctx.shipFrom = buildShipFromAddress(ctx.config);
+        ctx.shipTo = buildShipToAddress(ctx.salesOrder);
+
+        ctx.response = callTransaction(ctx, 'SalesInvoice', true);
+        saveTransactionDetails(ctx);
     }
 
     // ─── Queries ───
@@ -48,6 +66,7 @@ public without sharing class AvalaraTaxCalculationService {
                            OrderApi__Item__r.Avalara_Tax__c,
                            OrderApi__Item__r.Avalara_Tax__r.Avalara_Tax_Code__c,
                            OrderApi__Item__r.OrderApi__SKU__c,
+                           OrderApi__Item__r.OrderApi__Line_Description__c,
                            OrderApi__Sale_Price__c, OrderApi__Quantity__c, OrderApi__Total__c
                     FROM OrderApi__Sales_Order_Lines__r
                     WHERE OrderApi__Item__r.Avalara_Tax__c != null
@@ -131,10 +150,11 @@ public without sharing class AvalaraTaxCalculationService {
 
     // ─── Transaction ───
 
-    private static AvalaraCreateTransaction.Response callCreateTransaction(TaxContext ctx) {
+    private static AvalaraCreateTransaction.Response callTransaction(TaxContext ctx, String type, Boolean shouldCommit) {
         AvalaraCreateTransaction.Request request = new AvalaraCreateTransaction.Request();
         request.companyCode = ctx.config.Company_Code__c;
-        request.type = 'SalesOrder';
+        request.type = type;
+        request.commitTransaction = shouldCommit;
         request.transactionDate = String.valueOf(Date.today());
         request.customerCode = resolveCustomerCode(ctx.salesOrder);
         request.shipFromAddress = ctx.shipFrom;
@@ -167,11 +187,24 @@ public without sharing class AvalaraTaxCalculationService {
                 ? sol.OrderApi__Item__r.OrderApi__SKU__c
                 : sol.OrderApi__Item__c;
             lineItem.taxCode = sol.OrderApi__Item__r.Avalara_Tax__r.Avalara_Tax_Code__c;
+            if (String.isNotBlank(sol.OrderApi__Item__r.OrderApi__Line_Description__c)) {
+                lineItem.description = sol.OrderApi__Item__r.OrderApi__Line_Description__c;
+            }
             lineItems.add(lineItem);
             lineNumber++;
         }
 
         return lineItems;
+    }
+
+    // ─── Transaction Persistence ───
+
+    private static void saveTransactionDetails(TaxContext ctx) {
+        update new OrderApi__Sales_Order__c(
+            Id = ctx.salesOrderId,
+            Avalara_Transaction_Code__c = ctx.response.code,
+            Avalara_Transaction_Id__c = String.valueOf(ctx.response.id)
+        );
     }
 
     // ─── Tax SOL Management ───
