@@ -4,11 +4,11 @@
     <protected>false</protected>
     <values>
         <field>Framework__Is_Enabled__c</field>
-        <value xsi:type="xsd:boolean">false</value>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
         <field>Framework__Lightning_Component__c</field>
-        <value xsi:type="xsd:string">CYRILCheckoutSparkPlugComponent</value>
+        <value xsi:type="xsd:string">AvalaraCheckout</value>
     </values>
     <values>
         <field>Framework__Order__c</field>
