@@ -1,0 +1,20 @@
+[
+  {
+    "attributes": {
+      "type": "OrderApi__GL_Account__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__GL_Account__c/a106g000007vugIAAQ"
+    },
+    "Id": "a106g000007vugIAAQ",
+    "Name": "2300 - Taxes Payable (Placeholder)",
+    "OrderApi__Type__c": "Liability"
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__GL_Account__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__GL_Account__c/a106g000007vuh9AAA"
+    },
+    "Id": "a106g000007vuh9AAA",
+    "Name": "2400 - International Taxes Payable (Placeholder)",
+    "OrderApi__Type__c": "Liability"
+  }
+]

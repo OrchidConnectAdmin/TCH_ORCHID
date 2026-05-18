@@ -216,7 +216,7 @@ public without sharing class AvalaraAuthProviderService {
         String errorDetail = parseErrorDetail(response.getBody());
         System.debug(LoggingLevel.ERROR, 'Avalara API error ' + response.getStatusCode() + ': ' + errorDetail);
         throw new AvalaraException(
-            'Avalara API request failed (HTTP ' + response.getStatusCode() + '). Check debug logs for details.'
+            'Avalara API error (HTTP ' + response.getStatusCode() + '): ' + errorDetail
         );
     }
 

@@ -1,0 +1,11 @@
+[
+  {
+    "attributes": {
+      "type": "OrderApi__Business_Group__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Business_Group__c/a0o6g000003t7VmAAI"
+    },
+    "Id": "a0o6g000003t7VmAAI",
+    "Name": "ECCHO",
+    "OrderApi__Required_Tax_Fields_CSV__c": "OrderApi__Shipping_State__c"
+  }
+]

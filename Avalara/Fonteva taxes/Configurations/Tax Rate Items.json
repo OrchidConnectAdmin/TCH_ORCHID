@@ -1,0 +1,214 @@
+[
+  {
+    "attributes": {
+      "type": "OrderApi__Item__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Item__c/a156g0000008QPdAAM"
+    },
+    "Id": "a156g0000008QPdAAM",
+    "Name": "FON-VA State Tax",
+    "OrderApi__Is_Tax__c": true,
+    "OrderApi__Is_Default_Tax_Rate__c": false,
+    "OrderApi__Tax_Percent__c": 6,
+    "OrderApi__Tax_Locale__c": "a1T6g0000008QEoEAM",
+    "OrderApi__Tax_Locale__r": {
+      "attributes": {
+        "type": "OrderApi__Tax_Locale__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g0000008QEoEAM"
+      },
+      "Name": "FON - VA"
+    },
+    "OrderApi__Item_Class__c": "a136g000000XcdqAAC",
+    "OrderApi__Item_Class__r": {
+      "attributes": {
+        "type": "OrderApi__Item_Class__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Item_Class__c/a136g000000XcdqAAC"
+      },
+      "Name": "FON-Tax Class"
+    },
+    "OrderApi__Is_Active__c": true
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Item__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Item__c/a156g0000008QPkAAM"
+    },
+    "Id": "a156g0000008QPkAAM",
+    "Name": "FON-DC Tax",
+    "OrderApi__Is_Tax__c": true,
+    "OrderApi__Is_Default_Tax_Rate__c": false,
+    "OrderApi__Tax_Percent__c": 8,
+    "OrderApi__Tax_Locale__c": "a1T6g0000008QEpEAM",
+    "OrderApi__Tax_Locale__r": {
+      "attributes": {
+        "type": "OrderApi__Tax_Locale__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g0000008QEpEAM"
+      },
+      "Name": "FON - DC"
+    },
+    "OrderApi__Item_Class__c": "a136g000000XcdqAAC",
+    "OrderApi__Item_Class__r": {
+      "attributes": {
+        "type": "OrderApi__Item_Class__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Item_Class__c/a136g000000XcdqAAC"
+      },
+      "Name": "FON-Tax Class"
+    },
+    "OrderApi__Is_Active__c": true
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Item__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Item__c/a156g0000008QSeAAM"
+    },
+    "Id": "a156g0000008QSeAAM",
+    "Name": "FON-Default Tax Class Default Tax Rate",
+    "OrderApi__Is_Tax__c": true,
+    "OrderApi__Is_Default_Tax_Rate__c": true,
+    "OrderApi__Tax_Percent__c": 10,
+    "OrderApi__Tax_Locale__c": null,
+    "OrderApi__Tax_Locale__r": null,
+    "OrderApi__Item_Class__c": "a136g000000XceXAAS",
+    "OrderApi__Item_Class__r": {
+      "attributes": {
+        "type": "OrderApi__Item_Class__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Item_Class__c/a136g000000XceXAAS"
+      },
+      "Name": "FON-Default Tax Class"
+    },
+    "OrderApi__Is_Active__c": true
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Item__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Item__c/a156g0000008QSfAAM"
+    },
+    "Id": "a156g0000008QSfAAM",
+    "Name": "FON-VAT France",
+    "OrderApi__Is_Tax__c": true,
+    "OrderApi__Is_Default_Tax_Rate__c": true,
+    "OrderApi__Tax_Percent__c": 20,
+    "OrderApi__Tax_Locale__c": "a1T6g0000008QEqEAM",
+    "OrderApi__Tax_Locale__r": {
+      "attributes": {
+        "type": "OrderApi__Tax_Locale__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g0000008QEqEAM"
+      },
+      "Name": "FON - France VAT"
+    },
+    "OrderApi__Item_Class__c": "a136g000000XceYAAS",
+    "OrderApi__Item_Class__r": {
+      "attributes": {
+        "type": "OrderApi__Item_Class__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Item_Class__c/a136g000000XceYAAS"
+      },
+      "Name": "FON-VAT Tax Class"
+    },
+    "OrderApi__Is_Active__c": true
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Item__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Item__c/a156g0000035ymvAAA"
+    },
+    "Id": "a156g0000035ymvAAA",
+    "Name": "FON-VA State Tax",
+    "OrderApi__Is_Tax__c": true,
+    "OrderApi__Is_Default_Tax_Rate__c": false,
+    "OrderApi__Tax_Percent__c": 6,
+    "OrderApi__Tax_Locale__c": "a1T6g000000GalkEAC",
+    "OrderApi__Tax_Locale__r": {
+      "attributes": {
+        "type": "OrderApi__Tax_Locale__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g000000GalkEAC"
+      },
+      "Name": "FON - VA"
+    },
+    "OrderApi__Item_Class__c": "a136g000003BD85AAG",
+    "OrderApi__Item_Class__r": {
+      "attributes": {
+        "type": "OrderApi__Item_Class__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Item_Class__c/a136g000003BD85AAG"
+      },
+      "Name": "FON-Tax Class"
+    },
+    "OrderApi__Is_Active__c": true
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Item__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Item__c/a156g0000035yn9AAA"
+    },
+    "Id": "a156g0000035yn9AAA",
+    "Name": "FON-DC Tax",
+    "OrderApi__Is_Tax__c": true,
+    "OrderApi__Is_Default_Tax_Rate__c": false,
+    "OrderApi__Tax_Percent__c": 8,
+    "OrderApi__Tax_Locale__c": "a1T6g000000GallEAC",
+    "OrderApi__Tax_Locale__r": {
+      "attributes": {
+        "type": "OrderApi__Tax_Locale__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g000000GallEAC"
+      },
+      "Name": "FON - DC"
+    },
+    "OrderApi__Item_Class__c": "a136g000003BD85AAG",
+    "OrderApi__Item_Class__r": {
+      "attributes": {
+        "type": "OrderApi__Item_Class__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Item_Class__c/a136g000003BD85AAG"
+      },
+      "Name": "FON-Tax Class"
+    },
+    "OrderApi__Is_Active__c": true
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Item__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Item__c/a156g0000035ynyAAA"
+    },
+    "Id": "a156g0000035ynyAAA",
+    "Name": "FON-Default Tax Class Default Tax Rate",
+    "OrderApi__Is_Tax__c": true,
+    "OrderApi__Is_Default_Tax_Rate__c": true,
+    "OrderApi__Tax_Percent__c": 10,
+    "OrderApi__Tax_Locale__c": null,
+    "OrderApi__Tax_Locale__r": null,
+    "OrderApi__Item_Class__c": "a136g000003BD8eAAG",
+    "OrderApi__Item_Class__r": {
+      "attributes": {
+        "type": "OrderApi__Item_Class__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Item_Class__c/a136g000003BD8eAAG"
+      },
+      "Name": "FON-Default Tax Class"
+    },
+    "OrderApi__Is_Active__c": true
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Item__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Item__c/a156g0000035ynzAAA"
+    },
+    "Id": "a156g0000035ynzAAA",
+    "Name": "FON-VAT France",
+    "OrderApi__Is_Tax__c": true,
+    "OrderApi__Is_Default_Tax_Rate__c": true,
+    "OrderApi__Tax_Percent__c": 20,
+    "OrderApi__Tax_Locale__c": "a1T6g000000GalmEAC",
+    "OrderApi__Tax_Locale__r": {
+      "attributes": {
+        "type": "OrderApi__Tax_Locale__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g000000GalmEAC"
+      },
+      "Name": "FON - France VAT"
+    },
+    "OrderApi__Item_Class__c": "a136g000003BD8fAAG",
+    "OrderApi__Item_Class__r": {
+      "attributes": {
+        "type": "OrderApi__Item_Class__c",
+        "url": "/services/data/v65.0/sobjects/OrderApi__Item_Class__c/a136g000003BD8fAAG"
+      },
+      "Name": "FON-VAT Tax Class"
+    },
+    "OrderApi__Is_Active__c": true
+  }
+]

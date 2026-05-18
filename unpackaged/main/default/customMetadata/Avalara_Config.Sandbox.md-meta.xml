@@ -3,35 +3,43 @@
     <label>Sandbox</label>
     <protected>false</protected>
     <values>
-        <field>Is_Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
+        <field>Company_Code__c</field>
+        <value xsi:type="xsd:string">TCHPC</value>
     </values>
     <values>
-        <field>Company_Code__c</field>
-        <value xsi:type="xsd:string">DEFAULT</value>
+        <field>Company_Id__c</field>
+        <value xsi:type="xsd:string">312140</value>
+    </values>
+    <values>
+        <field>Default_Tax_Code__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Environment__c</field>
         <value xsi:type="xsd:string">Sandbox</value>
     </values>
     <values>
-        <field>ShipFrom_Street__c</field>
-        <value xsi:type="xsd:string">123 Main Street</value>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
         <field>ShipFrom_City__c</field>
         <value xsi:type="xsd:string">Irvine</value>
     </values>
     <values>
-        <field>ShipFrom_State__c</field>
-        <value xsi:type="xsd:string">CA</value>
+        <field>ShipFrom_Country__c</field>
+        <value xsi:type="xsd:string">US</value>
     </values>
     <values>
         <field>ShipFrom_PostalCode__c</field>
         <value xsi:type="xsd:string">92615</value>
     </values>
     <values>
-        <field>ShipFrom_Country__c</field>
-        <value xsi:type="xsd:string">US</value>
+        <field>ShipFrom_State__c</field>
+        <value xsi:type="xsd:string">CA</value>
+    </values>
+    <values>
+        <field>ShipFrom_Street__c</field>
+        <value xsi:type="xsd:string">123 Main Street</value>
     </values>
 </CustomMetadata>

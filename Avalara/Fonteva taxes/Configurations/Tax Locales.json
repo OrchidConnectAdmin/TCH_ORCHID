@@ -1,0 +1,98 @@
+[
+  {
+    "attributes": {
+      "type": "OrderApi__Tax_Locale__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g0000008QEoEAM"
+    },
+    "Id": "a1T6g0000008QEoEAM",
+    "Name": "FON - VA",
+    "OrderApi__Tax_Locale_Field__c": "OrderApi__Shipping_State__c",
+    "OrderApi__Locale_Values_CSV__c": "va,VA",
+    "OrderApi__Tax_GL_Account__c": null,
+    "OrderApi__Business_Group__c": null
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Tax_Locale__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g0000008QEpEAM"
+    },
+    "Id": "a1T6g0000008QEpEAM",
+    "Name": "FON - DC",
+    "OrderApi__Tax_Locale_Field__c": "OrderApi__Shipping_State__c",
+    "OrderApi__Locale_Values_CSV__c": "DC, dc",
+    "OrderApi__Tax_GL_Account__c": null,
+    "OrderApi__Business_Group__c": null
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Tax_Locale__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g0000008QEqEAM"
+    },
+    "Id": "a1T6g0000008QEqEAM",
+    "Name": "FON - France VAT",
+    "OrderApi__Tax_Locale_Field__c": "OrderApi__Shipping_Country__c",
+    "OrderApi__Locale_Values_CSV__c": "France",
+    "OrderApi__Tax_GL_Account__c": null,
+    "OrderApi__Business_Group__c": null
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Tax_Locale__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g0000008QErEAM"
+    },
+    "Id": "a1T6g0000008QErEAM",
+    "Name": "FON-Default Tax Locale",
+    "OrderApi__Tax_Locale_Field__c": "OrderApi__Shipping_Country__c",
+    "OrderApi__Locale_Values_CSV__c": "USA",
+    "OrderApi__Tax_GL_Account__c": null,
+    "OrderApi__Business_Group__c": null
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Tax_Locale__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g000000GalkEAC"
+    },
+    "Id": "a1T6g000000GalkEAC",
+    "Name": "FON - VA",
+    "OrderApi__Tax_Locale_Field__c": "OrderApi__Shipping_State__c",
+    "OrderApi__Locale_Values_CSV__c": "va,VA",
+    "OrderApi__Tax_GL_Account__c": "a106g000007vugIAAQ",
+    "OrderApi__Business_Group__c": "a0o6g000003t7VmAAI"
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Tax_Locale__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g000000GallEAC"
+    },
+    "Id": "a1T6g000000GallEAC",
+    "Name": "FON - DC",
+    "OrderApi__Tax_Locale_Field__c": "OrderApi__Shipping_State__c",
+    "OrderApi__Locale_Values_CSV__c": "DC, dc",
+    "OrderApi__Tax_GL_Account__c": "a106g000007vugIAAQ",
+    "OrderApi__Business_Group__c": "a0o6g000003t7VmAAI"
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Tax_Locale__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g000000GalmEAC"
+    },
+    "Id": "a1T6g000000GalmEAC",
+    "Name": "FON - France VAT",
+    "OrderApi__Tax_Locale_Field__c": "OrderApi__Shipping_Country__c",
+    "OrderApi__Locale_Values_CSV__c": "France",
+    "OrderApi__Tax_GL_Account__c": "a106g000007vuh9AAA",
+    "OrderApi__Business_Group__c": "a0o6g000003t7VmAAI"
+  },
+  {
+    "attributes": {
+      "type": "OrderApi__Tax_Locale__c",
+      "url": "/services/data/v65.0/sobjects/OrderApi__Tax_Locale__c/a1T6g000000GalnEAC"
+    },
+    "Id": "a1T6g000000GalnEAC",
+    "Name": "FON-Default Tax Locale",
+    "OrderApi__Tax_Locale_Field__c": "OrderApi__Shipping_Country__c",
+    "OrderApi__Locale_Values_CSV__c": "USA",
+    "OrderApi__Tax_GL_Account__c": "a106g000007vugIAAQ",
+    "OrderApi__Business_Group__c": "a0o6g000003t7VmAAI"
+  }
+]
