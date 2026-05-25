@@ -1,20 +1,22 @@
 # Avalara AvaTax: Data Mapping (TCH)
 
+> Last updated: 2026-05-25
+> Branch: `feature/26657020`
+
 Field-level mapping between Fonteva/Salesforce objects and Avalara AvaTax REST API v2 request/response models.
 
 ---
 
-## 1. Tax Calculation:[`CreateTransaction`](https://developer.avalara.com/products/avatax/api/methods/Transactions/CreateTransaction/)
+## 1. Tax Calculation: `CreateTransaction`
 
 **API Method:** `CreateTransaction`
 **Endpoint:** `POST /api/v2/transactions/create`
-**Purpose:** Calculates sales tax in real time for a Fonteva Sales Order. Sends the order details (customer, addresses, line items) to Avalara and receives the calculated tax per line and total. This is the core API call of the integration:every checkout triggers this.
+**Apex Service:** `AvalaraCreateTransactionService` > `AvalaraCreateTransactionTransformer` > `AvalaraCreateTransaction` (DTO)
+**Business Orchestrator:** `AvalaraTaxCalculationService.calculateTax()` (SalesOrder) / `.commitTax()` (SalesInvoice)
 
 **Document Types:**
-- `SalesOrder`:temporary estimate (not saved in Avalara). Used when the customer is browsing the cart or checkout page.
-- `SalesInvoice`:permanent record (saved in Avalara). Used after payment is confirmed. Can be committed and later voided.
-
-**Doc:** https://developer.avalara.com/products/avatax/api/methods/Transactions/CreateTransaction/
+- `SalesOrder`: temporary estimate (not saved in Avalara). Used at checkout.
+- `SalesInvoice`: permanent record (saved in Avalara). Used post-payment with `commit=true`.
 
 ### 1.1 Request: Transaction Header (`CreateTransactionModel`)
 
@@ -23,15 +25,14 @@ Field-level mapping between Fonteva/Salesforce objects and Avalara AvaTax REST A
 | `companyCode` | String | Yes | `Avalara_Config__mdt.Company_Code__c` | Stored in Custom Metadata: same for all transactions |
 | `type` | Enum | Yes | Derived from checkout stage | `SalesOrder` for estimates, `SalesInvoice` after payment |
 | `date` | DateTime | Yes | `OrderApi__Sales_Order__c.OrderApi__Date__c` | Falls back to `CreatedDate` or `System.today()` |
-| `customerCode` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Contact__c` | Contact ID as unique customer identifier. If `Entity__c = 'Account'`, use Account ID instead |
-| `currencyCode` | String | No | `'USD'` | Hardcoded unless TCH operates in multiple currencies |
-| `commit` | Boolean | No | Derived from checkout stage | `false` for estimates, `true` for final payment |
-| `customerUsageType` | String | No | Custom field on Account (TBD) | Only if customer has a tax exemption. E.g., `A` = Federal Gov |
+| `customerCode` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Contact__c` | Contact ID as customer identifier. Uses Account ID if `Entity__c = 'Account'` |
+| `currencyCode` | String | No | `'USD'` | Hardcoded (TCH single currency) |
+| `commit` | Boolean | No | Derived from checkout stage | `false` for SalesOrder, `true` for SalesInvoice |
 | `referenceCode` | String | No | `OrderApi__Sales_Order__c.Id` | Salesforce record ID for traceability |
 
 ### 1.2 Request: Ship-To Address (`addresses.shipTo`)
 
-The customer's address:determines the **destination jurisdiction** for tax calculation.
+The customer's address: determines the **destination jurisdiction** for tax calculation.
 
 | Avalara Field | Type | Required | Source (Fonteva/Salesforce) | Notes |
 |---------------|------|----------|----------------------------|-------|
@@ -39,116 +40,112 @@ The customer's address:determines the **destination jurisdiction** for tax calcu
 | `city` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Billing_City__c` | |
 | `region` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Billing_State__c` | US state code (e.g., `NY`, `CA`) |
 | `postalCode` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Billing_Postal_Code__c` | |
-| `country` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Billing_Country__c` | ISO 2-char (e.g., `US`). Default to `US` if blank |
-
-> **Note:** Fonteva Sales Order also has Shipping address fields (`Shipping_Street__c`, `Shipping_City__c`, etc.). If TCH ships physical goods, use Shipping address instead of Billing. To be confirmed.
+| `country` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Billing_Country__c` | ISO 2-char. Default to `US` if blank |
 
 ### 1.3 Request: Ship-From Address (`addresses.shipFrom`)
 
-TCH's business address:determines the **origin jurisdiction**. Tax rates in some states depend on the combination of origin + destination.
+TCH's business address: determines the **origin jurisdiction**. Stored in Custom Metadata.
 
 | Avalara Field | Type | Required | Source (Fonteva/Salesforce) | Notes |
 |---------------|------|----------|----------------------------|-------|
-| `line1` | String | Yes | `Avalara_Config__mdt.ShipFrom_Street__c` | TCH headquarters address: stored in Custom Metadata |
-| `city` | String | Yes | `Avalara_Config__mdt.ShipFrom_City__c` | |
-| `region` | String | Yes | `Avalara_Config__mdt.ShipFrom_State__c` | |
-| `postalCode` | String | Yes | `Avalara_Config__mdt.ShipFrom_PostalCode__c` | |
-| `country` | String | Yes | `Avalara_Config__mdt.ShipFrom_Country__c` | Default `US` |
-
-> **Pending:** TCH business address not yet confirmed. See TeamWork comment.
+| `line1` | String | Yes | `Avalara_Config__mdt.ShipFrom_Street__c` | `1114 Avenue of The Americas, 17th Floor` |
+| `city` | String | Yes | `Avalara_Config__mdt.ShipFrom_City__c` | `New York` |
+| `region` | String | Yes | `Avalara_Config__mdt.ShipFrom_State__c` | `NY` |
+| `postalCode` | String | Yes | `Avalara_Config__mdt.ShipFrom_PostalCode__c` | `10036` |
+| `country` | String | Yes | `Avalara_Config__mdt.ShipFrom_Country__c` | `US` |
 
 ### 1.4 Request: Line Items (`lines[]`)
 
-Each product line in the Fonteva Sales Order becomes one line in the Avalara request. The `taxCode` tells Avalara how to classify the product for tax purposes.
-
-Each `OrderApi__Sales_Order_Line__c` where `OrderApi__Is_Tax__c = false` becomes one Avalara line.
+Each `OrderApi__Sales_Order_Line__c` where `Is_Tax__c = false AND Is_Shipping_Rate__c = false` becomes one Avalara line.
 
 | Avalara Field | Type | Required | Source (Fonteva/Salesforce) | Notes |
 |---------------|------|----------|----------------------------|-------|
-| `number` | String | No | `OrderApi__Sales_Order_Line__c.Id` | Unique line identifier |
+| `number` | String | No | `OrderApi__Sales_Order_Line__c.Id` | Unique line identifier (matching key for response) |
 | `quantity` | Decimal | Yes | `OrderApi__Sales_Order_Line__c.OrderApi__Quantity__c` | |
-| `amount` | Decimal | Yes | `OrderApi__Sales_Order_Line__c.OrderApi__Sale_Price__c * OrderApi__Quantity__c` | Or use `OrderApi__Total__c` if it represents line total before tax |
-| `itemCode` | String | No | `OrderApi__Sales_Order_Line__c.OrderApi__Item__r.Name` | Fonteva Item name: for reporting in Avalara portal |
-| `taxCode` | String | No | `OrderApi__Sales_Order_Line__c.OrderApi__Item__r.Avalara_Tax_Code__c` | **New field** to be created. Falls back to `P0000000` if blank |
-| `description` | String | No | `OrderApi__Sales_Order_Line__c.OrderApi__Item__r.OrderApi__Description__c` | Optional: for readability in Avalara |
-
-> **Filter:** Exclude lines where `OrderApi__Is_Tax__c = true` (these are Fonteva's native tax lines, not product lines).
+| `amount` | Decimal | Yes | `OrderApi__Sales_Order_Line__c.OrderApi__Sale_Price__c * OrderApi__Quantity__c` | Line total before tax |
+| `itemCode` | String | No | `OrderApi__Sales_Order_Line__c.OrderApi__Item__r.Name` | For Avalara portal reporting |
+| `taxCode` | String | No | `OrderApi__Sales_Order_Line__c.OrderApi__Item__r.Avalara_Tax_Code__c` | Falls back to `Avalara_Config__mdt.Default_Tax_Code__c` or `P0000000` |
+| `description` | String | No | `OrderApi__Sales_Order_Line__c.OrderApi__Item__r.OrderApi__Description__c` | Optional readability |
 
 ### 1.5 Response: Transaction Level (`TransactionModel`)
 
-Returned by Avalara after tax calculation. Contains the total tax and metadata needed for commit/void operations.
-
-| Avalara Response Field | Target (Fonteva/Salesforce) | Notes |
-|------------------------|-----------------------------|-------|
-| `totalTax` | `OrderApi__Sales_Order__c`: custom field (TBD) or derived from line-level tax lines | Total tax for the entire order |
-| `code` | `OrderApi__Sales_Order__c.Avalara_Transaction_Code__c` | **New field**: stores Avalara transaction code for commit/void operations |
-| `id` | `OrderApi__Sales_Order__c.Avalara_Transaction_Id__c` | **New field** (optional): Avalara numeric ID |
-| `status` | Not stored | Used for runtime validation only (Saved, Committed, Cancelled) |
+| Avalara Response Field | Type | Target (Fonteva/Salesforce) | Notes |
+|------------------------|------|-----------------------------|-------|
+| `id` | Long | `OrderApi__Sales_Order__c.Avalara_Transaction_Id__c` | Stored only on SalesInvoice (post-payment commit) |
+| `code` | String | `OrderApi__Sales_Order__c.Avalara_Transaction_Code__c` | Stored only on SalesInvoice. Used for commit/void. |
+| `status` | String | Not stored | Runtime validation (Saved, Committed, Cancelled) |
+| `totalTax` | Decimal | Derived from tax SOLs | Total tax for the entire order |
+| `totalTaxable` | Decimal | Not stored | Reference only |
+| `totalAmount` | Decimal | Not stored | Reference only |
+| `totalExempt` | Decimal | Not stored | Reference only |
+| `totalDiscount` | Decimal | Not stored | Reference only |
 
 ### 1.6 Response: Line Level
 
-For each Avalara response line with `tax > 0`, create a tax `OrderApi__Sales_Order_Line__c`.
+For each Avalara response line, a tax `OrderApi__Sales_Order_Line__c` is created (including $0 lines for audit trail).
 
-| Avalara Response Field | Target (Fonteva/Salesforce) | Notes |
-|------------------------|-----------------------------|-------|
-| `lines[].tax` | New tax SOL → `OrderApi__Tax_Amount__c` and `OrderApi__Sale_Price__c` | Tax amount for this line |
-| `lines[].rate` | Tax SOL → `OrderApi__Tax_Percent__c` | Avalara returns decimal (e.g., `0.0825`): multiply by 100 to store as Percent(7,4) |
-| `lines[].taxableAmount` | Not stored | Reference only. No `OrderApi__Total_With_Tax__c` field exists |
-| `lines[].lineNumber` | Used to match response line to the product `Sales_Order_Line__c.Id` | Matching key: `number` in the request = product SOL Id |
+| Avalara Response Field | Type | Target (Fonteva/Salesforce) | Notes |
+|------------------------|------|-----------------------------|-------|
+| `lines[].lineNumber` | String | Matching key to product SOL | Maps to `number` sent in request = product SOL Id |
+| `lines[].tax` | Decimal | Tax SOL > `OrderApi__Tax_Amount__c` and `OrderApi__Sale_Price__c` | Tax amount for this line |
+| `lines[].rate` | Decimal | Tax SOL > `OrderApi__Tax_Percent__c` | Avalara returns decimal (e.g., `0.0825`): multiply by 100 |
+| `lines[].taxableAmount` | Decimal | Not stored | Reference only |
+| `lines[].taxCalculated` | Decimal | Not stored | Reference only |
+| `lines[].isItemTaxable` | Boolean | Not stored | Reference only |
+| `lines[].itemCode` | String | Not stored | Echo of request |
+| `lines[].taxCode` | String | Not stored | Resolved tax code |
+| `lines[].details[]` | Array | Not stored | Jurisdiction breakdown (jurisName, jurisType, rate, tax, taxableAmount, taxName) |
 
-### 1.7 Response: Tax Line Creation Pattern
+### 1.7 Tax SOL Creation Pattern
 
-The Spark Plug deletes any existing Avalara tax SOLs (`Is_Tax__c = true AND Tax_Override__c = true`) and creates fresh ones from the response:
-
-| Field | Value | Source |
+| Tax SOL Field | Value | Source |
 |-------|-------|--------|
 | `OrderApi__Sales_Order__c` | Parent Sales Order ID | Same as product line |
-| `OrderApi__Is_Tax__c` | `true` | Marks this as a tax line |
-| `OrderApi__Tax_Override__c` | `true` | Prevents Fonteva from recalculating |
-| `OrderApi__Tax_Amount__c` | Tax amount | `lines[].tax` from Avalara response |
-| `OrderApi__Tax_Percent__c` | Tax rate (as percent) | `lines[].rate * 100`. Percent(7,4) |
-| `OrderApi__Sale_Price__c` | Tax amount | `lines[].tax` from Avalara response |
-| `OrderApi__Quantity__c` | `1` | One tax SOL per taxable product line |
-| `OrderApi__Item__c` | Tax Rate Item ID | Single `Item__c` with `Is_Tax__c = true` (for GL accounting) |
-| `OrderApi__Sales_Order_Line__c` | Parent product line ID | Self-lookup linking tax SOL to its product SOL |
+| `OrderApi__Is_Tax__c` | `true` | Marks as tax line |
+| `OrderApi__Tax_Override__c` | `true` | Prevents Fonteva recalculation; cleanup identifier |
+| `OrderApi__Tax_Amount__c` | Tax amount | `lines[].tax` from Avalara |
+| `OrderApi__Tax_Percent__c` | Tax rate (percent) | `lines[].rate * 100`. Percent(7,4) |
+| `OrderApi__Sale_Price__c` | Tax amount | `lines[].tax` from Avalara |
+| `OrderApi__Quantity__c` | `1` | One tax SOL per product line |
+| `OrderApi__Item__c` | Tax Rate Item ID | `Item__c` with `Is_Tax__c = true` (GL accounting) |
+| `OrderApi__Sales_Order_Line__c` | Product line ID | Self-lookup linking tax to product SOL |
 
-> **Downstream propagation**: Invoice Lines, Receipt Lines, and ePayment Lines are created automatically by the managed package when the Sales Order is processed. The `Sales_Order_Line__c` lookup on these objects is "System Calculated" — populated for ALL SOLs regardless of how they were created.
+> **Downstream propagation**: Invoice Lines, Receipt Lines, ePayment Lines created automatically by the managed package for ALL SOLs. `Sales_Order_Line__c` lookup is "System Calculated".
 >
 > **Field notes**:
-> - `OrderApi__Sales_Order_Line__c` (self-lookup) links tax to product. `OrderApi__Sales_Order_Line_R__c` is for multi-currency reporting — do NOT use.
+> - `OrderApi__Sales_Order_Line__c` (self-lookup) links tax to product. `OrderApi__Sales_Order_Line_R__c` is for multi-currency: do NOT use.
 > - `OrderApi__Item_Tax_Percent__c` is a read-only formula. Do not set directly.
 
 ---
 
-## 2. Transaction Commit:[`CommitTransaction`](https://developer.avalara.com/products/avatax/api/methods/Transactions/CommitTransaction/)
+## 2. Transaction Commit: `CommitTransaction`
 
 **API Method:** `CommitTransaction`
 **Endpoint:** `POST /api/v2/companies/{companyCode}/transactions/{transactionCode}/commit`
-**Purpose:** Marks a `SalesInvoice` transaction as final in Avalara. Committed transactions are included in Avalara's tax filing/returns. Called after payment is confirmed in Fonteva. Can be skipped if `commit: true` is set in the `CreateTransaction` request.
+**Apex Service:** `AvalaraTransactionStatusService.commitTransaction()`
 
-**Doc:** https://developer.avalara.com/products/avatax/api/methods/Transactions/CommitTransaction/
+> **Note**: In the primary flow, commit happens inline via `CreateTransaction` with `type=SalesInvoice` + `commit=true`. This standalone endpoint is auxiliary for edge cases.
 
 ### Request
 
 | Avalara Field | Type | Source (Fonteva/Salesforce) | Notes |
 |---------------|------|----------------------------|-------|
 | `companyCode` (URL) | String | `Avalara_Config__mdt.Company_Code__c` | URL path parameter |
-| `transactionCode` (URL) | String | `OrderApi__Sales_Order__c.Avalara_Transaction_Code__c` | URL path parameter:stored from CreateTransaction response |
+| `transactionCode` (URL) | String | `OrderApi__Sales_Order__c.Avalara_Transaction_Code__c` | URL path parameter |
 | `commit` (body) | Boolean | `true` | Always `true` |
 
 ### Response
 
-No new fields to store. Validates that `status` changed to `Committed`.
+No new fields stored. Validates that `status` changed to `Committed`.
 
 ---
 
-## 3. Transaction Void:[`VoidTransaction`](https://developer.avalara.com/products/avatax/api/methods/Transactions/VoidTransaction/)
+## 3. Transaction Void: `VoidTransaction`
 
 **API Method:** `VoidTransaction`
 **Endpoint:** `POST /api/v2/companies/{companyCode}/transactions/{transactionCode}/void`
-**Purpose:** Cancels a previously committed transaction. The transaction remains in Avalara's records but is excluded from tax filing. Used when a Fonteva Sales Order is cancelled or fully refunded.
-
-**Doc:** https://developer.avalara.com/products/avatax/api/methods/Transactions/VoidTransaction/
+**Apex Service:** `AvalaraTransactionStatusService.voidTransaction()`
+**Async:** `AvalaraVoidTransactionQueueable` (batch of 25, self-chaining)
 
 ### Request
 
@@ -158,27 +155,24 @@ No new fields to store. Validates that `status` changed to `Committed`.
 | `transactionCode` (URL) | String | `OrderApi__Sales_Order__c.Avalara_Transaction_Code__c` | URL path parameter |
 | `code` (body) | Enum | `'DocVoided'` | Only supported value for full cancellation |
 
-### Trigger & Cleanup
+### Trigger and Cleanup
 
 | Action | Details |
 |--------|---------|
-| **Trigger** | `OrderApi__Sales_Order__c.OrderApi__Status__c` changes to `Cancelled` |
-| **Void** | Call `VoidTransaction` using the stored `Avalara_Transaction_Code__c` |
-| **Cleanup** | Delete or deactivate Fonteva tax lines (`Is_Tax__c = true`) for that Sales Order |
+| **Trigger** | TBD: Sales Order status change to `Cancelled` (not yet implemented) |
+| **Void** | Call `VoidTransaction` using stored `Avalara_Transaction_Code__c` |
+| **Cleanup** | Fonteva native engine handles tax SOL cleanup on cancellation |
 
 ---
 
-## 4. Address Validation:[`ResolveAddress`](https://developer.avalara.com/products/avatax/api/methods/Addresses/ResolveAddress/) (Optional)
+## 4. Address Validation: `ResolveAddress`
 
 **API Method:** `ResolveAddress`
 **Endpoint:** `POST /api/v2/addresses/resolve`
-**Purpose:** Validates and normalizes a US/Canadian address. Returns the corrected address with latitude/longitude. Ensures the ShipTo address maps to the correct tax jurisdiction before calling `CreateTransaction`. An incorrect address can result in tax calculated for the wrong state/county/city.
+**Apex Service:** `AvalaraResolveAddressService`
+**Called by:** `AvalaraTaxCalculationService` (before tax calculation)
 
-**When to use:** Controlled by `Avalara_Config__mdt.Enable_Address_Validation__c`. Can be called on every checkout or once when the address is first saved.
-
-**Doc:** https://developer.avalara.com/products/avatax/api/methods/Addresses/ResolveAddress/
-
-### Request: Fonteva → `ResolveAddress`
+### Request
 
 | Avalara Field | Source |
 |---------------|--------|
@@ -188,44 +182,153 @@ No new fields to store. Validates that `status` changed to `Committed`.
 | `postalCode` | `OrderApi__Sales_Order__c.OrderApi__Billing_Postal_Code__c` |
 | `country` | `OrderApi__Sales_Order__c.OrderApi__Billing_Country__c` |
 
-### Response: `AddressResolutionModel` → Fonteva
+### Response (`AddressResolutionModel`)
 
-| Avalara Response Field | Target |
-|------------------------|--------|
-| `validatedAddresses[0].line1` | `OrderApi__Sales_Order__c.OrderApi__Billing_Street__c` |
-| `validatedAddresses[0].city` | `OrderApi__Sales_Order__c.OrderApi__Billing_City__c` |
-| `validatedAddresses[0].region` | `OrderApi__Sales_Order__c.OrderApi__Billing_State__c` |
-| `validatedAddresses[0].postalCode` | `OrderApi__Sales_Order__c.OrderApi__Billing_Postal_Code__c` |
+| Avalara Response Field | Usage | Notes |
+|------------------------|-------|-------|
+| `validatedAddresses[0].line1` | Used as `shipTo.line1` in tax calc | Corrected address |
+| `validatedAddresses[0].city` | Used as `shipTo.city` | |
+| `validatedAddresses[0].region` | Used as `shipTo.region` | |
+| `validatedAddresses[0].postalCode` | Used as `shipTo.postalCode` | |
+| `resolutionQuality` | Logged, not stored | Match precision indicator |
+| `coordinates.latitude` / `.longitude` | Not used | Available for future use |
+| `taxAuthorities[]` | Not used | Jurisdiction info |
+| `messages[]` | Logged if severity is error | Validation warnings |
 
-> **Decision needed:** Should the validated address overwrite the original, or be stored separately?
+> The validated address is used for the subsequent `CreateTransaction` call but does not overwrite the original address on the Sales Order.
 
 ---
 
-## 5. New Fields Required
+## 5. ECM: Customer Registration (`CreateCustomers`)
 
-### On `OrderApi__Item__c`
+**API Method:** `CreateCustomers`
+**Endpoint:** `POST /api/v2/companies/{companyId}/customers`
+**Apex Service:** `AvalaraCreateCustomerService`
+**Called by:** `AvalaraTaxExemptionService.registerAndInvite()`
 
-| Field API Name | Type | Description |
-|----------------|------|-------------|
-| `Avalara_Tax_Code__c` | Text(25) | Avalara Tax Code for this item (e.g., `P0000000`, `SW054000`, `NT`). Used in `CreateTransaction` request. |
+### Request
 
-### On `OrderApi__Sales_Order__c`
+| Avalara Field | Type | Source | Notes |
+|---------------|------|--------|-------|
+| `companyId` (URL) | String | `Avalara_Config__mdt.Company_Id__c` | `312140` (sandbox) |
+| `customerCode` | String | `Account.Id` | Salesforce Account ID as unique identifier |
+| `name` | String | User input (LWC form) | Contact/company name |
+| `line1` | String | User-selected address | Street |
+| `city` | String | User-selected address | City |
+| `region` | String | User-selected address | State code |
+| `postalCode` | String | User-selected address | Postal code |
+| `country` | String | User-selected address | ISO 2-char |
+| `emailAddress` | String | User input | For CertExpress email delivery |
 
-| Field API Name | Type | Description |
-|----------------|------|-------------|
-| `Avalara_Transaction_Code__c` | Text(50) | Avalara transaction code returned by `CreateTransaction`. Needed for `CommitTransaction` and `VoidTransaction`. |
-| `Avalara_Transaction_Id__c` | Text(20) | Avalara numeric transaction ID (optional: for portal reference). |
+> The API accepts an array; the transformer wraps the single request in `[...]`.
 
-### Custom Metadata: `Avalara_Config__mdt`
+### Response
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `Company_Code__c` | Text(25) | Avalara Company Code |
-| `Environment__c` | Picklist | `Sandbox` / `Production` |
-| `ShipFrom_Street__c` | Text(255) | TCH business address: street |
-| `ShipFrom_City__c` | Text(100) | TCH business address: city |
-| `ShipFrom_State__c` | Text(2) | TCH business address: state |
-| `ShipFrom_PostalCode__c` | Text(10) | TCH business address: postal code |
-| `ShipFrom_Country__c` | Text(2) | TCH business address: country (default `US`) |
-| `Auto_Commit__c` | Checkbox | If true, SalesInvoice transactions are auto-committed |
-| `Enable_Address_Validation__c` | Checkbox | If true, validates ShipTo address before tax calculation |
+| Avalara Response Field | Target | Notes |
+|------------------------|--------|-------|
+| `id` | `Account.Avalara_Customer_Id__c` | Persisted to prevent duplicate registrations |
+| `customerCode` | Not stored separately | Echoes the Account ID sent |
+
+---
+
+## 6. ECM: CertExpress Invitation (`CreateCertExpressInvitation`)
+
+**API Method:** `CreateCertExpressInvitation`
+**Endpoint:** `POST /api/v2/companies/{companyId}/customers/{customerCode}/certexpressinvites`
+**Apex Service:** `AvalaraCertExpressInvitationService`
+**Called by:** `AvalaraTaxExemptionService.registerAndInvite()` and `.requestNewExemption()`
+
+### Request
+
+| Avalara Field | Type | Source | Notes |
+|---------------|------|--------|-------|
+| `companyId` (URL) | String | `Avalara_Config__mdt.Company_Id__c` | Path variable |
+| `customerCode` (URL) | String | `Account.Id` | Path variable |
+| `recipient` | String | User email | CertExpress link recipient |
+| `coverLetterTitle` | String | `'REQUEST'` | Standard invitation |
+| `deliveryMethod` | String | `'Download'` | Returns URL directly (no email sent) |
+
+> The API accepts an array; the transformer wraps the single request in `[...]`.
+
+### Response
+
+| Avalara Response Field | Target | Notes |
+|------------------------|--------|-------|
+| `requestLink` | Returned to LWC as `certExpressUrl` | Portal URL opened in new tab |
+| `status` | Not stored | Logged for debugging |
+| `id` | Not stored | Invitation ID |
+
+---
+
+## 7. ECM: Certificate Listing (`ListCertificatesForCustomer`)
+
+**API Method:** `ListCertificatesForCustomer`
+**Endpoint:** `GET /api/v2/companies/{companyId}/customers/{customerCode}/certificates`
+**Apex Service:** `AvalaraListCertificatesService`
+**Called by:** `AvalaraTaxExemptionService.getExemptionInfo()` (for registered customers)
+
+### Request (URL Parameters Only)
+
+| Avalara Field | Source | Notes |
+|---------------|--------|-------|
+| `companyId` (URL) | `Avalara_Config__mdt.Company_Id__c` | Path variable |
+| `customerCode` (URL) | `Account.Id` | Path variable |
+
+### Response
+
+| Avalara Response Field | Target | Notes |
+|------------------------|--------|-------|
+| `@recordsetCount` | Displayed in LWC | Total certificate count |
+| `value[].id` | `CertificateInfo.id` | Certificate ID |
+| `value[].status` | `CertificateInfo.status` | Complete, Expired, Pending, etc. |
+| `value[].signedDate` | `CertificateInfo.signedDate` | Formatted for display |
+| `value[].expirationDate` | `CertificateInfo.expirationDate` | Formatted for display |
+| `value[].exposureZone.name` | `CertificateInfo.exposureZone` | State/jurisdiction name |
+| `value[].exemptionReason.name` | `CertificateInfo.exemptionReason` | Reason description |
+
+---
+
+## 8. Custom Fields Summary
+
+### `OrderApi__Item__c` (Managed Package Object)
+
+| Field API Name | Type | Description | Deployed |
+|----------------|------|-------------|----------|
+| `Avalara_Tax_Code__c` | Text(25) | Avalara Tax Code (e.g., `P0000000`, `SW054000`, `NT`) | Yes |
+
+### `OrderApi__Sales_Order__c` (Managed Package Object)
+
+| Field API Name | Type | Description | Deployed |
+|----------------|------|-------------|----------|
+| `Avalara_Transaction_Code__c` | Text(50) | Avalara transaction code for commit/void | Yes |
+| `Avalara_Transaction_Id__c` | Text(20) | Avalara numeric transaction ID | Yes |
+
+### `Account` (Standard Object)
+
+| Field API Name | Type | Description | Deployed |
+|----------------|------|-------------|----------|
+| `Avalara_Customer_Id__c` | Text | Avalara ECM customer ID | Yes |
+
+### `Avalara_Config__mdt` (Custom Metadata Type)
+
+| Field | Type | Description | Deployed |
+|-------|------|-------------|----------|
+| `Company_Code__c` | Text(25) | Avalara Company Code | Yes |
+| `Company_Id__c` | Text(25) | Avalara Company ID (numeric) | Yes |
+| `Environment__c` | Picklist | Sandbox / Production | Yes |
+| `Is_Active__c` | Checkbox | Active configuration flag | Yes |
+| `ShipFrom_Street__c` | Text(255) | TCH business address: street | Yes |
+| `ShipFrom_City__c` | Text(100) | City | Yes |
+| `ShipFrom_State__c` | Text(2) | State code | Yes |
+| `ShipFrom_PostalCode__c` | Text(10) | Postal code | Yes |
+| `ShipFrom_Country__c` | Text(2) | Country (ISO 2-char) | Yes |
+| `Default_Tax_Code__c` | Text(25) | Fallback tax code | Yes |
+| `Tax_Exemption_Page_Path__c` | Text(255) | Community page path for Tax Exemption LWC | Yes |
+
+### `Avalara_Service__mdt` (Custom Metadata Type)
+
+| Field | Type | Description | Deployed |
+|-------|------|-------------|----------|
+| `HTTP_Method__c` | Text | GET, POST, etc. | Yes |
+| `Resource_Path__c` | Text | API path with `{variable}` placeholders | Yes |
+| `API_Reference__c` | URL | Link to Avalara docs | Yes |

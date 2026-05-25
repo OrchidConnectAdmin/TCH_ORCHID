@@ -183,10 +183,10 @@ private class AvalaraAuthProviderServiceTest {
     // ─── Error Handling Tests ───
 
     /**
-     * Verifies that a 401 response throws AvalaraException with sanitized message.
+     * Verifies that a 401 response throws AvalaraException with status code and parsed error message.
      */
     @isTest
-    static void executeWith401ThrowsSanitizedExceptionTest() {
+    static void executeWith401ThrowsExceptionWithStatusCodeTest() {
         AvalaraAuthProviderService.isSandboxOverride = true;
         Test.setMock(HttpCalloutMock.class, new UnauthorizedErrorMock());
 
@@ -197,7 +197,7 @@ private class AvalaraAuthProviderServiceTest {
         } catch (AvalaraAuthProviderService.AvalaraException avalaraError) {
             exceptionWasThrown = true;
             System.assert(avalaraError.getMessage().contains('401'), 'Error message should contain status code');
-            System.assert(!avalaraError.getMessage().contains('could not be authenticated'), 'Error message should NOT leak API detail');
+            System.assert(avalaraError.getMessage().contains('could not be authenticated'), 'Error message should contain parsed API error');
         }
         Test.stopTest();
 

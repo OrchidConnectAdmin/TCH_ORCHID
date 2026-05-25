@@ -1,253 +1,130 @@
-# Avalara AvaTax Implementation Plan:TCH (Direct API)
+# Avalara AvaTax Integration Plan: TCH (Direct API)
+
+> Last updated: 2026-05-25
+> Branch: `feature/26657020`
+> Status: Checkout + Post-Payment + Tax Exemption (ECM) COMPLETE. Refund flow TBD.
 
 ## 1. Authentication
 
 ### 1.1 Method: Basic Auth (License Key)
 
-The [AvaTax REST API v2][avatax-api] uses **Basic HTTP Authentication** with Account ID + Lice
+The AvaTax REST API v2 uses **Basic HTTP Authentication** with Account ID + License Key.
+
 | Item | Value |
 |------|-------|
-| **Header** | `Authorization: Basic {Base64(accountId:licenseKey)}` 
+| **Header** | `Authorization: Basic {Base64(accountId:licenseKey)}` |
 | **Sandbox URL** | `https://sandbox-rest.avatax.com` |
 | **Production URL** | `https://rest.avatax.com` |
 | **Required Header** | `X-Avalara-Client: {appName};{appVersion};{machineName};{connectorId}` |
 | **Content-Type** | `application/json` |
 
-> **Note**: Avalara **does not use OAuth 2.0** for AvaTax REST v2. Authentication is done via License Key (recommended for connectors) or username/password. The License Key is generated in the admin portal: Settings → Reset License Key (requires admin permission).
+> **Note**: Avalara does not use OAuth 2.0 for AvaTax REST v2. Authentication uses License Key (recommended for connectors), generated in the admin portal: Settings > Reset License Key.
 
-**Why License Key over username/password?**
-- Higher entropy (more secure against brute-force)
-- Does not expire on password resets
-- Official Avalara recommendation for connectors
-
-### Suggested Apex Class
-
-| Class | Responsibility |
-|-------|---------------|
-| `AvalaraAuthProvider` | Builds the `Authorization` header from Named Credential or Custom Metadata. Centralizes authentication logic for all callouts. |
-
-### Salesforce Configuration
+### 1.2 Salesforce Configuration
 
 | Component | Purpose |
 |-----------|---------|
-| **Named Credential** `Avalara_AvaTax` | Stores base endpoint + credentials (Basic Auth). Allows switching sandbox/prod without code changes. |
-| **Custom Metadata** `Avalara_Config__mdt` | Company Code, environment (sandbox/prod), feature flags (address validation on/off, auto-commit, etc.) |
+| **Named Credential** `Avalara_AvaTax_Sandbox` | Stores sandbox endpoint + credentials (Basic Auth) |
+| **Named Credential** `Avalara_AvaTax_Production` | Stores production endpoint + credentials |
+| **External Credential** `Avalara_AvaTax_Sandbox` | Underlying auth for sandbox Named Credential |
+| **External Credential** `Avalara_AvaTax_Production` | Underlying auth for production Named Credential |
+| **Remote Site Setting** `Avalara_AvaTax_Sandbox` | Allows callouts to sandbox |
+| **Remote Site Setting** `Avalara_AvaTax_Production` | Allows callouts to production |
+| **Permission Set** `Avalara_API_Access` | Grants external credential access to users |
+| **Custom Metadata** `Avalara_Config__mdt` | Company Code, environment, ShipFrom address, feature flags |
+| **Custom Metadata** `Avalara_Service__mdt` | API endpoint registry (HTTP method + resource path per API) |
+
+### 1.3 Apex Implementation
+
+| Class | Responsibility |
+|-------|---------------|
+| `AvalaraAuthProviderService` | Centralized HTTP client. Resolves endpoint from `Avalara_Service__mdt` by DeveloperName. Dynamically selects Named Credential (Sandbox/Production) based on org type. Handles path variable substitution. |
+
+**Inner Classes:**
+- `AvalaraCalloutRequest`: encapsulates service name, path variables, and JSON body
+- `CalloutParams`: internal callout parameters (httpMethod, apiPath, requestBody)
+- `AvalaraException`: custom exception for Avalara API errors
 
 ---
 
 ## 2. Service APIs
 
-### 2.1 Address Validation (AvaTax) [`ResolveAddress`][method-resolve-address]
+### 2.1 Address Validation: `ResolveAddress`
 
-**API Method**: [`ResolveAddress`][
 **Endpoint**: `POST /api/v2/addresses/resolve`
 
-| Request Field | Type | Required | Fonteva Mapping |
-|---------------|------|----------|-----------------|
-| `line1` | String | Yes* | Account/Contact street address |
-| `city` | String | Yes* | City |
-| `region` | String | Yes* | State |
-| `postalCode` | String | Yes* | Postal code |
-| `country` | String | Yes | Country (ISO 2-char) |
-| `textCase` | String | No | `Upper` or `Mixed` |
-
-> *Minimum required: `postalCode` alone, OR `line1 + city + region`, OR `line1 + postalCode`.
-
-**Response** (`AddressResolutionModel`):
-- `validatedAddresses[]`:corrected/normalized addresses
-- `coordinates`:latitude/longitude
-- `resolutionQuality`:match precision indicator
-- `messages[]`:validation warnings
-
-**Task requirement link**: Tax calculation depends on correct jurisdiction. Invalid address = tax calculated for the wrong jurisdiction. Validation is a prerequisite for calculation reliability.
+Validates and normalizes US/Canadian addresses. Returns corrected address with geolocation.
 
 | Apex Class | Responsibility |
 |------------|---------------|
-| `AvalaraAddressService` | Builds request, calls endpoint, parses response. Main method: `validateAddress(AddressInfo)` |
-| `AvalaraAddressRequest` | Request body wrapper (line1, city, region, postalCode, country) |
-| `AvalaraAddressResponse` | Response wrapper (validatedAddresses, resolutionQuality, messages) |
+| `AvalaraResolveAddress` | DTOs: Request (line1, city, region, postalCode, country, textCase), Response (validatedAddresses, coordinates, resolutionQuality, taxAuthorities, messages) |
+| `AvalaraResolveAddressTransformer` | `transformRequest(Request)` > JSON, `transformResponse(JSON)` > Response |
+| `AvalaraResolveAddressService` | `execute(Request)` > Response. Orchestrates Transformer + AuthProviderService |
 
 ---
 
-### 2.2 Tax Calculation (AvaTax):[`CreateTransaction`][method-create-transaction]
+### 2.2 Tax Calculation: `CreateTransaction`
 
-**API Method**: [`CreateTransaction`][method-create-transaction]
 **Endpoint**: `POST /api/v2/transactions/create`
 
-This is the **core API** of the integration:calculates tax in real time during Fonteva checkout.
+Core API of the integration: calculates tax in real time during Fonteva checkout.
 
 #### Document Types
 
 | Type | Persistence | When to Use |
 |------|------------|-------------|
-| `SalesOrder` | **Temporary** (auto-expires in Avalara) | Checkout: tax estimate before payment. Can be called multiple times (cart changes) with no cleanup needed. |
-| `SalesInvoice` | **Permanent** (saved and can be reported) | Post-payment (async): with `commit=true` in a single call. Saves `code` and `id` on Sales Order. |
+| `SalesOrder` | Temporary (auto-expires) | Checkout: tax estimate before payment. Can be called multiple times. |
+| `SalesInvoice` | Permanent (saved in Avalara) | Post-payment (async): with `commit=true` in a single call. |
 
-#### Request Body (`CreateTransactionModel`)
-
-| Field | Type | Required | Description | Fonteva Mapping |
-|-------|------|----------|-------------|-----------------|
-| `companyCode` | String | Yes | Company identifier in Avalara | Custom Metadata `Avalara_Config__mdt` |
-| `type` | Enum | Yes | `SalesOrder` or `SalesInvoice` | Based on checkout stage |
-| `date` | DateTime | Yes | Transaction date | `OrderApi__Sales_Order__c.CreatedDate` or current date |
-| `customerCode` | String | Yes | Unique customer identifier | `Account.Id` or `Contact.Id` |
-| `currencyCode` | String | No | ISO currency (e.g., `USD`) | `OrderApi__Sales_Order__c.CurrencyIsoCode` |
-| `commit` | Boolean | No | If `true`, commits automatically | `true` for post-payment SalesInvoice |
-| `exemptionNo` | String | No | Exemption certificate number | Checked via ECM before the call |
-| `customerUsageType` | String | No | Entity/Use Code (e.g., `A` = Federal Gov) | Custom field on Account or via ECM lookup |
-| `addresses` | Object | Yes | ShipFrom/ShipTo addresses | See mapping below |
-| `lines[]` | Array | Yes | Transaction line items | `OrderApi__Sales_Order_Line__c` records |
-
-#### Addresses Object
-
-```json
-{
-  "addresses": {
-    "shipFrom": {
-      "line1": "TCH company address",
-      "city": "...", "region": "...", "postalCode": "...", "country": "US"
-    },
-    "shipTo": {
-      "line1": "Customer address",
-      "city": "...", "region": "...", "postalCode": "...", "country": "US"
-    }
-  }
-}
-```
-
-#### Lines Array (`LineItemModel`)
-
-| Field | Type | Required | Fonteva Mapping |
-|-------|------|----------|-----------------|
-| `number` | String | No | Index or `Sales_Order_Line__c.Id` |
-| `quantity` | Decimal | Yes | `OrderApi__Quantity__c` |
-| `amount` | Decimal | Yes | `OrderApi__Sale_Price__c * Quantity` or `OrderApi__Total__c` |
-| `itemCode` | String | No | `OrderApi__Item__c.Name` or `ProductCode` |
-| `taxCode` | String | No | Avalara tax code (e.g., `P0000000` = tangible personal property) |
-| `description` | String | No | `OrderApi__Item__c.Name` |
-
-#### Response (`TransactionModel`)
-
-| Field | Description | Usage |
-|-------|-------------|-------|
-| `totalTax` | Total transaction tax | Store on `Sales_Order__c` |
-| `totalTaxable` | Total taxable amount | Reference |
-| `totalAmount` | Total amount with tax | Reference |
-| `lines[].tax` | Tax per line | Store on each `Sales_Order_Line__c` |
-| `lines[].taxableAmount` | Taxable amount per line | Reference |
-| `lines[].taxCalculated` | Calculated tax per line | Create **Fonteva Adjustment Tax Item** |
-| `status` | Transaction status | Control |
-| `id` | Avalara ID | Store for later commit/void |
-| `code` | Transaction code | Store for reference |
-
-**Task requirement links**:
-- *"Use Avalara Tax API to send the additional details required"* → `CreateTransactionModel`
-- *"Get the calculation response"* → `TransactionModel` response
-- *"Create the Fonteva Adjustment Tax Item records"* → Use `lines[].tax` from response
-
-| Apex Class | Responsibility | Status |
-|------------|---------------|--------|
-| `AvalaraCreateTransaction` | DTOs: Request, Response, Address, LineItem, ResponseLine, TaxDetail | Deployed |
-| `AvalaraCreateTransactionTransformer` | transformRequest(Request→JSON), transformResponse(JSON→Response) | Deployed |
-| `AvalaraCreateTransactionService` | execute(Request→Response), orchestrates Transformer + AuthProviderService | Deployed |
-| `AvalaraTransactionStatusService` | commitTransaction + voidTransaction (unified, DRY). Reuses `AvalaraCreateTransaction.Response` | Deployed |
-| `AvalaraTaxSparkPlugController` | (future) `@AuraEnabled` Apex controller for checkout Spark Plug | Planned |
-| `AvalaraTaxLineCreator` | (future) Creates/deletes Fonteva tax SOLs from Avalara response | Planned |
+| Apex Class | Responsibility |
+|------------|---------------|
+| `AvalaraCreateTransaction` | DTOs: Request (companyCode, type, date, customerCode, currencyCode, commit, addresses, lines), Response (id, code, status, totalTax, totalTaxable, totalAmount, totalExempt, lines with TaxDetail) |
+| `AvalaraCreateTransactionTransformer` | `transformRequest(Request)` > JSON, `transformResponse(JSON)` > Response. Manual serialization for full control over field naming. |
+| `AvalaraCreateTransactionService` | `execute(Request)` > Response. Orchestrates Transformer + AuthProviderService |
 
 ---
 
-### 2.3 Transaction Commit:[`CommitTransaction`][method-commit-transaction]
+### 2.3 Transaction Commit: `CommitTransaction`
 
-**API Method**: [`CommitTransaction`][method-commit-transaction]
 **Endpoint**: `POST /api/v2/companies/{companyCode}/transactions/{transactionCode}/commit`
 
-Marks the transaction as permanent in Avalara:required for it to appear in tax returns/filings.
-
-| Request Field | Type | Description |
-|---------------|------|-------------|
-| `commit` | Boolean | Must be `true` |
-
-**When to call**: Auxiliary service for exceptional scenarios only. The primary flow uses `CreateTransaction` with `SalesInvoice` + `commit=true` in a single call post-payment, making a separate CommitTransaction unnecessary in the happy path.
+Marks transaction as permanent. Auxiliary service: the primary flow uses `CreateTransaction` with `SalesInvoice` + `commit=true`.
 
 > Covered by `AvalaraTransactionStatusService.commitTransaction(companyCode, transactionCode)`
 
 ---
 
-### 2.4 Transaction Void:[`VoidTransaction`][method-void-transaction]
+### 2.4 Transaction Void: `VoidTransaction`
 
-**API Method**: [`VoidTransaction`][method-void-transaction]
 **Endpoint**: `POST /api/v2/companies/{companyCode}/transactions/{transactionCode}/void`
 
-Cancels a transaction in Avalara:required for refunds/cancellations.
-
-| Request Field | Type | Description |
-|---------------|------|-------------|
-| `code` | Enum | `DocVoided` (full cancellation) |
-
-**When to call**: When a Sales Order is cancelled or a refund is processed in Fonteva after the SalesInvoice was already committed.
+Cancels a committed transaction. Used for refunds/cancellations.
 
 > Covered by `AvalaraTransactionStatusService.voidTransaction(companyCode, transactionCode)`
 
-#### Implementation: Unified Service (DRY)
-
-Both CommitTransaction and VoidTransaction share the same pattern: path variables (`companyCode`, `transactionCode`) + simple JSON body + same TransactionModel response. They are implemented as a single `AvalaraTransactionStatusService` class with two public methods and one shared private core method. No separate DTO or Transformer needed: request bodies are trivial, response reuses `AvalaraCreateTransaction.Response` via `AvalaraCreateTransactionTransformer.transformResponse()`.
-
----
-
-### 2.5 Tax Exemption Certificates:[Exemption Certificate Management (ECM) API][ecm-api]
-
-**API Methods**:
-
-| API Method | HTTP | Endpoint | Description |
-|------------|------|----------|-------------|
-| [`CreateCustomers`][method-create-customers] | `POST` | `/api/v2/companies/{companyId}/customers` | Creates customer in ECM (required before associating certificates) |
-| [`ListCertificatesForCustomer`][method-list-certs-customer] | `GET` | `/api/v2/companies/{companyId}/customers/{customerCode}/certificates` | Lists certificates for a customer |
-| [`CreateCertificates`][method-create-certificates] | `POST` | `/api/v2/companies/{companyId}/certificates` | Creates/registers a certificate |
-| [`GetCertificate`][method-get-certificate] | `GET` | `/api/v2/companies/{companyId}/certificates/{id}` | Queries a specific certificate |
-| [`CreateCertExpressInvitation`][method-certexpress-invite] | `POST` | `/api/v2/companies/{companyId}/customers/{customerCode}/certexpressinvites` | Sends CertExpress invite for upload |
-
-#### Automatic Integration with Tax Calculation
-
-When a customer has a valid certificate in ECM, the [AvaTax REST API v2][avatax-api] **automatically applies the exemption** on `CreateTransaction`:just send the correct `customerCode`. Alternatively, you can send:
-- `exemptionNo`:certificate number directly in the request
-- `customerUsageType` / `entityUseCode`:usage code (e.g., `A` = Federal Gov, `B` = State Gov)
-
-#### CertExpress Portal (for customer certificate upload)
-
-The flow described in the task:
-> *"LWC button that will redirect to Avalara guest portal with user creation for tracking purposes"*
-
-This is **CertExpress**:an Avalara portal where the customer uploads certificates. The flow:
-1. Create customer in ECM via API
-2. Generate CertExpress invite (`certexpressinvites`)
-3. Redirect user to the invite URL
-4. Avalara manages the upload and validation
-
-**Task requirement links**:
-- *"Tax Exemption Certificates"* → [ECM API][ecm-api]
-- *"LWC button that will redirect to Avalara guest portal with user creation"* → CertExpress invite
-- *"LWC to visualize that user exempt certificates"* → `GET /customers/{code}/certificates`
-
 | Apex Class | Responsibility |
 |------------|---------------|
-| `AvalaraExemptionService` | Manages certificates: creates customer, queries certificates, generates CertExpress invite. Methods: `createCustomer(accountId)`, `getCustomerCertificates(customerCode)`, `generateCertExpressInvite(customerCode)` |
-| `AvalaraCertificateResponse` | Certificate response wrapper |
-
-| LWC Component | Responsibility |
-|---------------|---------------|
-| `avalaraCertExpressButton` | Button that calls `generateCertExpressInvite` and redirects to Avalara portal |
-| `avalaraCertificateViewer` | Lists customer certificates via `getCustomerCertificates`, with status and details |
+| `AvalaraTransactionStatusService` | Unified service for Commit + Void (DRY). Two public methods + shared core. Reuses `AvalaraCreateTransaction.Response` via `AvalaraCreateTransactionTransformer.transformResponse()` |
+| `AvalaraVoidTransactionQueueable` | Async Queueable for batch void operations (up to 25 callouts/execution). Self-chains for remaining codes. Each callout wrapped in try/catch. |
 
 ---
 
-### 2.6 Entity Use Codes:[`ListEntityUseCodes`][method-list-entity-use-codes]
+### 2.5 Tax Exemption Certificates (ECM)
 
-**API Method**: [`ListEntityUseCodes`][method-list-entity-use-codes]
-**Endpoint**: `GET /api/v2/definitions/entityusecodes`
+| API Method | HTTP | Endpoint | Apex Classes |
+|------------|------|----------|-------------|
+| `CreateCustomers` | `POST` | `/api/v2/companies/{companyId}/customers` | AvalaraCreateCustomer (DTO), AvalaraCreateCustomerTransformer, AvalaraCreateCustomerService |
+| `ListCertificatesForCustomer` | `GET` | `/api/v2/companies/{companyId}/customers/{customerCode}/certificates` | AvalaraListCertificates (DTO), AvalaraListCertificatesTransformer, AvalaraListCertificatesService |
+| `CreateCertExpressInvitation` | `POST` | `/api/v2/companies/{companyId}/customers/{customerCode}/certexpressinvites` | AvalaraCertExpressInvitation (DTO), AvalaraCertExpressInvitationTransformer, AvalaraCertExpressInvitationService |
 
-Returns the list of available usage/exemption codes (Federal Gov, State Gov, Religious, Educational, etc.). Use to populate UI dropdowns or for validation.
+#### CertExpress Flow
 
-> Covered by `AvalaraExemptionService.getEntityUseCodes()`
+1. Customer visits Tax Exemption page (LWC: `avalaraTaxExemption`)
+2. If new customer: registers in Avalara ECM via `CreateCustomers` API
+3. Generates CertExpress invitation link
+4. Redirects customer to Avalara CertExpress portal (opens in new tab)
+5. For returning customers: shows existing certificates table + "Request New Exemption" button (skips re-registration)
+6. Avalara `Customer ID` persisted on `Account.Avalara_Customer_Id__c` to avoid duplicate registrations
 
 ---
 
@@ -257,454 +134,424 @@ Returns the list of available usage/exemption codes (Federal Gov, State Gov, Rel
 
 ```mermaid
 sequenceDiagram
-    participant U as User (Fonteva Checkout)
-    participant FN as Fonteva Native Engine
-    participant SP as Spark Plug (Apex)
-    participant Q as Queueable (Async)
+    participant U as Customer (Checkout)
+    participant SP as AvalaraCheckout (Aura Spark Plug)
+    participant CS as AvalaraCheckoutService (Apex)
+    participant TC as AvalaraTaxCalculationService
+    participant RA as AvalaraResolveAddressService
+    participant CT as AvalaraCreateTransactionService
     participant AV as Avalara AvaTax API
 
-    U->>FN: Proceeds to checkout
-    FN->>FN: Creates tax SOLs (Is_Tax=true) from Tax Class/Locale config
+    U->>SP: Proceeds to checkout
+    SP->>SP: Fire SparkPlugLoadedEvent
+    SP->>CS: getCheckoutInfo(encryptedSalesOrderId)
+    CS-->>SP: CheckoutInfo (taxableItems, entityAddress)
 
-    Note over SP: Spark Plug fires at LTE__Load_Checkout
-    SP->>SP: Queries product SOLs + tax SOLs
-    SP->>AV: POST /api/v2/transactions/create (SalesOrder)
-    AV-->>SP: TransactionModel (lines[].tax, lines[].rate)
-    SP->>SP: Overrides tax SOLs (Tax_Override=true, Tax_Amount, Tax_Percent)
-    SP->>FN: Fires SparkPlugCompleteEvent
+    SP->>U: Renders Tax Review (items table, shipping address)
+    U->>SP: Reviews address, clicks "Continue"
 
-    FN->>U: Checkout renders with Avalara-calculated taxes
-    U->>U: Sees Subtotal + Tax + Total
+    Note over SP: Optional: Edit Address flow
+    U->>SP: Clicks "Edit Address"
+    SP->>U: Shows address form
+    U->>SP: Saves address (optional: persist to Contact/Account)
+    SP->>CS: updateEntityAddress(...)
 
-    Note over SP: Cart modification (optional)
-    U->>SP: Modifies cart (quantity, add/remove items)
-    SP->>AV: POST /api/v2/transactions/create (SalesOrder)
-    Note right of AV: Previous SalesOrder auto-expires
-    AV-->>SP: New TransactionModel
-    SP->>SP: Deletes old tax SOLs, creates new ones
-
-    U->>FN: Confirms payment
-    FN->>FN: Payment processed successfully
-
-    Note over Q: Post-Payment (async Queueable)
-    FN->>Q: Enqueue tax commit job
-    Q->>AV: POST /api/v2/transactions/create (SalesInvoice, commit=true)
-    AV-->>Q: TransactionModel (status: Committed)
-    Q->>Q: Stores Avalara_Transaction_Code__c + Avalara_Transaction_Id__c on Sales Order
+    SP->>CS: calculateTax(encryptedSalesOrderId)
+    CS->>TC: calculateTax(salesOrderId)
+    TC->>RA: validate ShipTo address
+    RA->>AV: POST /api/v2/addresses/resolve
+    AV-->>RA: Validated address
+    TC->>CT: CreateTransaction (SalesOrder)
+    CT->>AV: POST /api/v2/transactions/create
+    AV-->>CT: TransactionModel (lines[].tax, totalTax)
+    TC->>TC: Delete existing tax SOLs + Create new tax SOLs
+    CS-->>SP: Tax calculated
+    SP->>SP: Fire SparkPlugCompleteEvent
+    SP->>U: Checkout renders with Avalara-calculated taxes
 ```
 
-### 3.2 Cancellation / Void Flow
+**Key Implementation Details:**
+- Component: `AvalaraCheckout` (Aura) registered at `LTE__Load_Checkout` via `CYRILCheckoutSparkPlugComponent` delegation
+- Multi-step UI: Loading > Review (shows items + address) > Edit Address (optional) > Processing > Complete
+- Address can be edited inline; optionally saved to Contact/Account for future purchases
+- Tax exemption banner shown with link to `/s/tax-exemption` page (path from `Avalara_Config__mdt.Tax_Exemption_Page_Path__c`)
+
+### 3.2 Post-Payment: Tax Commit
 
 ```mermaid
 sequenceDiagram
-    participant U as Admin / System
-    participant SF as Salesforce (Apex)
+    participant FN as Fonteva (Payment Confirmed)
+    participant SP as CYRILPaymentConfirmation (Aura Spark Plug)
+    participant PS as AvalaraPaymentConfirmationService
+    participant Q as AvalaraPaymentConfirmationQueueable
+    participant TC as AvalaraTaxCalculationService
+    participant CT as AvalaraCreateTransactionService
     participant AV as Avalara AvaTax API
 
-    U->>SF: Cancels Sales Order
-    SF->>SF: Reads Avalara_Transaction_Code__c
+    FN->>SP: Payment confirmed, receipt loaded
+    SP->>SP: Fire SparkPlugLoadedEvent
+    SP->>PS: enqueueCommitTax(receiptNumber = data.name)
+    PS->>PS: Resolve receipt number > Sales Order ID
+    PS->>Q: System.enqueueJob(Queueable)
 
-    SF->>AV: POST /api/v2/transactions/{companyCode}/{transactionCode}/void
-    AV-->>SF: TransactionModel (status: Cancelled)
+    Note over Q: Async execution
+    Q->>TC: commitTax(salesOrderId)
+    TC->>CT: CreateTransaction (SalesInvoice, commit=true)
+    CT->>AV: POST /api/v2/transactions/create
+    AV-->>CT: TransactionModel (status: Committed)
+    TC->>TC: Save Avalara_Transaction_Code__c + Avalara_Transaction_Id__c on Sales Order
 
-    SF->>SF: Fonteva native engine handles tax SOL cleanup
+    SP->>SP: Fire SparkPlugCompleteEvent (immediately, does not wait for async)
 ```
+
+**Key Implementation Details:**
+- Component: `CYRILPaymentConfirmationSparkPlugComponent` (existing, enhanced with Avalara call)
+- `data.name` = receipt number (from Fonteva SparkPlug context)
+- Commit runs asynchronously via `AvalaraPaymentConfirmationQueueable` to avoid blocking the receipt page
+- Transaction code and ID persisted on Sales Order for future void operations
 
 ### 3.3 Tax Exemption Certificates Flow
 
 ```mermaid
 sequenceDiagram
-    participant U as Customer / Admin
-    participant LWC as LWC (avalaraCertExpressButton)
-    participant SF as Salesforce (Apex)
+    participant U as Customer
+    participant LWC as avalaraTaxExemption (LWC)
+    participant SRV as AvalaraTaxExemptionService (Apex)
+    participant CCS as AvalaraCreateCustomerService
+    participant CIS as AvalaraCertExpressInvitationService
+    participant LCS as AvalaraListCertificatesService
     participant AV as Avalara ECM API
-    participant CE as CertExpress Portal
 
-    U->>LWC: Clicks "Upload Tax Exemption Certificate"
-    LWC->>SF: AvalaraExemptionService.createCustomer()
-    SF->>AV: POST /companies/{companyId}/customers
-    AV-->>SF: Customer created
+    U->>LWC: Opens Tax Exemption page
+    LWC->>SRV: getExemptionInfo()
+    SRV->>SRV: Resolve logged-in user > Contact > Account
+    SRV->>SRV: Check Account.Avalara_Customer_Id__c
 
-    SF->>AV: POST /companies/{companyId}/customers/{code}/certexpressinvites
-    AV-->>SF: CertExpress invite URL
-    LWC->>U: Redirects to CertExpress Portal
-    U->>CE: Uploads certificate
+    alt Already registered
+        SRV->>LCS: execute(companyId, customerCode)
+        LCS->>AV: GET /companies/{id}/customers/{code}/certificates
+        AV-->>LCS: Certificate list
+        SRV-->>LWC: ExemptionInfo (isRegistered=true, certificates=[...])
+        LWC->>U: Show certificates table + "Request New Exemption" button
 
-    U->>LWC: Opens "View Certificates"
-    LWC->>SF: AvalaraExemptionService.getCustomerCertificates()
-    SF->>AV: GET /companies/{companyId}/customers/{code}/certificates
-    AV-->>SF: Certificate list
-    LWC->>U: Displays certificates
+        U->>LWC: Clicks "Request New Exemption"
+        LWC->>SRV: requestNewExemption(email)
+        SRV->>CIS: execute(invitation, companyId, customerCode)
+        CIS->>AV: POST /companies/{id}/customers/{code}/certexpressinvites
+        AV-->>CIS: Invite URL
+        SRV-->>LWC: RegistrationResult (certExpressUrl)
+        LWC->>U: Opens CertExpress portal (new tab)
+    else New customer
+        SRV-->>LWC: ExemptionInfo (isRegistered=false, addressOptions=[...])
+        LWC->>U: Show registration form (name, address, email)
+
+        U->>LWC: Fills form, clicks "Submit"
+        LWC->>SRV: registerAndInvite(name, street, city, state, postalCode, country, email)
+        SRV->>CCS: execute(customerRequest, companyId)
+        CCS->>AV: POST /companies/{id}/customers
+        AV-->>CCS: Customer created
+        SRV->>SRV: Save Avalara_Customer_Id__c on Account
+        SRV->>CIS: execute(invitation, companyId, customerCode)
+        CIS->>AV: POST /companies/{id}/customers/{code}/certexpressinvites
+        AV-->>CIS: Invite URL
+        SRV-->>LWC: RegistrationResult (certExpressUrl)
+        LWC->>U: Opens CertExpress portal (new tab)
+    end
 ```
+
+### 3.4 Void Transaction Flow (trigger TBD)
+
+```mermaid
+sequenceDiagram
+    participant U as Admin / System
+    participant Q as AvalaraVoidTransactionQueueable
+    participant TSS as AvalaraTransactionStatusService
+    participant AV as Avalara AvaTax API
+
+    U->>Q: Enqueue void (list of transaction codes)
+
+    loop Batch of up to 25 callouts
+        Q->>TSS: voidTransaction(companyCode, transactionCode)
+        TSS->>AV: POST /companies/{code}/transactions/{txCode}/void
+        AV-->>TSS: TransactionModel (status: Cancelled)
+    end
+
+    alt More codes remaining
+        Q->>Q: Self-chain with remaining codes
+    end
+```
+
+> **Note**: The void trigger (e.g., Sales Order status change to Cancelled) is not yet implemented. The service layer and async infrastructure are ready.
 
 ---
 
-## 5. Fonteva Tax Mechanism: How Taxes Are Applied to Items
+## 4. Fonteva Tax Mechanism: How Taxes Are Applied
 
-### 5.1 Fonteva's Native Tax Architecture
-
-> Source: Official Fonteva documentation (PDFs in `Avalara/Fonteva taxes/`) and org metadata analysis (2026-05-12).
-
-Fonteva has a complete, structured tax system composed of 4 components configured in this order:
-
-#### 1. Tax Class (`OrderApi__Item_Class__c` with `OrderApi__Is_Tax__c = true`)
-
-A Tax Class is an **Item Class** with `Is_Tax__c` checked. It groups Tax Rates together. Each Tax Class auto-creates a Default Tax Rate Item (price 0.00) when saved. Each Tax Class can only have **one** Default Tax Rate.
-
-Key fields on Item Class for tax:
-- `OrderApi__Is_Tax__c`: marks this Item Class as a Tax Class
-- `OrderApi__Use_Default_Tax_Rate__c`: when checked, applies the same tax rate regardless of the purchaser's locale
-- `OrderApi__Is_Taxable__c`: marks items in this class as taxable (separate from Is_Tax)
-- `OrderApi__Tax_Class__c`: lookup to another Item Class that IS a Tax Class
-
-#### 2. Tax Locale (`OrderApi__Tax_Locale__c`)
-
-Defines a geographic jurisdiction for tax. Created under a Business Group's related list.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `OrderApi__Tax_Locale_Field__c` | Text(255) | API name of the **Sales Order Line** field the system evaluates (e.g., `OrderApi__Shipping_State__c`, `OrderApi__Shipping_Country__c`) |
-| `OrderApi__Locale_Values_CSV__c` | LongTextArea | Comma-separated values that match this locale (e.g., `va,VA` or `DC, dc`) |
-| `OrderApi__Tax_GL_Account__c` | Lookup(GL Account) | GL Account for tax liability (credit entry on the Sales Order journal) |
-| `OrderApi__Business_Group__c` | Lookup | Business Group association |
-
-#### 3. Tax Rate (`OrderApi__Item__c` with `OrderApi__Is_Tax__c = true`)
-
-A Tax Rate is an **Item** record created within a Tax Class (Item Class → Related → Items → New). It defines the flat rate percentage for a specific locale.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `OrderApi__Is_Tax__c` | Checkbox | Marks this Item as a Tax Rate |
-| `OrderApi__Tax_Locale__c` | Lookup(Tax_Locale__c) | The locale this rate applies to |
-| `OrderApi__Tax_Percent__c` | Percent(7,4) | The flat rate percentage |
-| `OrderApi__Is_Default_Tax_Rate__c` | Checkbox | Default rate when no locale matches |
-
-Multiple Tax Rates can exist within one Tax Class, one per locale. When a taxable item is purchased, the system selects the Tax Rate that matches the purchaser's locale.
-
-**When a taxable item is purchased, the Tax Rate automatically creates:**
-- Sales Order Line(s) with `Is_Tax__c = true`
-- Invoice Line(s)
-- Receipt Line(s)
-- ePayment Line(s)
-- GL journal entries: debit Cash, credit Revenue, credit Tax Liabilities GL Account
-
-#### 4. Taxable Item (`OrderApi__Item__c` with `OrderApi__Is_Taxable__c = true`)
-
-Any Item that needs to be taxed at purchase:
-- `OrderApi__Is_Taxable__c = true`
-- `OrderApi__Tax_Class__c` = lookup to the Tax Class (Item Class with `Is_Tax__c = true`)
-
-That's all that's needed. The system handles the rest at checkout.
-
-### 5.1.1 Current TCH Org State (queried 2026-05-12)
-
-> Data source: `Avalara/Fonteva taxes/Configurations/` (6 JSON files exported from TCH production org)
-
-**All existing tax configuration is Fonteva demo data (FON- prefix). No TCH-specific tax configuration exists.**
-
-| Component | Count | Details |
-|-----------|-------|---------|
-| Tax Classes | 6 (3 pairs) | `FON-Tax Class`, `FON-Default Tax Class`, `FON-VAT Tax Class`:each duplicated with/without BG=ECCHO |
-| Tax Locales | 8 (4 pairs) | VA (6%), DC (8%), France VAT (20%), Default USA (10%):each duplicated with/without BG=ECCHO |
-| Tax Rate Items | 8 (4 pairs) | `FON-VA State Tax` (6%), `FON-DC Tax` (8%), `FON-Default Tax Class Default Tax Rate` (10%), `FON-VAT France` (20%) |
-| Taxable Items | ~25 | All FON- demo merchandise: Mugs, T-Shirts, Coasters, Jackets, etc. **No TCH real products.** |
-| Business Group | 1 | ECCHO (`Required_Tax_Fields_CSV = OrderApi__Shipping_State__c`) |
-| GL Accounts | 2 | `2300 - Taxes Payable (Placeholder)` (Liability), `2400 - International Taxes Payable (Placeholder)` (Liability) |
-
-**Implications:**
-- TCH's real products (memberships, events, services) are **not configured as taxable**
-- GL Accounts are placeholders:real Tax Liabilities account needs to be created or designated by TCH finance
-- The Fonteva tax architecture works and is proven (demo data exercises the full path)
-- We are **building tax configuration from scratch**, not replacing an existing one
-
-### 5.1.2 Integration Strategy: Avalara Calculates, Fonteva is Product Master
+### 4.1 Integration Strategy: Avalara Calculates, Fonteva is Product Master
 
 **Separation of responsibilities:**
-- **Fonteva (Salesforce)** is the master of products/items. Tax codes are stored on each Item (`Avalara_Tax_Code__c`) and sent in the API request. This follows the principle: the tax code lives where the product lives.
-- **Avalara** is the tax calculation engine. It receives the `itemCode` + `taxCode` from Fonteva, applies jurisdiction rules (nexus, rates, exemptions), and returns the calculated tax.
-- **No native Fonteva tax configuration** needed (no Tax Class, Tax Locales, Tax Rate Items per state, or `Is_Taxable__c`). This avoids duplicating Avalara's jurisdiction/nexus logic in Fonteva.
+- **Fonteva (Salesforce)**: product master. Tax codes stored on each Item (`Avalara_Tax_Code__c`) and sent in the API request.
+- **Avalara**: tax calculation engine. Receives `itemCode` + `taxCode`, applies jurisdiction rules (nexus, rates, exemptions), returns calculated tax.
+- **No native Fonteva tax configuration** needed (no Tax Class, Tax Locales, Tax Rate Items per state). This avoids duplicating Avalara's jurisdiction/nexus logic.
 
-> **Why not register products in Avalara's Item Catalog?** Fonteva is the product master. Registering in Avalara would create a second source to maintain in sync:and without the Avalara managed package/connector, there's no automatic sync. If TCH ever installs the connector or migrates the product catalog, this can be revisited: the change is minimal (remove `taxCode` from the request, let Avalara resolve from its catalog).
+### 4.2 Spark Plug Architecture
 
-**What we need from Fonteva:**
-- **`Avalara_Tax_Code__c`** on each `OrderApi__Item__c`: stores the Avalara tax code (e.g., `P0000000`, `OD020500`, `NT`). Already mapped in `Avalara/Mapping/SalesforceItemsTaxCodes.csv`.
-- **One Tax Rate Item** (`OrderApi__Item__c` with `Is_Tax__c = true`): used as the `OrderApi__Item__c` lookup on tax SOLs. This Item's GL Account (Income Account) determines the Tax Liabilities GL entry.
-- **`Tax_Override__c = true`** on every tax SOL: prevents Fonteva's native engine from recalculating
-
-**Downstream records (Invoice Lines, Receipt Lines, ePayment Lines):**
-Fonteva's managed package creates these for **all** Sales Order Lines when the Sales Order is processed:not just for SOLs created by the native tax engine. The lookup fields `Sales_Order_Line__c` on Invoice Line, Receipt Line, and ePayment Line are all marked **"System Calculated"** in the metadata, meaning the managed package populates them automatically during posting. Tax SOLs created via Apex are just SOLs like any other.
-
-### 5.2 Spark Plug: Extension Points
-
-> Source: Official Fonteva documentation (`Avalara/Fonteva Spark Plug/*.pdf`)
-
-Fonteva's **Spark Plug** framework injects custom Lightning Components into default process flows via Extension Points. Registration is done via `Framework__Spark_Plug_Extension__mdt`.
-
-#### Extension Point Mapping
-
-| Extension Point | When | Avalara Action | Component | SparkPlugCompleteEvent |
-|---|---|---|---|---|
-| `Load_Checkout` | Checkout page loads | Validate address + Tax estimate (SalesOrder) + Create tax SOLs | `CYRILCheckoutSparkPlugComponent` (reuse, enable) | Yes |
-| `Load_Payment_Confirmation` | Receipt page loads (post-payment) | CreateTransaction (SalesInvoice, commit=true) + Save codes on SO | `CYRILPaymentConfirmationSparkPlugComponent` (reuse) | Yes |
-| `Process_Refund` | "Process Refund" button clicked | VoidTransaction + continue via `FDService.RefundService` | New component (future) | **NO** |
-| `Add_Validate_Address_Btn` | "Validate" button clicked | ResolveAddress (standalone) | New component (future) | Yes |
-
-#### Extension Points NOT Used
-
-| Extension Point | Reason |
-|---|---|
-| `Override_Tax_and_Shipping` | For Rapid Order Entry (admin), NOT customer checkout. Also: WARNING from Fonteva docs — do NOT fire `SparkPlugCompleteEvent` with this EP. |
-| `Load_Shopping_Cart` | Tax calculation not needed at cart stage |
-| `On_Click_Add_to_Order` | No Avalara interaction on add-to-cart |
-| `Load_ApplyPayment` / `Load_Invoice_Payment` | Not applicable to checkout tax flow |
-
-#### Existing CMT Records in Org
-
-| CMT Record | Component | Extension Point | Enabled |
+| Extension Point | When | Component | Controller |
 |---|---|---|---|
-| `Checkout_Sparkplug` | `CYRILCheckoutSparkPlugComponent` | `LTE__Load_Checkout` | **false** (to be enabled for Avalara) |
-| `CYRILPaymentConfirmationSparkPlugEP` | `CYRILPaymentConfirmationSparkPlugComponent` | `LTE__Load_Payment_Confirmation` | **true** |
+| `LTE__Load_Checkout` | Checkout page loads | `AvalaraCheckout` (delegated from `CYRILCheckoutSparkPlugComponent`) | `AvalaraCheckoutService` |
+| `LTE__Load_Payment_Confirmation` | Receipt page loads | `CYRILPaymentConfirmationSparkPlugComponent` | `GetCYRILPCSparkPlugController` + `AvalaraPaymentConfirmationService` |
+| `Process_Refund` | Refund button clicked | TBD | TBD |
 
-#### Fonteva Spark Plug Rules (from official docs)
+### 4.3 Tax Line Creation Pattern
 
-- Component must be **global** and implement `FDService:SparkPlugComponentInterface`
-- `FDService:SparkPlugLoadedEvent`: fire on init to hide loader
-- `FDService:SparkPlugCompleteEvent`: fire when done to show next component or hide container
-- **WARNING**: Do NOT fire `SparkPlugCompleteEvent` with `Process_Refund` or `Override_Tax_and_Shipping`
-- `Add_Validate_Address_Btn`: requires critical update "Enable ability to use a 3rd party address validation system" in **Spark Admin > Apps > Charge**
-- `v.data`: context object from container (salesOrder, gateway, etc.)
-- Multiple components on the same EP run in `Order__c` sequence (0 first)
+On each checkout Spark Plug fire:
+1. Delete existing Avalara tax SOLs (`Is_Tax__c = true AND Tax_Override__c = true`)
+2. Query product SOLs (exclude `Is_Tax__c = true` and `Is_Shipping_Rate__c = true`)
+3. Build Avalara request with line items + tax codes
+4. Call CreateTransaction (SalesOrder)
+5. For each response line: create a tax SOL with Avalara-calculated amounts (including $0 for audit trail)
 
-### 5.2.1 Checkout Spark Plug (Load_Checkout)
+**Tax SOL fields set:**
+- `OrderApi__Is_Tax__c = true`
+- `OrderApi__Tax_Override__c = true` (prevents Fonteva recalculation; also used as cleanup identifier)
+- `OrderApi__Tax_Amount__c` = `lines[].tax`
+- `OrderApi__Tax_Percent__c` = `lines[].rate * 100` (Percent(7,4))
+- `OrderApi__Sale_Price__c` = `lines[].tax`
+- `OrderApi__Quantity__c = 1`
+- `OrderApi__Item__c` = Tax Rate Item ID (for GL accounting)
+- `OrderApi__Sales_Order_Line__c` = parent product SOL ID (self-lookup)
 
-Reuses `CYRILCheckoutSparkPlugComponent`. On checkout page load:
-
-1. Fire `SparkPlugLoadedEvent`
-2. Call Apex orchestrator: validate address → calculate tax → create tax SOLs
-3. Fire `SparkPlugCompleteEvent` (always, even on error — to not block checkout)
-
-### 5.2.2 Payment Confirmation Spark Plug (Load_Payment_Confirmation)
-
-Reuses `CYRILPaymentConfirmationSparkPlugComponent`. After payment confirmed:
-
-1. Fire `SparkPlugLoadedEvent`
-2. Call Apex: CreateTransaction (SalesInvoice, commit=true)
-3. Save `response.code` → `Avalara_Transaction_Code__c` and `response.id` → `Avalara_Transaction_Id__c` on Sales Order
-4. Fire `SparkPlugCompleteEvent`
-
-### 5.3 Apex Back-End: Tax Calculation
-
-The Spark Plug's Apex controller orchestrates the Avalara call and creates/updates tax SOLs directly.
-
-#### Prerequisites
-
-1. **Tax Rate Item**: One `OrderApi__Item__c` with `Is_Tax__c = true` and the correct Income Account (GL Account for Tax Liabilities). This is the Item referenced on every tax SOL.
-2. **New field**: `Avalara_Tax_Code__c` (Text 25) on `OrderApi__Item__c` for Avalara tax code classification per product.
-
-#### How the flow works
-
-1. Customer adds items to cart and proceeds to checkout
-2. Spark Plug fires at `LTE__Load_Checkout`
-3. Apex queries all product SOLs on the Sales Order
-4. Apex sends product lines to Avalara API (`CreateTransaction`)
-5. Avalara returns tax per line (amount, rate, jurisdiction)
-6. For each response line: Apex creates a tax SOL with `Is_Tax__c = true`, `Tax_Override__c = true`, and the Avalara-calculated amounts (including $0 tax lines for audit trail)
-7. Spark Plug fires `SparkPlugCompleteEvent`
-8. Checkout renders with tax (Fonteva natively reads all SOLs and shows Subtotal + Tax + Total)
-
-#### Step 1: Query product lines
-
-```sql
-SELECT Id, OrderApi__Item__c, OrderApi__Sale_Price__c, OrderApi__Quantity__c,
-       OrderApi__Total__c, OrderApi__Item__r.Name,
-       OrderApi__Item__r.Avalara_Tax_Code__c
-FROM OrderApi__Sales_Order_Line__c
-WHERE OrderApi__Sales_Order__c = :salesOrderId
-  AND OrderApi__Is_Tax__c = false
-  AND OrderApi__Is_Shipping_Rate__c = false
-```
-
-#### Step 2: Build Avalara request
-
-Each product SOL becomes a `line` in the `CreateTransactionModel` (as described in Section 2.2). Avalara determines what's taxable and at what rate:no Fonteva-side `Is_Taxable__c` config needed.
-
-#### Step 3: Delete existing tax SOLs and create new ones
-
-On each Spark Plug fire (including cart modifications), clean up previous tax SOLs and create fresh ones from the Avalara response:
-
-```apex
-// Clean up previous Avalara tax SOLs
-delete [SELECT Id FROM OrderApi__Sales_Order_Line__c
-        WHERE OrderApi__Sales_Order__c = :salesOrderId
-          AND OrderApi__Is_Tax__c = true
-          AND OrderApi__Tax_Override__c = true];
-
-// Create tax SOL for each taxable line in Avalara response
-List<OrderApi__Sales_Order_Line__c> taxLines = new List<OrderApi__Sales_Order_Line__c>();
-for (AvalaraResponseLine avalaraLine : response.lines) {
-    // Always create tax SOL (even $0) for audit trail
-    {
-        taxLines.add(new OrderApi__Sales_Order_Line__c(
-            OrderApi__Sales_Order__c = salesOrderId,
-            OrderApi__Is_Tax__c = true,
-            OrderApi__Tax_Override__c = true,
-            OrderApi__Tax_Amount__c = avalaraLine.tax,
-            OrderApi__Tax_Percent__c = avalaraLine.rate * 100,
-            OrderApi__Sale_Price__c = avalaraLine.tax,
-            OrderApi__Quantity__c = 1,
-            OrderApi__Item__c = taxRateItemId,
-            OrderApi__Sales_Order_Line__c = productLineIdMap.get(avalaraLine.lineNumber)
-        ));
-    }
-}
-insert taxLines;
-```
-
-> **Field notes (validated against org metadata)**:
-> - `OrderApi__Sales_Order_Line__c` (self-lookup) links tax SOL to parent product SOL. `OrderApi__Sales_Order_Line_R__c` is for multi-currency reporting:do NOT use.
-> - `OrderApi__Tax_Percent__c` is Percent(7,4). Avalara returns `rate` as decimal (e.g., `0.0825`), multiply by 100.
-> - `Tax_Override__c = true` prevents Fonteva's native engine from recalculating. Also used as the cleanup identifier (delete all SOLs where `Is_Tax__c = true AND Tax_Override__c = true`).
-> - Invoice Lines, Receipt Lines, ePayment Lines are created automatically by the managed package when the Sales Order is processed. The `Sales_Order_Line__c` lookup on these objects is **"System Calculated"**:the managed package populates it for ALL SOLs, regardless of how they were created.
-
-### 5.4 Apex Class Summary
-
-| Class | Responsibility | Status |
-|-------|---------------|--------|
-| `AvalaraAuthProviderService` | Centralized HTTP client. Named Credential + CMT endpoint registry. | Deployed |
-| `AvalaraResolveAddressService` | Address validation (DTO+Transformer+Service) | Deployed |
-| `AvalaraCreateTransactionService` | Tax calculation (DTO+Transformer+Service) | Developed |
-| `AvalaraTransactionStatusService` | Commit + Void (unified, DRY) | Developed |
-| `AvalaraTaxCalculationService` | **Orchestrator**: validate address → calculate tax → create/delete tax SOLs. Entry point: `calculateTax(Id salesOrderId)` | Planned |
-| `AvalaraTaxCommitService` | **Post-payment orchestrator**: CreateTransaction (SalesInvoice, commit=true) + save codes on SO. Entry point: `commitTax(Id salesOrderId)` | Planned |
-
-| Component | Extension Point | Responsibility |
-|-----------|---|---------------|
-| `CYRILCheckoutSparkPlugComponent` | `LTE__Load_Checkout` | Calls `AvalaraTaxCalculationService.calculateTax()`, fires `SparkPlugLoadedEvent` + `SparkPlugCompleteEvent` |
-| `CYRILPaymentConfirmationSparkPlugComponent` | `LTE__Load_Payment_Confirmation` | Calls `AvalaraTaxCommitService.commitTax()`, fires `SparkPlugLoadedEvent` + `SparkPlugCompleteEvent` |
-
-### 5.5 Key Design Decisions
-
-| # | Decision | Rationale |
-|---|----------|-----------|
-| 1 | **Fonteva is product master, Avalara is tax engine** | Tax codes live where the products live (`Avalara_Tax_Code__c` on Item). Avalara calculates jurisdiction/rates. No native Fonteva tax config (Tax Class/Locale/Rate) needed:avoids duplicating Avalara's logic. See Section 5.1.2. |
-| 2 | **Downstream records propagate automatically** | Invoice Lines, Receipt Lines, ePayment Lines are created by the managed package for ALL SOLs when the Sales Order is processed. The `Sales_Order_Line__c` lookup is "System Calculated". Tax SOLs created via Apex are treated like any other SOL. |
-| 3 | **Delete + recreate on every Spark Plug fire** | Simpler than matching/updating. On cart modification, old tax SOLs are deleted (`Is_Tax__c = true AND Tax_Override__c = true`) and fresh ones created from Avalara response. |
-| 4 | **Self-lookup field**: `OrderApi__Sales_Order_Line__c` | Links tax SOL to parent product SOL. `OrderApi__Sales_Order_Line_R__c` is for multi-currency reporting:do NOT use. |
-| 5 | **Tax SOL per product line (including $0)** | One tax SOL per response line for granularity and audit trail. Even $0 tax lines are created to show Avalara was called and determined no tax. |
-| 6 | **Checkout = SalesOrder, Post-payment = SalesInvoice+commit** | SalesOrder auto-expires if checkout fails or cart changes. SalesInvoice only created after payment confirmed. No orphaned transactions. |
-| 7 | **Reuse existing CYRIL components** | `CYRILCheckoutSparkPlugComponent` and `CYRILPaymentConfirmationSparkPlugComponent` already registered at the correct extension points. Adapt with Avalara logic instead of creating new components. |
+> **Downstream propagation**: Invoice Lines, Receipt Lines, ePayment Lines are created automatically by the managed package for ALL SOLs when the Sales Order is processed.
 
 ---
 
-## 6. Task Requirements → API Mapping
+## 5. Apex Class Summary
 
-| Task Requirement | API Method | Endpoint | Apex Classes |
-|------------------|------------|----------|-------------|
-| *"Avalara creds"* | Basic Auth | `Authorization` header | `AvalaraAuthProvider`, Named Credential |
-| *"Add Fonteva Items records to Avalara Portal"* | N/A with direct API | Mapped via `lines[]` in request | `AvalaraLineItem` |
-| *"Configure US States that are taxable"* | Avalara Portal (Nexus) | Admin portal:not an API | N/A |
-| *"Use Avalara Tax API to send additional details"* | [`CreateTransaction`][method-create-transaction] | `POST /transactions/create` | `AvalaraTaxService`, `AvalaraTransactionRequest` |
-| *"Get the calculation response"* | [`CreateTransaction`][method-create-transaction] | `TransactionModel` response | `AvalaraTransactionResponse` |
-| *"Create Fonteva Adjustment Tax Item records"* | N/A (Salesforce logic) | Apex DML:override native tax SOLs | `AvalaraTaxLineOverrider` |
-| *"Tax Exemption Certificates"* | [`CreateCustomers`][method-create-customers] / [`CreateCertificates`][method-create-certificates] | `/customers`, `/certificates` | `AvalaraExemptionService` |
-| *"LWC button → redirect to Avalara guest portal"* | [`CreateCertExpressInvitation`][method-certexpress-invite] | `/certexpressinvites` | `avalaraCertExpressButton` LWC |
-| *"LWC to visualize user exempt certificates"* | [`ListCertificatesForCustomer`][method-list-certs-customer] | `GET /customers/{code}/certificates` | `avalaraCertificateViewer` LWC |
+### 5.1 Authentication Layer
+
+| Class | Responsibility |
+|-------|---------------|
+| `AvalaraAuthProviderService` | Centralized HTTP client. Named Credential + CMT endpoint registry (`Avalara_Service__mdt`). Dynamic Sandbox/Production selection. |
+
+### 5.2 Address Validation (DTO + Transformer + Service)
+
+| Class | Responsibility |
+|-------|---------------|
+| `AvalaraResolveAddress` | DTOs: Request, Response, Address, Coordinates, TaxAuthority, Message |
+| `AvalaraResolveAddressTransformer` | JSON serialization/deserialization |
+| `AvalaraResolveAddressService` | Orchestrator: `execute(Request)` > Response |
+
+### 5.3 Tax Calculation (DTO + Transformer + Service)
+
+| Class | Responsibility |
+|-------|---------------|
+| `AvalaraCreateTransaction` | DTOs: Request, Address, LineItem, Response, ResponseLine, TaxDetail |
+| `AvalaraCreateTransactionTransformer` | Manual JSON serialization with helper methods |
+| `AvalaraCreateTransactionService` | Orchestrator: `execute(Request)` > Response |
+
+### 5.4 Transaction Status (Commit + Void)
+
+| Class | Responsibility |
+|-------|---------------|
+| `AvalaraTransactionStatusService` | Unified commit + void. Reuses `AvalaraCreateTransaction.Response` |
+| `AvalaraVoidTransactionQueueable` | Async batch void (25 callouts/execution, self-chaining) |
+
+### 5.5 ECM: Customer Registration
+
+| Class | Responsibility |
+|-------|---------------|
+| `AvalaraCreateCustomer` | DTOs: Request (customerCode, name, address, email), Response |
+| `AvalaraCreateCustomerTransformer` | JSON serialization (wraps in array per API spec) |
+| `AvalaraCreateCustomerService` | Orchestrator: `execute(Request, companyId)` > Response |
+
+### 5.6 ECM: CertExpress Invitation
+
+| Class | Responsibility |
+|-------|---------------|
+| `AvalaraCertExpressInvitation` | DTOs: Request (recipient, coverLetterTitle, deliveryMethod), Response (requestLink, status) |
+| `AvalaraCertExpressInvitationTransformer` | JSON serialization (wraps in array, extracts nested invitation) |
+| `AvalaraCertExpressInvitationService` | Orchestrator: `execute(Request, companyId, customerCode)` > Response |
+
+### 5.7 ECM: Certificate Listing
+
+| Class | Responsibility |
+|-------|---------------|
+| `AvalaraListCertificates` | DTOs: Response (recordsetCount, certificates), Certificate (id, status, signedDate, expirationDate, exposureZoneName, exemptionReasonName) |
+| `AvalaraListCertificatesTransformer` | JSON deserialization (paginated envelope, nested objects) |
+| `AvalaraListCertificatesService` | Orchestrator: `execute(companyId, customerCode)` > Response |
+
+### 5.8 Business Orchestrators
+
+| Class | Responsibility |
+|-------|---------------|
+| `AvalaraTaxCalculationService` | End-to-end orchestrator: validate address > calculate tax > create/delete tax SOLs. Entry points: `calculateTax(Id)`, `commitTax(Id)` |
+| `AvalaraCheckoutService` | `@AuraEnabled` controller for AvalaraCheckout Spark Plug. `getCheckoutInfo()`, `updateEntityAddress()`, `calculateTax()`, `getExemptionPagePath()` |
+| `AvalaraPaymentConfirmationService` | `@AuraEnabled` controller for post-payment. `enqueueCommitTax(receiptNumber)`. Resolves receipt > Sales Order > enqueues Queueable. |
+| `AvalaraPaymentConfirmationQueueable` | Queueable that calls `AvalaraTaxCalculationService.commitTax()` asynchronously |
+| `AvalaraTaxExemptionService` | `@AuraEnabled` controller for avalaraTaxExemption LWC. `getExemptionInfo()`, `registerAndInvite()`, `requestNewExemption()` |
+
+### 5.9 UI Components
+
+| Component | Type | Controller | Purpose |
+|-----------|------|-----------|---------|
+| `AvalaraCheckout` | Aura | `AvalaraCheckoutService` | Checkout Spark Plug: tax review, address edit, tax calculation trigger. Registered at `LTE__Load_Checkout`. |
+| `CYRILCheckoutSparkPlugComponent` | Aura | (delegator) | Original Spark Plug shell. Delegates to `AvalaraCheckout`. |
+| `CYRILPaymentConfirmationSparkPlugComponent` | Aura | `GetCYRILPCSparkPlugController` | Post-payment Spark Plug. Enhanced with `enqueueAvalaraCommit()` call. |
+| `avalaraTaxExemption` | LWC | `AvalaraTaxExemptionService` | Tax Exemption page: registration form, address selection, certificate viewer, CertExpress redirect. |
+
+### 5.10 Test Classes
+
+| Test Class | Tests | Covers |
+|------------|-------|--------|
+| `AvalaraAuthProviderServiceTest` | Auth, HTTP client, Named Credential selection | AvalaraAuthProviderService |
+| `AvalaraResolveAddressTransformerTest` | Request/Response transformation | AvalaraResolveAddressTransformer |
+| `AvalaraResolveAddressServiceTest` | End-to-end address validation | AvalaraResolveAddressService |
+| `AvalaraCreateTransactionTransformerTest` | Request/Response transformation | AvalaraCreateTransactionTransformer |
+| `AvalaraCreateTransactionServiceTest` | End-to-end tax calculation | AvalaraCreateTransactionService |
+| `AvalaraTransactionStatusServiceTest` | Commit + Void operations | AvalaraTransactionStatusService |
+| `AvalaraVoidTransactionQueueableTest` | Batch void + self-chaining | AvalaraVoidTransactionQueueable |
+| `AvalaraTaxCalculationServiceTest` | Orchestrator: calculateTax + commitTax | AvalaraTaxCalculationService |
+| `AvalaraCheckoutServiceTest` | Checkout controller: getCheckoutInfo, calculateTax | AvalaraCheckoutService |
+| `AvalaraCreateCustomerTransformerTest` | Customer request/response transformation | AvalaraCreateCustomerTransformer |
+| `AvalaraCreateCustomerServiceTest` | Customer registration | AvalaraCreateCustomerService |
+| `AvalaraCertExpressInviteTransformerTest` | Invitation request/response transformation | AvalaraCertExpressInvitationTransformer |
+| `AvalaraCertExpressInvitationServiceTest` | CertExpress invitation generation | AvalaraCertExpressInvitationService |
+| `AvalaraListCertificatesTransformerTest` | Certificate list parsing | AvalaraListCertificatesTransformer |
+| `AvalaraListCertificatesServiceTest` | Certificate listing | AvalaraListCertificatesService |
+| `AvalaraTaxExemptionServiceTest` | Tax exemption controller (8 tests) | AvalaraTaxExemptionService |
 
 ---
 
-## 7. Pending Item
-### Resolved
+## 6. Custom Metadata Configuration
 
-- ~~**ECM not provisioned**~~:**Resolved (2026-05-12).** Was returning `AccountNotProvisioned`. Fixed by enabling ECM in Avalara portal. CertExpress and certificate viewer LWCs can now proceed.
+### 6.1 `Avalara_Config__mdt` (Company Configuration)
 
-### Defaults (proceed with development, TCH reviews before go-live)
+| Field | Type | Description | Sandbox Value |
+|-------|------|-------------|---------------|
+| `Company_Code__c` | Text(25) | Avalara Company Code | `TCHPC` |
+| `Company_Id__c` | Text(25) | Avalara Company ID (numeric, for ECM APIs) | `312140` |
+| `Environment__c` | Picklist | Sandbox / Production | `Sandbox` |
+| `Is_Active__c` | Checkbox | Active configuration flag | `true` |
+| `ShipFrom_Street__c` | Text(255) | TCH business address: street | `1114 Avenue of The Americas, 17th Floor` |
+| `ShipFrom_City__c` | Text(100) | TCH business address: city | `New York` |
+| `ShipFrom_State__c` | Text(2) | TCH business address: state code | `NY` |
+| `ShipFrom_PostalCode__c` | Text(10) | TCH business address: postal code | `10036` |
+| `ShipFrom_Country__c` | Text(2) | TCH business address: country (ISO 2-char) | `US` |
+| `Default_Tax_Code__c` | Text(25) | Fallback Avalara tax code when Item's `Avalara_Tax_Code__c` is blank | (null) |
+| `Tax_Exemption_Page_Path__c` | Text(255) | Community page path for Tax Exemption LWC | `/LightningMemberPortal/s/tax-exemption` |
 
-We use sensible defaults for all items below so development is not blocked. TCH team reviews and adjusts during UAT.
+**Records:** `Avalara_Config.Sandbox`, `Avalara_Config.Production`
+
+### 6.2 `Avalara_Service__mdt` (API Endpoint Registry)
+
+| Record DeveloperName | HTTP Method | Resource Path |
+|---------------------|-------------|---------------|
+| `Ping` | GET | `/api/v2/utilities/ping` |
+| `Resolve_Address` | POST | `/api/v2/addresses/resolve` |
+| `Create_Transaction` | POST | `/api/v2/transactions/create` |
+| `Commit_Transaction` | POST | `/api/v2/companies/{companyCode}/transactions/{transactionCode}/commit` |
+| `Void_Transaction` | POST | `/api/v2/companies/{companyCode}/transactions/{transactionCode}/void` |
+| `Query_Companies` | GET | `/api/v2/companies` |
+| `List_Nexus_By_Company` | GET | `/api/v2/companies/{companyId}/nexus` |
+| `List_Entity_Use_Codes` | GET | `/api/v2/definitions/entityusecodes` |
+| `Create_Customers` | POST | `/api/v2/companies/{companyId}/customers` |
+| `Create_CertExpress_Invitation` | POST | `/api/v2/companies/{companyId}/customers/{customerCode}/certexpressinvites` |
+| `List_Certificates_For_Customer` | GET | `/api/v2/companies/{companyId}/customers/{customerCode}/certificates` |
+
+---
+
+## 7. Custom Fields
+
+### On `OrderApi__Item__c`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Avalara_Tax_Code__c` | Text(25) | Avalara Tax Code per product (e.g., `P0000000`, `SW054000`, `NT`) |
+
+### On `OrderApi__Sales_Order__c`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Avalara_Transaction_Code__c` | Text(50) | Avalara transaction code for commit/void operations |
+| `Avalara_Transaction_Id__c` | Text(20) | Avalara numeric transaction ID (portal reference) |
+
+### On `Account`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Avalara_Customer_Id__c` | Text | Avalara ECM customer ID. Prevents duplicate CreateCustomers calls. |
+
+---
+
+## 8. Nexus Configuration (Avalara Portal)
+
+Tax nexus configured in Avalara sandbox for the following US states:
+
+| State | Nexus | Tax Basis |
+|-------|-------|-----------|
+| DC (District of Columbia) | Yes | Destination-based |
+| IL (Illinois) | Yes | Destination-based |
+| MI (Michigan) | Yes | Destination-based |
+| NC (North Carolina) | Yes | Destination-based |
+| NY (New York) | Yes | Destination-based |
+| OH (Ohio) | Yes | Destination-based |
+| TX (Texas) | Yes | Destination-based |
+
+> No nexus = $0 tax. Tax is calculated based on the customer's shipping/billing address (destination-based).
+
+---
+
+## 9. Pending Items
+
+### Not Started
+
+| Item | Description | Priority |
+|------|-------------|----------|
+| **Refund/Void Trigger** | Implement trigger or process to auto-void Avalara transaction when Sales Order is cancelled | Medium |
+| **Exemption application to tax calculation** | Wire ECM exemption status into CreateTransaction (entityUseCode or exemptionNo) | Blocked (see below) |
+
+### Blocked
+
+| Item | Blocker | Notes |
+|------|---------|-------|
+| **ECM exemption in tax calc** | Waiting Tanya's discussion with client on approach: simple (entityUseCode/checkbox) vs full ECM (needs license) | Two paths identified |
+
+### Defaults (TCH reviews before go-live)
 
 | Item | Default | TCH Review Needed |
 |------|---------|-------------------|
-| **ShipFrom address** | Configured in `Avalara_Config__mdt`. Use TCH's registered business address (asked in TeamWork, pending confirmation). | TCH confirms the exact address before go-live |
-| **Tax codes** | All items default to `P0000000` (tangible personal property). Stored in `Avalara_Tax_Code__c` per Item. | TCH business/tax team reclassifies products (SaaS, services, memberships, events):different types are taxed differently per state |
-| **Non-taxable products** | All items sent to Avalara. Avalara determines taxability per jurisdiction. | TCH reviews which products need specific tax codes (non-default) |
-| **GL Account** | Tax Rate Item uses `2300 - Taxes Payable (Placeholder)` as Income Account. | TCH finance confirms or provides the real Tax Liabilities GL Account |
-
-### Resolved
-
-- ~~Avalara sandbox credentials~~:API working (Account ID: 2000002768)
-- ~~Company Code~~:available in sandbox
-- ~~Nexus states~~:configured in Avalara portal (confirmed via `ListNexusByCompany`)
-- ~~Fonteva tax line structure~~:`OrderApi__Sales_Order_Line__c` with `Is_Tax__c = true`, validated against org metadata
-- ~~Checkout integration point~~:Spark Plug at `LTE__Load_Checkout`
-
-### Implementation Setup (done by us)
-
-1. **Tax Rate Item.** Create one `OrderApi__Item__c` with `Is_Tax__c = true` and Income Account set to `2300 - Taxes Payable`. Referenced on every Avalara-created tax SOL for GL accounting.
-
-2. **New custom fields to deploy:**
-    - `Avalara_Tax_Code__c` (Text 25) on `OrderApi__Item__c`:Avalara tax code per product
-    - `Avalara_Transaction_Code__c` (Text 50) on `OrderApi__Sales_Order__c`:for commit/void
-    - `Avalara_Transaction_Id__c` (Text 20) on `OrderApi__Sales_Order__c`:optional portal reference
-    - `Avalara_Config__mdt`:Custom Metadata Type with the following fields:
-
-    | Field | Type | Description | Example |
-    |-------|------|-------------|---------|
-    | `Company_Code__c` | Text(25) | Avalara Company Code, sent in every `CreateTransaction` request | `TCH_PROD` |
-    | `Environment__c` | Picklist | Determines which Avalara endpoint to use | `Sandbox` / `Production` |
-    | `ShipFrom_Street__c` | Text(255) | TCH business address: street (origin for tax jurisdiction) | `2 Liberty Place, 50 S 16th St` |
-    | `ShipFrom_City__c` | Text(100) | TCH business address: city | `New York` |
-    | `ShipFrom_State__c` | Text(2) | TCH business address: state code | `NY` |
-    | `ShipFrom_PostalCode__c` | Text(10) | TCH business address: zip | `10006` |
-    | `ShipFrom_Country__c` | Text(2) | TCH business address: country (ISO 2-char) | `US` |
-    | `Auto_Commit__c` | Checkbox | If true, `SalesInvoice` transactions send `commit: true` automatically | `true` |
-    | `Enable_Address_Validation__c` | Checkbox | If true, validates ShipTo address via `ResolveAddress` before tax calculation | `false` |
-    | `Default_Tax_Code__c` | Text(25) | Fallback Avalara tax code when `Avalara_Tax_Code__c` is blank on an Item | `P0000000` |
+| **ShipFrom address** | 1114 Avenue of The Americas, 17th Floor, New York, NY 10036 | Confirm exact address |
+| **Tax codes** | All items default to `P0000000` (tangible personal property) | Reclassify per product type (SaaS, services, memberships, events) |
+| **GL Account** | `2300 - Taxes Payable (Placeholder)` | Confirm real Tax Liabilities GL Account |
 
 ---
 
-## 8. API References
+## 10. Key Design Decisions
 
-### API Products
+| # | Decision | Rationale |
+|---|----------|-----------|
+| 1 | **Fonteva is product master, Avalara is tax engine** | Tax codes live on `Item.Avalara_Tax_Code__c`. No native Fonteva tax config needed. |
+| 2 | **Layered architecture: DTO + Transformer + Service** | Each API operation has three classes. DTOs are pure data containers. Transformers handle JSON. Services orchestrate callouts. Testable and maintainable. |
+| 3 | **Centralized HTTP client** (`AvalaraAuthProviderService`) | Named Credential selection, path variable substitution, and error handling in one place. All services delegate callouts to this class. |
+| 4 | **CMT-based endpoint registry** (`Avalara_Service__mdt`) | API paths stored as metadata, not code. Adding a new API = new CMT record, not a code change. |
+| 5 | **Delete + recreate tax SOLs on every calculation** | Simpler than matching/updating. Clean slate on each Spark Plug fire. |
+| 6 | **Checkout = SalesOrder, Post-payment = SalesInvoice+commit** | SalesOrder auto-expires. SalesInvoice only created after payment. No orphaned transactions. |
+| 7 | **Post-payment commit is async** (Queueable) | Does not block the receipt page. Runs in background after SparkPlugCompleteEvent. |
+| 8 | **Avalara Customer ID persisted on Account** | Prevents duplicate ECM customer registrations. Enables returning customer flow (skip CreateCustomers, go straight to invitation). |
+| 9 | **Self-chaining Queueable for batch void** | Respects callout limit (100 per transaction, batched as 25). Resilient: each callout wrapped in try/catch. |
 
-| API Name | Documentation |
-|----------|---------------|
+---
+
+## 11. API References
+
+| Method | Documentation |
+|--------|---------------|
+| ResolveAddress | https://developer.avalara.com/products/avatax/api/methods/Addresses/ResolveAddress/ |
+| CreateTransaction | https://developer.avalara.com/products/avatax/api/methods/Transactions/CreateTransaction/ |
+| CommitTransaction | https://developer.avalara.com/products/avatax/api/methods/Transactions/CommitTransaction/ |
+| VoidTransaction | https://developer.avalara.com/products/avatax/api/methods/Transactions/VoidTransaction/ |
+| CreateCustomers | https://developer.avalara.com/products/avatax/api/methods/Customers/CreateCustomers/ |
+| ListCertificatesForCustomer | https://developer.avalara.com/products/avatax/api/methods/Customers/ListCertificatesForCustomer/ |
+| CreateCertExpressInvitation | https://developer.avalara.com/products/avatax/api/methods/CertExpressInvites/CreateCertExpressInvitation/ |
 | AvaTax REST API v2 | https://developer.avalara.com/products/avatax/api/ |
-| Exemption Certificate Management (ECM) | https://developer.avalara.com/products/ecm/api/certcapture/ |
-| Avalara API Reference (all products) | https://developer.avalara.com/api-reference/ |
-
-### API Methods Used in This Integration
-
-| Method | Category | Documentation |
-|--------|----------|---------------|
-| `ResolveAddress` | Addresses | https://developer.avalara.com/products/avatax/api/methods/Addresses/ResolveAddress/ |
-| `CreateTransaction` | Transactions | https://developer.avalara.com/products/avatax/api/methods/Transactions/CreateTransaction/ |
-| `CommitTransaction` | Transactions | https://developer.avalara.com/products/avatax/api/methods/Transactions/CommitTransaction/ |
-| `VoidTransaction` | Transactions | https://developer.avalara.com/products/avatax/api/methods/Transactions/VoidTransaction/ |
-| `CreateCustomers` | Customers | https://developer.avalara.com/products/avatax/api/methods/Customers/CreateCustomers/ |
-| `ListCertificatesForCustomer` | Customers | https://developer.avalara.com/products/avatax/api/methods/Customers/ListCertificatesForCustomer/ |
-| `CreateCertificates` | Certificates | https://developer.avalara.com/products/avatax/api/methods/Certificates/CreateCertificates/ |
-| `GetCertificate` | Certificates | https://developer.avalara.com/products/avatax/api/methods/Certificates/GetCertificate/ |
-| `CreateCertExpressInvitation` | CertExpressInvites | https://developer.avalara.com/products/avatax/api/methods/CertExpressInvites/CreateCertExpressInvitation/ |
-| `ListEntityUseCodes` | Definitions | https://developer.avalara.com/products/avatax/api/methods/Definitions/ListEntityUseCodes/ |
-
-### Developer Guides
-
-| Guide | Documentation |
-|-------|---------------|
-| Authentication | https://developer.avalara.com/avatax/authentication-in-rest/ |
-| Transactions | https://developer.avalara.com/avatax/dev-guide/transactions/ |
-| Document Types | https://developer.avalara.com/avatax/dev-guide/transactions/document-types/ |
-| Exemptions | https://developer.avalara.com/avatax/dev-guide/exemptions/ |
-| Entity Use Codes | https://developer.avalara.com/avatax/dev-guide/exemptions/exemptions-for-usage/ |
-
-[avatax-api]: https://developer.avalara.com/products/avatax/api/
-[ecm-api]: https://developer.avalara.com/products/ecm/api/certcapture/
-[method-resolve-address]: https://developer.avalara.com/products/avatax/api/methods/Addresses/ResolveAddress/
-[method-create-transaction]: https://developer.avalara.com/products/avatax/api/methods/Transactions/CreateTransaction/
-[method-commit-transaction]: https://developer.avalara.com/products/avatax/api/methods/Transactions/CommitTransaction/
-[method-void-transaction]: https://developer.avalara.com/products/avatax/api/methods/Transactions/VoidTransaction/
-[method-create-customers]: https://developer.avalara.com/products/avatax/api/methods/Customers/CreateCustomers/
-[method-list-certs-customer]: https://developer.avalara.com/products/avatax/api/methods/Customers/ListCertificatesForCustomer/
-[method-create-certificates]: https://developer.avalara.com/products/avatax/api/methods/Certificates/CreateCertificates/
-[method-get-certificate]: https://developer.avalara.com/products/avatax/api/methods/Certificates/GetCertificate/
-[method-certexpress-invite]: https://developer.avalara.com/products/avatax/api/methods/CertExpressInvites/CreateCertExpressInvitation/
-[method-list-entity-use-codes]: https://developer.avalara.com/products/avatax/api/methods/Definitions/ListEntityUseCodes/
+| ECM API | https://developer.avalara.com/products/ecm/api/certcapture/ |

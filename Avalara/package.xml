@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Avalara AvaTax Integration: all components developed on feature/26657020</description>
+
+    <!-- Apex Test Suite -->
+     <types>
+        <members>Avalara</members>
+        <name>ApexTestSuite</name>
+    </types>
+
+    <!-- Apex Classes -->
+    <types>
+        <members>AvalaraAuthProviderService</members>
+        <members>AvalaraAuthProviderServiceTest</members>
+        <members>AvalaraCertExpressInvitation</members>
+        <members>AvalaraCertExpressInvitationService</members>
+        <members>AvalaraCertExpressInvitationServiceTest</members>
+        <members>AvalaraCertExpressInvitationTransformer</members>
+        <members>AvalaraCertExpressInviteTransformerTest</members>
+        <members>AvalaraCheckoutService</members>
+        <members>AvalaraCheckoutServiceTest</members>
+        <members>AvalaraCreateCustomer</members>
+        <members>AvalaraCreateCustomerService</members>
+        <members>AvalaraCreateCustomerServiceTest</members>
+        <members>AvalaraCreateCustomerTransformer</members>
+        <members>AvalaraCreateCustomerTransformerTest</members>
+        <members>AvalaraCreateTransaction</members>
+        <members>AvalaraCreateTransactionService</members>
+        <members>AvalaraCreateTransactionServiceTest</members>
+        <members>AvalaraCreateTransactionTransformer</members>
+        <members>AvalaraCreateTransactionTransformerTest</members>
+        <members>AvalaraListCertificates</members>
+        <members>AvalaraListCertificatesService</members>
+        <members>AvalaraListCertificatesServiceTest</members>
+        <members>AvalaraListCertificatesTransformer</members>
+        <members>AvalaraListCertificatesTransformerTest</members>
+        <members>AvalaraPaymentConfirmationQueueable</members>
+        <members>AvalaraPaymentConfirmationQueueableTest</members>
+        <members>AvalaraPaymentConfirmationService</members>
+        <members>AvalaraPaymentConfirmationServiceTest</members>
+        <members>AvalaraResolveAddress</members>
+        <members>AvalaraResolveAddressService</members>
+        <members>AvalaraResolveAddressServiceTest</members>
+        <members>AvalaraResolveAddressTransformer</members>
+        <members>AvalaraResolveAddressTransformerTest</members>
+        <members>AvalaraTaxCalculationService</members>
+        <members>AvalaraTaxCalculationServiceTest</members>
+        <members>AvalaraTaxExemptionService</members>
+        <members>AvalaraTaxExemptionServiceTest</members>
+        <members>AvalaraTransactionStatusService</members>
+        <members>AvalaraTransactionStatusServiceTest</members>
+        <members>AvalaraVoidTransactionQueueable</members>
+        <members>AvalaraVoidTransactionQueueableTest</members>
+        <members>GetCYRILPCSparkPlugController</members>
+        <members>SalesOrderCustomTriggerHandler</members>
+        <members>SalesOrderCustomTriggerHandlerTest</members>
+        <name>ApexClass</name>
+    </types>
+
+    <!-- Apex Triggers -->
+    <types>
+        <members>SalesOrderCustomTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+
+    <!-- Aura Components -->
+    <types>
+        <members>AvalaraCheckout</members>
+        <members>CYRILCheckoutSparkPlugComponent</members>
+        <members>CYRILPaymentConfirmationSparkPlugComponent</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+
+    <!-- Lightning Web Components -->
+    <types>
+        <members>avalaraTaxExemption</members>
+        <name>LightningComponentBundle</name>
+    </types>
+
+    <!-- Custom Metadata Types (Object Definitions) -->
+    <types>
+        <members>Avalara_Config__mdt</members>
+        <members>Avalara_Service__mdt</members>
+        <name>CustomObject</name>
+    </types>
+
+    <!-- Custom Metadata Records -->
+    <types>
+        <members>Avalara_Config.Production</members>
+        <members>Avalara_Config.Sandbox</members>
+        <members>Avalara_Service.Commit_Transaction</members>
+        <members>Avalara_Service.Create_CertExpress_Invitation</members>
+        <members>Avalara_Service.Create_Customers</members>
+        <members>Avalara_Service.Create_Transaction</members>
+        <members>Avalara_Service.List_Certificates_For_Customer</members>
+        <members>Avalara_Service.List_Entity_Use_Codes</members>
+        <members>Avalara_Service.List_Nexus_By_Company</members>
+        <members>Avalara_Service.Ping</members>
+        <members>Avalara_Service.Query_Companies</members>
+        <members>Avalara_Service.Resolve_Address</members>
+        <members>Avalara_Service.Void_Transaction</members>
+        <members>Framework__Spark_Plug_Extension.Checkout_Sparkplug</members>
+        <name>CustomMetadata</name>
+    </types>
+
+    <!-- Custom Fields: Account -->
+    <types>
+        <members>Account.Avalara_Customer_Id__c</members>
+        <name>CustomField</name>
+    </types>
+
+    <!-- Custom Fields: OrderApi__Item__c -->
+    <types>
+        <members>OrderApi__Item__c.Avalara_Tax_Code__c</members>
+        <name>CustomField</name>
+    </types>
+
+    <!-- Custom Fields: OrderApi__Sales_Order__c -->
+    <types>
+        <members>OrderApi__Sales_Order__c.Avalara_Transaction_Code__c</members>
+        <members>OrderApi__Sales_Order__c.Avalara_Transaction_Id__c</members>
+        <name>CustomField</name>
+    </types>
+
+    <!-- External Credentials -->
+    <types>
+        <members>Avalara_AvaTax_Production</members>
+        <members>Avalara_AvaTax_Sandbox</members>
+        <name>ExternalCredential</name>
+    </types>
+
+    <!-- Named Credentials -->
+    <types>
+        <members>Avalara_AvaTax_Production</members>
+        <members>Avalara_AvaTax_Sandbox</members>
+        <name>NamedCredential</name>
+    </types>
+
+    <!-- Permission Sets -->
+    <types>
+        <members>Avalara_API_Access</members>
+        <name>PermissionSet</name>
+    </types>
+
+    <!-- Remote Site Settings -->
+    <types>
+        <members>Avalara_AvaTax_Production</members>
+        <members>Avalara_AvaTax_Sandbox</members>
+        <name>RemoteSiteSetting</name>
+    </types>
+
+    <!-- Layouts -->
+    <types>
+        <members>Avalara_Config__mdt-Avalara Config Layout</members>
+        <name>Layout</name>
+    </types>
+    
+
+    <version>62.0</version>
+</Package>

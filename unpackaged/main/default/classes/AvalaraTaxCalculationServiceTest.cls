@@ -272,6 +272,69 @@ private class AvalaraTaxCalculationServiceTest {
         System.assertEquals(6.00, taxLines[0].OrderApi__Sale_Price__c, 'New tax SOL should have updated amount from Avalara');
     }
 
+    // ─── commitTax Tests ───
+
+    @isTest
+    static void should_commit_tax_and_save_transaction_details() {
+        AvalaraAuthProviderService.isSandboxOverride = true;
+        Test.setMock(HttpCalloutMock.class, new TaxCalculationSuccessMock());
+        OrderApi__Sales_Order__c so = getTestSalesOrder();
+
+        Test.startTest();
+        AvalaraTaxCalculationService.commitTax(so.Id);
+        Test.stopTest();
+
+        so = [
+            SELECT Avalara_Transaction_Code__c, Avalara_Transaction_Id__c
+            FROM OrderApi__Sales_Order__c
+            WHERE Id = :so.Id
+        ];
+
+        System.assertEquals('TX-TEST-001', so.Avalara_Transaction_Code__c,
+            'Transaction code should be persisted after commitTax');
+        System.assertEquals('123456789', so.Avalara_Transaction_Id__c,
+            'Transaction ID should be persisted after commitTax');
+    }
+
+    @isTest
+    static void should_return_early_on_commit_when_no_taxable_lines() {
+        Account acc = [SELECT Id FROM Account LIMIT 1];
+
+        OrderApi__Item__c nonTaxItem = new OrderApi__Item__c(Name = 'Non-Taxable Commit');
+        insert nonTaxItem;
+
+        OrderApi__Sales_Order__c emptySo = new OrderApi__Sales_Order__c(
+            OrderApi__Account__c = acc.Id,
+            OrderApi__Shipping_Street__c = TEST_STREET,
+            OrderApi__Shipping_City__c = TEST_CITY,
+            OrderApi__Shipping_State__c = TEST_STATE,
+            OrderApi__Shipping_Postal_Code__c = TEST_POSTAL_CODE,
+            OrderApi__Shipping_Country__c = TEST_COUNTRY
+        );
+        insert emptySo;
+
+        insert new OrderApi__Sales_Order_Line__c(
+            OrderApi__Sales_Order__c = emptySo.Id,
+            OrderApi__Item__c = nonTaxItem.Id,
+            OrderApi__Quantity__c = 1,
+            OrderApi__Sale_Price__c = 50.00
+        );
+
+        Test.startTest();
+        AvalaraTaxCalculationService.commitTax(emptySo.Id);
+        Test.stopTest();
+
+        emptySo = [
+            SELECT Avalara_Transaction_Code__c
+            FROM OrderApi__Sales_Order__c
+            WHERE Id = :emptySo.Id
+        ];
+        System.assertEquals(null, emptySo.Avalara_Transaction_Code__c,
+            'No commit should happen when there are no taxable lines');
+    }
+
+    // ─── customerCode resolution ───
+
     @isTest
     static void should_use_account_as_customer_code_when_no_contact() {
         AvalaraAuthProviderService.isSandboxOverride = true;
