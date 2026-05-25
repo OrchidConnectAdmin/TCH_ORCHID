@@ -2,6 +2,6 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:registerEvent type="FDService:SparkPlugCompleteEvent" name="SparkPlugCompleteEvent"/>
     <aura:registerEvent type="FDService:SparkPlugLoadedEvent" name="SparkPlugLoadedEvent"/>
-	
+
     checkout here
 </aura:component>

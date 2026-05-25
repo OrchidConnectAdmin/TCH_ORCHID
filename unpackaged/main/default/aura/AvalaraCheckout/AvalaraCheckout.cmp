@@ -19,6 +19,10 @@
     <aura:attribute name="country" type="String"/>
     <aura:attribute name="saveForFuture" type="Boolean" default="false"/>
 
+    <!-- Tax Exemption -->
+    <aura:attribute name="exemptionPagePath" type="String"/>
+    <aura:attribute name="showExemptionLink" type="Boolean" default="false"/>
+
 
     <!-- Loading -->
     <aura:if isTrue="{!v.step == 'loading'}">
@@ -38,6 +42,15 @@
                 <p class="avalara-checkout__subtitle">
                     The following items are subject to tax. Tax will be calculated based on your shipping address.
                 </p>
+
+                <aura:if isTrue="{!v.showExemptionLink}">
+                    <div class="avalara-checkout__exemption-banner">
+                        <span>You may be eligible for tax exemptions. Submit or manage your exemption certificates.</span>
+                        <button class="avalara-checkout__button avalara-checkout__button--exemption" onclick="{!c.handleExemptionRedirect}">
+                            View Tax Exemptions
+                        </button>
+                    </div>
+                </aura:if>
 
                 <table class="avalara-checkout__table">
                     <thead>
@@ -309,6 +322,34 @@
             position: relative;
             height: 60px;
             margin-bottom: 20px;
+        }
+        .avalara-checkout__exemption-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #e6f7ee;
+            border: 1px solid #2e844a;
+            border-radius: 4px;
+            padding: 10px 16px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #1a4a6e;
+            text-align: left;
+        }
+        .avalara-checkout__button--exemption {
+            background: transparent;
+            color: #1a4a6e;
+            border: 1px solid #1a4a6e;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            margin-left: 12px;
+        }
+        .avalara-checkout__button--exemption:hover {
+            background: #f4f6f9;
         }
         .slds-popover_tooltip .slds-popover__body,
         .slds-popover--tooltip .slds-popover__body,

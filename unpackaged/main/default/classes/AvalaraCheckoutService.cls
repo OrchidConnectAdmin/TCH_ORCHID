@@ -56,6 +56,47 @@ public without sharing class AvalaraCheckoutService {
         AvalaraTaxCalculationService.calculateTax(salesOrderId);
     }
 
+    @AuraEnabled
+    public static String getExemptionPagePath(String encryptedSalesOrderId) {
+        Id salesOrderId = resolveSalesOrderId(encryptedSalesOrderId);
+
+        OrderApi__Sales_Order__c so = [
+            SELECT OrderApi__Account__c
+            FROM OrderApi__Sales_Order__c
+            WHERE Id = :salesOrderId
+            WITH SYSTEM_MODE
+        ];
+
+        if (so.OrderApi__Account__c == null) {
+            return null;
+        }
+
+        Account acc = [
+            SELECT Avalara_Customer_Id__c
+            FROM Account
+            WHERE Id = :so.OrderApi__Account__c
+            WITH SYSTEM_MODE
+        ];
+
+        if (String.isBlank(acc.Avalara_Customer_Id__c)) {
+            return null;
+        }
+
+        List<Avalara_Config__mdt> configs = [
+            SELECT Tax_Exemption_Page_Path__c
+            FROM Avalara_Config__mdt
+            WHERE Is_Active__c = true
+            WITH SYSTEM_MODE
+            LIMIT 1
+        ];
+
+        if (configs.isEmpty() || String.isBlank(configs[0].Tax_Exemption_Page_Path__c)) {
+            return null;
+        }
+
+        return configs[0].Tax_Exemption_Page_Path__c;
+    }
+
     // ─── Private Helpers ───
 
     private static List<TaxableItem> buildTaxableItems(List<OrderApi__Sales_Order_Line__c> lines) {

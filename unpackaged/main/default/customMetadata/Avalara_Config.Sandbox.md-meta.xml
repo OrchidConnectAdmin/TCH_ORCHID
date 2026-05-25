@@ -24,7 +24,7 @@
     </values>
     <values>
         <field>ShipFrom_City__c</field>
-        <value xsi:type="xsd:string">Irvine</value>
+        <value xsi:type="xsd:string">New York</value>
     </values>
     <values>
         <field>ShipFrom_Country__c</field>
@@ -32,14 +32,18 @@
     </values>
     <values>
         <field>ShipFrom_PostalCode__c</field>
-        <value xsi:type="xsd:string">92615</value>
+        <value xsi:type="xsd:string">10036</value>
     </values>
     <values>
         <field>ShipFrom_State__c</field>
-        <value xsi:type="xsd:string">CA</value>
+        <value xsi:type="xsd:string">NY</value>
     </values>
     <values>
         <field>ShipFrom_Street__c</field>
-        <value xsi:type="xsd:string">123 Main Street</value>
+        <value xsi:type="xsd:string">1114 Avenue of The Americas, 17th Floor</value>
+    </values>
+    <values>
+        <field>Tax_Exemption_Page_Path__c</field>
+        <value xsi:type="xsd:string">/LightningMemberPortal/s/tax-exemption</value>
     </values>
 </CustomMetadata>

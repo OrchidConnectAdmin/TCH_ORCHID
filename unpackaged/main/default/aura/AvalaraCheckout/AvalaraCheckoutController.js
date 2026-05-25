@@ -30,6 +30,13 @@
         component.set('v.errorMessage', '');
     },
 
+    handleExemptionRedirect : function(component) {
+        var path = component.get('v.exemptionPagePath');
+        if (path) {
+            window.open(path, '_blank');
+        }
+    },
+
     handleSaveAddress : function(component, event, helper) {
         component.set('v.isSaving', true);
 
