@@ -1,8 +1,5 @@
 # Avalara AvaTax: Class Diagram (TCH)
 
-> Last updated: 2026-05-25
-> Branch: `feature/26657020`
-
 ## Full Class Diagram
 
 ```mermaid

@@ -46,7 +46,8 @@ public without sharing class AvalaraCheckoutService {
             OrderApi__Shipping_City__c = city,
             OrderApi__Shipping_State__c = state,
             OrderApi__Shipping_Postal_Code__c = postalCode,
-            OrderApi__Shipping_Country__c = country
+            OrderApi__Shipping_Country__c = country,
+            OrderApi__Calculate_Shipping_Details__c = false
         );
     }
 

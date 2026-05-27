@@ -1,9 +1,5 @@
 # Avalara AvaTax Integration Plan: TCH (Direct API)
 
-> Last updated: 2026-05-25
-> Branch: `feature/26657020`
-> Status: Checkout + Post-Payment + Tax Exemption (ECM) COMPLETE. Refund flow TBD.
-
 ## 1. Authentication
 
 ### 1.1 Method: Basic Auth (License Key)

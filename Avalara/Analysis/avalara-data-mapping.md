@@ -1,8 +1,5 @@
 # Avalara AvaTax: Data Mapping (TCH)
 
-> Last updated: 2026-05-25
-> Branch: `feature/26657020`
-
 Field-level mapping between Fonteva/Salesforce objects and Avalara AvaTax REST API v2 request/response models.
 
 ---
@@ -24,11 +21,10 @@ Field-level mapping between Fonteva/Salesforce objects and Avalara AvaTax REST A
 |---------------|------|----------|----------------------------|-------|
 | `companyCode` | String | Yes | `Avalara_Config__mdt.Company_Code__c` | Stored in Custom Metadata: same for all transactions |
 | `type` | Enum | Yes | Derived from checkout stage | `SalesOrder` for estimates, `SalesInvoice` after payment |
-| `date` | DateTime | Yes | `OrderApi__Sales_Order__c.OrderApi__Date__c` | Falls back to `CreatedDate` or `System.today()` |
-| `customerCode` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Contact__c` | Contact ID as customer identifier. Uses Account ID if `Entity__c = 'Account'` |
-| `currencyCode` | String | No | `'USD'` | Hardcoded (TCH single currency) |
+| `date` | DateTime | Yes | `Date.today()` | Always uses current date (`String.valueOf(Date.today())`) |
+| `customerCode` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Account__c` | Account ID first; falls back to Contact ID if no Account; `'UNKNOWN'` as last resort |
+| `currencyCode` | String | No | `AvalaraCreateTransaction.Request.currencyCode` | Optional. Not set by default (Avalara defaults to company currency) |
 | `commit` | Boolean | No | Derived from checkout stage | `false` for SalesOrder, `true` for SalesInvoice |
-| `referenceCode` | String | No | `OrderApi__Sales_Order__c.Id` | Salesforce record ID for traceability |
 
 ### 1.2 Request: Ship-To Address (`addresses.shipTo`)
 
@@ -36,11 +32,11 @@ The customer's address: determines the **destination jurisdiction** for tax calc
 
 | Avalara Field | Type | Required | Source (Fonteva/Salesforce) | Notes |
 |---------------|------|----------|----------------------------|-------|
-| `line1` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Billing_Street__c` | Customer billing address |
-| `city` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Billing_City__c` | |
-| `region` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Billing_State__c` | US state code (e.g., `NY`, `CA`) |
-| `postalCode` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Billing_Postal_Code__c` | |
-| `country` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Billing_Country__c` | ISO 2-char. Default to `US` if blank |
+| `line1` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Shipping_Street__c` | Customer shipping address |
+| `city` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Shipping_City__c` | |
+| `region` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Shipping_State__c` | US state code (e.g., `NY`, `CA`) |
+| `postalCode` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Shipping_Postal_Code__c` | |
+| `country` | String | Yes | `OrderApi__Sales_Order__c.OrderApi__Shipping_Country__c` | ISO 2-char |
 
 ### 1.3 Request: Ship-From Address (`addresses.shipFrom`)
 
@@ -56,16 +52,16 @@ TCH's business address: determines the **origin jurisdiction**. Stored in Custom
 
 ### 1.4 Request: Line Items (`lines[]`)
 
-Each `OrderApi__Sales_Order_Line__c` where `Is_Tax__c = false AND Is_Shipping_Rate__c = false` becomes one Avalara line.
+Each `OrderApi__Sales_Order_Line__c` where `Avalara_Tax__c != null AND Is_Shipping_Rate__c = false` becomes one Avalara line.
 
 | Avalara Field | Type | Required | Source (Fonteva/Salesforce) | Notes |
 |---------------|------|----------|----------------------------|-------|
-| `number` | String | No | `OrderApi__Sales_Order_Line__c.Id` | Unique line identifier (matching key for response) |
+| `number` | String | No | Sequential integer (1, 2, 3...) | Index-based matching key for response |
 | `quantity` | Decimal | Yes | `OrderApi__Sales_Order_Line__c.OrderApi__Quantity__c` | |
-| `amount` | Decimal | Yes | `OrderApi__Sales_Order_Line__c.OrderApi__Sale_Price__c * OrderApi__Quantity__c` | Line total before tax |
-| `itemCode` | String | No | `OrderApi__Sales_Order_Line__c.OrderApi__Item__r.Name` | For Avalara portal reporting |
-| `taxCode` | String | No | `OrderApi__Sales_Order_Line__c.OrderApi__Item__r.Avalara_Tax_Code__c` | Falls back to `Avalara_Config__mdt.Default_Tax_Code__c` or `P0000000` |
-| `description` | String | No | `OrderApi__Sales_Order_Line__c.OrderApi__Item__r.OrderApi__Description__c` | Optional readability |
+| `amount` | Decimal | Yes | `OrderApi__Sales_Order_Line__c.OrderApi__Total__c` | Line total before tax |
+| `itemCode` | String | No | `OrderApi__Item__r.OrderApi__SKU__c` or `OrderApi__Item__c` | SKU first; falls back to Item ID |
+| `taxCode` | String | No | `OrderApi__Item__r.Avalara_Tax__r.Avalara_Tax_Code__c` | Via Avalara_Tax__c lookup on Item |
+| `description` | String | No | `OrderApi__Item__r.OrderApi__Line_Description__c` | Optional readability |
 
 ### 1.5 Response: Transaction Level (`TransactionModel`)
 
@@ -86,9 +82,9 @@ For each Avalara response line, a tax `OrderApi__Sales_Order_Line__c` is created
 
 | Avalara Response Field | Type | Target (Fonteva/Salesforce) | Notes |
 |------------------------|------|-----------------------------|-------|
-| `lines[].lineNumber` | String | Matching key to product SOL | Maps to `number` sent in request = product SOL Id |
-| `lines[].tax` | Decimal | Tax SOL > `OrderApi__Tax_Amount__c` and `OrderApi__Sale_Price__c` | Tax amount for this line |
-| `lines[].rate` | Decimal | Tax SOL > `OrderApi__Tax_Percent__c` | Avalara returns decimal (e.g., `0.0825`): multiply by 100 |
+| `lines[].lineNumber` | String | Matching key to product SOL | Maps to `number` sent in request (sequential index) |
+| `lines[].tax` | Decimal | Tax SOL > `OrderApi__Sale_Price__c` | Tax amount for this line |
+| `lines[].rate` | Decimal | Not stored on Tax SOL | Available in response but not persisted |
 | `lines[].taxableAmount` | Decimal | Not stored | Reference only |
 | `lines[].taxCalculated` | Decimal | Not stored | Reference only |
 | `lines[].isItemTaxable` | Boolean | Not stored | Reference only |
@@ -101,16 +97,15 @@ For each Avalara response line, a tax `OrderApi__Sales_Order_Line__c` is created
 | Tax SOL Field | Value | Source |
 |-------|-------|--------|
 | `OrderApi__Sales_Order__c` | Parent Sales Order ID | Same as product line |
-| `OrderApi__Is_Tax__c` | `true` | Marks as tax line |
-| `OrderApi__Tax_Override__c` | `true` | Prevents Fonteva recalculation; cleanup identifier |
-| `OrderApi__Tax_Amount__c` | Tax amount | `lines[].tax` from Avalara |
-| `OrderApi__Tax_Percent__c` | Tax rate (percent) | `lines[].rate * 100`. Percent(7,4) |
+| `OrderApi__Price_Override__c` | `true` | Prevents Fonteva price recalculation |
 | `OrderApi__Sale_Price__c` | Tax amount | `lines[].tax` from Avalara |
 | `OrderApi__Quantity__c` | `1` | One tax SOL per product line |
-| `OrderApi__Item__c` | Tax Rate Item ID | `Item__c` with `Is_Tax__c = true` (GL accounting) |
+| `OrderApi__Item__c` | Tax Item ID | Product line's `Avalara_Tax__c` lookup (the tax item for GL) |
 | `OrderApi__Sales_Order_Line__c` | Product line ID | Self-lookup linking tax to product SOL |
 
 > **Downstream propagation**: Invoice Lines, Receipt Lines, ePayment Lines created automatically by the managed package for ALL SOLs. `Sales_Order_Line__c` lookup is "System Calculated".
+>
+> **Cleanup**: Existing tax SOLs are deleted before creating new ones. Identified by: `Avalara_Tax_Code__c != null AND Avalara_Tax__c = null` on the Item.
 >
 > **Field notes**:
 > - `OrderApi__Sales_Order_Line__c` (self-lookup) links tax to product. `OrderApi__Sales_Order_Line_R__c` is for multi-currency: do NOT use.
@@ -176,11 +171,11 @@ No new fields stored. Validates that `status` changed to `Committed`.
 
 | Avalara Field | Source |
 |---------------|--------|
-| `line1` | `OrderApi__Sales_Order__c.OrderApi__Billing_Street__c` |
-| `city` | `OrderApi__Sales_Order__c.OrderApi__Billing_City__c` |
-| `region` | `OrderApi__Sales_Order__c.OrderApi__Billing_State__c` |
-| `postalCode` | `OrderApi__Sales_Order__c.OrderApi__Billing_Postal_Code__c` |
-| `country` | `OrderApi__Sales_Order__c.OrderApi__Billing_Country__c` |
+| `line1` | `OrderApi__Sales_Order__c.OrderApi__Shipping_Street__c` (via `shipTo.line1`) |
+| `city` | `OrderApi__Sales_Order__c.OrderApi__Shipping_City__c` (via `shipTo.city`) |
+| `region` | `OrderApi__Sales_Order__c.OrderApi__Shipping_State__c` (via `shipTo.region`) |
+| `postalCode` | `OrderApi__Sales_Order__c.OrderApi__Shipping_Postal_Code__c` (via `shipTo.postalCode`) |
+| `country` | `OrderApi__Sales_Order__c.OrderApi__Shipping_Country__c` (via `shipTo.country`) |
 
 ### Response (`AddressResolutionModel`)
 

@@ -165,11 +165,11 @@ public without sharing class AvalaraTaxCalculationService {
     }
 
     private static String resolveCustomerCode(OrderApi__Sales_Order__c salesOrder) {
-        if (salesOrder.OrderApi__Contact__c != null) {
-            return salesOrder.OrderApi__Contact__c;
-        }
         if (salesOrder.OrderApi__Account__c != null) {
             return salesOrder.OrderApi__Account__c;
+        }
+        if (salesOrder.OrderApi__Contact__c != null) {
+            return salesOrder.OrderApi__Contact__c;
         }
         return 'UNKNOWN';
     }
