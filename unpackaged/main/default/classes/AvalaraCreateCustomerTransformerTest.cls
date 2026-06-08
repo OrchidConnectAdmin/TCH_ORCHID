@@ -72,11 +72,36 @@ private class AvalaraCreateCustomerTransformerTest {
         AvalaraCreateCustomer.Response response = AvalaraCreateCustomerTransformer.transformResponse(responseJson);
         Test.stopTest();
 
-        System.assertEquals(12345, response.id, 'id should be parsed');
+        System.assertEquals(12345L, response.id, 'id should be parsed');
         System.assertEquals('CUST-001', response.customerCode, 'customerCode should be parsed');
         System.assertEquals('Test Customer', response.name, 'name should be parsed');
         System.assertEquals('test@example.com', response.emailAddress, 'emailAddress should be parsed');
         System.assertEquals('NY', response.region, 'region should be parsed');
+    }
+
+    @isTest
+    static void transformResponseParsesLargeIdTest() {
+        // 4,000,000,001 exceeds Integer.MAX_VALUE; JSON.deserializeUntyped() yields a Long,
+        // so the old (Integer) cast threw System.TypeException for real Avalara customer ids.
+        String responseJson = '[{"id":4000000001,"customerCode":"CUST-001","name":"Test Customer"}]';
+
+        Test.startTest();
+        AvalaraCreateCustomer.Response response = AvalaraCreateCustomerTransformer.transformResponse(responseJson);
+        Test.stopTest();
+
+        System.assertEquals(4000000001L, response.id, 'int64 customer id should parse without overflow');
+    }
+
+    @isTest
+    static void transformResponseParsesSmallIdAsLongTest() {
+        // Small values deserialize as Integer; toNullableLong() must still return them as Long.
+        String responseJson = '[{"id":68,"customerCode":"CUST-001"}]';
+
+        Test.startTest();
+        AvalaraCreateCustomer.Response response = AvalaraCreateCustomerTransformer.transformResponse(responseJson);
+        Test.stopTest();
+
+        System.assertEquals(68L, response.id, 'small id should still be returned as Long');
     }
 
     @isTest

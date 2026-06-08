@@ -76,6 +76,38 @@ private class AvalaraTaxExemptionServiceTest {
         }
     }
 
+    /**
+     * Simulates the stuck state: the customer already exists in Avalara (so CreateCustomers
+     * returns an HTTP 400 duplicate), but the Account has no Avalara_Customer_Id__c yet.
+     * GET customer recovers the id; the invitation then succeeds.
+     */
+    private class DuplicateCustomerRecoveryMock implements HttpCalloutMock {
+        public HttpResponse respond(HttpRequest request) {
+            HttpResponse response = new HttpResponse();
+            String endpoint = request.getEndpoint();
+
+            if (endpoint.contains('/certexpressinvites')) {
+                response.setStatusCode(200);
+                response.setBody('[{'
+                    + '"status":"Ready",'
+                    + '"invitation":{'
+                    + '"id":99999,'
+                    + '"companyId":312140,'
+                    + '"requestLink":"https://sbx.certexpress.com/?r=recovered-invite"'
+                    + '}'
+                    + '}]');
+            } else if (request.getMethod() == 'GET') {
+                response.setStatusCode(200);
+                response.setBody('{"id":68,"customerCode":"CUST-001","name":"Test Account"}');
+            } else {
+                response.setStatusCode(400);
+                response.setBody('{"error":{"code":"DuplicateEntry","message":"The object is a duplicate of an existing object."}}');
+            }
+
+            return response;
+        }
+    }
+
     // ─── Test Data ───
 
     @TestSetup
@@ -232,6 +264,31 @@ private class AvalaraTaxExemptionServiceTest {
             System.assertEquals(true, result.success, 'Should succeed without calling CreateCustomers');
             System.assert(result.certExpressUrl.contains('new-invite'), 'Should return new invite URL');
         }
+    }
+
+    @isTest
+    static void should_recover_when_customer_already_exists_in_avalara() {
+        User communityUser = createCommunityUser();
+        if (communityUser == null) {
+            return;
+        }
+
+        AvalaraAuthProviderService.isSandboxOverride = true;
+        Test.setMock(HttpCalloutMock.class, new DuplicateCustomerRecoveryMock());
+
+        System.runAs(communityUser) {
+            Test.startTest();
+            AvalaraTaxExemptionService.RegistrationResult result = AvalaraTaxExemptionService.registerAndInvite(
+                'Test Account', '350 Fifth Avenue', 'New York', 'NY', '10118', 'US', 'john.doe@example.com'
+            );
+            Test.stopTest();
+
+            System.assertEquals(true, result.success, 'A duplicate customer must be treated as already registered, not a hard error');
+            System.assert(result.certExpressUrl.contains('certexpress.com'), 'Should still return a CertExpress URL after recovery');
+        }
+
+        Account acc = [SELECT Avalara_Customer_Id__c FROM Account WHERE Name = 'Test Account' LIMIT 1];
+        System.assertEquals('68', acc.Avalara_Customer_Id__c, 'Should recover the existing Avalara customer id and persist it on the Account');
     }
 
     // ─── requestNewExemption Tests ───

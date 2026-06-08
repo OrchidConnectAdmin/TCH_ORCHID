@@ -33,8 +33,8 @@ public with sharing class AvalaraCreateCustomer {
      * Echoes back the created customer data with the Avalara-assigned ID.
     */
     public class Response {
-        /** Avalara internal customer ID */
-        public Integer id;
+        /** Avalara internal customer ID (int64 — can exceed Integer range) */
+        public Long id;
         /** Customer code echoed back */
         public String customerCode;
         /** Customer name echoed back */

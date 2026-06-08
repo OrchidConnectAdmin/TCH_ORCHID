@@ -67,7 +67,7 @@ public with sharing class AvalaraCreateCustomerTransformer {
     private static AvalaraCreateCustomer.Response buildResponseFromRawMap(Map<String, Object> rawResponse) {
         AvalaraCreateCustomer.Response response = new AvalaraCreateCustomer.Response();
 
-        response.id = (Integer) rawResponse.get('id');
+        response.id = toNullableLong(rawResponse.get('id'));
         response.customerCode = (String) rawResponse.get('customerCode');
         response.name = (String) rawResponse.get('name');
         response.emailAddress = (String) rawResponse.get('emailAddress');
@@ -78,5 +78,15 @@ public with sharing class AvalaraCreateCustomerTransformer {
         response.country = (String) rawResponse.get('country');
 
         return response;
+    }
+
+    /**
+     * Safely converts a JSON number to Long. JSON.deserializeUntyped() returns an Integer
+     * for values within Integer range and a Long for larger ones, so a direct (Long) or
+     * (Integer) cast throws for the other case. Parsing via String handles both, plus null.
+     * Avalara ECM customer ids are int64 and can exceed Integer.MAX_VALUE (2,147,483,647).
+     */
+    private static Long toNullableLong(Object value) {
+        return (value == null) ? null : Long.valueOf(String.valueOf(value));
     }
 }

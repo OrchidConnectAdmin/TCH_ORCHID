@@ -77,10 +77,9 @@ public without sharing class AvalaraTaxExemptionService {
 
             String avalaraCustomerId = null;
             if (acc == null || String.isBlank(acc.Avalara_Customer_Id__c)) {
-                AvalaraCreateCustomer.Response customerResponse = createCustomer(
+                avalaraCustomerId = ensureCustomerRegistered(
                     companyId, customerCode, name, street, city, state, postalCode, country, email
                 );
-                avalaraCustomerId = String.valueOf(customerResponse.id);
             }
 
             String certExpressUrl = createInvitation(companyId, customerCode, email);
@@ -164,6 +163,61 @@ public without sharing class AvalaraTaxExemptionService {
         customerRequest.emailAddress = email;
 
         return AvalaraCreateCustomerService.execute(customerRequest, companyId);
+    }
+
+    /**
+     * Registers the customer in Avalara, tolerating the case where the customer already
+     * exists. Avalara rejects a duplicate customerCode with an HTTP 400; because the
+     * customer is keyed by customerCode, that means it is already registered. Previously
+     * this surfaced as a hard error on every retry and the Account could never be marked
+     * registered, permanently blocking the flow once a customer existed in Avalara without
+     * a matching Account.Avalara_Customer_Id__c. We now recover by reading the existing
+     * customer and returning its id so the Account can be marked registered.
+     * @return the value to persist on Account.Avalara_Customer_Id__c (registration marker)
+     */
+    private static String ensureCustomerRegistered(String companyId, String customerCode, String name, String street, String city, String state, String postalCode, String country, String email) {
+        try {
+            AvalaraCreateCustomer.Response customerResponse = createCustomer(
+                companyId, customerCode, name, street, city, state, postalCode, country, email
+            );
+            return String.valueOf(customerResponse.id);
+        } catch (AvalaraAuthProviderService.AvalaraException registrationError) {
+            if (isDuplicateCustomerError(registrationError)) {
+                return fetchExistingCustomerId(companyId, customerCode);
+            }
+            throw registrationError;
+        }
+    }
+
+    /**
+     * Detects Avalara's duplicate-customer response ("The object is a duplicate of an
+     * existing object"), which is returned with HTTP 400 when the customerCode already exists.
+     */
+    private static Boolean isDuplicateCustomerError(Exception registrationError) {
+        String message = registrationError.getMessage();
+        return String.isNotBlank(message) && message.toLowerCase().contains('duplicate');
+    }
+
+    /**
+     * Reads an already-registered customer from Avalara to recover its id. Falls back to the
+     * customerCode (a non-blank registration marker) if the id cannot be read. The persisted
+     * value is used only as a presence flag; every Avalara lookup keys off customerCode.
+     */
+    private static String fetchExistingCustomerId(String companyId, String customerCode) {
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(AvalaraAuthProviderService.getNamedCredential() + '/api/v2/companies/' + companyId + '/customers/' + customerCode);
+        request.setMethod('GET');
+        request.setHeader('Content-Type', 'application/json');
+        request.setTimeout(30000);
+
+        HttpResponse response = new Http().send(request);
+        if (response.getStatusCode() == 200) {
+            Object customerId = ((Map<String, Object>) JSON.deserializeUntyped(response.getBody())).get('id');
+            if (customerId != null) {
+                return String.valueOf(customerId);
+            }
+        }
+        return customerCode;
     }
 
     private static String createInvitation(String companyId, String customerCode, String email) {
