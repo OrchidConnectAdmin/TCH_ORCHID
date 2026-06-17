@@ -379,118 +379,163 @@ The address is validated at **two levels:**
 
 ---
 
-### TC-06: Tax Exemption Banner on Checkout
+### TC-06: Tax Exemption Banner on Checkout (View-Only)
 
-**Objective:** Verify that registered Avalara customers see a tax exemption link during checkout.
+**Objective:** Verify that registered Avalara customers see a link to **view** their tax exemption certificates during checkout. (Submitting or creating certificates from the storefront is no longer available.)
 
-**Precondition:** The user's Account must already have `Avalara_Customer_Id__c` populated (i.e., the user was previously registered in Avalara ECM via TC-07).
+**Precondition:** The user's Account must already have `Avalara_Customer_Id__c` populated. Registration in Avalara is now performed by TCH staff in the back office — it is no longer a self-service action from the storefront.
 
 **Steps:**
 
 1. Reach the Tax Review screen (steps 1-5 from TC-01)
 
 2. **Look for the green exemption banner** between the subtitle and the items table. It should say:
-   - Text: "You may be eligible for tax exemptions. Submit or manage your exemption certificates."
+   - Text: "View your organization's tax exemption certificates."
    - A button: **"View Tax Exemptions"**
 
 3. **Click "View Tax Exemptions"**
-   - You should be redirected to the Tax Exemption page
+   - You should be redirected to the read-only Tax Exemption page (see TC-07)
 
-4. **If the banner does NOT appear:** this is expected when the Account does not have an Avalara Customer ID. You must first register via the Tax Exemption page (see TC-07).
+4. **If the banner does NOT appear:** this is expected when the Account does not have an Avalara Customer ID.
 
 **Pass Criteria:**
 - [ ] Green banner is visible when Account has Avalara Customer ID
+- [ ] Banner text is view-oriented (no "submit" or "manage" wording)
 - [ ] Banner is NOT visible when Account does not have Avalara Customer ID
-- [ ] "View Tax Exemptions" button redirects to the Tax Exemption page
+- [ ] "View Tax Exemptions" button redirects to the read-only Tax Exemption page
 
 ---
 
-### TC-07: Tax Exemption Page - New Customer Registration
+### TC-07: Tax Exemption Page - View Certificates (Read-Only)
 
-**Objective:** Verify that a user who has never registered can submit their information to Avalara and receive a CertExpress portal link.
+**Objective:** Verify that the Tax Exemption page is **view-only**. Already-registered organizations can see their existing certificates, and end users can **no longer create or request** exemption certificates (no registration form, no "Request New Exemption" button).
 
-**Precondition:** The user's Account must NOT have `Avalara_Customer_Id__c` populated.
+**Background:** Self-service exemption creation has been removed. End users can no longer register with Avalara or request new certificates from the storefront. New registrations and certificate requests are handled by TCH staff in the back office.
 
 **How to access the Tax Exemption page:**
 - **From checkout:** click the "View Tax Exemptions" button in the green banner (TC-06)
 - **From the profile menu:** when logged in, click on your profile icon/name in the top-right corner of the community page. In the dropdown menu, click **"Tax Exemption"**
 - **Direct URL:** `https://cha--tchfull.sandbox.my.site.com/LightningMemberPortal/s/tax-exemption`
 
-**What you will see:** A registration form where you provide your name, address, and email so Avalara can create your customer profile and generate a link to their CertExpress portal (where you upload exemption certificates).
+#### Scenario A: Registered organization (Account has `Avalara_Customer_Id__c`)
 
 **Steps:**
 
 1. **Navigate to the Tax Exemption page** using one of the methods above
 
-2. **The registration form appears** with:
-   - An **address source dropdown** at the top. Options include:
-     - Your Contact address (pre-filled from your Salesforce Contact record)
-     - Your Account address (pre-filled from the Account's shipping address)
-     - "Enter address manually" (all fields editable)
-   - Fields: **Name**, **Email**, **Street**, **City**, **State**, **Postal Code**, **Country**
-   - A **"Submit"** button
+2. **The read-only certificate view appears** with:
+   - Heading **"Tax Exemption"** and the intro: "Your organization is registered in our tax exemption system. Below are your existing exemption certificates."
+   - A **certificates table** showing existing certificates. Each row displays:
+     - **State/Region:** the jurisdiction the certificate covers (e.g., "New York")
+     - **Reason:** why the exemption applies (e.g., "Federal Government", "Charitable/Exempt Org")
+     - **Status:** "Complete" (green badge), "Expired" (red badge), or "Pending" (yellow badge)
+     - **Signed Date** and **Expiration Date**
+   - If there are no certificates, you see: "No exemption certificates are currently on file for your organization."
 
-3. **Select an address source.** The form fields automatically fill in based on your selection. You can also choose "Enter address manually" to type a custom address.
-
-4. **Verify all fields are filled in** and click **"Submit"**
-
-5. **What happens next:**
-   - A spinner appears while the system registers you in Avalara
-   - A **new browser tab opens** with the Avalara CertExpress portal
-   - On the original page, you see a **success message** with a button "Open CertExpress Portal" (in case the new tab was blocked by your browser)
-
-6. **In the CertExpress portal** (the new tab), you can upload your tax exemption certificate. This is Avalara's hosted portal, not part of TCH's system.
-
-**Verification (Salesforce):**
-```sql
-SELECT Avalara_Customer_Id__c
-FROM Account
-WHERE Id = '<ACCOUNT_ID>'
-```
-- `Avalara_Customer_Id__c` should now be populated with a number (the Avalara customer ID)
+3. **Confirm there is NO way to create a certificate:**
+   - There is **no "Request New Exemption" button**
+   - There is **no registration form** (no Name / Email / Address fields, no Submit button)
 
 **Pass Criteria:**
-- [ ] Registration form displays with address source dropdown and pre-filled fields
-- [ ] After clicking Submit, CertExpress portal opens in a new tab
-- [ ] Success message appears on the original page
-- [ ] `Avalara_Customer_Id__c` is saved on the Account in Salesforce
+- [ ] Registered org sees the read-only certificate table (or the empty-state message)
+- [ ] The **"Request New Exemption" button is NOT present**
+- [ ] The registration form is **NOT present**
 
----
-
-### TC-08: Tax Exemption Page - Returning Customer (Already Registered)
-
-**Objective:** Verify that a user who was previously registered sees their existing certificates and can request new exemptions without re-registering.
-
-**Precondition:** The user's Account has `Avalara_Customer_Id__c` populated (completed TC-07 previously).
-
-**How to access:** Same as TC-07 (profile menu > "Tax Exemption", or direct URL).
-
-**What you will see:** Instead of the registration form, you see a **certificates table** showing your existing exemption certificates from Avalara, and a button to request a new one.
+#### Scenario B: Unregistered organization (Account has no `Avalara_Customer_Id__c`)
 
 **Steps:**
 
-1. **Navigate to the Tax Exemption page**
+1. **Navigate to the Tax Exemption page** as a user whose Account has no Avalara Customer ID
 
-2. **The registered customer view appears** with:
-   - A **certificates table** showing your existing certificates (if any). Each row displays:
-     - **ID:** the Avalara certificate ID
-     - **Status:** "Complete" (green badge), "Expired" (red badge), or "Pending" (yellow badge)
-     - **Signed Date:** when the certificate was signed
-     - **Expiration Date:** when the certificate expires
-     - **Exposure Zone:** the state/jurisdiction the certificate covers (e.g., "New York")
-     - **Exemption Reason:** why the exemption applies (e.g., "Federal Government", "Religious Organization")
-   - If you have no certificates yet, the table will be empty
-   - A **"Request New Exemption"** button
+2. **An informational message appears:**
+   - Heading **"Tax Exemption"** and the text: "Your organization isn't currently set up for tax exemption. If you believe your organization qualifies, please contact us for assistance."
 
-3. **Click "Request New Exemption"**
-   - A **new browser tab opens** with the Avalara CertExpress portal (same as TC-07)
-   - The system does NOT re-register you in Avalara. It only generates a new invitation link.
+3. **Confirm there is NO registration form** and **no Submit/Request buttons** — the user cannot self-register.
 
 **Pass Criteria:**
-- [ ] Certificates table is displayed (with data if certificates exist, empty if none)
-- [ ] Status badges show correct colors: green (Complete/Approved), red (Expired/Revoked), yellow (Pending)
-- [ ] "Request New Exemption" opens CertExpress in a new tab
-- [ ] No error about duplicate customer registration
+- [ ] Unregistered org sees only the contact-us message
+- [ ] There is **no registration form** and **no submit/request button** anywhere on the page
+- [ ] An end user has no way to create or submit an exemption certificate from the storefront
+
+---
+
+### TC-08: Account "Tax Exempt" Flag - Bypass All Tax
+
+**Objective:** Verify that when the **Tax Exempt** checkbox is checked on an Account, all Avalara tax calculation is bypassed for that organization's orders — no tax at checkout and no transaction committed to Avalara. The bypass also applies to a Contact's orders when the Contact's parent Account is flagged.
+
+**Background: How it works**
+
+A checkbox field, **Tax Exempt** (`Tax_Exempt__c`), has been added to the Account (in the **Account Settings** section of the layout). When it is checked, the integration treats the organization as fully tax-exempt:
+
+- **At checkout** (`calculateTax`): the Avalara estimate is skipped, tax is **$0.00**, and any previously calculated tax lines on the Sales Order are removed.
+- **After payment** (`commitTax`): no `SalesInvoice` transaction is committed to Avalara (`Avalara_Transaction_Code__c` stays blank).
+
+The flag is evaluated for the order's Account **or**, when the order is tied to a Contact, the **Contact's parent Account**. This is why the exemption follows the contacts of a tax-exempt organization.
+
+> Editing this field requires the `Avalara_API_Access` permission set (or a profile granted Field-Level Security on `Account.Tax_Exempt__c`).
+
+#### Scenario A: Account flagged Tax Exempt
+
+**Steps:**
+
+1. **In Salesforce, open the Account** for your test user and **check the "Tax Exempt" checkbox** (Account Settings section), then Save.
+   ```sql
+   SELECT Id, Name, Tax_Exempt__c FROM Account WHERE Id = '<ACCOUNT_ID>'
+   -- Tax_Exempt__c should be true
+   ```
+
+2. As the community user, **add a taxable product to the cart** (e.g., "NCP Power Bank") and proceed to checkout with a **nexus-state** shipping address (e.g., New York) — an order that would normally be taxed (compare with TC-01).
+
+3. On the Tax Review screen, **click "Continue."**
+
+4. **Verify the checkout shows Tax: $0.00** even though the address is in a nexus state and the product is taxable.
+
+5. **Complete payment**, then verify **no transaction is committed** to Avalara:
+   ```sql
+   SELECT Name, Avalara_Transaction_Code__c, Avalara_Transaction_Id__c
+   FROM OrderApi__Sales_Order__c WHERE Id = '<SO_ID>'
+   -- Avalara_Transaction_Code__c and Avalara_Transaction_Id__c should be blank
+   ```
+   In the Avalara portal, **no SalesInvoice** should appear for this order.
+
+#### Scenario B: Bypass applied via the Contact's parent Account
+
+**Objective:** Confirm the exemption follows the contacts of a tax-exempt organization (order tied to a Contact, Account flagged).
+
+**Steps:**
+
+1. Ensure the **test Contact's parent Account** has **Tax Exempt** checked (Scenario A, step 1).
+
+2. Place a standard community checkout **as that Contact** (the Sales Order is tied to the Contact).
+
+3. **Verify Tax: $0.00** at checkout and, after payment, **no committed transaction** (same queries as Scenario A).
+
+#### Scenario C: Removing the flag restores tax (optional)
+
+**Steps:**
+
+1. **Uncheck "Tax Exempt"** on the Account and Save.
+
+2. Start a new checkout for a taxable product to a nexus-state address.
+
+3. **Verify tax is now calculated** (> $0.00), confirming the bypass only applies while the flag is set.
+
+**Verification (no tax lines while exempt):**
+```sql
+-- While exempt, the Sales Order has no Avalara tax line items
+SELECT Id, OrderApi__Item__r.Name, OrderApi__Sale_Price__c,
+       OrderApi__Item__r.Avalara_Tax_Code__c, OrderApi__Item__r.Avalara_Tax__c
+FROM OrderApi__Sales_Order_Line__c
+WHERE OrderApi__Sales_Order__c = '<SO_ID>'
+```
+
+**Pass Criteria:**
+- [ ] With **Tax Exempt** checked, checkout shows **$0.00** tax for a nexus-state taxable order
+- [ ] No Avalara tax line items are created on the Sales Order
+- [ ] After payment, `Avalara_Transaction_Code__c` remains blank (nothing committed to Avalara)
+- [ ] No `SalesInvoice` appears in the Avalara portal for the order
+- [ ] Bypass also applies when the order is tied to a **Contact whose parent Account** is flagged
+- [ ] Unchecking the flag restores normal tax calculation
 
 ---
 
@@ -663,6 +708,11 @@ LIMIT 1
 
 -- Check if Account has Avalara Customer ID
 SELECT Id, Name, Avalara_Customer_Id__c
+FROM Account
+WHERE Id = '<PASTE_ACCOUNT_ID_HERE>'
+
+-- Check if an Account is flagged Tax Exempt (bypasses ALL Avalara tax)
+SELECT Id, Name, Tax_Exempt__c
 FROM Account
 WHERE Id = '<PASTE_ACCOUNT_ID_HERE>'
 ```
