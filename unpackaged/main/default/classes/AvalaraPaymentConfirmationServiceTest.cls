@@ -170,7 +170,7 @@ private class AvalaraPaymentConfirmationServiceTest {
         // No HttpCalloutMock set: completing without a CalloutException proves no
         // commit job ran because the bypass short-circuits the enqueue.
         Account acc = [SELECT Id FROM Account LIMIT 1];
-        acc.Bypass_Avalara_Tax__c = true;
+        acc.Tax_Exempt__c = true;
         update acc;
 
         Test.startTest();

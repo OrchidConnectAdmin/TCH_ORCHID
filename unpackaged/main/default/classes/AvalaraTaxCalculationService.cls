@@ -70,14 +70,14 @@ public without sharing class AvalaraTaxCalculationService {
     /**
      * Returns true when the Account tied to the order (directly via
      * OrderApi__Account__c, or via the order Contact's parent Account) has
-     * Bypass_Avalara_Tax__c checked. When true, no Avalara callout is made and
+     * Tax_Exempt__c checked. When true, no Avalara callout is made and
      * no tax is applied. Public overload re-queries; used by callers that only
      * hold the Sales Order Id (e.g. AvalaraPaymentConfirmationService).
      */
     public static Boolean isTaxBypassed(Id salesOrderId) {
         OrderApi__Sales_Order__c salesOrder = [
-            SELECT OrderApi__Account__r.Bypass_Avalara_Tax__c,
-                   OrderApi__Contact__r.Account.Bypass_Avalara_Tax__c
+            SELECT OrderApi__Account__r.Tax_Exempt__c,
+                   OrderApi__Contact__r.Account.Tax_Exempt__c
             FROM OrderApi__Sales_Order__c
             WHERE Id = :salesOrderId
             WITH SYSTEM_MODE
@@ -87,12 +87,12 @@ public without sharing class AvalaraTaxCalculationService {
 
     private static Boolean isTaxBypassed(OrderApi__Sales_Order__c salesOrder) {
         if (salesOrder.OrderApi__Account__r != null
-                && salesOrder.OrderApi__Account__r.Bypass_Avalara_Tax__c == true) {
+                && salesOrder.OrderApi__Account__r.Tax_Exempt__c == true) {
             return true;
         }
         if (salesOrder.OrderApi__Contact__r != null
                 && salesOrder.OrderApi__Contact__r.Account != null
-                && salesOrder.OrderApi__Contact__r.Account.Bypass_Avalara_Tax__c == true) {
+                && salesOrder.OrderApi__Contact__r.Account.Tax_Exempt__c == true) {
             return true;
         }
         return false;
@@ -103,8 +103,8 @@ public without sharing class AvalaraTaxCalculationService {
     private static OrderApi__Sales_Order__c queryProductLines(Id salesOrderId) {
         return [
             SELECT Id, OrderApi__Contact__c, OrderApi__Account__c,
-                   OrderApi__Account__r.Bypass_Avalara_Tax__c,
-                   OrderApi__Contact__r.Account.Bypass_Avalara_Tax__c,
+                   OrderApi__Account__r.Tax_Exempt__c,
+                   OrderApi__Contact__r.Account.Tax_Exempt__c,
                    OrderApi__Shipping_Street__c, OrderApi__Shipping_City__c,
                    OrderApi__Shipping_State__c, OrderApi__Shipping_Postal_Code__c,
                    OrderApi__Shipping_Country__c,

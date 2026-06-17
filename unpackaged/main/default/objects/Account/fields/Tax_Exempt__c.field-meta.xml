@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Bypass_Avalara_Tax__c</fullName>
+    <fullName>Tax_Exempt__c</fullName>
     <defaultValue>false</defaultValue>
-    <description>When checked, all Avalara tax calculation is bypassed for this Account: no tax is estimated at checkout and no transaction is committed to Avalara. Use for fully tax-exempt organizations.</description>
+    <description>When checked, the Account is treated as tax-exempt: all Avalara tax calculation is bypassed (no tax estimated at checkout, no transaction committed to Avalara).</description>
     <externalId>false</externalId>
     <inlineHelpText>When checked, no sales tax is calculated or charged for orders tied to this Account.</inlineHelpText>
-    <label>Bypass Avalara Tax</label>
+    <label>Tax Exempt</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
 </CustomField>

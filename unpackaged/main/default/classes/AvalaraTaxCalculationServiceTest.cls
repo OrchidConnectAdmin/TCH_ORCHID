@@ -381,7 +381,7 @@ private class AvalaraTaxCalculationServiceTest {
         // test would fail with a CalloutException. Completing cleanly proves the
         // bypass short-circuits before any Avalara call is made.
         Account acc = [SELECT Id FROM Account LIMIT 1];
-        acc.Bypass_Avalara_Tax__c = true;
+        acc.Tax_Exempt__c = true;
         update acc;
 
         OrderApi__Sales_Order__c so = getTestSalesOrder();
@@ -404,7 +404,7 @@ private class AvalaraTaxCalculationServiceTest {
     @isTest
     static void should_remove_existing_tax_lines_when_account_flagged() {
         Account acc = [SELECT Id FROM Account LIMIT 1];
-        acc.Bypass_Avalara_Tax__c = true;
+        acc.Tax_Exempt__c = true;
         update acc;
 
         OrderApi__Sales_Order__c so = getTestSalesOrder();
@@ -437,7 +437,7 @@ private class AvalaraTaxCalculationServiceTest {
     @isTest
     static void should_bypass_commit_when_account_flagged() {
         Account acc = [SELECT Id FROM Account LIMIT 1];
-        acc.Bypass_Avalara_Tax__c = true;
+        acc.Tax_Exempt__c = true;
         update acc;
 
         OrderApi__Sales_Order__c so = getTestSalesOrder();
@@ -458,7 +458,7 @@ private class AvalaraTaxCalculationServiceTest {
     @isTest
     static void should_bypass_when_contact_parent_account_flagged() {
         Account acc = [SELECT Id FROM Account LIMIT 1];
-        acc.Bypass_Avalara_Tax__c = true;
+        acc.Tax_Exempt__c = true;
         update acc;
 
         Contact ct = [SELECT Id FROM Contact LIMIT 1];
