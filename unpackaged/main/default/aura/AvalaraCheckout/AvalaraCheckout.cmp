@@ -45,7 +45,7 @@
 
                 <aura:if isTrue="{!v.showExemptionLink}">
                     <div class="avalara-checkout__exemption-banner">
-                        <span>You may be eligible for tax exemptions. Submit or manage your exemption certificates.</span>
+                        <span>View your organization's tax exemption certificates.</span>
                         <button class="avalara-checkout__button avalara-checkout__button--exemption" onclick="{!c.handleExemptionRedirect}">
                             View Tax Exemptions
                         </button>

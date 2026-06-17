@@ -8,235 +8,84 @@
             </div>
         </template>
 
-        <!-- Success (after submitting registration form) -->
-        <template if:true={isSuccess}>
-            <div class="content slds-text-align_center">
-                <div class="success-icon-wrapper slds-m-bottom_medium">
-                    <lightning-icon icon-name="utility:success" variant="success" size="large"></lightning-icon>
-                </div>
-                <h2 class="slds-text-heading_medium slds-m-bottom_small">Registration Complete</h2>
-                <p class="slds-text-body_regular slds-m-bottom_medium">
-                    Your information was submitted successfully. The CertExpress portal has been opened in a new tab
-                    where you can submit your exemption certificate.
-                </p>
-                <lightning-button
-                    variant="brand"
-                    label="Open CertExpress Again"
-                    icon-name="utility:new_window"
-                    onclick={handleOpenCertExpress}
-                ></lightning-button>
-            </div>
-        </template>
-
-        <!-- Main Content (not loading, not success) -->
+        <!-- Main Content (not loading) -->
         <template if:false={isLoading}>
-            <template if:false={isSuccess}>
 
-                <!-- ═══ REGISTERED STATE ═══ -->
-                <template if:true={isRegistered}>
+            <!-- ═══ REGISTERED STATE (read-only) ═══ -->
+            <template if:true={isRegistered}>
 
-                    <!-- Registered Intro -->
-                    <div class="content intro">
-                        <h1 class="intro-title">Tax Exemption</h1>
-                        <p>Your organization is already registered in our tax exemption system.
-                           Below you can see your existing exemption certificates and request new ones for additional states.</p>
-                    </div>
+                <!-- Registered Intro -->
+                <div class="content intro">
+                    <h1 class="intro-title">Tax Exemption</h1>
+                    <p>Your organization is registered in our tax exemption system.
+                       Below are your existing exemption certificates.</p>
+                </div>
 
-                    <!-- Error -->
-                    <template if:true={errorMessage}>
-                        <div class="content">
-                            <div class="error-banner" role="alert">
-                                <lightning-icon icon-name="utility:error" variant="error" size="x-small" class="slds-m-right_x-small"></lightning-icon>
-                                <span>{errorMessage}</span>
-                            </div>
-                        </div>
-                    </template>
-
+                <!-- Error -->
+                <template if:true={errorMessage}>
                     <div class="content">
+                        <div class="error-banner" role="alert">
+                            <lightning-icon icon-name="utility:error" variant="error" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                            <span>{errorMessage}</span>
+                        </div>
+                    </div>
+                </template>
 
-                        <!-- Certificates Table -->
-                        <div class="form-section">
-                            <h2 class="section-title">Your Exemption Certificates</h2>
+                <div class="content">
 
-                            <template if:true={hasCertificates}>
-                                <div class="table-wrapper">
-                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
-                                        <thead>
-                                            <tr class="slds-line-height_reset">
-                                                <th scope="col"><div class="slds-truncate">State/Region</div></th>
-                                                <th scope="col"><div class="slds-truncate">Reason</div></th>
-                                                <th scope="col"><div class="slds-truncate">Status</div></th>
-                                                <th scope="col"><div class="slds-truncate">Signed Date</div></th>
-                                                <th scope="col"><div class="slds-truncate">Expiration Date</div></th>
+                    <!-- Certificates Table -->
+                    <div class="form-section">
+                        <h2 class="section-title">Your Exemption Certificates</h2>
+
+                        <template if:true={hasCertificates}>
+                            <div class="table-wrapper">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th scope="col"><div class="slds-truncate">State/Region</div></th>
+                                            <th scope="col"><div class="slds-truncate">Reason</div></th>
+                                            <th scope="col"><div class="slds-truncate">Status</div></th>
+                                            <th scope="col"><div class="slds-truncate">Signed Date</div></th>
+                                            <th scope="col"><div class="slds-truncate">Expiration Date</div></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={certificates} for:item="cert">
+                                            <tr key={cert.id}>
+                                                <td><div class="slds-truncate">{cert.exposureZone}</div></td>
+                                                <td><div class="slds-truncate">{cert.exemptionReason}</div></td>
+                                                <td>
+                                                    <span class={cert.statusClass}>{cert.status}</span>
+                                                </td>
+                                                <td><div class="slds-truncate">{cert.signedDate}</div></td>
+                                                <td><div class="slds-truncate">{cert.expirationDate}</div></td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <template for:each={certificates} for:item="cert">
-                                                <tr key={cert.id}>
-                                                    <td><div class="slds-truncate">{cert.exposureZone}</div></td>
-                                                    <td><div class="slds-truncate">{cert.exemptionReason}</div></td>
-                                                    <td>
-                                                        <span class={cert.statusClass}>{cert.status}</span>
-                                                    </td>
-                                                    <td><div class="slds-truncate">{cert.signedDate}</div></td>
-                                                    <td><div class="slds-truncate">{cert.expirationDate}</div></td>
-                                                </tr>
-                                            </template>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </template>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </template>
 
-                            <template if:false={hasCertificates}>
-                                <div class="empty-state">
-                                    <lightning-icon icon-name="utility:info" size="small" class="slds-m-right_x-small"></lightning-icon>
-                                    <span>No certificates on file yet. Use the button below to submit your first exemption certificate.</span>
-                                </div>
-                            </template>
-                        </div>
-
-                        <!-- Request New Exemption -->
-                        <div class="submit-section">
-                            <lightning-button
-                                variant="brand"
-                                label="Request New Exemption"
-                                icon-name="utility:new_window"
-                                onclick={handleRequestNewExemption}
-                                disabled={isSubmitting}
-                            ></lightning-button>
-                        </div>
-
-                    </div>
-                </template>
-
-                <!-- ═══ UNREGISTERED STATE (original form) ═══ -->
-                <template if:false={isRegistered}>
-
-                    <!-- Intro -->
-                    <div class="content intro">
-                        <h1 class="intro-title">Tax Exemption Request</h1>
-                        <p>If your organization qualifies for a sales tax exemption, please complete the form below.
-                           After submission, you will be redirected to Avalara CertExpress to upload your exemption certificate document.</p>
-                        <p class="intro-note">
-                            You will need your state-issued exemption certificate (PDF or image) ready for upload.
-                        </p>
+                        <template if:false={hasCertificates}>
+                            <div class="empty-state">
+                                <lightning-icon icon-name="utility:info" size="small" class="slds-m-right_x-small"></lightning-icon>
+                                <span>No exemption certificates are currently on file for your organization.</span>
+                            </div>
+                        </template>
                     </div>
 
-                    <!-- Error -->
-                    <template if:true={errorMessage}>
-                        <div class="content">
-                            <div class="error-banner" role="alert">
-                                <lightning-icon icon-name="utility:error" variant="error" size="x-small" class="slds-m-right_x-small"></lightning-icon>
-                                <span>{errorMessage}</span>
-                            </div>
-                        </div>
-                    </template>
-
-                    <div class="content">
-
-                        <!-- Address Source -->
-                        <div class="form-section">
-                            <h2 class="section-title">Address</h2>
-                            <lightning-radio-group
-                                name="addressSource"
-                                label="Select an address"
-                                variant="label-hidden"
-                                options={addressOptions}
-                                value={selectedAddressSource}
-                                onchange={handleAddressSourceChange}
-                                type="radio"
-                            ></lightning-radio-group>
-                        </div>
-
-                        <!-- Address Fields -->
-                        <div class="form-section">
-                            <div class="slds-grid slds-wrap slds-gutters_small">
-                                <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
-                                    <lightning-input
-                                        label="Street"
-                                        value={street}
-                                        onchange={handleStreetChange}
-                                        disabled={isAddressReadOnly}
-                                        required
-                                    ></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
-                                    <lightning-input
-                                        label="City"
-                                        value={city}
-                                        onchange={handleCityChange}
-                                        disabled={isAddressReadOnly}
-                                        required
-                                    ></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
-                                    <lightning-input
-                                        label="State"
-                                        value={state}
-                                        onchange={handleStateChange}
-                                        disabled={isAddressReadOnly}
-                                        required
-                                    ></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
-                                    <lightning-input
-                                        label="Postal Code"
-                                        value={postalCode}
-                                        onchange={handlePostalCodeChange}
-                                        disabled={isAddressReadOnly}
-                                        required
-                                    ></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
-                                    <lightning-input
-                                        label="Country"
-                                        value={country}
-                                        onchange={handleCountryChange}
-                                        disabled={isAddressReadOnly}
-                                        required
-                                    ></lightning-input>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Contact Info -->
-                        <div class="form-section">
-                            <h2 class="section-title">Contact Information</h2>
-                            <div class="slds-grid slds-wrap slds-gutters_small">
-                                <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
-                                    <lightning-input
-                                        label="Name"
-                                        value={contactName}
-                                        onchange={handleNameChange}
-                                        required
-                                    ></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
-                                    <lightning-input
-                                        label="Email"
-                                        type="email"
-                                        value={email}
-                                        onchange={handleEmailChange}
-                                        required
-                                    ></lightning-input>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Submit -->
-                        <div class="submit-section">
-                            <lightning-button
-                                variant="brand"
-                                label="Request Tax Exemption"
-                                onclick={handleSubmit}
-                                disabled={isSubmitting}
-                            ></lightning-button>
-                        </div>
-
-                    </div>
-                </template>
-
+                </div>
             </template>
+
+            <!-- ═══ UNREGISTERED STATE (informational only) ═══ -->
+            <template if:false={isRegistered}>
+                <div class="content intro">
+                    <h1 class="intro-title">Tax Exemption</h1>
+                    <p>Your organization isn't currently set up for tax exemption.
+                       If you believe your organization qualifies, please contact us for assistance.</p>
+                </div>
+            </template>
+
         </template>
 
     </div>

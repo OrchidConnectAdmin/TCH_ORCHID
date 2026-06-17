@@ -164,6 +164,10 @@
                 <behavior>Edit</behavior>
                 <field>OrderApi__Disable_Badge_Flow_down__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Bypass_Avalara_Tax__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

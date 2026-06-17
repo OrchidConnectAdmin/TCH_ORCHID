@@ -8,6 +8,10 @@ public without sharing class AvalaraPaymentConfirmationService {
     public static void enqueueCommitTax(String receiptNumber) {
         Id salesOrderId = resolveSalesOrderId(receiptNumber);
 
+        if (AvalaraTaxCalculationService.isTaxBypassed(salesOrderId)) {
+            return;
+        }
+
         Integer taxableCount = [
             SELECT COUNT()
             FROM OrderApi__Sales_Order_Line__c

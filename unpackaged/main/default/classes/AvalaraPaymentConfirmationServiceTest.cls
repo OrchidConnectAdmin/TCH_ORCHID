@@ -164,4 +164,26 @@ private class AvalaraPaymentConfirmationServiceTest {
 
         System.assert(exceptionThrown, 'Should throw when receipt number does not exist');
     }
+
+    @isTest
+    static void should_not_enqueue_when_account_flagged_bypass() {
+        // No HttpCalloutMock set: completing without a CalloutException proves no
+        // commit job ran because the bypass short-circuits the enqueue.
+        Account acc = [SELECT Id FROM Account LIMIT 1];
+        acc.Bypass_Avalara_Tax__c = true;
+        update acc;
+
+        Test.startTest();
+        AvalaraPaymentConfirmationService.enqueueCommitTax(getReceiptName());
+        Test.stopTest();
+
+        OrderApi__Sales_Order__c so = [
+            SELECT Avalara_Transaction_Code__c
+            FROM OrderApi__Sales_Order__c
+            WHERE OrderApi__Contact__c != null
+            LIMIT 1
+        ];
+        System.assertEquals(null, so.Avalara_Transaction_Code__c,
+            'No commit should be enqueued when the Account bypass flag is set');
+    }
 }

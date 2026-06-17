@@ -372,4 +372,128 @@ private class AvalaraTaxCalculationServiceTest {
         ];
         System.assertEquals(1, taxLines.size(), 'Should create tax SOL using Account as customer code');
     }
+
+    // ─── Tax Bypass Tests ───
+
+    @isTest
+    static void should_bypass_calculate_when_account_flagged() {
+        // No HttpCalloutMock is set on purpose: if any callout were attempted the
+        // test would fail with a CalloutException. Completing cleanly proves the
+        // bypass short-circuits before any Avalara call is made.
+        Account acc = [SELECT Id FROM Account LIMIT 1];
+        acc.Bypass_Avalara_Tax__c = true;
+        update acc;
+
+        OrderApi__Sales_Order__c so = getTestSalesOrder();
+
+        Test.startTest();
+        AvalaraTaxCalculationService.calculateTax(so.Id);
+        Test.stopTest();
+
+        List<OrderApi__Sales_Order_Line__c> taxLines = [
+            SELECT Id
+            FROM OrderApi__Sales_Order_Line__c
+            WHERE OrderApi__Sales_Order__c = :so.Id
+              AND OrderApi__Item__r.Avalara_Tax_Code__c != null
+              AND OrderApi__Item__r.Avalara_Tax__c = null
+        ];
+        System.assertEquals(0, taxLines.size(),
+            'No tax SOLs should be created when the Account bypass flag is set');
+    }
+
+    @isTest
+    static void should_remove_existing_tax_lines_when_account_flagged() {
+        Account acc = [SELECT Id FROM Account LIMIT 1];
+        acc.Bypass_Avalara_Tax__c = true;
+        update acc;
+
+        OrderApi__Sales_Order__c so = getTestSalesOrder();
+        OrderApi__Item__c taxItem = [SELECT Id FROM OrderApi__Item__c WHERE Name = 'General Merchandise Tax'];
+
+        // Simulate tax calculated before the account was flagged exempt
+        insert new OrderApi__Sales_Order_Line__c(
+            OrderApi__Sales_Order__c = so.Id,
+            OrderApi__Item__c = taxItem.Id,
+            OrderApi__Quantity__c = 1,
+            OrderApi__Sale_Price__c = 6.00,
+            OrderApi__Price_Override__c = true
+        );
+
+        Test.startTest();
+        AvalaraTaxCalculationService.calculateTax(so.Id);
+        Test.stopTest();
+
+        List<OrderApi__Sales_Order_Line__c> taxLines = [
+            SELECT Id
+            FROM OrderApi__Sales_Order_Line__c
+            WHERE OrderApi__Sales_Order__c = :so.Id
+              AND OrderApi__Item__r.Avalara_Tax_Code__c != null
+              AND OrderApi__Item__r.Avalara_Tax__c = null
+        ];
+        System.assertEquals(0, taxLines.size(),
+            'Existing tax SOLs should be removed when the Account bypass flag is set');
+    }
+
+    @isTest
+    static void should_bypass_commit_when_account_flagged() {
+        Account acc = [SELECT Id FROM Account LIMIT 1];
+        acc.Bypass_Avalara_Tax__c = true;
+        update acc;
+
+        OrderApi__Sales_Order__c so = getTestSalesOrder();
+
+        Test.startTest();
+        AvalaraTaxCalculationService.commitTax(so.Id);
+        Test.stopTest();
+
+        so = [
+            SELECT Avalara_Transaction_Code__c
+            FROM OrderApi__Sales_Order__c
+            WHERE Id = :so.Id
+        ];
+        System.assertEquals(null, so.Avalara_Transaction_Code__c,
+            'No transaction should be committed when the Account bypass flag is set');
+    }
+
+    @isTest
+    static void should_bypass_when_contact_parent_account_flagged() {
+        Account acc = [SELECT Id FROM Account LIMIT 1];
+        acc.Bypass_Avalara_Tax__c = true;
+        update acc;
+
+        Contact ct = [SELECT Id FROM Contact LIMIT 1];
+        OrderApi__Item__c productItem = [SELECT Id FROM OrderApi__Item__c WHERE Name = 'Test Product'];
+
+        // Order tied only to the Contact (no Account); bypass must resolve via the Contact's parent Account
+        OrderApi__Sales_Order__c so = new OrderApi__Sales_Order__c(
+            OrderApi__Contact__c = ct.Id,
+            OrderApi__Shipping_Street__c = TEST_STREET,
+            OrderApi__Shipping_City__c = TEST_CITY,
+            OrderApi__Shipping_State__c = TEST_STATE,
+            OrderApi__Shipping_Postal_Code__c = TEST_POSTAL_CODE,
+            OrderApi__Shipping_Country__c = TEST_COUNTRY
+        );
+        insert so;
+
+        insert new OrderApi__Sales_Order_Line__c(
+            OrderApi__Sales_Order__c = so.Id,
+            OrderApi__Item__c = productItem.Id,
+            OrderApi__Quantity__c = 1,
+            OrderApi__Sale_Price__c = 100.00
+        );
+
+        Test.startTest();
+        AvalaraTaxCalculationService.calculateTax(so.Id);
+        Test.stopTest();
+
+        List<OrderApi__Sales_Order_Line__c> taxLines = [
+            SELECT Id
+            FROM OrderApi__Sales_Order_Line__c
+            WHERE OrderApi__Sales_Order__c = :so.Id
+              AND OrderApi__Item__r.Avalara_Tax_Code__c != null
+              AND OrderApi__Item__r.Avalara_Tax__c = null
+        ];
+        System.assertEquals(0, taxLines.size(),
+            'Bypass should apply when the order Contact\'s parent Account is flagged');
+    }
 }
