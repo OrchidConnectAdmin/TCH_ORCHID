@@ -29,7 +29,7 @@ Orders shipped to any other state (e.g., California, Florida) will have **$0.00 
 
 ### Products Available for Testing
 
-Only products that have the `Avalara_Tax__c` field populated (linked to a Tax Item with an Avalara Tax Code) will trigger tax calculation. You can verify which products are configured with this query in the Developer Console:
+Only products whose `Avalara_Tax__c` lookup is populated will trigger tax calculation. `Avalara_Tax__c` points to a **Tax Item** (another `OrderApi__Item__c` record, e.g. *"Tax: Tangible Personal Property"*) that carries the `Avalara_Tax_Code__c` text (e.g. `P0000000`). Products with no `Avalara_Tax__c` value are **not** configured and will always show $0.00 tax regardless of address. Verify the current configuration in the Developer Console:
 
 ```sql
 SELECT Id, Name, Avalara_Tax__c, Avalara_Tax__r.Name, Avalara_Tax__r.Avalara_Tax_Code__c
@@ -38,45 +38,28 @@ WHERE Avalara_Tax__c != NULL
 ORDER BY Avalara_Tax__r.Avalara_Tax_Code__c, Name
 ```
 
-#### Tested and Confirmed Working
+#### Currently Configured Tax Codes (TCH Sandbox)
 
-The following tax codes have been tested end-to-end and confirmed to generate tax:
+As of the latest TCH Sandbox check, **115 products** are configured across **11 sellable tax codes** (plus one internal *Discount* item). Only the codes and products below are configured — **anything not listed here is not set up for tax** and will never be taxed.
 
-**P0000000 (Tangible Personal Property):**
+| Tax Code | Tax Item (Name) | Products | Tested E2E | Example product |
+|----------|-----------------|---------:|:----------:|-----------------|
+| P0000000 | Tangible Personal Property | 6 | ✅ Yes | NCP Power Bank |
+| ST087640 | Pre-recorded Training | 34 | ✅ Yes | Recording: UCC Basics |
+| OA020500 | Admissions / Events | 29 | ⬜ Not yet | Day 1 Participation |
+| OD020500 | Membership Dues | 16 | ⬜ Not yet | ECCHO - Full Member Dues |
+| ST080010 | Online Skill Assessments | 9 | ⬜ Not yet | NCP Exam 2025 |
+| SF096370 | Catering Services | 8 | ⬜ Not yet | (A) ECCHO Reception |
+| SA030000 | Advertising Services | 5 | ⬜ Not yet | NCP Partnership - Gold Level |
+| PB100000 | Books / Manuals | 2 | ⬜ Not yet | ECCHO Rules Book - Printed Advertisement |
+| ST080000 | Training and Seminar | 2 | ⬜ Not yet | 5 for 4 NCP Workshop Bundle |
+| ST087650 | Training Subscription | 2 | ⬜ Not yet | Individual Education Subscription |
+| PC040100 | Clothing | 1 | ⬜ Not yet | NCP Golf Hat |
+| OD010000 | Discounts | 1 | — | *Discount* (internal adjustment item — not a storefront product) |
 
-| Product | Tax Code | Tested? |
-|---------|----------|---------|
-| NCP 10th Anniversary Paper Weight | P0000000 | Yes |
-| NCP 10th Anniversary Umbrella | P0000000 | Yes |
-| NCP Leather Cord Keeper | P0000000 | Yes |
-| NCP Mouse Pad | P0000000 | Yes |
-| NCP Power Bank | P0000000 | Yes |
-| NCP Sports Bag | P0000000 | Yes |
+> **Confirmed working:** the **P0000000** and **ST087640** products were tested end-to-end with ShipFrom = TCH headquarters (1114 Avenue of The Americas, 17th Floor, New York, NY 10036) and ShipTo = `351 Fifth Avenue, New York, NY, 10118, United States` using the test user "Tanya Test". For the remaining codes the mapping is configured but the end-to-end checkout has not been exercised yet.
 
-**ST087640 (Pre-recorded Training / Webinar / Non-Subscription):**
-
-| Product | Tax Code | Tested? |
-|---------|----------|---------|
-| Recording: Check Pain Points | ST087640 | Yes |
-| Recording: UCC Basics | ST087640 | Yes |
-| Recording: Exploring the ECCHO Rules | ST087640 | Yes |
-| (and other "Recording:" products) | ST087640 | Yes |
-
-> These were tested with ShipFrom = TCH headquarters (1114 Avenue of The Americas, 17th Floor, New York, NY 10036) and ShipTo = `351 Fifth Avenue, New York, Washington, 10118, United States` using the test user "Tanya Test".
-
-**Other tax codes (configured but not yet tested end-to-end):**
-
-| Tax Code | Description | Example Products |
-|----------|-------------|-----------------|
-| OA020500 | Admissions / Events | ECCHO Business Committee Meeting, Day 1 Participation |
-| OD020500 | Membership Dues | ECCHO - Full Member Dues, ECCHO - Associate Membership |
-| SF096370 | Catering Services | (A) ECCHO Reception, Day 1 Group Dinner |
-| ST080010 | Online Skill Assessments | NCP Exam 2025, NCP Exam Practice Test |
-| PC040100 | Clothing | NCP Golf Hat |
-| PB100000 | Books / Manuals | ECCHO Rules Book - Printed Advertisement |
-| SA030000 | Advertising Services | NCP Partnership - Gold Level |
-| ST080000 | Training and Seminar | 5 for 4 NCP Workshop Bundle |
-| ST087650 | Training Subscription | Individual Education Subscription |
+> **Do not test tax against unlisted products.** Products outside the codes above have no `Avalara_Tax__c` mapping and will always return $0.00 — a $0 result there is expected, not a bug.
 
 ---
 
@@ -552,7 +535,7 @@ When a Sales Order is voided in Fonteva (standard Quick Action on the Sales Orde
 
 If **both** conditions are met, the trigger enqueues an async job (`AvalaraVoidTransactionQueueable`) that calls Avalara's VoidTransaction API (`POST /api/v2/companies/{companyCode}/transactions/{transactionCode}/void`) to cancel the transaction.
 
-After voiding, the transaction status in the Avalara portal changes from **"Committed"** to **"Voided"**.
+After voiding, the transaction status in the Avalara portal changes from **"Committed"** to **"Cancelled"**.
 
 **Precondition:**
 - A Sales Order that has completed payment and has `Avalara_Transaction_Code__c` populated (i.e., TC-04 was completed successfully)
@@ -604,7 +587,7 @@ After voiding, the transaction status in the Avalara portal changes from **"Comm
    b. Click **"Transactions"** in the left menu
    c. Search for the Doc Code you copied in step 1
    d. Open the transaction details
-   e. **Status should now be "Voided"** (previously it was "Committed")
+   e. **Status should now be "Cancelled"** (previously it was "Committed")
 
 **Pass Criteria:**
 - [ ] Quick Action voids the Sales Order (`OrderApi__Is_Voided__c` = true)
@@ -634,7 +617,7 @@ This is TCH's headquarters address, used as the origin for all tax calculations:
 |-------|-------|
 | Street | 351 Fifth Avenue |
 | City | New York |
-| State | Washington |
+| State | New York (NY) |
 | Postal Code | 10118 |
 | Country | United States |
 
@@ -706,7 +689,9 @@ WHERE ApexClass.Name = 'AvalaraPaymentConfirmationQueueable'
 ORDER BY CreatedDate DESC
 LIMIT 1
 
--- Check if Account has Avalara Customer ID
+-- Account's Avalara Customer ID (set by TCH staff in the back office). This
+-- drives the read-only Tax Exemption page: orgs WITH a value see their
+-- certificate list; orgs WITHOUT it see the contact-us message.
 SELECT Id, Name, Avalara_Customer_Id__c
 FROM Account
 WHERE Id = '<PASTE_ACCOUNT_ID_HERE>'
