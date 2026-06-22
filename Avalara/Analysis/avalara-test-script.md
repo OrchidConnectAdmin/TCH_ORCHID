@@ -362,87 +362,48 @@ The address is validated at **two levels:**
 
 ---
 
-### TC-06: Tax Exemption Banner on Checkout (View-Only)
+### TC-06: Tax Exemption Disclaimer at Checkout
 
-**Objective:** Verify that registered Avalara customers see a link to **view** their tax exemption certificates during checkout. (Submitting or creating certificates from the storefront is no longer available.)
+**Objective:** Verify that, when proceeding to checkout, an Account that is **not** flagged Tax Exempt sees a disclaimer directing them to contact customer service, while an Account that **is** flagged Tax Exempt sees **no disclaimer** and has **no Avalara tax** calculated. The storefront shows no exemption certificates, certificate page, or self-service registration.
 
-**Precondition:** The user's Account must already have `Avalara_Customer_Id__c` populated. Registration in Avalara is now performed by TCH staff in the back office — it is no longer a self-service action from the storefront.
+**Background:** Certificate viewing, the Tax Exemption page, and all self-service exemption have been removed — members have no way to view or request certificates in the portal. Tax exemption is granted only by TCH staff via the Account **Tax Exempt** (`Tax_Exempt__c`) flag. For organizations that are not exempt, the checkout shows a short disclaimer pointing them to customer service.
+
+#### Scenario A: Account NOT flagged Tax Exempt → disclaimer shown, tax calculated
 
 **Steps:**
 
-1. Reach the Tax Review screen (steps 1-5 from TC-01)
+1. Log in as a member whose Account is **not** flagged Tax Exempt (`Tax_Exempt__c` = false).
 
-2. **Look for the green exemption banner** between the subtitle and the items table. It should say:
-   - Text: "View your organization's tax exemption certificates."
-   - A button: **"View Tax Exemptions"**
+2. Add a taxable product to the cart and **proceed to checkout**.
 
-3. **Click "View Tax Exemptions"**
-   - You should be redirected to the read-only Tax Exemption page (see TC-07)
+3. **Confirm a disclaimer appears** asking the member to reach out to customer service regarding tax exemption.
 
-4. **If the banner does NOT appear:** this is expected when the Account does not have an Avalara Customer ID.
+4. **Confirm there is no certificate view, no Tax Exemption page/link, and no "Request New Exemption" / registration form** anywhere in the flow.
+
+5. Continue checkout and confirm **Avalara tax is still calculated** (the account is not exempt).
 
 **Pass Criteria:**
-- [ ] Green banner is visible when Account has Avalara Customer ID
-- [ ] Banner text is view-oriented (no "submit" or "manage" wording)
-- [ ] Banner is NOT visible when Account does not have Avalara Customer ID
-- [ ] "View Tax Exemptions" button redirects to the read-only Tax Exemption page
+- [ ] Disclaimer to contact customer service appears when proceeding to checkout
+- [ ] No certificate table, no Tax Exemption page, no self-service registration anywhere in the storefront
+- [ ] Avalara tax is still calculated for the non-exempt account
+
+#### Scenario B: Account flagged Tax Exempt → no disclaimer, no tax
+
+**Steps:**
+
+1. Check **Tax Exempt** on the Account (`Tax_Exempt__c` = true) and Save.
+
+2. As that member, add a taxable product and **proceed to checkout**.
+
+3. **Confirm no disclaimer appears** and **Tax = $0.00** (no Avalara tax is calculated; see TC-07 for the full bypass behavior).
+
+**Pass Criteria:**
+- [ ] No disclaimer appears for a Tax-Exempt account
+- [ ] No Avalara tax is calculated (Tax = $0.00); nothing committed to Avalara (see TC-07)
 
 ---
 
-### TC-07: Tax Exemption Page - View Certificates (Read-Only)
-
-**Objective:** Verify that the Tax Exemption page is **view-only**. Already-registered organizations can see their existing certificates, and end users can **no longer create or request** exemption certificates (no registration form, no "Request New Exemption" button).
-
-**Background:** Self-service exemption creation has been removed. End users can no longer register with Avalara or request new certificates from the storefront. New registrations and certificate requests are handled by TCH staff in the back office.
-
-**How to access the Tax Exemption page:**
-- **From checkout:** click the "View Tax Exemptions" button in the green banner (TC-06)
-- **From the profile menu:** when logged in, click on your profile icon/name in the top-right corner of the community page. In the dropdown menu, click **"Tax Exemption"**
-- **Direct URL:** `https://cha--tchfull.sandbox.my.site.com/LightningMemberPortal/s/tax-exemption`
-
-#### Scenario A: Registered organization (Account has `Avalara_Customer_Id__c`)
-
-**Steps:**
-
-1. **Navigate to the Tax Exemption page** using one of the methods above
-
-2. **The read-only certificate view appears** with:
-   - Heading **"Tax Exemption"** and the intro: "Your organization is registered in our tax exemption system. Below are your existing exemption certificates."
-   - A **certificates table** showing existing certificates. Each row displays:
-     - **State/Region:** the jurisdiction the certificate covers (e.g., "New York")
-     - **Reason:** why the exemption applies (e.g., "Federal Government", "Charitable/Exempt Org")
-     - **Status:** "Complete" (green badge), "Expired" (red badge), or "Pending" (yellow badge)
-     - **Signed Date** and **Expiration Date**
-   - If there are no certificates, you see: "No exemption certificates are currently on file for your organization."
-
-3. **Confirm there is NO way to create a certificate:**
-   - There is **no "Request New Exemption" button**
-   - There is **no registration form** (no Name / Email / Address fields, no Submit button)
-
-**Pass Criteria:**
-- [ ] Registered org sees the read-only certificate table (or the empty-state message)
-- [ ] The **"Request New Exemption" button is NOT present**
-- [ ] The registration form is **NOT present**
-
-#### Scenario B: Unregistered organization (Account has no `Avalara_Customer_Id__c`)
-
-**Steps:**
-
-1. **Navigate to the Tax Exemption page** as a user whose Account has no Avalara Customer ID
-
-2. **An informational message appears:**
-   - Heading **"Tax Exemption"** and the text: "Your organization isn't currently set up for tax exemption. If you believe your organization qualifies, please contact us for assistance."
-
-3. **Confirm there is NO registration form** and **no Submit/Request buttons** — the user cannot self-register.
-
-**Pass Criteria:**
-- [ ] Unregistered org sees only the contact-us message
-- [ ] There is **no registration form** and **no submit/request button** anywhere on the page
-- [ ] An end user has no way to create or submit an exemption certificate from the storefront
-
----
-
-### TC-08: Account "Tax Exempt" Flag - Bypass All Tax
+### TC-07: Account "Tax Exempt" Flag - Bypass All Tax
 
 **Objective:** Verify that when the **Tax Exempt** checkbox is checked on an Account, all Avalara tax calculation is bypassed for that organization's orders — no tax at checkout and no transaction committed to Avalara. The bypass also applies to a Contact's orders when the Contact's parent Account is flagged.
 
@@ -522,7 +483,7 @@ WHERE OrderApi__Sales_Order__c = '<SO_ID>'
 
 ---
 
-### TC-09: Void Transaction (Sales Order Voided)
+### TC-08: Void Transaction (Sales Order Voided)
 
 **Objective:** Verify that when a Sales Order is voided via the Fonteva standard Quick Action, the corresponding Avalara transaction is automatically cancelled in Avalara.
 
@@ -689,9 +650,8 @@ WHERE ApexClass.Name = 'AvalaraPaymentConfirmationQueueable'
 ORDER BY CreatedDate DESC
 LIMIT 1
 
--- Account's Avalara Customer ID (set by TCH staff in the back office). This
--- drives the read-only Tax Exemption page: orgs WITH a value see their
--- certificate list; orgs WITHOUT it see the contact-us message.
+-- Account's Avalara Customer ID (back-office Avalara link, set by TCH staff).
+-- Not used by any storefront UI; certificate viewing was removed from the portal.
 SELECT Id, Name, Avalara_Customer_Id__c
 FROM Account
 WHERE Id = '<PASTE_ACCOUNT_ID_HERE>'
