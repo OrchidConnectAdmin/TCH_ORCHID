@@ -3,13 +3,12 @@
         var action = component.get('c.getCheckoutInfo');
         action.setParams({ encryptedSalesOrderId : encryptedSalesOrderId });
 
-        var self = this;
         action.setCallback(this, function(response) {
             if (response.getState() === 'SUCCESS') {
                 var info = response.getReturnValue();
 
                 if (!info.taxableItems || info.taxableItems.length === 0) {
-                    console.log('[Avalara] No taxable items, skipping tax review');
+                    console.log('[Avalara] No taxable items (or tax-exempt account), skipping tax review');
                     this.fireCompleteEvent(component);
                     return;
                 }
@@ -24,7 +23,6 @@
                 component.set('v.country', info.country);
                 component.set('v.step', 'review');
                 console.log('[Avalara] Checkout info loaded, showing review');
-                self.loadExemptionPagePath(component, encryptedSalesOrderId);
             } else {
                 var errors = response.getError();
                 var message = (errors && errors[0] && errors[0].message) ? errors[0].message : 'Unknown error';
@@ -87,23 +85,6 @@
                 } else {
                     console.log('[Avalara] Non-address error, proceeding');
                     self.fireCompleteEvent(component);
-                }
-            }
-        });
-        $A.enqueueAction(action);
-    },
-
-    loadExemptionPagePath : function(component, encryptedSalesOrderId) {
-        var action = component.get('c.getExemptionPagePath');
-        action.setParams({ encryptedSalesOrderId : encryptedSalesOrderId });
-
-        action.setCallback(this, function(response) {
-            if (response.getState() === 'SUCCESS') {
-                var path = response.getReturnValue();
-                if (path) {
-                    component.set('v.exemptionPagePath', path);
-                    component.set('v.showExemptionLink', true);
-                    console.log('[Avalara] Tax exemption link available:', path);
                 }
             }
         });

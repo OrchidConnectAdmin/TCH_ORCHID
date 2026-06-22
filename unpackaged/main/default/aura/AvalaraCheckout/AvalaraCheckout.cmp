@@ -19,11 +19,6 @@
     <aura:attribute name="country" type="String"/>
     <aura:attribute name="saveForFuture" type="Boolean" default="false"/>
 
-    <!-- Tax Exemption -->
-    <aura:attribute name="exemptionPagePath" type="String"/>
-    <aura:attribute name="showExemptionLink" type="Boolean" default="false"/>
-
-
     <!-- Loading -->
     <aura:if isTrue="{!v.step == 'loading'}">
         <div class="slds-align_absolute-center slds-m-around_large">
@@ -43,14 +38,10 @@
                     The following items are subject to tax. Tax will be calculated based on your shipping address.
                 </p>
 
-                <aura:if isTrue="{!v.showExemptionLink}">
-                    <div class="avalara-checkout__exemption-banner">
-                        <span>View your organization's tax exemption certificates.</span>
-                        <button class="avalara-checkout__button avalara-checkout__button--exemption" onclick="{!c.handleExemptionRedirect}">
-                            View Tax Exemptions
-                        </button>
-                    </div>
-                </aura:if>
+                <div class="avalara-checkout__exemption-notice">
+                    <lightning:icon iconName="utility:info" size="x-small" class="avalara-checkout__exemption-icon"/>
+                    <span>If you believe your organization is tax exempt, please contact customer service for assistance.</span>
+                </div>
 
                 <table class="avalara-checkout__table">
                     <thead>
@@ -323,33 +314,23 @@
             height: 60px;
             margin-bottom: 20px;
         }
-        .avalara-checkout__exemption-banner {
+        .avalara-checkout__exemption-notice {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            background: #e6f7ee;
-            border: 1px solid #2e844a;
+            gap: 8px;
+            background: #f4f6f9;
+            border: 1px solid #d8dde6;
+            border-left: 4px solid #1a4a6e;
             border-radius: 4px;
             padding: 10px 16px;
             margin-bottom: 20px;
             font-size: 13px;
-            color: #1a4a6e;
+            color: #54698d;
             text-align: left;
         }
-        .avalara-checkout__button--exemption {
-            background: transparent;
-            color: #1a4a6e;
-            border: 1px solid #1a4a6e;
-            padding: 6px 16px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-            margin-left: 12px;
-        }
-        .avalara-checkout__button--exemption:hover {
-            background: #f4f6f9;
+        .avalara-checkout__exemption-icon {
+            --slds-c-icon-color-foreground-default: #1a4a6e;
+            flex-shrink: 0;
         }
         .slds-popover_tooltip .slds-popover__body,
         .slds-popover--tooltip .slds-popover__body,

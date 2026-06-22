@@ -24,9 +24,19 @@ public without sharing class AvalaraCheckoutService {
     @AuraEnabled
     public static CheckoutInfo getCheckoutInfo(String encryptedSalesOrderId) {
         Id salesOrderId = resolveSalesOrderId(encryptedSalesOrderId);
-        OrderApi__Sales_Order__c so = querySalesOrder(salesOrderId);
 
         CheckoutInfo info = new CheckoutInfo();
+        info.taxableItems = new List<TaxableItem>();
+
+        // Account-level tax exemption (Account.Tax_Exempt__c) bypasses the entire
+        // Avalara checkout step. Returning no taxable items makes the SparkPlug
+        // component complete immediately, so the member never sees the tax review
+        // or the exemption disclaimer.
+        if (AvalaraTaxCalculationService.isTaxBypassed(salesOrderId)) {
+            return info;
+        }
+
+        OrderApi__Sales_Order__c so = querySalesOrder(salesOrderId);
         info.taxableItems = buildTaxableItems(so.OrderApi__Sales_Order_Lines__r);
         populateEntityAddress(info, so);
 
@@ -55,47 +65,6 @@ public without sharing class AvalaraCheckoutService {
     public static void calculateTax(String encryptedSalesOrderId) {
         Id salesOrderId = resolveSalesOrderId(encryptedSalesOrderId);
         AvalaraTaxCalculationService.calculateTax(salesOrderId);
-    }
-
-    @AuraEnabled
-    public static String getExemptionPagePath(String encryptedSalesOrderId) {
-        Id salesOrderId = resolveSalesOrderId(encryptedSalesOrderId);
-
-        OrderApi__Sales_Order__c so = [
-            SELECT OrderApi__Account__c
-            FROM OrderApi__Sales_Order__c
-            WHERE Id = :salesOrderId
-            WITH SYSTEM_MODE
-        ];
-
-        if (so.OrderApi__Account__c == null) {
-            return null;
-        }
-
-        Account acc = [
-            SELECT Avalara_Customer_Id__c
-            FROM Account
-            WHERE Id = :so.OrderApi__Account__c
-            WITH SYSTEM_MODE
-        ];
-
-        if (String.isBlank(acc.Avalara_Customer_Id__c)) {
-            return null;
-        }
-
-        List<Avalara_Config__mdt> configs = [
-            SELECT Tax_Exemption_Page_Path__c
-            FROM Avalara_Config__mdt
-            WHERE Is_Active__c = true
-            WITH SYSTEM_MODE
-            LIMIT 1
-        ];
-
-        if (configs.isEmpty() || String.isBlank(configs[0].Tax_Exemption_Page_Path__c)) {
-            return null;
-        }
-
-        return configs[0].Tax_Exemption_Page_Path__c;
     }
 
     // ─── Private Helpers ───

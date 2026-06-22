@@ -288,48 +288,22 @@ private class AvalaraCheckoutServiceTest {
         System.assertNotEquals(null, info.entityId, 'Entity ID should be populated');
     }
 
-    // ─── getExemptionPagePath Tests ───
+    // ─── Tax Exemption Bypass ───
 
     @isTest
-    static void should_return_null_when_account_has_no_avalara_id() {
-        String encryptedId = getEncryptedId();
-
-        Test.startTest();
-        String path = AvalaraCheckoutService.getExemptionPagePath(encryptedId);
-        Test.stopTest();
-
-        System.assertEquals(null, path, 'Should return null when Account has no Avalara_Customer_Id__c');
-    }
-
-    @isTest
-    static void should_return_exemption_path_when_customer_registered() {
+    static void should_return_no_taxable_items_when_account_exempt() {
         Account acc = [SELECT Id FROM Account LIMIT 1];
-        acc.Avalara_Customer_Id__c = '12345';
+        acc.Tax_Exempt__c = true;
         update acc;
 
         String encryptedId = getEncryptedId();
 
         Test.startTest();
-        String path = AvalaraCheckoutService.getExemptionPagePath(encryptedId);
+        AvalaraCheckoutService.CheckoutInfo info = AvalaraCheckoutService.getCheckoutInfo(encryptedId);
         Test.stopTest();
 
-        // Path depends on Avalara_Config__mdt existing in org with Tax_Exemption_Page_Path__c
-        // In test context, CMT may or may not exist, so we just verify no exception is thrown
-        // and the method executes the full code path
-        System.assert(true, 'getExemptionPagePath executed without exception');
-    }
-
-    @isTest
-    static void should_return_null_when_so_has_no_account() {
-        OrderApi__Sales_Order__c so = new OrderApi__Sales_Order__c();
-        insert so;
-        so = [SELECT OrderApi__Encrypted_Id__c FROM OrderApi__Sales_Order__c WHERE Id = :so.Id];
-
-        Test.startTest();
-        String path = AvalaraCheckoutService.getExemptionPagePath(so.OrderApi__Encrypted_Id__c);
-        Test.stopTest();
-
-        System.assertEquals(null, path, 'Should return null when SO has no Account');
+        System.assert(info.taxableItems.isEmpty(),
+            'A tax-exempt Account should yield no taxable items so the checkout step is skipped');
     }
 
     // ─── calculateTax Delegation ───
