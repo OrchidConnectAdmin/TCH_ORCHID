@@ -530,7 +530,7 @@ WHERE OrderApi__Sales_Order__c = '<SO_ID>'
 
 ### TC-08: Void Transaction (Sales Order Voided)
 
-**Objective:** Verify that when a Sales Order is voided via the Fonteva standard Quick Action, the corresponding Avalara transaction is automatically cancelled in Avalara.
+**Objective:** Verify that when a Sales Order is voided via the Fonteva standard Quick Action, the corresponding Avalara transaction is automatically voided in Avalara.
 
 **Background: How it works**
 
@@ -539,9 +539,9 @@ When a Sales Order is voided in Fonteva (standard Quick Action on the Sales Orde
 1. Was `OrderApi__Is_Voided__c` changed from `false` to `true`? (i.e., the Sales Order was just voided)
 2. Does the Sales Order have a value in `Avalara_Transaction_Code__c`? (i.e., an Avalara transaction was previously committed)
 
-If **both** conditions are met, the trigger enqueues an async job (`AvalaraVoidTransactionQueueable`) that calls Avalara's VoidTransaction API (`POST /api/v2/companies/{companyCode}/transactions/{transactionCode}/void`) to cancel the transaction.
+If **both** conditions are met, the trigger enqueues an async job (`AvalaraVoidTransactionQueueable`) that calls Avalara's VoidTransaction API (`POST /api/v2/companies/{companyCode}/transactions/{transactionCode}/void`) to void the transaction.
 
-After voiding, the transaction status in the Avalara portal changes from **"Committed"** to **"Cancelled"**.
+After voiding, the transaction status in the Avalara portal changes from **"Committed"** to **"Voided"**.
 
 **Precondition:**
 - A Sales Order that has completed payment and has `Avalara_Transaction_Code__c` populated (i.e., TC-04 was completed successfully)
@@ -588,12 +588,12 @@ After voiding, the transaction status in the Avalara portal changes from **"Comm
    - `Status` should be `Completed`
    - `ExtendedStatus` should be null (no errors)
 
-7. **Verify in the Avalara portal that the transaction is now cancelled** (see Navigation Basics → **N9**): find the transaction by the Doc Code you copied in step 1 and open its details. **Status should now be "Cancelled"** (previously it was "Committed").
+7. **Verify in the Avalara portal that the transaction is now voided** (see Navigation Basics → **N9**): find the transaction by the Doc Code you copied in step 1 and open its details. **Status should now be "Voided"** (previously it was "Committed").
 
 **Pass Criteria:**
 - [ ] Quick Action voids the Sales Order (`OrderApi__Is_Voided__c` = true)
 - [ ] `AvalaraVoidTransactionQueueable` async job runs and completes without errors
-- [ ] Transaction in Avalara portal changes status from "Committed" to "Cancelled"
+- [ ] Transaction in Avalara portal changes status from "Committed" to "Voided"
 - [ ] If the Sales Order does NOT have `Avalara_Transaction_Code__c` (no Avalara transaction), voiding does NOT trigger any Avalara API call (no error, no async job)
 
 ---
@@ -641,14 +641,14 @@ This is TCH's headquarters address, used as the origin for all tax calculations:
 
 ### How to Find the Transaction in Avalara
 
-After a successful payment, the transaction code is stored in the Salesforce field `OrderApi__Sales_Order__c.Avalara_Transaction_Code__c`. This value corresponds directly to the **"Doc Code"** (Document Code) field in the Avalara portal. A committed transaction will show status **"Committed"** in Avalara (unless it has been voided, in which case it shows "Cancelled").
+After a successful payment, the transaction code is stored in the Salesforce field `OrderApi__Sales_Order__c.Avalara_Transaction_Code__c`. This value corresponds directly to the **"Doc Code"** (Document Code) field in the Avalara portal. A committed transaction will show status **"Committed"** in Avalara (unless it has been voided, in which case it shows "Voided").
 
 **Step-by-step:**
 
 1. **Get the transaction code from Salesforce.** Open the Sales Order record or run the query below in Developer Console. Copy the value of `Avalara_Transaction_Code__c`.
 2. **Find it in the Avalara portal** (see Navigation Basics → **N9**): search the **"Doc Code"** for the `Avalara_Transaction_Code__c` value and open the transaction.
 3. **Verify:**
-   - **Status:** "Committed" (normal) or "Cancelled" (if voided)
+   - **Status:** "Committed" (normal) or "Voided" (if voided)
    - **Type:** "SalesInvoice"
    - **Doc Code:** matches the `Avalara_Transaction_Code__c` on the Sales Order in Salesforce
    - **Ship From:** 1114 Avenue of The Americas, 17th Floor, New York, NY 10036
