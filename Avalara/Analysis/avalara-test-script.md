@@ -6,8 +6,8 @@
 
 The test user used during development is **Tanya Test**:
 - Contact: [003Vy00000D8gXGIAZ](https://cha--tchfull.sandbox.lightning.force.com/lightning/r/Contact/003Vy00000D8gXGIAZ/view)
-- Community login: use this Contact's community credentials
-- Login URL: `https://cha--tchfull.sandbox.my.site.com/LightningMemberPortal/s/login`
+- Community access: from this Contact's record in Salesforce, use **"Log in as"** (no community password needed) — see Navigation Basics → **N1**
+- Portal URL: `https://cha--tchfull.sandbox.my.site.com/LightningMemberPortal`
 
 You may use any community user whose Contact has a mailing address in a **nexus state** (see below).
 
@@ -63,6 +63,53 @@ As of the latest TCH Sandbox check, **115 products** are configured across **11 
 
 ---
 
+## Navigation Basics
+
+These are general "how to get there" steps referenced throughout the test cases below (as **N1**–**N9**). If you already know your way around the portal and Salesforce, skip ahead to **Test Cases**. Exact button labels may differ slightly by environment — look for the closest match.
+
+### N1. Log in to the member portal
+1. In Salesforce, open the **Contact** record for the test user (e.g., "Tanya Test"; the Contact is linked at the top of this document — see **N6**).
+2. On the Contact record, select **"Log in as"** (the *"Log in to Experience as User"* action). If it isn't a visible button, open the actions dropdown ("▾" / **"Show more actions"**, see **N8**).
+3. A new session opens in the member portal as that user, with the top navigation bar. *(No community password needed — this requires Salesforce admin/staff access.)*
+
+### N2. Reach the ECCHO Store and add a product to the cart
+1. In the top navigation bar click **"ECCHO Store"** (or go directly to `https://cha--tchfull.sandbox.my.site.com/LightningMemberPortal/s/store`).
+2. Click a product to open it, then click **"Add to Cart"**.
+3. Open the **cart** (the cart/bag icon, usually top-right) to review your items.
+4. Click **"Checkout"** / **"Proceed to Checkout"** to start the checkout flow.
+
+### N3. The Tax Review screen
+The custom **"Tax Review"** card appears automatically during checkout, before the Fonteva payment page. If your cart has no taxable products — or your organization is Tax Exempt — this step is skipped and you go straight to payment.
+
+### N4. Open the profile menu
+Click your **name or avatar** in the top-right corner of the portal. The dropdown contains your profile links.
+
+### N5. Open the Developer Console and run a SOQL query
+1. In Salesforce (Lightning), click the **gear icon** (Setup) at the top-right, then **"Developer Console"** (it opens in a new window).
+2. In Developer Console, open the **"Query Editor"** tab along the bottom.
+3. Paste a SOQL query and click **"Execute"**; results appear in the grid. *(Any SOQL tool — e.g. Workbench — works just as well.)*
+
+### N6. Open a Salesforce record
+- **By Id:** paste into the URL `https://cha--tchfull.sandbox.lightning.force.com/lightning/r/<OBJECT>/<RECORD_ID>/view` (`<OBJECT>` is the API name, e.g. `Account`, `Contact`, `OrderApi__Sales_Order__c`) — **or**
+- **By search:** use the global **search bar** at the top, or the **App Launcher** (grid icon, top-left) → choose the object (e.g., Accounts, Sales Orders) → open the record.
+
+### N7. Edit a field on a record
+On the record's **Details** tab, click the **pencil icon** next to the field (or the **Edit** button), change the value, then **Save**. If a field is missing or read-only, you are likely lacking Field-Level Security / the required permission set.
+
+### N8. Run a Quick Action on a record
+Quick Actions appear as **buttons in the highlights panel** at the top of the record. If you don't see the one you need, click the **dropdown arrow (▾)** / **"Show more actions"** to reveal the full list.
+
+### N9. Log in to the Avalara portal and find a transaction
+1. Open `https://sandbox.admin.avalara.com` and log in with the TCH Avalara **sandbox** credentials.
+2. In the left-hand menu click **"Transactions"**.
+3. Filter by **Date** (today) and **Company** (TCHPC, if shown), or paste a value into the **"Doc Code"** search box.
+4. Click a transaction row to open its details.
+
+### N10. Complete payment on the Fonteva payment page
+After the Tax Review step, the Fonteva **payment page** loads. Enter the test payment details (or select the sandbox/test payment method configured in the org), then click the **confirm/pay** button. The **Payment Confirmation** page ("Payment Successful") then appears.
+
+---
+
 ## Test Cases
 
 ### TC-01: Checkout with Tax Calculation (Happy Path)
@@ -73,9 +120,7 @@ As of the latest TCH Sandbox check, **115 products** are configured across **11 
 
 **Steps:**
 
-1. **Log in** to the community portal:
-   `https://cha--tchfull.sandbox.my.site.com/LightningMemberPortal/s/login`
-   (Use the test user "Tanya Test" or any community user)
+1. **Log in** to the member portal as the test user — from the Contact record in Salesforce, use **"Log in as"** (see Navigation Basics → **N1**)
 
 2. **Go to the ECCHO Store** by clicking "ECCHO Store" in the top navigation bar, or go directly to:
    `https://cha--tchfull.sandbox.my.site.com/LightningMemberPortal/s/store`
@@ -84,7 +129,7 @@ As of the latest TCH Sandbox check, **115 products** are configured across **11 
    - "NCP Power Bank" or "NCP Mouse Pad" (tax code P0000000), OR
    - Any "Recording:" product (tax code ST087640)
 
-4. **Add the product to your cart** and proceed to checkout
+4. **Add the product to your cart and proceed to checkout** (see Navigation Basics → **N2**): click **"Add to Cart"**, open the **cart** (top-right), then click **"Checkout"**.
 
 5. **The Tax Review screen appears.** You should see:
    - A card titled **"Tax Review"** with a cart icon
@@ -240,7 +285,7 @@ FROM Contact WHERE Id = '<CONTACT_ID>'
 
 1. **Complete a checkout with tax** (complete TC-01 through payment)
 
-2. **Enter payment information** and confirm the payment
+2. **Enter payment information and confirm the payment** (see Navigation Basics → **N10**)
 
 3. **The Payment Confirmation page appears** showing:
    - "Payment Successful" message
@@ -250,7 +295,7 @@ FROM Contact WHERE Id = '<CONTACT_ID>'
 
 4. **Wait about 10 seconds** for the background job to complete
 
-5. **Verify in Salesforce** that the transaction was committed. Open the Developer Console and run:
+5. **Verify in Salesforce** that the transaction was committed. Open the Developer Console (see Navigation Basics → **N5**) and run:
    ```sql
    SELECT Name, Avalara_Transaction_Code__c, Avalara_Transaction_Id__c
    FROM OrderApi__Sales_Order__c
@@ -261,7 +306,7 @@ FROM Contact WHERE Id = '<CONTACT_ID>'
    - `Avalara_Transaction_Code__c` should be filled in (this is the Avalara transaction reference)
    - `Avalara_Transaction_Id__c` should be a number (this is the Avalara internal ID)
 
-6. **Verify the transaction in the Avalara portal:**
+6. **Verify the transaction in the Avalara portal** (see Navigation Basics → **N9**):
 
    a. Open the Avalara Sandbox portal:
       `https://sandbox.admin.avalara.com`
@@ -391,7 +436,7 @@ The address is validated at **two levels:**
 
 **Steps:**
 
-1. Check **Tax Exempt** on the Account (`Tax_Exempt__c` = true) and Save.
+1. Check **Tax Exempt** on the Account (`Tax_Exempt__c` = true) and Save — open the Account as in **N6** and edit the field as in **N7**.
 
 2. As that member, add a taxable product and **proceed to checkout**.
 
@@ -422,19 +467,19 @@ The flag is evaluated for the order's Account **or**, when the order is tied to 
 
 **Steps:**
 
-1. **In Salesforce, open the Account** for your test user and **check the "Tax Exempt" checkbox** (Account Settings section), then Save.
+1. **In Salesforce, open the Account** for your test user (see Navigation Basics → **N6**) and **check the "Tax Exempt" checkbox** in the **Account Settings** section — edit the field as in **N7** — then **Save**.
    ```sql
    SELECT Id, Name, Tax_Exempt__c FROM Account WHERE Id = '<ACCOUNT_ID>'
    -- Tax_Exempt__c should be true
    ```
 
-2. As the community user, **add a taxable product to the cart** (e.g., "NCP Power Bank") and proceed to checkout with a **nexus-state** shipping address (e.g., New York) — an order that would normally be taxed (compare with TC-01).
+2. As that user, **add a taxable product to the cart** (e.g., "NCP Power Bank") and proceed to checkout with a **nexus-state** shipping address (e.g., New York) — an order that would normally be taxed (compare with TC-01).
 
-3. On the Tax Review screen, **click "Continue."**
+3. **Proceed to checkout.** Because the Account is Tax Exempt, the order has no taxable items, so the **Tax Review tax step is skipped** (no exemption disclaimer appears — see TC-06) and checkout goes straight to payment.
 
-4. **Verify the checkout shows Tax: $0.00** even though the address is in a nexus state and the product is taxable.
+4. **Verify the order's Tax is $0.00**, even though the address is in a nexus state and the product is normally taxable.
 
-5. **Complete payment**, then verify **no transaction is committed** to Avalara:
+5. **Complete payment** (see Navigation Basics → **N10**), then verify **no transaction is committed** to Avalara:
    ```sql
    SELECT Name, Avalara_Transaction_Code__c, Avalara_Transaction_Id__c
    FROM OrderApi__Sales_Order__c WHERE Id = '<SO_ID>'
@@ -504,7 +549,7 @@ After voiding, the transaction status in the Avalara portal changes from **"Comm
 
 **Steps:**
 
-1. **Identify a Sales Order with a committed Avalara transaction.** In the Developer Console, run:
+1. **Identify a Sales Order with a committed Avalara transaction.** In the Developer Console (see Navigation Basics → **N5**), run:
    ```sql
    SELECT Id, Name, Avalara_Transaction_Code__c, Avalara_Transaction_Id__c,
           OrderApi__Is_Voided__c
@@ -516,10 +561,10 @@ After voiding, the transaction status in the Avalara portal changes from **"Comm
    ```
    Copy the `Avalara_Transaction_Code__c` value (you'll need it to verify in Avalara later).
 
-2. **Open the Sales Order record** in Salesforce (Lightning) by navigating to the Sales Order ID from step 1
+2. **Open the Sales Order record** in Salesforce (Lightning) using the Id from step 1 (see Navigation Basics → **N6**)
 
-3. **Execute the Void Quick Action:**
-   - On the Sales Order record page, look for the Quick Action button (typically in the highlights panel or the action menu "...")
+3. **Execute the Void Quick Action** (see Navigation Basics → **N8**):
+   - On the Sales Order record page, look for the Quick Action button (typically in the highlights panel; if hidden, use the dropdown arrow "▾" / "Show more actions")
    - Click the **"Void"** action (this is Fonteva's standard Sales Order void action)
    - Confirm the action when prompted
 
@@ -543,12 +588,7 @@ After voiding, the transaction status in the Avalara portal changes from **"Comm
    - `Status` should be `Completed`
    - `ExtendedStatus` should be null (no errors)
 
-7. **Verify in the Avalara portal that the transaction is now cancelled:**
-   a. Go to `https://sandbox.admin.avalara.com`
-   b. Click **"Transactions"** in the left menu
-   c. Search for the Doc Code you copied in step 1
-   d. Open the transaction details
-   e. **Status should now be "Cancelled"** (previously it was "Committed")
+7. **Verify in the Avalara portal that the transaction is now cancelled** (see Navigation Basics → **N9**): find the transaction by the Doc Code you copied in step 1 and open its details. **Status should now be "Cancelled"** (previously it was "Committed").
 
 **Pass Criteria:**
 - [ ] Quick Action voids the Sales Order (`OrderApi__Is_Voided__c` = true)
@@ -606,12 +646,8 @@ After a successful payment, the transaction code is stored in the Salesforce fie
 **Step-by-step:**
 
 1. **Get the transaction code from Salesforce.** Open the Sales Order record or run the query below in Developer Console. Copy the value of `Avalara_Transaction_Code__c`.
-2. Log in to the Avalara Sandbox portal at `https://sandbox.admin.avalara.com`
-3. Click **"Transactions"** in the left-hand menu
-4. Set the date filter to today (or the date of the purchase)
-5. In the **"Doc Code"** search field, paste the `Avalara_Transaction_Code__c` value from Salesforce
-6. Click the transaction row to open its details
-7. **Verify:**
+2. **Find it in the Avalara portal** (see Navigation Basics → **N9**): search the **"Doc Code"** for the `Avalara_Transaction_Code__c` value and open the transaction.
+3. **Verify:**
    - **Status:** "Committed" (normal) or "Cancelled" (if voided)
    - **Type:** "SalesInvoice"
    - **Doc Code:** matches the `Avalara_Transaction_Code__c` on the Sales Order in Salesforce
